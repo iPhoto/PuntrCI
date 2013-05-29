@@ -4,7 +4,7 @@ after_success:
 env: 
   global: 
   - APPNAME="Puntr"
-  - DEVELOPER_NAME="iPhone Developer: Eugene Tulushev (VXG758TW3X)"
+  - 'DEVELOPER_NAME="iPhone Developer: Eugene Tulushev (VXG758TW3X)"'
   - PROFILE_UUID=B4712BF4-F323-4EB0-8E87-8486E9470ADB
   - secure: |-
       K6QDXCSoaTJiF2HfecZIAkEkWs8k2hHM56DVHoTCeQpzvDDFePeg4Q8JUXoS
