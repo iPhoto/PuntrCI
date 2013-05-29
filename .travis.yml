@@ -1,9 +1,10 @@
 --- 
-after_success: 
-- ./scripts/travis/testflight.sh
 after_script: 
 - ./scripts/travis/remove-key.sh
-language: objective-c
+before_script: 
+- ./scripts/travis/add-key.sh
+after_success: 
+- ./scripts/travis/testflight.sh
 env: 
   global: 
   - APPNAME="Puntr"
@@ -21,5 +22,8 @@ env:
       muxrC3NrirZg9y1l9RkbvKa27Bc30GNG2FtZ3A0GcrkzsmCzcE7aamGx7yqZ
       oaAUmN88P/SkHJX9rHn1YeeT44bNluQ74Y/GXRv+6fYvGEVFpEtWsJ1Pnw5x
       iF/of9ITye1AoLpYd0IrwzpvvU17VI6hcrTHQH61Ah9UlhotWtA=
-before_script: 
-- ./scripts/travis/add-key.sh
+  - secure: |-
+      N75++EpDWMZE1oE/AMFvuekkcJPvCI3DVd4oA755S1hgEg3elWV6U3PXCeWF
+      BJEhghvXE5xcfxGOyNM4I2jeDj+PZdsjaRBajf8ENxC9s+vXhIBNxZT4eFdU
+      h/lB+JjE/YqvoU4kfoIGaKRtPYkr+oWvj86gVd/mbnJORRDp6OU=
+language: objective-c
