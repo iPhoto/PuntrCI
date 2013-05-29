@@ -1,29 +1,25 @@
 --- 
-after_script: 
-- ./scripts/travis/remove-key.sh
-before_script: 
-- ./scripts/travis/add-key.sh
 after_success: 
 - ./scripts/travis/testflight.sh
 env: 
   global: 
   - APPNAME="Puntr"
-  - "DEVELOPER_NAME=\"iPhone Developer: Eugene Tulushev (VXG758TW3X)\""
+  - DEVELOPER_NAME="iPhone Developer: Eugene Tulushev (VXG758TW3X)"
   - PROFILE_UUID=B4712BF4-F323-4EB0-8E87-8486E9470ADB
   - secure: |-
-      b3ApsLvuujm9DFIVsAg7BQaJBRfr6YBJG90LEzqjWeX3Nz4OiODZpNgGfEj+
-      OeLmqBZQO9eOHhr5XC+5iA61B7ZaP6B5uJI5YWI946ElxnAi4tq1QH+Yywzh
-      +lUpoZYkgKggy6KelTcpQ9rcQ89FQIQcfNDHovCXiCBx1n2XK+o=
+      K6QDXCSoaTJiF2HfecZIAkEkWs8k2hHM56DVHoTCeQpzvDDFePeg4Q8JUXoS
+      2uzKdSYxPyjaP7D2YWyq1sOrMKHPlTVAfJuY1ONm7yTy0ZTsaK3h6NtW9/Fp
+      UdcjOawqNtbhng1VBiKjPiuJZ88b4k/6qPldVwUrlfMVeXNC7ts=
   - secure: |-
-      MYCRq8h9cA82udzLwSPIYNOvgX0xFzRG1Smdys/QYG//V5LWdH3ouAMQtWac
-      cwmBSn79XYMB7NlHCl4KtSymY6YHmCbY4+VgECfxy98Irsw7oe0vCnBmrjLO
-      2N6zvJ/oLVzp9mJdaohSMMomg1PC4O7P2U3C8lrm0GCEQzvUQtk=
+      gkbuy+P47eqm3wKvpbHRhgaF14pLPhCa1bDJBrOT9KomsmAl2uuYaNjhMo5p
+      MqEpaUzBqcSpEn4d/6SLJ8NFKdmIKWF5WNhOz6IoWcDk+WAyPslsKE/ckkGN
+      beqx1tq/FzlNlT9zie6/O6eUAy3q9kct8dS1lA+liRzGNbmMy98=
   - secure: |-
-      muxrC3NrirZg9y1l9RkbvKa27Bc30GNG2FtZ3A0GcrkzsmCzcE7aamGx7yqZ
-      oaAUmN88P/SkHJX9rHn1YeeT44bNluQ74Y/GXRv+6fYvGEVFpEtWsJ1Pnw5x
-      iF/of9ITye1AoLpYd0IrwzpvvU17VI6hcrTHQH61Ah9UlhotWtA=
-  - secure: |-
-      N75++EpDWMZE1oE/AMFvuekkcJPvCI3DVd4oA755S1hgEg3elWV6U3PXCeWF
-      BJEhghvXE5xcfxGOyNM4I2jeDj+PZdsjaRBajf8ENxC9s+vXhIBNxZT4eFdU
-      h/lB+JjE/YqvoU4kfoIGaKRtPYkr+oWvj86gVd/mbnJORRDp6OU=
+      AknrfLkS6qjCbj7Oxx5YoxU2YAc3Kz63VGikjzlDWVzC6ZX9h33MqoU8plTu
+      gitSAsWBm4qD0y4/Y3zZWgf4UWUACeoetpOfM4O3L1yG6zvJOhouUIaf89l8
+      dv8CQKmFmTJNKoGFG4ztlWqyDeebO9gmCUDuIDq25lsu5X1vMQo=
+after_script: 
+- ./scripts/travis/remove-key.sh
+before_script: 
+- ./scripts/travis/add-key.sh
 language: objective-c
