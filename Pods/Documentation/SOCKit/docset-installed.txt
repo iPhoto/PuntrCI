@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/Tulushev/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.sockit.SOCKit-1.1.docset
+Time: 2013-05-29 08:39:32 +0000

@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/Tulushev/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.restkit.RestKit-0.20.1.docset
+Time: 2013-05-29 08:39:15 +0000
