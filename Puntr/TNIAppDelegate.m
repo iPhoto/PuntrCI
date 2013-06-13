@@ -7,6 +7,7 @@
 //
 
 #import "TNIAppDelegate.h"
+#import "TNIEnterViewController.h"
 
 @implementation TNIAppDelegate
 
@@ -15,6 +16,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[TNIEnterViewController alloc] init]];
+    navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }

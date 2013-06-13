@@ -21,7 +21,7 @@
 		31E3E7B11754E24900B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
-		31E3E7BD1754E24900B09DAD /* PuntrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E3E7BC1754E24900B09DAD /* PuntrTests.m */; };
+		76335D4E17697C3F009F75E2 /* TNIEnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +53,8 @@
 		31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		31E3E7B71754E24900B09DAD /* PuntrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuntrTests-Info.plist"; sourceTree = "<group>"; };
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		31E3E7BB1754E24900B09DAD /* PuntrTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PuntrTests.h; sourceTree = "<group>"; };
-		31E3E7BC1754E24900B09DAD /* PuntrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PuntrTests.m; sourceTree = "<group>"; };
+		76335D4C17697C3F009F75E2 /* TNIEnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIEnterViewController.h; sourceTree = "<group>"; };
+		76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIEnterViewController.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +120,8 @@
 			children = (
 				31E3E7A01754E24900B09DAD /* TNIAppDelegate.h */,
 				31E3E7A11754E24900B09DAD /* TNIAppDelegate.m */,
+				76335D4C17697C3F009F75E2 /* TNIEnterViewController.h */,
+				76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */,
 				31E3E7981754E24800B09DAD /* Supporting Files */,
 			);
 			path = Puntr;
@@ -142,8 +144,6 @@
 		31E3E7B51754E24900B09DAD /* PuntrTests */ = {
 			isa = PBXGroup;
 			children = (
-				31E3E7BB1754E24900B09DAD /* PuntrTests.h */,
-				31E3E7BC1754E24900B09DAD /* PuntrTests.m */,
 				31E3E7B61754E24900B09DAD /* Supporting Files */,
 			);
 			path = PuntrTests;
@@ -300,6 +300,7 @@
 			files = (
 				31E3E79E1754E24800B09DAD /* main.m in Sources */,
 				31E3E7A21754E24900B09DAD /* TNIAppDelegate.m in Sources */,
+				76335D4E17697C3F009F75E2 /* TNIEnterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +308,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E3E7BD1754E24900B09DAD /* PuntrTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
