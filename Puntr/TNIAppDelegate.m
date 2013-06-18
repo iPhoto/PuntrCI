@@ -8,20 +8,60 @@
 
 #import "TNIAppDelegate.h"
 #import "TNIEnterViewController.h"
+#import "TNITabBarViewController.h"
+#import "TNICatalogueNavigationController.h"
+
+@interface TNIAppDelegate ()
+
+@property (nonatomic, strong) TNITabBarViewController *tabBarViewController;
+
+@end
 
 @implementation TNIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG
+    //  Log all HTTP traffic with request and response bodies
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
+#endif
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[TNIEnterViewController alloc] init]];
-    navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.window.rootViewController = navigationController;
+    //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[TNIEnterViewController alloc] init]];
+    //navigationController.navigationBar.tintColor = [UIColor blackColor];
+    TNITabBarViewController *tabBar = [[TNITabBarViewController alloc] init];
+    tabBar.delegate = self;
+    
+    TNIEnterViewController *enter = [[TNIEnterViewController alloc] init];
+    self.window.rootViewController = tabBar;
     [self.window makeKeyAndVisible];
+    [tabBar presentViewController:[[UINavigationController alloc] initWithRootViewController:enter] animated:NO completion:^{
+        
+    }];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navigationBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(44.0f, 0.0f, 44.0f, 0.0f)] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                     UITextAttributeFont: [UIFont fontWithName:@"Arial-BoldMT" size:21.0f],
+                                UITextAttributeTextColor: [UIColor colorWithWhite:0.996 alpha:1.000],
+                          UITextAttributeTextShadowColor: [UIColor blackColor],
+                         UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, -1.5f)]}];
+    
     return YES;
 }
+
+#pragma mark - TabBarController Delegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if ([viewController isMemberOfClass:[TNICatalogueNavigationController class]]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - Application Delegate
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

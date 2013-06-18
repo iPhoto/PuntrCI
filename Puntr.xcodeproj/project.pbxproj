@@ -8,6 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
+		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
+		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
+		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
+		3175211E176F0B0B007CCD82 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211C176F0B0B007CCD82 /* logo@2x.png */; };
+		31752121176F0D7C007CCD82 /* enterTextFieldsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */; };
+		31752122176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752120176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png */; };
+		31752125176F12E0007CCD82 /* buttonGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752123176F12E0007CCD82 /* buttonGrey.png */; };
+		31752126176F12E0007CCD82 /* buttonGrey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752124176F12E0007CCD82 /* buttonGrey@2x.png */; };
+		31752129176F1710007CCD82 /* buttonGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752127176F1710007CCD82 /* buttonGreen.png */; };
+		3175212A176F1710007CCD82 /* buttonGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752128176F1710007CCD82 /* buttonGreen@2x.png */; };
+		3175212D176F18DE007CCD82 /* enterServicies.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175212B176F18DE007CCD82 /* enterServicies.png */; };
+		3175212E176F18DE007CCD82 /* enterServicies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175212C176F18DE007CCD82 /* enterServicies@2x.png */; };
+		31752133176F335F007CCD82 /* logoDescription.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175212F176F335F007CCD82 /* logoDescription.png */; };
+		31752134176F335F007CCD82 /* logoDescription@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752130176F335F007CCD82 /* logoDescription@2x.png */; };
+		31752135176F335F007CCD82 /* logoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752131176F335F007CCD82 /* logoTitle.png */; };
+		31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752132176F335F007CCD82 /* logoTitle@2x.png */; };
+		3195D392176A26F5005E4856 /* TNIRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */; };
+		31B112A2176B5CD000060EAB /* TNICatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */; };
+		31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* TNINewsViewController.m */; };
+		31B112A8176B5DAD00060EAB /* TNIMyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* TNIMyStakesViewController.m */; };
+		31B112AB176B5DDC00060EAB /* TNIProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* TNIProfileViewController.m */; };
+		31DDC097176B234F000E99F3 /* TNIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDC096176B234F000E99F3 /* TNIConstants.m */; };
 		31E3E7921754E24800B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7941754E24800B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7961754E24800B09DAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7951754E24800B09DAD /* CoreGraphics.framework */; };
@@ -21,7 +43,16 @@
 		31E3E7B11754E24900B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
+		761D81D81769C7F7009455B1 /* TNIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* TNIHTTPClient.m */; };
+		761D81D91769C7F7009455B1 /* TNIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* TNIHTTPClient.m */; };
 		76335D4E17697C3F009F75E2 /* TNIEnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */; };
+		764C42581769C8E400B7FBF2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C42571769C8E400B7FBF2 /* SystemConfiguration.framework */; };
+		764C425A1769C8EB00B7FBF2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C42591769C8EB00B7FBF2 /* MobileCoreServices.framework */; };
+		764C425D1769CA7800B7FBF2 /* TNITabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C425C1769CA7800B7FBF2 /* TNITabBarViewController.m */; };
+		764C42631769CC0D00B7FBF2 /* TNINewsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42621769CC0D00B7FBF2 /* TNINewsNavigationController.m */; };
+		764C42661769CC3700B7FBF2 /* TNICatalogueNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42651769CC3700B7FBF2 /* TNICatalogueNavigationController.m */; };
+		764C42691769CCA500B7FBF2 /* TNIMyStakesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42681769CCA500B7FBF2 /* TNIMyStakesNavigationController.m */; };
+		764C426C1769CCD400B7FBF2 /* TNIProfileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C426B1769CCD400B7FBF2 /* TNIProfileNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +67,34 @@
 
 /* Begin PBXFileReference section */
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
+		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
+		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		3175211C176F0B0B007CCD82 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterTextFieldsBackground.png; sourceTree = "<group>"; };
+		31752120176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enterTextFieldsBackground@2x.png"; sourceTree = "<group>"; };
+		31752123176F12E0007CCD82 /* buttonGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonGrey.png; sourceTree = "<group>"; };
+		31752124176F12E0007CCD82 /* buttonGrey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonGrey@2x.png"; sourceTree = "<group>"; };
+		31752127176F1710007CCD82 /* buttonGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonGreen.png; sourceTree = "<group>"; };
+		31752128176F1710007CCD82 /* buttonGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonGreen@2x.png"; sourceTree = "<group>"; };
+		3175212B176F18DE007CCD82 /* enterServicies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterServicies.png; sourceTree = "<group>"; };
+		3175212C176F18DE007CCD82 /* enterServicies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enterServicies@2x.png"; sourceTree = "<group>"; };
+		3175212F176F335F007CCD82 /* logoDescription.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoDescription.png; sourceTree = "<group>"; };
+		31752130176F335F007CCD82 /* logoDescription@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoDescription@2x.png"; sourceTree = "<group>"; };
+		31752131176F335F007CCD82 /* logoTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoTitle.png; sourceTree = "<group>"; };
+		31752132176F335F007CCD82 /* logoTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTitle@2x.png"; sourceTree = "<group>"; };
+		3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIRegistrationViewController.h; sourceTree = "<group>"; };
+		3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIRegistrationViewController.m; sourceTree = "<group>"; };
+		31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNICatalogueViewController.h; sourceTree = "<group>"; };
+		31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNICatalogueViewController.m; sourceTree = "<group>"; };
+		31B112A3176B5D6100060EAB /* TNINewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNINewsViewController.h; sourceTree = "<group>"; };
+		31B112A4176B5D6100060EAB /* TNINewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNINewsViewController.m; sourceTree = "<group>"; };
+		31B112A6176B5DAD00060EAB /* TNIMyStakesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIMyStakesViewController.h; sourceTree = "<group>"; };
+		31B112A7176B5DAD00060EAB /* TNIMyStakesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIMyStakesViewController.m; sourceTree = "<group>"; };
+		31B112A9176B5DDC00060EAB /* TNIProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIProfileViewController.h; sourceTree = "<group>"; };
+		31B112AA176B5DDC00060EAB /* TNIProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIProfileViewController.m; sourceTree = "<group>"; };
+		31DDC095176B234F000E99F3 /* TNIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIConstants.h; sourceTree = "<group>"; };
+		31DDC096176B234F000E99F3 /* TNIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIConstants.m; sourceTree = "<group>"; };
 		31E3E78E1754E24800B09DAD /* Puntr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puntr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E3E7911754E24800B09DAD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		31E3E7931754E24800B09DAD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,8 +112,22 @@
 		31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		31E3E7B71754E24900B09DAD /* PuntrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuntrTests-Info.plist"; sourceTree = "<group>"; };
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		761D81D61769C7F7009455B1 /* TNIHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIHTTPClient.h; sourceTree = "<group>"; };
+		761D81D71769C7F7009455B1 /* TNIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIHTTPClient.m; sourceTree = "<group>"; };
 		76335D4C17697C3F009F75E2 /* TNIEnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIEnterViewController.h; sourceTree = "<group>"; };
 		76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIEnterViewController.m; sourceTree = "<group>"; };
+		764C42571769C8E400B7FBF2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		764C42591769C8EB00B7FBF2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		764C425B1769CA7800B7FBF2 /* TNITabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNITabBarViewController.h; sourceTree = "<group>"; };
+		764C425C1769CA7800B7FBF2 /* TNITabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNITabBarViewController.m; sourceTree = "<group>"; };
+		764C42611769CC0D00B7FBF2 /* TNINewsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNINewsNavigationController.h; sourceTree = "<group>"; };
+		764C42621769CC0D00B7FBF2 /* TNINewsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNINewsNavigationController.m; sourceTree = "<group>"; };
+		764C42641769CC3700B7FBF2 /* TNICatalogueNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNICatalogueNavigationController.h; sourceTree = "<group>"; };
+		764C42651769CC3700B7FBF2 /* TNICatalogueNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNICatalogueNavigationController.m; sourceTree = "<group>"; };
+		764C42671769CCA500B7FBF2 /* TNIMyStakesNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIMyStakesNavigationController.h; sourceTree = "<group>"; };
+		764C42681769CCA500B7FBF2 /* TNIMyStakesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIMyStakesNavigationController.m; sourceTree = "<group>"; };
+		764C426A1769CCD400B7FBF2 /* TNIProfileNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIProfileNavigationController.h; sourceTree = "<group>"; };
+		764C426B1769CCD400B7FBF2 /* TNIProfileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIProfileNavigationController.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -63,6 +136,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				764C425A1769C8EB00B7FBF2 /* MobileCoreServices.framework in Frameworks */,
+				764C42581769C8E400B7FBF2 /* SystemConfiguration.framework in Frameworks */,
 				31E3E7921754E24800B09DAD /* UIKit.framework in Frameworks */,
 				31E3E7941754E24800B09DAD /* Foundation.framework in Frameworks */,
 				31E3E7961754E24800B09DAD /* CoreGraphics.framework in Frameworks */,
@@ -87,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				31E3E7971754E24800B09DAD /* Puntr */,
+				31E3E7981754E24800B09DAD /* Supporting Files */,
 				31E3E7B51754E24900B09DAD /* PuntrTests */,
 				31E3E7901754E24800B09DAD /* Frameworks */,
 				31E3E78F1754E24800B09DAD /* Products */,
@@ -106,11 +182,13 @@
 		31E3E7901754E24800B09DAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				31E3E7911754E24800B09DAD /* UIKit.framework */,
-				31E3E7931754E24800B09DAD /* Foundation.framework */,
 				31E3E7951754E24800B09DAD /* CoreGraphics.framework */,
-				31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */,
+				31E3E7931754E24800B09DAD /* Foundation.framework */,
 				BB61E77802DE4F2BAA561855 /* libPods.a */,
+				764C42591769C8EB00B7FBF2 /* MobileCoreServices.framework */,
+				31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */,
+				764C42571769C8E400B7FBF2 /* SystemConfiguration.framework */,
+				31E3E7911754E24800B09DAD /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,9 +198,32 @@
 			children = (
 				31E3E7A01754E24900B09DAD /* TNIAppDelegate.h */,
 				31E3E7A11754E24900B09DAD /* TNIAppDelegate.m */,
+				764C42641769CC3700B7FBF2 /* TNICatalogueNavigationController.h */,
+				764C42651769CC3700B7FBF2 /* TNICatalogueNavigationController.m */,
+				31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */,
+				31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */,
+				31DDC095176B234F000E99F3 /* TNIConstants.h */,
+				31DDC096176B234F000E99F3 /* TNIConstants.m */,
 				76335D4C17697C3F009F75E2 /* TNIEnterViewController.h */,
 				76335D4D17697C3F009F75E2 /* TNIEnterViewController.m */,
-				31E3E7981754E24800B09DAD /* Supporting Files */,
+				761D81D61769C7F7009455B1 /* TNIHTTPClient.h */,
+				761D81D71769C7F7009455B1 /* TNIHTTPClient.m */,
+				764C42671769CCA500B7FBF2 /* TNIMyStakesNavigationController.h */,
+				764C42681769CCA500B7FBF2 /* TNIMyStakesNavigationController.m */,
+				31B112A6176B5DAD00060EAB /* TNIMyStakesViewController.h */,
+				31B112A7176B5DAD00060EAB /* TNIMyStakesViewController.m */,
+				764C42611769CC0D00B7FBF2 /* TNINewsNavigationController.h */,
+				764C42621769CC0D00B7FBF2 /* TNINewsNavigationController.m */,
+				31B112A3176B5D6100060EAB /* TNINewsViewController.h */,
+				31B112A4176B5D6100060EAB /* TNINewsViewController.m */,
+				764C426A1769CCD400B7FBF2 /* TNIProfileNavigationController.h */,
+				764C426B1769CCD400B7FBF2 /* TNIProfileNavigationController.m */,
+				31B112A9176B5DDC00060EAB /* TNIProfileViewController.h */,
+				31B112AA176B5DDC00060EAB /* TNIProfileViewController.m */,
+				3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */,
+				3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */,
+				764C425B1769CA7800B7FBF2 /* TNITabBarViewController.h */,
+				764C425C1769CA7800B7FBF2 /* TNITabBarViewController.m */,
 			);
 			path = Puntr;
 			sourceTree = "<group>";
@@ -130,6 +231,22 @@
 		31E3E7981754E24800B09DAD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3175212F176F335F007CCD82 /* logoDescription.png */,
+				31752130176F335F007CCD82 /* logoDescription@2x.png */,
+				31752131176F335F007CCD82 /* logoTitle.png */,
+				31752132176F335F007CCD82 /* logoTitle@2x.png */,
+				3175212B176F18DE007CCD82 /* enterServicies.png */,
+				3175212C176F18DE007CCD82 /* enterServicies@2x.png */,
+				31752123176F12E0007CCD82 /* buttonGrey.png */,
+				31752124176F12E0007CCD82 /* buttonGrey@2x.png */,
+				31752127176F1710007CCD82 /* buttonGreen.png */,
+				31752128176F1710007CCD82 /* buttonGreen@2x.png */,
+				31752117176F04CB007CCD82 /* navigationBarBackground.png */,
+				31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */,
+				3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */,
+				31752120176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png */,
+				3175211B176F0B0B007CCD82 /* logo.png */,
+				3175211C176F0B0B007CCD82 /* logo@2x.png */,
 				31E3E7991754E24800B09DAD /* Puntr-Info.plist */,
 				31E3E79A1754E24800B09DAD /* InfoPlist.strings */,
 				31E3E79D1754E24800B09DAD /* main.m */,
@@ -139,6 +256,7 @@
 				31E3E7A71754E24900B09DAD /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = Puntr;
 			sourceTree = "<group>";
 		};
 		31E3E7B51754E24900B09DAD /* PuntrTests */ = {
@@ -236,6 +354,22 @@
 				31E3E7A41754E24900B09DAD /* Default.png in Resources */,
 				31E3E7A61754E24900B09DAD /* Default@2x.png in Resources */,
 				31E3E7A81754E24900B09DAD /* Default-568h@2x.png in Resources */,
+				31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */,
+				3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */,
+				3175211D176F0B0B007CCD82 /* logo.png in Resources */,
+				3175211E176F0B0B007CCD82 /* logo@2x.png in Resources */,
+				31752121176F0D7C007CCD82 /* enterTextFieldsBackground.png in Resources */,
+				31752122176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png in Resources */,
+				31752125176F12E0007CCD82 /* buttonGrey.png in Resources */,
+				31752126176F12E0007CCD82 /* buttonGrey@2x.png in Resources */,
+				31752129176F1710007CCD82 /* buttonGreen.png in Resources */,
+				3175212A176F1710007CCD82 /* buttonGreen@2x.png in Resources */,
+				3175212D176F18DE007CCD82 /* enterServicies.png in Resources */,
+				3175212E176F18DE007CCD82 /* enterServicies@2x.png in Resources */,
+				31752133176F335F007CCD82 /* logoDescription.png in Resources */,
+				31752134176F335F007CCD82 /* logoDescription@2x.png in Resources */,
+				31752135176F335F007CCD82 /* logoTitle.png in Resources */,
+				31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +435,18 @@
 				31E3E79E1754E24800B09DAD /* main.m in Sources */,
 				31E3E7A21754E24900B09DAD /* TNIAppDelegate.m in Sources */,
 				76335D4E17697C3F009F75E2 /* TNIEnterViewController.m in Sources */,
+				761D81D81769C7F7009455B1 /* TNIHTTPClient.m in Sources */,
+				764C425D1769CA7800B7FBF2 /* TNITabBarViewController.m in Sources */,
+				764C42631769CC0D00B7FBF2 /* TNINewsNavigationController.m in Sources */,
+				764C42661769CC3700B7FBF2 /* TNICatalogueNavigationController.m in Sources */,
+				764C42691769CCA500B7FBF2 /* TNIMyStakesNavigationController.m in Sources */,
+				764C426C1769CCD400B7FBF2 /* TNIProfileNavigationController.m in Sources */,
+				3195D392176A26F5005E4856 /* TNIRegistrationViewController.m in Sources */,
+				31DDC097176B234F000E99F3 /* TNIConstants.m in Sources */,
+				31B112A2176B5CD000060EAB /* TNICatalogueViewController.m in Sources */,
+				31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */,
+				31B112A8176B5DAD00060EAB /* TNIMyStakesViewController.m in Sources */,
+				31B112AB176B5DDC00060EAB /* TNIProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				761D81D91769C7F7009455B1 /* TNIHTTPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

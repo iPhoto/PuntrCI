@@ -16,15 +16,19 @@ PODS:
   - RestKit/Support (0.20.1):
     - TransitionKit (= 1.1.0)
   - SOCKit (1.1)
+  - TestFlightSDK (1.2.6)
   - TransitionKit (1.1.0)
 
 DEPENDENCIES:
+  - AFNetworking
   - RestKit
+  - TestFlightSDK (~> 1.2.5)
 
 SPEC CHECKSUMS:
   AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
   RestKit: ceca63bc91172098c710c469facd2560e8a59164
   SOCKit: ed67aeeca4a697b63a933229e53f4670d5b9300f
+  TestFlightSDK: 7d9abce62f5a17191c4df84fd88e05797e6776e0
   TransitionKit: 1624e84f252d5cd26900be28ccb73c69fbe63f8a
 
 COCOAPODS: 0.19.1
