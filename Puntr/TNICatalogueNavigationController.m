@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Каталог" image:nil tag:2];
+    [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBarCatalogueSelected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBarCatalogue"]];
 }
 
 @end

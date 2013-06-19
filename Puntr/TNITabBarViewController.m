@@ -32,6 +32,7 @@
                                      [[TNIMyStakesNavigationController alloc] initWithRootViewController:[[TNIMyStakesViewController alloc] init]],
                                      [[TNIProfileNavigationController alloc] initWithRootViewController:[[TNIProfileViewController alloc] init]]];
         [self setViewControllers:viewControllers animated:YES];
+        [self setSelectedIndex:1];
     }
     return self; 
 }

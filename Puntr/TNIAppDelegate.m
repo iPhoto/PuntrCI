@@ -56,6 +56,10 @@
     [[TNITextField appearance] setVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [[TNITextField appearance] setClearButtonMode:UITextFieldViewModeWhileEditing];
     
+    [[UITabBar appearance] setBackgroundImage:[[UIImage imageNamed:@"tabBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(49.0f, 0.0f, 49.0f, 0.0f)]];
+    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabBarSelected"]];
+    [[UITabBar appearance] setShadowImage:[[UIImage imageNamed:@"tabBarShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
+    
     return YES;
 }
 

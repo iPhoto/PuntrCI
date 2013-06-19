@@ -19,6 +19,7 @@
     [super viewDidLoad];
     
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Новости" image:nil tag:1];
+    [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBarNewsSelected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBarNews"]];
 }
 
 @end
