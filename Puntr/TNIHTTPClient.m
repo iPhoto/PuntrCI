@@ -9,6 +9,12 @@
 #import "TNIHTTPClient.h"
 #import <RestKit/ObjectMapping/RKHTTPUtilities.h>
 
+@interface TNIHTTPClient ()
+
+@property (nonatomic, strong) NSString *sid;
+
+@end
+
 @implementation TNIHTTPClient
 
 #pragma mark - Singleton
@@ -35,22 +41,38 @@
     return self;
 }
 
-- (void)testSuccess:(JSONSuccess)success failure:(JSONFailure)failure {
-    NSDictionary *parameters = @{@"login": @"mozgovvert@gmail.com",
-                                 @"password": @"123456"
-                                 };
-    
-    NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:APIAuthorization parameters:parameters];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        success(request, response, JSON);
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        failure(request, response, error, JSON);
-    }];
-    [self enqueueHTTPRequestOperation:operation];
+#pragma mark - Authorization
+
+- (void)enterWithLogin:(NSString *)login password:(NSString *)password success:(JSONSuccess)success failure:(JSONFailure)failure {
+    [self JSONWithRequestMethod:RKRequestMethodPOST path:APIAuthorization parameters:@{KeyLogin: login, KeyPassword: password} success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success) {
+            self.sid = JSON[KeySID];
+            success(request, response, JSON);
+        }
+    } failure:failure];
 }
 
+- (void)logoutWithSuccess:(JSONSuccess)success failure:(JSONFailure)failure {
+    [self JSONWithRequestMethod:RKRequestMethodDELETE path:APIAuthorization parameters:@{KeySID: self.sid} success:success failure:failure];
+}
+
+#pragma mark - Registration
+
+- (void)registerWithEmail:(NSString *)email password:(NSString *)password firstname:(NSString *)firstname lastname:(NSString *)lastname username:(NSString *)username success:(JSONSuccess)success failure:(JSONFailure)failure {
+    [self JSONWithRequestMethod:RKRequestMethodPOST path:APIUsers parameters:@{KeyEmail: email, KeyPassword: password, KeyFirstName: firstname, KeyLastName: lastname, KeyNickname: username} success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success) {
+            self.sid = JSON[KeySID];
+            success(request, response, JSON);
+        }
+    } failure:failure];
+}
+
+#pragma mark - Helpers
+
 - (void)JSONWithRequestMethod:(RKRequestMethod)requestMethod path:(NSString *)path parameters:(NSDictionary *)parameters success:(JSONSuccess)success failure:(JSONFailure)failure {
-    NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:APIAuthorization parameters:parameters];
+    NSMutableURLRequest *request = [self requestWithMethod:RKStringFromRequestMethod(requestMethod) path:path parameters:parameters];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
+    [self enqueueHTTPRequestOperation:operation];
 }
 
 @end

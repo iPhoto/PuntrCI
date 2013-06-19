@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNIEnterViewController : UIViewController <UITextFieldDelegate>
+@interface TNIEnterViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @end

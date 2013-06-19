@@ -10,6 +10,7 @@
 #import "TNIEnterViewController.h"
 #import "TNITabBarViewController.h"
 #import "TNICatalogueNavigationController.h"
+#import "TNITextField.h"
 
 @interface TNIAppDelegate ()
 
@@ -42,11 +43,18 @@
     }];
     
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navigationBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(44.0f, 0.0f, 44.0f, 0.0f)] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.180 alpha:1.000]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                      UITextAttributeFont: [UIFont fontWithName:@"Arial-BoldMT" size:21.0f],
                                 UITextAttributeTextColor: [UIColor colorWithWhite:0.996 alpha:1.000],
                           UITextAttributeTextShadowColor: [UIColor blackColor],
                          UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, -1.5f)]}];
+    
+    [[TNITextField appearance] setFont:[UIFont fontWithName:@"Arial-BoldMT" size:17.0f]];
+    [[TNITextField appearance] setTextColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
+    [[TNITextField appearance] setBackground:[[UIImage imageNamed:@"textField"] resizableImageWithCapInsets:UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f)]];
+    [[TNITextField appearance] setVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [[TNITextField appearance] setClearButtonMode:UITextFieldViewModeWhileEditing];
     
     return YES;
 }

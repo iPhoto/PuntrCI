@@ -15,9 +15,14 @@ typedef void (^JSONFailure)(NSURLRequest *request, NSHTTPURLResponse *response, 
 
 + (TNIHTTPClient *)sharedClient;
 
-- (void)testSuccess:(JSONSuccess)success failure:(JSONFailure)failure;
+#pragma mark - Authorization
+
 - (void)enterWithLogin:(NSString *)login password:(NSString *)password success:(JSONSuccess)success failure:(JSONFailure)failure;
-- (void)registerWithEmail:(NSString *)email password:(NSString *)password firstname:(NSString *)firstname lastname:(NSString *)lastname nickname:(NSString *)nickname success:(JSONSuccess)success failure:(JSONFailure)failure;
+- (void)logoutWithSuccess:(JSONSuccess)success failure:(JSONFailure)failure;
+
+#pragma mark - Registration
+
+- (void)registerWithEmail:(NSString *)email password:(NSString *)password firstname:(NSString *)firstname lastname:(NSString *)lastname username:(NSString *)username success:(JSONSuccess)success failure:(JSONFailure)failure;
 
 
 @end

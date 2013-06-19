@@ -52,9 +52,11 @@ typedef enum {
     keyboardIsShown = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignAllResponders)];
+    tap.delegate = self;
     tap.numberOfTapsRequired = 1;
     
-    [self.view addGestureRecognizer:tap];
+    //self.view.userInteractionEnabled = YES;
+    //[self.view addGestureRecognizer:tap];
     [self.navigationController.navigationBar.subviews[1] setUserInteractionEnabled:YES];
     [self.navigationController.navigationBar.subviews[1] addGestureRecognizer:tap];
     
@@ -65,6 +67,8 @@ typedef enum {
     
     self.imageViewLogoTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, 320.0f, 42.0f)];
     self.imageViewLogoTitle.image = [UIImage imageNamed:@"logoTitle"];
+    self.imageViewLogoTitle.userInteractionEnabled = YES;
+    [self.imageViewLogoTitle addGestureRecognizer:tap];
     [self.view addSubview:self.imageViewLogoTitle];
     
     self.imageViewLogoDescription = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 72.0f, 320.0f, 29.0f)];
@@ -133,18 +137,13 @@ typedef enum {
 }
 
 - (void)enterButtonTouched {
-    [[TNIHTTPClient sharedClient] testSuccess:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        
-    }];
+    [self enter];
 }
 
 #pragma mark - TextField Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.textFieldEmail) {
-        [textField resignFirstResponder];
         [self.textFieldPassword becomeFirstResponder];
     } else if (textField == self.textFieldPassword) {
         [textField resignFirstResponder];
@@ -162,13 +161,23 @@ typedef enum {
     return YES;
 }
 
+#pragma mark - GestureRecognizer Delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return (![[[touch view] class] isSubclassOfClass:[UIControl class]]);
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return YES;
+}
+
 #pragma mark - Notifications
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
         NSArray *viewsToMove = @[self.textFieldEmail, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
-        [self moveViews:viewsToMove direction:DirectionDown points:120.0f];
-        //[self moveViews:@[<#objects, ...#>] direction:<#(Direction)#> points:<#(CGFloat)#>]
+        [self moveViews:viewsToMove direction:DirectionDown points:65.0f];
+        [self moveViews:@[self.imageViewLogoTitle] direction:DirectionDown points:20.0f];
         self.imageViewLogoDescription.alpha = 1.0f;
     }];
     keyboardIsShown = NO;
@@ -180,7 +189,8 @@ typedef enum {
     }
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
         NSArray *viewsToMove = @[self.textFieldEmail, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
-        [self moveViews:viewsToMove direction:DirectionUp points:120.0f];
+        [self moveViews:viewsToMove direction:DirectionUp points:65.0f];
+        [self moveViews:@[self.imageViewLogoTitle] direction:DirectionUp points:20.0f];
         self.imageViewLogoDescription.alpha = 0.0f;
     }];
     keyboardIsShown = YES;
@@ -219,7 +229,9 @@ typedef enum {
 - (void)enter {
     [self bufferData];
     if ([self dataIsValid]) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [[TNIHTTPClient sharedClient] enterWithLogin:self.bufferEmail password:self.bufferPassword success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             
         }];
     }

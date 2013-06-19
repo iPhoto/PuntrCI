@@ -28,6 +28,14 @@ FOUNDATION_EXPORT NSString *const APIEvents;
 
 #pragma mark - Parameters
 
-
+FOUNDATION_EXPORT NSString *const KeyAvatar;
+FOUNDATION_EXPORT NSString *const KeyEmail;
+FOUNDATION_EXPORT NSString *const KeyFirstName;
+FOUNDATION_EXPORT NSString *const KeyLastName;
+FOUNDATION_EXPORT NSString *const KeyLogin;
+FOUNDATION_EXPORT NSString *const KeyNickname;
+FOUNDATION_EXPORT NSString *const KeyPassword;
+FOUNDATION_EXPORT NSString *const KeySID;
+FOUNDATION_EXPORT NSString *const KeyTag;
 
 @end

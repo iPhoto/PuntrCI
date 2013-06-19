@@ -24,6 +24,11 @@
 		31752134176F335F007CCD82 /* logoDescription@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752130176F335F007CCD82 /* logoDescription@2x.png */; };
 		31752135176F335F007CCD82 /* logoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752131176F335F007CCD82 /* logoTitle.png */; };
 		31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752132176F335F007CCD82 /* logoTitle@2x.png */; };
+		3194031A1771BE85009F0DBE /* delimiter.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403161771BE85009F0DBE /* delimiter.png */; };
+		3194031B1771BE85009F0DBE /* delimiter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403171771BE85009F0DBE /* delimiter@2x.png */; };
+		3194031C1771BE85009F0DBE /* textField.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403181771BE85009F0DBE /* textField.png */; };
+		3194031D1771BE85009F0DBE /* textField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403191771BE85009F0DBE /* textField@2x.png */; };
+		319403201771C221009F0DBE /* TNITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3194031F1771C221009F0DBE /* TNITextField.m */; };
 		3195D392176A26F5005E4856 /* TNIRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */; };
 		31B112A2176B5CD000060EAB /* TNICatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */; };
 		31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* TNINewsViewController.m */; };
@@ -83,6 +88,12 @@
 		31752130176F335F007CCD82 /* logoDescription@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoDescription@2x.png"; sourceTree = "<group>"; };
 		31752131176F335F007CCD82 /* logoTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoTitle.png; sourceTree = "<group>"; };
 		31752132176F335F007CCD82 /* logoTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTitle@2x.png"; sourceTree = "<group>"; };
+		319403161771BE85009F0DBE /* delimiter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delimiter.png; sourceTree = "<group>"; };
+		319403171771BE85009F0DBE /* delimiter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delimiter@2x.png"; sourceTree = "<group>"; };
+		319403181771BE85009F0DBE /* textField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textField.png; sourceTree = "<group>"; };
+		319403191771BE85009F0DBE /* textField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textField@2x.png"; sourceTree = "<group>"; };
+		3194031E1771C221009F0DBE /* TNITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNITextField.h; sourceTree = "<group>"; };
+		3194031F1771C221009F0DBE /* TNITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNITextField.m; sourceTree = "<group>"; };
 		3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIRegistrationViewController.h; sourceTree = "<group>"; };
 		3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIRegistrationViewController.m; sourceTree = "<group>"; };
 		31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNICatalogueViewController.h; sourceTree = "<group>"; };
@@ -222,6 +233,8 @@
 				31B112AA176B5DDC00060EAB /* TNIProfileViewController.m */,
 				3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */,
 				3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */,
+				3194031E1771C221009F0DBE /* TNITextField.h */,
+				3194031F1771C221009F0DBE /* TNITextField.m */,
 				764C425B1769CA7800B7FBF2 /* TNITabBarViewController.h */,
 				764C425C1769CA7800B7FBF2 /* TNITabBarViewController.m */,
 			);
@@ -231,6 +244,10 @@
 		31E3E7981754E24800B09DAD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				319403161771BE85009F0DBE /* delimiter.png */,
+				319403171771BE85009F0DBE /* delimiter@2x.png */,
+				319403181771BE85009F0DBE /* textField.png */,
+				319403191771BE85009F0DBE /* textField@2x.png */,
 				3175212F176F335F007CCD82 /* logoDescription.png */,
 				31752130176F335F007CCD82 /* logoDescription@2x.png */,
 				31752131176F335F007CCD82 /* logoTitle.png */,
@@ -370,6 +387,10 @@
 				31752134176F335F007CCD82 /* logoDescription@2x.png in Resources */,
 				31752135176F335F007CCD82 /* logoTitle.png in Resources */,
 				31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */,
+				3194031A1771BE85009F0DBE /* delimiter.png in Resources */,
+				3194031B1771BE85009F0DBE /* delimiter@2x.png in Resources */,
+				3194031C1771BE85009F0DBE /* textField.png in Resources */,
+				3194031D1771BE85009F0DBE /* textField@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +468,7 @@
 				31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */,
 				31B112A8176B5DAD00060EAB /* TNIMyStakesViewController.m in Sources */,
 				31B112AB176B5DDC00060EAB /* TNIProfileViewController.m in Sources */,
+				319403201771C221009F0DBE /* TNITextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
