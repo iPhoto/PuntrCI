@@ -15,6 +15,7 @@ PODS:
   - RestKit/ObjectMapping (0.20.1)
   - RestKit/Support (0.20.1):
     - TransitionKit (= 1.1.0)
+  - Reveal-iOS-SDK (0.8.1)
   - SOCKit (1.1)
   - TestFlightSDK (1.2.6)
   - TransitionKit (1.1.0)
@@ -22,11 +23,13 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - RestKit
+  - Reveal-iOS-SDK
   - TestFlightSDK (~> 1.2.5)
 
 SPEC CHECKSUMS:
   AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
   RestKit: ceca63bc91172098c710c469facd2560e8a59164
+  Reveal-iOS-SDK: 9211abec2542455058411814d58d0c2e1a8030e4
   SOCKit: ed67aeeca4a697b63a933229e53f4670d5b9300f
   TestFlightSDK: 7d9abce62f5a17191c4df84fd88e05797e6776e0
   TransitionKit: 1624e84f252d5cd26900be28ccb73c69fbe63f8a
