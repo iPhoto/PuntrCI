@@ -51,6 +51,21 @@
 		3194034E1772201F009F0DBE /* tabBarStakes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194033E1772201E009F0DBE /* tabBarStakes@2x.png */; };
 		3194034F1772201F009F0DBE /* tabBarStakesSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194033F1772201E009F0DBE /* tabBarStakesSelected.png */; };
 		319403501772201F009F0DBE /* tabBarStakesSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403401772201E009F0DBE /* tabBarStakesSelected@2x.png */; };
+		3194035317722BEE009F0DBE /* TNIHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3194035217722BEE009F0DBE /* TNIHeaderView.m */; };
+		3194035617722ECC009F0DBE /* TNIEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3194035517722ECC009F0DBE /* TNIEventCell.m */; };
+		31940359177231C8009F0DBE /* TNISection.m in Sources */ = {isa = PBXBuildFile; fileRef = 31940358177231C8009F0DBE /* TNISection.m */; };
+		3194036417723467009F0DBE /* sectionEditorsChoice.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035A17723467009F0DBE /* sectionEditorsChoice.png */; };
+		3194036517723467009F0DBE /* sectionEditorsChoice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035B17723467009F0DBE /* sectionEditorsChoice@2x.png */; };
+		3194036617723467009F0DBE /* sectionLive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035C17723467009F0DBE /* sectionLive.png */; };
+		3194036717723467009F0DBE /* sectionLive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035D17723467009F0DBE /* sectionLive@2x.png */; };
+		3194036817723467009F0DBE /* sectionMaximumWinnings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035E17723467009F0DBE /* sectionMaximumWinnings.png */; };
+		3194036917723467009F0DBE /* sectionMaximumWinnings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194035F17723467009F0DBE /* sectionMaximumWinnings@2x.png */; };
+		3194036A17723467009F0DBE /* sectionPopular.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036017723467009F0DBE /* sectionPopular.png */; };
+		3194036B17723467009F0DBE /* sectionPopular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036117723467009F0DBE /* sectionPopular@2x.png */; };
+		3194036C17723467009F0DBE /* sectionTournaments.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036217723467009F0DBE /* sectionTournaments.png */; };
+		3194036D17723467009F0DBE /* sectionTournaments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036317723467009F0DBE /* sectionTournaments@2x.png */; };
+		3194037017723718009F0DBE /* catalogueHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036E17723718009F0DBE /* catalogueHeaderBackground.png */; };
+		3194037117723718009F0DBE /* catalogueHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */; };
 		3195D392176A26F5005E4856 /* TNIRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */; };
 		31B112A2176B5CD000060EAB /* TNICatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */; };
 		31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* TNINewsViewController.m */; };
@@ -138,6 +153,24 @@
 		3194033E1772201E009F0DBE /* tabBarStakes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBarStakes@2x.png"; sourceTree = "<group>"; };
 		3194033F1772201E009F0DBE /* tabBarStakesSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarStakesSelected.png; sourceTree = "<group>"; };
 		319403401772201E009F0DBE /* tabBarStakesSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBarStakesSelected@2x.png"; sourceTree = "<group>"; };
+		3194035117722BED009F0DBE /* TNIHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIHeaderView.h; sourceTree = "<group>"; };
+		3194035217722BEE009F0DBE /* TNIHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIHeaderView.m; sourceTree = "<group>"; };
+		3194035417722ECB009F0DBE /* TNIEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIEventCell.h; sourceTree = "<group>"; };
+		3194035517722ECC009F0DBE /* TNIEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIEventCell.m; sourceTree = "<group>"; };
+		31940357177231C8009F0DBE /* TNISection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNISection.h; sourceTree = "<group>"; };
+		31940358177231C8009F0DBE /* TNISection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNISection.m; sourceTree = "<group>"; };
+		3194035A17723467009F0DBE /* sectionEditorsChoice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sectionEditorsChoice.png; sourceTree = "<group>"; };
+		3194035B17723467009F0DBE /* sectionEditorsChoice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sectionEditorsChoice@2x.png"; sourceTree = "<group>"; };
+		3194035C17723467009F0DBE /* sectionLive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sectionLive.png; sourceTree = "<group>"; };
+		3194035D17723467009F0DBE /* sectionLive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sectionLive@2x.png"; sourceTree = "<group>"; };
+		3194035E17723467009F0DBE /* sectionMaximumWinnings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sectionMaximumWinnings.png; sourceTree = "<group>"; };
+		3194035F17723467009F0DBE /* sectionMaximumWinnings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sectionMaximumWinnings@2x.png"; sourceTree = "<group>"; };
+		3194036017723467009F0DBE /* sectionPopular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sectionPopular.png; sourceTree = "<group>"; };
+		3194036117723467009F0DBE /* sectionPopular@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sectionPopular@2x.png"; sourceTree = "<group>"; };
+		3194036217723467009F0DBE /* sectionTournaments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sectionTournaments.png; sourceTree = "<group>"; };
+		3194036317723467009F0DBE /* sectionTournaments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sectionTournaments@2x.png"; sourceTree = "<group>"; };
+		3194036E17723718009F0DBE /* catalogueHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = catalogueHeaderBackground.png; sourceTree = "<group>"; };
+		3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "catalogueHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIRegistrationViewController.h; sourceTree = "<group>"; };
 		3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIRegistrationViewController.m; sourceTree = "<group>"; };
 		31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNICatalogueViewController.h; sourceTree = "<group>"; };
@@ -257,6 +290,12 @@
 				764C42651769CC3700B7FBF2 /* TNICatalogueNavigationController.m */,
 				31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */,
 				31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */,
+				3194035417722ECB009F0DBE /* TNIEventCell.h */,
+				3194035517722ECC009F0DBE /* TNIEventCell.m */,
+				31940357177231C8009F0DBE /* TNISection.h */,
+				31940358177231C8009F0DBE /* TNISection.m */,
+				3194035117722BED009F0DBE /* TNIHeaderView.h */,
+				3194035217722BEE009F0DBE /* TNIHeaderView.m */,
 				31DDC095176B234F000E99F3 /* TNIConstants.h */,
 				31DDC096176B234F000E99F3 /* TNIConstants.m */,
 				76335D4C17697C3F009F75E2 /* TNIEnterViewController.h */,
@@ -288,6 +327,18 @@
 		31E3E7981754E24800B09DAD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3194036E17723718009F0DBE /* catalogueHeaderBackground.png */,
+				3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */,
+				3194035A17723467009F0DBE /* sectionEditorsChoice.png */,
+				3194035B17723467009F0DBE /* sectionEditorsChoice@2x.png */,
+				3194035C17723467009F0DBE /* sectionLive.png */,
+				3194035D17723467009F0DBE /* sectionLive@2x.png */,
+				3194035E17723467009F0DBE /* sectionMaximumWinnings.png */,
+				3194035F17723467009F0DBE /* sectionMaximumWinnings@2x.png */,
+				3194036017723467009F0DBE /* sectionPopular.png */,
+				3194036117723467009F0DBE /* sectionPopular@2x.png */,
+				3194036217723467009F0DBE /* sectionTournaments.png */,
+				3194036317723467009F0DBE /* sectionTournaments@2x.png */,
 				319403311772201E009F0DBE /* tabBarCatalogue.png */,
 				319403321772201E009F0DBE /* tabBarCatalogue@2x.png */,
 				319403331772201E009F0DBE /* tabBarCatalogueSelected.png */,
@@ -479,6 +530,18 @@
 				3194034E1772201F009F0DBE /* tabBarStakes@2x.png in Resources */,
 				3194034F1772201F009F0DBE /* tabBarStakesSelected.png in Resources */,
 				319403501772201F009F0DBE /* tabBarStakesSelected@2x.png in Resources */,
+				3194036417723467009F0DBE /* sectionEditorsChoice.png in Resources */,
+				3194036517723467009F0DBE /* sectionEditorsChoice@2x.png in Resources */,
+				3194036617723467009F0DBE /* sectionLive.png in Resources */,
+				3194036717723467009F0DBE /* sectionLive@2x.png in Resources */,
+				3194036817723467009F0DBE /* sectionMaximumWinnings.png in Resources */,
+				3194036917723467009F0DBE /* sectionMaximumWinnings@2x.png in Resources */,
+				3194036A17723467009F0DBE /* sectionPopular.png in Resources */,
+				3194036B17723467009F0DBE /* sectionPopular@2x.png in Resources */,
+				3194036C17723467009F0DBE /* sectionTournaments.png in Resources */,
+				3194036D17723467009F0DBE /* sectionTournaments@2x.png in Resources */,
+				3194037017723718009F0DBE /* catalogueHeaderBackground.png in Resources */,
+				3194037117723718009F0DBE /* catalogueHeaderBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +620,9 @@
 				31B112A8176B5DAD00060EAB /* TNIMyStakesViewController.m in Sources */,
 				31B112AB176B5DDC00060EAB /* TNIProfileViewController.m in Sources */,
 				319403201771C221009F0DBE /* TNITextField.m in Sources */,
+				3194035317722BEE009F0DBE /* TNIHeaderView.m in Sources */,
+				3194035617722ECC009F0DBE /* TNIEventCell.m in Sources */,
+				31940359177231C8009F0DBE /* TNISection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

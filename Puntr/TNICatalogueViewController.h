@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNICatalogueViewController : UIViewController
+@interface TNICatalogueViewController : UICollectionViewController
 
 @end
