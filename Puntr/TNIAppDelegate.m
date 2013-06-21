@@ -11,6 +11,8 @@
 #import "TNITabBarViewController.h"
 #import "TNICatalogueNavigationController.h"
 #import "TNITextField.h"
+#import "TNIHTTPClient.h"
+#import "TNIObjectManager.h"
 
 @interface TNIAppDelegate ()
 
@@ -26,22 +28,29 @@
     //  Log all HTTP traffic with request and response bodies
     RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
 #endif
-    
+    // Networking
+    TNIHTTPClient *client = [TNIHTTPClient sharedClient];
+    TNIObjectManager *objectManager = [[TNIObjectManager alloc] initWithHTTPClient:client];
+    [objectManager configureMapping];
+    //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[TNIEnterViewController alloc] init]];
-    //navigationController.navigationBar.tintColor = [UIColor blackColor];
-    TNITabBarViewController *tabBar = [[TNITabBarViewController alloc] init];
-    tabBar.delegate = self;
-    
     TNIEnterViewController *enter = [[TNIEnterViewController alloc] init];
-    self.window.rootViewController = tabBar;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:enter];
     [self.window makeKeyAndVisible];
-    [tabBar presentViewController:[[UINavigationController alloc] initWithRootViewController:enter] animated:NO completion:^{
-        
-    }];
     
+    [self applyStylesheet];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    });
+    
+    return YES;
+}
+
+#pragma mark - Style
+
+- (void)applyStylesheet {
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navigationBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(44.0f, 0.0f, 44.0f, 0.0f)] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.180 alpha:1.000]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -59,18 +68,6 @@
     [[UITabBar appearance] setBackgroundImage:[[UIImage imageNamed:@"tabBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(49.0f, 0.0f, 49.0f, 0.0f)]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabBarSelected"]];
     [[UITabBar appearance] setShadowImage:[[UIImage imageNamed:@"tabBarShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
-    
-    return YES;
-}
-
-#pragma mark - TabBarController Delegate
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if ([viewController isMemberOfClass:[TNICatalogueNavigationController class]]) {
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 #pragma mark - Application Delegate

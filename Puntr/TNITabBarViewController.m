@@ -9,8 +9,8 @@
 #import "TNITabBarViewController.h"
 #import "TNINewsNavigationController.h"
 #import "TNICatalogueNavigationController.h"
-#include "TNIMyStakesNavigationController.h"
-#include "TNIProfileNavigationController.h"
+#import "TNIMyStakesNavigationController.h"
+#import "TNIProfileNavigationController.h"
 
 #import "TNINewsViewController.h"
 #import "TNICatalogueViewController.h"
@@ -32,7 +32,7 @@
                                      [[TNIMyStakesNavigationController alloc] initWithRootViewController:[[TNIMyStakesViewController alloc] init]],
                                      [[TNIProfileNavigationController alloc] initWithRootViewController:[[TNIProfileViewController alloc] init]]];
         [self setViewControllers:viewControllers animated:YES];
-        [self setSelectedIndex:1];
+        [self setSelectedIndex:0];
     }
     return self; 
 }

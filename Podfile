@@ -3,4 +3,4 @@ platform :ios, '6.0'
 pod 'RestKit'
 pod 'AFNetworking'
 pod 'TestFlightSDK', '~> 1.2.5'
-pod 'Reveal-iOS-SDK'
+pod 'Reveal-iOS-SDK' #Remove for Release

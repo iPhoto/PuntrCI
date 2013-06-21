@@ -59,7 +59,7 @@
 #pragma mark - Registration
 
 - (void)registerWithEmail:(NSString *)email password:(NSString *)password firstname:(NSString *)firstname lastname:(NSString *)lastname username:(NSString *)username success:(JSONSuccess)success failure:(JSONFailure)failure {
-    [self JSONWithRequestMethod:RKRequestMethodPOST path:APIUsers parameters:@{KeyEmail: email, KeyPassword: password, KeyFirstName: firstname, KeyLastName: lastname, KeyNickname: username} success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    [self JSONWithRequestMethod:RKRequestMethodPOST path:APIUsers parameters:@{KeyEmail: email, KeyPassword: password, KeyFirstName: firstname, KeyLastName: lastname, KeyUsername: username} success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success) {
             self.sid = JSON[KeySID];
             success(request, response, JSON);

@@ -10,7 +10,7 @@
 
 @class TNISection;
 
-@interface TNIHeaderView : UICollectionReusableView
+@interface TNIHeaderView : UICollectionViewCell
 
 - (void)loadWithSection:(TNISection *)section;
 

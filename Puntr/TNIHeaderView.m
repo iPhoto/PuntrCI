@@ -20,7 +20,8 @@
 @implementation TNIHeaderView
 
 - (void)loadWithSection:(TNISection *)section {
-    self.imageViewBackground = [[UIImageView alloc] initWithFrame:self.frame];
+    CGRect backgroundFrame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+    self.imageViewBackground = [[UIImageView alloc] initWithFrame:backgroundFrame];
     self.imageViewBackground.image = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(40.0f, 4.0f, 40.0f, 17.0f)];
     [self addSubview:self.imageViewBackground];
     

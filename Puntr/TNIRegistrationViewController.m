@@ -9,7 +9,9 @@
 #import "TNIRegistrationViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TNITextField.h"
-#import "TNIHTTPClient.h"
+#import "TNIObjectManager.h"
+#import "TNIRegistration.h"
+#import "TNITabBarViewController.h"
 
 @interface TNIRegistrationViewController ()
 
@@ -17,18 +19,13 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) UIImageView *avatarView;
-
 @property (nonatomic, strong) TNITextField *textFieldUsername;
-@property (nonatomic, strong) NSString *bufferUsername;
 @property (nonatomic, strong) TNITextField *textFieldLastName;
-@property (nonatomic, strong) NSString *bufferLastName;
 @property (nonatomic, strong) TNITextField *textFieldFirstName;
-@property (nonatomic, strong) NSString *bufferFirstName;
 @property (nonatomic, strong) TNITextField *textFieldPassword;
-@property (nonatomic, strong) NSString *bufferPassword;
 @property (nonatomic, strong) TNITextField *textFieldEmail;
-@property (nonatomic, strong) NSString *bufferEmail;
+
+@property (nonatomic, strong) TNIRegistration *registration;
 
 @property (nonatomic, strong) UIImageView *imageViewDelimiter;
 
@@ -48,7 +45,8 @@
 {
     self = [super init];
     if (self) {
-        _bufferEmail = email;
+        _registration = [[TNIRegistration alloc] init];
+        _registration.email = email;
     }
     return self;
 }
@@ -84,7 +82,7 @@
     
     self.textFieldEmail = [[TNITextField alloc] initWithFrame:CGRectMake(18.0f, 19.0f, 282.0f, 38.0f)];
     self.textFieldEmail.placeholder = @"Email...";
-    self.textFieldEmail.text = self.bufferEmail;
+    self.textFieldEmail.text = self.registration.email;
     self.textFieldEmail.keyboardType = UIKeyboardTypeEmailAddress;
     self.textFieldEmail.returnKeyType = UIReturnKeyNext;
     self.textFieldEmail.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -151,7 +149,9 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSUInteger index = [self.textFields indexOfObject:textField];
     if (index + 1 < self.textFields.count) {
-        [self.textFields[index + 1] becomeFirstResponder];
+        UITextField *textField = self.textFields[index + 1];
+        [textField becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:textField.frame animated:YES];
     } else {
         if (!self.animating) {
             [self resignAllResponders];
@@ -164,15 +164,15 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if (textField == self.textFieldEmail) {
-        self.bufferEmail = self.textFieldEmail.text;
+        self.registration.email = self.textFieldEmail.text;
     } else if (textField == self.textFieldPassword) {
-        self.bufferPassword = self.textFieldPassword.text;
+        self.registration.password = self.textFieldPassword.text;
     } else if (textField == self.textFieldUsername) {
-        self.bufferUsername = self.textFieldUsername.text;
+        self.registration.username = self.textFieldUsername.text;
     } else if (textField == self.textFieldFirstName) {
-        self.bufferFirstName = self.textFieldFirstName.text;
+        self.registration.firstName= self.textFieldFirstName.text;
     } else if (textField == self.textFieldLastName) {
-        self.bufferLastName = self.textFieldLastName.text;
+        self.registration.lastName = self.textFieldLastName.text;
     }
     return YES;
 }
@@ -204,6 +204,9 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    if (!keyboardIsShown) {
+        return;
+    }
     NSDictionary *userInfo = [notification userInfo];
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect viewFrame = self.scrollView.frame;
@@ -221,35 +224,35 @@
 }
 
 - (void)bufferData {
-    self.bufferEmail = self.textFieldEmail.text;
-    self.bufferPassword = self.textFieldPassword.text;
-    self.bufferUsername = self.textFieldUsername.text;
-    self.bufferFirstName = self.textFieldFirstName.text;
-    self.bufferLastName = self.textFieldLastName.text;
+    self.registration.email = self.textFieldEmail.text;
+    self.registration.password = self.textFieldPassword.text;
+    self.registration.username = self.textFieldUsername.text;
+    self.registration.firstName = self.textFieldFirstName.text;
+    self.registration.lastName = self.textFieldLastName.text;
 }
 
 - (BOOL)dataIsValid {
-    if (!self.bufferEmail || self.bufferEmail.length == 0) {
+    if (!self.registration.email || self.registration.email.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.bufferPassword || self.bufferPassword.length == 0) {
+    if (!self.registration.password || self.registration.password.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.bufferUsername || self.bufferUsername.length == 0) {
+    if (!self.registration.username || self.registration.username.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.bufferFirstName || self.bufferFirstName.length == 0) {
+    if (!self.registration.firstName || self.registration.firstName.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите имя" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.bufferLastName || self.bufferLastName.length == 0) {
+    if (!self.registration.lastName || self.registration.lastName.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите фамилию" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
@@ -258,18 +261,30 @@
 }
 
 - (void)registrationButtonTouched {
-    [self registration];
+    [self registrate];
 }
 
-- (void)registration {
+- (void)registrate {
     [self bufferData];
     if ([self dataIsValid]) {
+        [[TNIObjectManager sharedManager] registration:self.registration success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            TNITabBarViewController *tabBar = [[TNITabBarViewController alloc] init];
+            [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+            } completion:nil];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            
+        }];
+        
+        
+        /*
         [[TNIHTTPClient sharedClient] registerWithEmail:self.bufferEmail password:self.bufferPassword firstname:self.bufferFirstName lastname:self.bufferLastName username:self.bufferUsername success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }];
+         */
     }
 }
 

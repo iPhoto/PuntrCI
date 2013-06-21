@@ -19,6 +19,7 @@
     [super viewDidLoad];
 	
     self.title = @"Мои ставки";
+    self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
 }
 
 @end

@@ -10,6 +10,9 @@
 #import "TNITabBarViewController.h"
 #import "TNIRegistrationViewController.h"
 #import "TNIHTTPClient.h"
+#import "TNITabBarViewController.h"
+#import "TNIEnter.h"
+#import "TNIObjectManager.h"
 
 typedef enum {
     DirectionUp,
@@ -18,14 +21,13 @@ typedef enum {
 
 @interface TNIEnterViewController ()
 
-@property (nonatomic, strong) UITextField *textFieldEmail;
+@property (nonatomic, strong) UITextField *textFieldLogin;
 @property (nonatomic, strong) UITextField *textFieldPassword;
 
 @property (nonatomic, strong) UIButton *buttonRegistration;
 @property (nonatomic, strong) UIButton *buttonEnter;
 
-@property (nonatomic, copy) NSString *bufferEmail;
-@property (nonatomic, copy) NSString *bufferPassword;
+@property (nonatomic, strong) TNIEnter *enter;
 
 @property (nonatomic, strong) UIImageView *imageViewLogoTitle;
 @property (nonatomic, strong) UIImageView *imageViewLogoDescription;
@@ -65,6 +67,8 @@ typedef enum {
     CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.bounds.size.height);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
+    self.enter = [[TNIEnter alloc] init];
+    
     self.imageViewLogoTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, 320.0f, 42.0f)];
     self.imageViewLogoTitle.image = [UIImage imageNamed:@"logoTitle"];
     self.imageViewLogoTitle.userInteractionEnabled = YES;
@@ -79,16 +83,16 @@ typedef enum {
     self.imageViewTextFieldsBackground.image = [[UIImage imageNamed:@"enterTextFieldsBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(74.0f, 6.0f, 74.0f, 6.0f)];
     [self.view addSubview:self.imageViewTextFieldsBackground];
     
-    self.textFieldEmail = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0, 278.0, 35.0)];
-    self.textFieldEmail.font = [UIFont fontWithName:@"Arial" size:13.0f];
-    self.textFieldEmail.placeholder = @"Email или никнейм...";
-    self.textFieldEmail.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.textFieldEmail.keyboardType = UIKeyboardTypeEmailAddress;
-    self.textFieldEmail.returnKeyType = UIReturnKeyNext;
-    self.textFieldEmail.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.textFieldEmail.delegate = self;
-    //self.textFieldEmail.backgroundColor = [UIColor colorWithWhite:0.996 alpha:1.000];
-    [self.view addSubview:self.textFieldEmail];
+    self.textFieldLogin = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0, 278.0, 35.0)];
+    self.textFieldLogin.font = [UIFont fontWithName:@"Arial" size:13.0f];
+    self.textFieldLogin.placeholder = @"Email или никнейм...";
+    self.textFieldLogin.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.textFieldLogin.keyboardType = UIKeyboardTypeEmailAddress;
+    self.textFieldLogin.returnKeyType = UIReturnKeyNext;
+    self.textFieldLogin.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.textFieldLogin.delegate = self;
+    //self.textFieldLogin.backgroundColor = [UIColor colorWithWhite:0.996 alpha:1.000];
+    [self.view addSubview:self.textFieldLogin];
     
     self.textFieldPassword = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0 + 38.0, 278.0, 36.0)];
     self.textFieldPassword.font = [UIFont fontWithName:@"Arial" size:13.0f];
@@ -132,31 +136,31 @@ typedef enum {
 #pragma mark - Actions
 
 - (void)registrationButtonTouched {
-    [self.navigationController pushViewController:[[TNIRegistrationViewController alloc] initWithEmail:self.bufferEmail] animated:YES];
+    [self.navigationController pushViewController:[[TNIRegistrationViewController alloc] initWithEmail:self.textFieldLogin.text] animated:YES];
     [self resignAllResponders];
 }
 
 - (void)enterButtonTouched {
-    [self enter];
+    [self login];
 }
 
 #pragma mark - TextField Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == self.textFieldEmail) {
+    if (textField == self.textFieldLogin) {
         [self.textFieldPassword becomeFirstResponder];
     } else if (textField == self.textFieldPassword) {
         [textField resignFirstResponder];
-        [self enter];
+        [self login];
     }
     return YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if (textField == self.textFieldEmail) {
-        self.bufferEmail = textField.text;
+    if (textField == self.textFieldLogin) {
+        self.enter.login = textField.text;
     } else if (textField == self.textFieldPassword) {
-        self.bufferPassword = textField.text;
+        self.enter.password = textField.text;
     }
     return YES;
 }
@@ -175,7 +179,7 @@ typedef enum {
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
-        NSArray *viewsToMove = @[self.textFieldEmail, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
+        NSArray *viewsToMove = @[self.textFieldLogin, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
         [self moveViews:viewsToMove direction:DirectionDown points:65.0f];
         [self moveViews:@[self.imageViewLogoTitle] direction:DirectionDown points:20.0f];
         self.imageViewLogoDescription.alpha = 1.0f;
@@ -188,7 +192,7 @@ typedef enum {
         return;
     }
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
-        NSArray *viewsToMove = @[self.textFieldEmail, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
+        NSArray *viewsToMove = @[self.textFieldLogin, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
         [self moveViews:viewsToMove direction:DirectionUp points:65.0f];
         [self moveViews:@[self.imageViewLogoTitle] direction:DirectionUp points:20.0f];
         self.imageViewLogoDescription.alpha = 0.0f;
@@ -208,17 +212,17 @@ typedef enum {
 #pragma mark - Logic
 
 - (void)bufferData {
-    self.bufferEmail = self.textFieldEmail.text;
-    self.bufferPassword = self.textFieldPassword.text;
+    self.enter.login = self.textFieldLogin.text;
+    self.enter.password = self.textFieldPassword.text;
 }
 
 - (BOOL)dataIsValid {
-    if (!self.bufferEmail || self.bufferEmail.length == 0) {
+    if (!self.enter.login || self.enter.login.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.bufferPassword || self.bufferPassword.length == 0) {
+    if (!self.enter.password || self.enter.password.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
@@ -226,20 +230,24 @@ typedef enum {
     return YES;
 }
 
-- (void)enter {
+- (void)login {
     [self bufferData];
-    if ([self dataIsValid]) {
-        [[TNIHTTPClient sharedClient] enterWithLogin:self.bufferEmail password:self.bufferPassword success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    if ([self dataIsValid]) {        
+        [[TNIObjectManager sharedManager] enter:self.enter success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            TNITabBarViewController *tabBar = [[TNITabBarViewController alloc] init];
+            [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+            } completion:nil];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
             
         }];
     }
+     
 }
 
 - (void)resignAllResponders {
     [self.textFieldPassword resignFirstResponder];
-    [self.textFieldEmail resignFirstResponder];
+    [self.textFieldLogin resignFirstResponder];
 }
 
 - (void)moveViews:(NSArray *)views direction:(Direction)direction points:(CGFloat)points {

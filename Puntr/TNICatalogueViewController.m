@@ -10,13 +10,14 @@
 #import "TNIHeaderView.h"
 #import "TNIEventCell.h"
 #import "TNISection.h"
+#import "TNIObjectManager.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGFloat eventMinimumLineSpacing = 10.0f;
-const CGFloat eventMinimumInteritemSpacing = 8.0f;
-const UIEdgeInsets eventSectionInset = { 10.0f, 8.0f, 10.0f, 8.0f };
+const CGFloat eventMinimumInteritemSpacing = 0.0f;
+const UIEdgeInsets eventSectionInset = { 10.0f, 0.0f, 0.0f, 0.0f };
 
-const CGSize eventHeaderSize = { 304.0f, 40.0f };
+const CGSize headerSize = { 304.0f, 40.0f };
 
 @interface TNICatalogueViewController ()
 
@@ -44,7 +45,7 @@ const CGSize eventHeaderSize = { 304.0f, 40.0f };
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self.collectionView registerClass:[TNIEventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
-    [self.collectionView registerClass:[TNIHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CatalogueSectionHeader"];
+    [self.collectionView registerClass:[TNIHeaderView class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     TNISection *sectionPopular = [[TNISection alloc] init];
@@ -74,23 +75,33 @@ const CGSize eventHeaderSize = { 304.0f, 40.0f };
     
     self.sections = @[sectionPopular, sectionLive, sectionTournaments, sectionEditorsChoice, sectionMaximumWinnings];
     
-    
+    NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
+    for (TNISection *section in self.sections) {
+        [collectionData addObject:@[section]];
+    }
+    self.collectionData = [collectionData copy];
+    //[self updateSections];
 }
 
 #pragma mark - CollectionView DataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 0;
+    return [self.collectionData[section] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.sections.count;
+    return self.collectionData.count;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    TNIHeaderView *header = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
-    [header loadWithSection:self.sections[indexPath.section]];
-    return header;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        TNIHeaderView *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
+        [header loadWithSection:self.sections[indexPath.section]];
+        return header;
+    } else {
+        TNIEventCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueEventCell" forIndexPath:indexPath];
+        return cell;
+    }
 }
 
 #pragma mark - CollectionView Delegate
@@ -100,7 +111,7 @@ const CGSize eventHeaderSize = { 304.0f, 40.0f };
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return eventItemSize;
+    return indexPath.row == 0 ? headerSize : eventItemSize;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
@@ -111,12 +122,30 @@ const CGSize eventHeaderSize = { 304.0f, 40.0f };
     return eventMinimumLineSpacing;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return eventHeaderSize;
+#pragma mark - Logic
+
+- (void)updateSections {
+    for (TNISection *section in self.sections) {
+        [[TNIObjectManager sharedManager] eventsForGroup:section.group limit:@3 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            [self updatedSection:section withMapping:mappingResult.array];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            
+        }];
+    }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeZero;
+- (void)updatedSection:(TNISection *)section withMapping:(NSArray *)arrayMapping {
+    NSUInteger sectionIndex = NSUIntegerMax;
+    sectionIndex = [self.sections indexOfObject:section];
+    if (sectionIndex != NSUIntegerMax) {
+        NSArray *updatedSection = @[section, arrayMapping];
+        NSMutableArray *mutableCollectionData = [self.collectionData mutableCopy];
+        [mutableCollectionData replaceObjectAtIndex:sectionIndex withObject:updatedSection];
+        self.collectionData = [mutableCollectionData copy];
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+        } completion:nil];
+    }
 }
 
 @end
