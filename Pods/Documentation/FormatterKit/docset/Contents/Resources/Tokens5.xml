@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TTTOrdinalNumberFormatter.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TTTOrdinalNumberFormatter</TokenIdentifier>
+			<Abstract type="html">Instances of TTTOrdinalNumberFormatter create localized ordinal string representations of NSNumber objects.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>
+			
+			<NodeRef refid="5"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/setOrdinalIndicator:</TokenIdentifier>
+			<Abstract type="html">When specified, this overrides the indicator determined by the formatter. nil by default.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *ordinalIndicator</Declaration>
+			
+			
+			<Anchor>//api/name/ordinalIndicator</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/ordinalIndicator</TokenIdentifier>
+			<Abstract type="html">When specified, this overrides the indicator determined by the formatter. nil by default.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *ordinalIndicator</Declaration>
+			
+			
+			<Anchor>//api/name/ordinalIndicator</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTOrdinalNumberFormatter/ordinalIndicator</TokenIdentifier>
+			<Abstract type="html">When specified, this overrides the indicator determined by the formatter. nil by default.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *ordinalIndicator</Declaration>
+			
+			
+			<Anchor>//api/name/ordinalIndicator</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/setGrammaticalGender:</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical gender of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalGender grammaticalGender</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalGender</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/grammaticalGender</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical gender of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalGender grammaticalGender</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalGender</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTOrdinalNumberFormatter/grammaticalGender</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical gender of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalGender grammaticalGender</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalGender</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/setGrammaticalNumber:</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical number of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalNumber grammaticalNumber</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalNumber</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTOrdinalNumberFormatter/grammaticalNumber</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical number of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalNumber grammaticalNumber</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalNumber</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTOrdinalNumberFormatter/grammaticalNumber</TokenIdentifier>
+			<Abstract type="html">Specifies the grammatical number of the word conjugatd by the ordinal number.</Abstract>
+			<DeclaredIn>TTTOrdinalNumberFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) TTTOrdinalNumberFormatterPredicateGrammaticalNumber grammaticalNumber</Declaration>
+			
+			
+			<Anchor>//api/name/grammaticalNumber</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+	</File>
+</Tokens>

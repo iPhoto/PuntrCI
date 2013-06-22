@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/Tulushev/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.formatterkit.FormatterKit-1.1.2.docset
+Time: 2013-06-21 13:38:25 +0000

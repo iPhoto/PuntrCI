@@ -1,5 +1,20 @@
 PODS:
   - AFNetworking (1.2.1)
+  - FormatterKit (1.1.2):
+    - FormatterKit/AddressFormatter
+    - FormatterKit/ArrayFormatter
+    - FormatterKit/LocationFormatter
+    - FormatterKit/OrdinalNumberFormatter
+    - FormatterKit/TimeIntervalFormatter
+    - FormatterKit/UnitOfInformationFormatter
+    - FormatterKit/URLRequestFormatter
+  - FormatterKit/AddressFormatter (1.1.2)
+  - FormatterKit/ArrayFormatter (1.1.2)
+  - FormatterKit/LocationFormatter (1.1.2)
+  - FormatterKit/OrdinalNumberFormatter (1.1.2)
+  - FormatterKit/TimeIntervalFormatter (1.1.2)
+  - FormatterKit/UnitOfInformationFormatter (1.1.2)
+  - FormatterKit/URLRequestFormatter (1.1.2)
   - RestKit (0.20.1):
     - RestKit/Core
   - RestKit/Core (0.20.1):
@@ -22,12 +37,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - FormatterKit
   - RestKit
   - Reveal-iOS-SDK
   - TestFlightSDK (~> 1.2.5)
 
 SPEC CHECKSUMS:
   AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
+  FormatterKit: bb53f3de30773e6b06f91dee1f82b46f536278d7
   RestKit: ceca63bc91172098c710c469facd2560e8a59164
   Reveal-iOS-SDK: 9211abec2542455058411814d58d0c2e1a8030e4
   SOCKit: ed67aeeca4a697b63a933229e53f4670d5b9300f

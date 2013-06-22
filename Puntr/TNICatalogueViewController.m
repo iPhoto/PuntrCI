@@ -11,11 +11,12 @@
 #import "TNIEventCell.h"
 #import "TNISection.h"
 #import "TNIObjectManager.h"
+#import "TNIEvent.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGFloat eventMinimumLineSpacing = 10.0f;
 const CGFloat eventMinimumInteritemSpacing = 0.0f;
-const UIEdgeInsets eventSectionInset = { 10.0f, 0.0f, 0.0f, 0.0f };
+const UIEdgeInsets eventSectionInset = { 10.0f, 8.0f, 10.0f, 8.0f };
 
 const CGSize headerSize = { 304.0f, 40.0f };
 
@@ -73,14 +74,14 @@ const CGSize headerSize = { 304.0f, 40.0f };
     sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
     sectionMaximumWinnings.group = @"maximumWinnings";
     
-    self.sections = @[sectionPopular, sectionLive, sectionTournaments, sectionEditorsChoice, sectionMaximumWinnings];
+    self.sections = @[sectionPopular, sectionLive];
     
     NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
     for (TNISection *section in self.sections) {
         [collectionData addObject:@[section]];
     }
     self.collectionData = [collectionData copy];
-    //[self updateSections];
+    [self updateSections];
 }
 
 #pragma mark - CollectionView DataSource
@@ -100,6 +101,9 @@ const CGSize headerSize = { 304.0f, 40.0f };
         return header;
     } else {
         TNIEventCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueEventCell" forIndexPath:indexPath];
+        TNIEvent *event = self.collectionData[indexPath.section][indexPath.row];
+        [cell loadWithEvent:event];
+        [cell.buttonStake addTarget:self action:@selector(buttonStakeTouched) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }
 }
@@ -124,9 +128,13 @@ const CGSize headerSize = { 304.0f, 40.0f };
 
 #pragma mark - Logic
 
+- (void)buttonStakeTouched {
+    [self updateSections];
+}
+
 - (void)updateSections {
     for (TNISection *section in self.sections) {
-        [[TNIObjectManager sharedManager] eventsForGroup:section.group limit:@3 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [[TNIObjectManager sharedManager] eventsForGroup:section.group limit:@10 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
             [self updatedSection:section withMapping:mappingResult.array];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
             
@@ -138,9 +146,12 @@ const CGSize headerSize = { 304.0f, 40.0f };
     NSUInteger sectionIndex = NSUIntegerMax;
     sectionIndex = [self.sections indexOfObject:section];
     if (sectionIndex != NSUIntegerMax) {
-        NSArray *updatedSection = @[section, arrayMapping];
+        NSMutableArray *updatedSection = [arrayMapping mutableCopy];
+        [updatedSection insertObject:section atIndex:0];
+        
         NSMutableArray *mutableCollectionData = [self.collectionData mutableCopy];
-        [mutableCollectionData replaceObjectAtIndex:sectionIndex withObject:updatedSection];
+        [mutableCollectionData replaceObjectAtIndex:sectionIndex withObject:[updatedSection copy]];
+        
         self.collectionData = [mutableCollectionData copy];
         [self.collectionView performBatchUpdates:^{
             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];

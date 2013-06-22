@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) NSNumber *tag;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) NSURL *logo;
+@property (nonatomic, strong) NSURL *image;
 
 @end

@@ -36,4 +36,6 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
                success:(ObjectRequestSuccess)success
                failure:(ObjectRequestFailure)failure;
 
+- (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
 @end

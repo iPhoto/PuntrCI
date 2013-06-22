@@ -4,3 +4,4 @@ pod 'RestKit'
 pod 'AFNetworking'
 pod 'TestFlightSDK', '~> 1.2.5'
 pod 'Reveal-iOS-SDK' #Remove for Release
+pod 'FormatterKit'

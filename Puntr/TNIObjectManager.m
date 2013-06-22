@@ -13,6 +13,7 @@
 #import "TNIAuthorization.h"
 #import "TNIRegistration.h"
 #import "TNIEnter.h"
+#import "TNIError.h"
 
 @interface TNIObjectManager ()
 
@@ -55,8 +56,21 @@
     RKResponseDescriptor *authorizationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIAuthorization keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     RKResponseDescriptor *registrationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIUsers keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
-    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor]];
     
+    // Error Mapping
+    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[TNIError class]];
+    [errorMapping addAttributeMappingsFromArray:@[KeyMessage, KeyCode]];
+    NSMutableIndexSet *errorStatusCodes = [NSMutableIndexSet indexSet];
+    [errorStatusCodes addIndex:304];
+    [errorStatusCodes addIndex:400];
+    [errorStatusCodes addIndex:401];
+    [errorStatusCodes addIndex:403];
+    [errorStatusCodes addIndex:404];
+    [errorStatusCodes addIndex:422];
+    [errorStatusCodes addIndex:500];
+    RKResponseDescriptor *errorMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:nil statusCodes:errorStatusCodes];
+    
+    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor]];
     
     // Enter Serialization
     RKObjectMapping *enterMapping = [RKObjectMapping requestMapping];
@@ -117,4 +131,9 @@
     [self getObject:nil path:APIEvents parameters:parameters success:success failure:failure];
 }
 
+#pragma mark - Stakes
+
+- (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self postObject:nil path:[NSString stringWithFormat:@"events/%i/stakes", event.integerValue] parameters:@{KeySID: self.authorization.sid, @"amount": @50} success:success failure:failure];
+}
 @end

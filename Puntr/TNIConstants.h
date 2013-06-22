@@ -30,6 +30,7 @@ FOUNDATION_EXPORT NSString *const   APIEvents;
 
 FOUNDATION_EXPORT NSString *const   KeyAvatar;
 FOUNDATION_EXPORT NSString *const   KeyCategory;
+FOUNDATION_EXPORT NSString *const   KeyCode;
 FOUNDATION_EXPORT NSString *const   KeyCreatedAt;
 FOUNDATION_EXPORT NSString *const   KeyEmail;
 FOUNDATION_EXPORT NSString *const   KeyEndTime;
@@ -42,6 +43,7 @@ FOUNDATION_EXPORT NSString *const   KeyLastName;
 FOUNDATION_EXPORT NSString *const   KeyLimit;
 FOUNDATION_EXPORT NSString *const   KeyLogin;
 FOUNDATION_EXPORT NSString *const   KeyLogo;
+FOUNDATION_EXPORT NSString *const   KeyMessage;
 FOUNDATION_EXPORT NSString *const   KeyOffset;
 FOUNDATION_EXPORT NSString *const   KeyParticipants;
 FOUNDATION_EXPORT NSString *const   KeyPassword;

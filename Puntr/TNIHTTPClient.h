@@ -34,18 +34,9 @@ typedef void (^JSONFailure)(NSURLRequest *request, NSHTTPURLResponse *response, 
                   success:(JSONSuccess)success
                   failure:(JSONFailure)failure;
 
-#pragma mark - Events
+#pragma mark - Stakes
 
-- (void)eventsForGroup:(NSString *)group
-                filter:(NSArray *)categoryTags
-                search:(NSString *)search
-                 limit:(NSNumber *)limit
-                  page:(NSNumber *)page
-               success:(JSONSuccess)success
-               failure:(JSONFailure)failure;
+- (void)setStakeForEvent:(NSNumber *)event success:(JSONSuccess)success failure:(JSONFailure)failure;
 
-- (void)eventsForGroup:(NSString *)group
-               success:(JSONSuccess)success
-               failure:(JSONFailure)failure;
 
 @end

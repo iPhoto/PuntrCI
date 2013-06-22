@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TTTTimeIntervalFormatter.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TTTTimeIntervalFormatter</TokenIdentifier>
+			<Abstract type="html">Instances of TTTTimeIntervalFormatter create localized string representations of NSTimeInterval values.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>
+			
+			<NodeRef refid="6"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setLocale:</TokenIdentifier>
+			<Abstract type="html">Specifies the locale used to format strings. Defaults to the current system locale.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSLocale *locale</Declaration>
+			
+			
+			<Anchor>//api/name/locale</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/locale</TokenIdentifier>
+			<Abstract type="html">Specifies the locale used to format strings. Defaults to the current system locale.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSLocale *locale</Declaration>
+			
+			
+			<Anchor>//api/name/locale</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/locale</TokenIdentifier>
+			<Abstract type="html">Specifies the locale used to format strings. Defaults to the current system locale.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSLocale *locale</Declaration>
+			
+			
+			<Anchor>//api/name/locale</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setCalendar:</TokenIdentifier>
+			<Abstract type="html">Specifies the calendar used in date calculation. Defaults to the current system calendar.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSCalendar *calendar</Declaration>
+			
+			
+			<Anchor>//api/name/calendar</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/calendar</TokenIdentifier>
+			<Abstract type="html">Specifies the calendar used in date calculation. Defaults to the current system calendar.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSCalendar *calendar</Declaration>
+			
+			
+			<Anchor>//api/name/calendar</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/calendar</TokenIdentifier>
+			<Abstract type="html">Specifies the calendar used in date calculation. Defaults to the current system calendar.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSCalendar *calendar</Declaration>
+			
+			
+			<Anchor>//api/name/calendar</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setPastDeicticExpression:</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the past deictic expression. &quot;ago&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *pastDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/pastDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/pastDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the past deictic expression. &quot;ago&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *pastDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/pastDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/pastDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the past deictic expression. &quot;ago&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *pastDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/pastDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setPresentDeicticExpression:</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the present deictic expression. &quot;just now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *presentDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/presentDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/presentDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the present deictic expression. &quot;just now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *presentDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/presentDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/presentDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the present deictic expression. &quot;just now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *presentDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/presentDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setFutureDeicticExpression:</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the future deictic expression. &quot;from now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *futureDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/futureDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/futureDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the future deictic expression. &quot;from now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *futureDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/futureDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/futureDeicticExpression</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to express the future deictic expression. &quot;from now&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *futureDeicticExpression</Declaration>
+			
+			
+			<Anchor>//api/name/futureDeicticExpression</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setDeicticExpressionFormat:</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to format the time interval string and deictic expression. Defaults to a format with the deictic expression following the time interval</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *deicticExpressionFormat</Declaration>
+			
+			
+			<Anchor>//api/name/deicticExpressionFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/deicticExpressionFormat</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to format the time interval string and deictic expression. Defaults to a format with the deictic expression following the time interval</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *deicticExpressionFormat</Declaration>
+			
+			
+			<Anchor>//api/name/deicticExpressionFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/deicticExpressionFormat</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to format the time interval string and deictic expression. Defaults to a format with the deictic expression following the time interval</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *deicticExpressionFormat</Declaration>
+			
+			
+			<Anchor>//api/name/deicticExpressionFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setPresentTimeIntervalMargin:</TokenIdentifier>
+			<Abstract type="html">Specifies the time interval before and after the present moment that is described as still being in the present, rather than the past or future. Defaults to 1 second.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSTimeInterval presentTimeIntervalMargin</Declaration>
+			
+			
+			<Anchor>//api/name/presentTimeIntervalMargin</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/presentTimeIntervalMargin</TokenIdentifier>
+			<Abstract type="html">Specifies the time interval before and after the present moment that is described as still being in the present, rather than the past or future. Defaults to 1 second.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSTimeInterval presentTimeIntervalMargin</Declaration>
+			
+			
+			<Anchor>//api/name/presentTimeIntervalMargin</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/presentTimeIntervalMargin</TokenIdentifier>
+			<Abstract type="html">Specifies the time interval before and after the present moment that is described as still being in the present, rather than the past or future. Defaults to 1 second.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) NSTimeInterval presentTimeIntervalMargin</Declaration>
+			
+			
+			<Anchor>//api/name/presentTimeIntervalMargin</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setApproximateQualifierFormat:</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to qualify a time interval as being an approximate time. &quot;about&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *approximateQualifierFormat</Declaration>
+			
+			
+			<Anchor>//api/name/approximateQualifierFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/approximateQualifierFormat</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to qualify a time interval as being an approximate time. &quot;about&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *approximateQualifierFormat</Declaration>
+			
+			
+			<Anchor>//api/name/approximateQualifierFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/approximateQualifierFormat</TokenIdentifier>
+			<Abstract type="html">Specifies the localized string used to qualify a time interval as being an approximate time. &quot;about&quot; by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSString *approximateQualifierFormat</Declaration>
+			
+			
+			<Anchor>//api/name/approximateQualifierFormat</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setUsesApproximateQualifier:</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use an approximate qualifier when the described interval is not exact. NO by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesApproximateQualifier</Declaration>
+			
+			
+			<Anchor>//api/name/usesApproximateQualifier</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/usesApproximateQualifier</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use an approximate qualifier when the described interval is not exact. NO by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesApproximateQualifier</Declaration>
+			
+			
+			<Anchor>//api/name/usesApproximateQualifier</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/usesApproximateQualifier</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use an approximate qualifier when the described interval is not exact. NO by default.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesApproximateQualifier</Declaration>
+			
+			
+			<Anchor>//api/name/usesApproximateQualifier</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setUsesAbbreviatedCalendarUnits:</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use abbreviated calendar units to describe time intervals, for instance &quot;wks&quot; instead of &quot;weeks&quot; in English. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesAbbreviatedCalendarUnits</Declaration>
+			
+			
+			<Anchor>//api/name/usesAbbreviatedCalendarUnits</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/usesAbbreviatedCalendarUnits</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use abbreviated calendar units to describe time intervals, for instance &quot;wks&quot; instead of &quot;weeks&quot; in English. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesAbbreviatedCalendarUnits</Declaration>
+			
+			
+			<Anchor>//api/name/usesAbbreviatedCalendarUnits</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/usesAbbreviatedCalendarUnits</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use abbreviated calendar units to describe time intervals, for instance &quot;wks&quot; instead of &quot;weeks&quot; in English. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesAbbreviatedCalendarUnits</Declaration>
+			
+			
+			<Anchor>//api/name/usesAbbreviatedCalendarUnits</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/setUsesIdiomaticDeicticExpressions:</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use idiomatic deictic expressions when available, such as &quot;last week&quot; instead of &quot;1 week ago&quot;. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesIdiomaticDeicticExpressions</Declaration>
+			
+			
+			<Anchor>//api/name/usesIdiomaticDeicticExpressions</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/usesIdiomaticDeicticExpressions</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use idiomatic deictic expressions when available, such as &quot;last week&quot; instead of &quot;1 week ago&quot;. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesIdiomaticDeicticExpressions</Declaration>
+			
+			
+			<Anchor>//api/name/usesIdiomaticDeicticExpressions</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TTTTimeIntervalFormatter/usesIdiomaticDeicticExpressions</TokenIdentifier>
+			<Abstract type="html">Specifies whether to use idiomatic deictic expressions when available, such as &quot;last week&quot; instead of &quot;1 week ago&quot;. Defaults to NO.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign) BOOL usesIdiomaticDeicticExpressions</Declaration>
+			
+			
+			<Anchor>//api/name/usesIdiomaticDeicticExpressions</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/stringForTimeInterval:</TokenIdentifier>
+			<Abstract type="html">Returns a string representation of a time interval formatted using the receiver’s current settings.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)stringForTimeInterval:(NSTimeInterval)seconds</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>seconds</Name>
+					<Abstract type="html">The number of seconds to add to the receiver. Use a negative value for seconds to have the returned object specify a date before the receiver.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/stringForTimeInterval:</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TTTTimeIntervalFormatter/stringForTimeIntervalFromDate:toDate:</TokenIdentifier>
+			<Abstract type="html">Returns a string representation of the time interval between two specified dates formatted using the receiver’s current settings.</Abstract>
+			<DeclaredIn>TTTTimeIntervalFormatter.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)stringForTimeIntervalFromDate:(NSDate *)startingDate toDate:(NSDate *)endingDate</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>startingDate</Name>
+					<Abstract type="html">The starting date</Abstract>
+				</Parameter><Parameter>
+					<Name>endingDate</Name>
+					<Abstract type="html">The ending date</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/stringForTimeIntervalFromDate:toDate:</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+	</File>
+</Tokens>

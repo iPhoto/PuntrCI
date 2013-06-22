@@ -17,7 +17,7 @@ NSString *const                     TestFlightApplicationToken = @"bbd518f9-ee98
 #pragma mark - API
 
 NSString *const                     APIScheme = @"http";
-NSString *const                     APIHost = @"puntr.dev.2nova.pw/api/v1";
+NSString *const                     APIHost = @"puntr.dev.2nova.com/api/v1";
 
 NSString *const                     DevelopmentAPIScheme = @"http";
 NSString *const                     DevelopmentAPIHost = @"puntr.dev.2nova.com/v1";
@@ -30,6 +30,7 @@ NSString *const                     APIEvents = @"events";
 
 NSString *const                     KeyAvatar = @"avatar";
 NSString *const                     KeyCategory = @"category";
+NSString *const                     KeyCode = @"code";
 NSString *const                     KeyCreatedAt = @"createdAt";
 NSString *const                     KeyEmail = @"email";
 NSString *const                     KeyEndTime = @"endTime";
@@ -42,6 +43,7 @@ NSString *const                     KeyLastName = @"lastName";
 NSString *const                     KeyLimit = @"limit";
 NSString *const                     KeyLogin = @"login";
 NSString *const                     KeyLogo = @"logo";
+NSString *const                     KeyMessage = @"message";
 NSString *const                     KeyOffset = @"offset";
 NSString *const                     KeyParticipants = @"participants";
 NSString *const                     KeyPassword = @"password";

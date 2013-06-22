@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TNIEvent;
 
 @interface TNIEventCell : UICollectionViewCell
+
+@property (nonatomic, strong) UIButton *buttonStake;
+
+- (void)loadWithEvent:(TNIEvent *)event;
 
 @end
