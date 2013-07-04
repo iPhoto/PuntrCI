@@ -14,6 +14,7 @@
 #import "TNIRegistration.h"
 #import "TNIEnter.h"
 #import "TNIError.h"
+#import "TNIErrorParameter.h"
 
 @interface TNIObjectManager ()
 
@@ -56,10 +57,16 @@
     RKResponseDescriptor *authorizationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIAuthorization keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     RKResponseDescriptor *registrationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIUsers keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
+    // Error Parameter Mapping
+    RKObjectMapping *errorParameterMapping = [RKObjectMapping mappingForClass:[TNIErrorParameter class]];
+    [errorParameterMapping addAttributeMappingsFromArray:@[KeyField, KeyType]];
     
     // Error Mapping
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[TNIError class]];
     [errorMapping addAttributeMappingsFromArray:@[KeyMessage, KeyCode]];
+    RKRelationshipMapping *errorParameterRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyErrors toKeyPath:KeyErrors withMapping:errorParameterMapping];
+    [errorMapping addPropertyMappingsFromArray:@[errorParameterRelationship]];
+    
     NSMutableIndexSet *errorStatusCodes = [NSMutableIndexSet indexSet];
     [errorStatusCodes addIndex:304];
     [errorStatusCodes addIndex:400];
@@ -89,7 +96,9 @@
 
 - (void)enter:(TNIEnter *)enter success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     [self postObject:enter path:APIAuthorization parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        self.authorization = mappingResult.firstObject;
+        if (![mappingResult.firstObject isMemberOfClass:[TNIError class]]) {
+            self.authorization = mappingResult.firstObject;
+        }
         success(operation, mappingResult);
     } failure:failure];
 }
@@ -136,4 +145,5 @@
 - (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     [self postObject:nil path:[NSString stringWithFormat:@"events/%i/stakes", event.integerValue] parameters:@{KeySID: self.authorization.sid, @"amount": @50} success:success failure:failure];
 }
+
 @end

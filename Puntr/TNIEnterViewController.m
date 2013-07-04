@@ -13,6 +13,7 @@
 #import "TNITabBarViewController.h"
 #import "TNIEnter.h"
 #import "TNIObjectManager.h"
+#import "TNIMessagePresenter.h"
 
 typedef enum {
     DirectionUp,
@@ -239,7 +240,7 @@ typedef enum {
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
             } completion:nil];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            
+            [TNIMessagePresenter showError:error forViewController:self];
         }];
     }
      

@@ -12,6 +12,7 @@
 #import "TNIObjectManager.h"
 #import "TNIRegistration.h"
 #import "TNITabBarViewController.h"
+#import "TNIMessagePresenter.h"
 
 @interface TNIRegistrationViewController ()
 
@@ -273,18 +274,8 @@
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
             } completion:nil];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            
+            [TNIMessagePresenter showError:error forViewController:self];
         }];
-        
-        
-        /*
-        [[TNIHTTPClient sharedClient] registerWithEmail:self.bufferEmail password:self.bufferPassword firstname:self.bufferFirstName lastname:self.bufferLastName username:self.bufferUsername success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-        }];
-         */
     }
 }
 

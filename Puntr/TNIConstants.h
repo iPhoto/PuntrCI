@@ -34,7 +34,9 @@ FOUNDATION_EXPORT NSString *const   KeyCode;
 FOUNDATION_EXPORT NSString *const   KeyCreatedAt;
 FOUNDATION_EXPORT NSString *const   KeyEmail;
 FOUNDATION_EXPORT NSString *const   KeyEndTime;
+FOUNDATION_EXPORT NSString *const   KeyErrors;
 FOUNDATION_EXPORT NSString *const   KeyEvents;
+FOUNDATION_EXPORT NSString *const   KeyField;
 FOUNDATION_EXPORT NSString *const   KeyFilter;
 FOUNDATION_EXPORT NSString *const   KeyFirstName;
 FOUNDATION_EXPORT NSString *const   KeyGroup;
@@ -53,6 +55,7 @@ FOUNDATION_EXPORT NSString *const   KeyStakesCount;
 FOUNDATION_EXPORT NSString *const   KeyStartTime;
 FOUNDATION_EXPORT NSString *const   KeyStatus;
 FOUNDATION_EXPORT NSString *const   KeyTag;
+FOUNDATION_EXPORT NSString *const   KeyType;
 FOUNDATION_EXPORT NSString *const   KeyTitle;
 FOUNDATION_EXPORT NSString *const   KeyUsername;
 

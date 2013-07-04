@@ -1,5 +1,8 @@
 #!/bin/sh
 
+RESOURCES_TO_COPY=${PODS_ROOT}/resources-to-copy.txt
+touch "$RESOURCES_TO_COPY"
+
 install_resource()
 {
   case $1 in
@@ -20,8 +23,28 @@ install_resource()
       xcrun momc "${PODS_ROOT}/$1" "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename $1 .xcdatamodeld`.momd"
       ;;
     *)
-      echo "rsync -av --exclude '*/.svn/*' ${PODS_ROOT}/$1 ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-      rsync -av --exclude '*/.svn/*' "${PODS_ROOT}/$1" "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+      echo "${PODS_ROOT}/$1"
+      echo "${PODS_ROOT}/$1" >> "$RESOURCES_TO_COPY"
       ;;
   esac
 }
+install_resource 'TSMessages/Resources/design.json'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundError.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundError@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundErrorIcon.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundErrorIcon@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundMessage.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundMessage@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundSuccess.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundSuccess@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundSuccessIcon.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundSuccessIcon@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundWarning.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundWarning@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundWarningIcon.png'
+install_resource 'TSMessages/Resources/Images/NotificationBackgroundWarningIcon@2x.png'
+install_resource 'TSMessages/Resources/Images/NotificationButtonBackground.png'
+install_resource 'TSMessages/Resources/Images/NotificationButtonBackground@2x.png'
+
+rsync -avr --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+rm "$RESOURCES_TO_COPY"

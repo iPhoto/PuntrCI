@@ -12,6 +12,7 @@
 #import "TNISection.h"
 #import "TNIObjectManager.h"
 #import "TNIEvent.h"
+#import "TNIMessagePresenter.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGFloat eventMinimumLineSpacing = 10.0f;
@@ -137,7 +138,7 @@ const CGSize headerSize = { 304.0f, 40.0f };
         [[TNIObjectManager sharedManager] eventsForGroup:section.group limit:@10 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
             [self updatedSection:section withMapping:mappingResult.array];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            
+            [TNIMessagePresenter showError:error forViewController:self];
         }];
     }
 }

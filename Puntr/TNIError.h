@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, strong) NSNumber *code;
+@property (nonatomic, copy) NSArray *errors;
 
 @end

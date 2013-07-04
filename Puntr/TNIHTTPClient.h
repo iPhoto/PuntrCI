@@ -34,9 +34,4 @@ typedef void (^JSONFailure)(NSURLRequest *request, NSHTTPURLResponse *response, 
                   success:(JSONSuccess)success
                   failure:(JSONFailure)failure;
 
-#pragma mark - Stakes
-
-- (void)setStakeForEvent:(NSNumber *)event success:(JSONSuccess)success failure:(JSONFailure)failure;
-
-
 @end

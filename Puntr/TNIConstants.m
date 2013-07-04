@@ -34,7 +34,9 @@ NSString *const                     KeyCode = @"code";
 NSString *const                     KeyCreatedAt = @"createdAt";
 NSString *const                     KeyEmail = @"email";
 NSString *const                     KeyEndTime = @"endTime";
+NSString *const                     KeyErrors = @"errors";
 NSString *const                     KeyEvents = @"events";
+NSString *const                     KeyField = @"field";
 NSString *const                     KeyFilter = @"filter";
 NSString *const                     KeyFirstName = @"firstName";
 NSString *const                     KeyGroup = @"group";
@@ -53,6 +55,7 @@ NSString *const                     KeyStakesCount = @"stakesCount";
 NSString *const                     KeyStartTime = @"startTime";
 NSString *const                     KeyStatus = @"status";
 NSString *const                     KeyTag = @"tag";
+NSString *const                     KeyType = @"type";
 NSString *const                     KeyTitle = @"title";
 NSString *const                     KeyUsername = @"username";
 

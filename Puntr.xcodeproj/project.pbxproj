@@ -71,6 +71,8 @@
 		3194037017723718009F0DBE /* catalogueHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036E17723718009F0DBE /* catalogueHeaderBackground.png */; };
 		3194037117723718009F0DBE /* catalogueHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */; };
 		3195D392176A26F5005E4856 /* TNIRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */; };
+		31AD161C1785CE78000D8F2C /* TNIMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161B1785CE78000D8F2C /* TNIMessagePresenter.m */; };
+		31AD161F1785D294000D8F2C /* TNIErrorParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* TNIErrorParameter.m */; };
 		31B112A2176B5CD000060EAB /* TNICatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */; };
 		31B112A5176B5D6100060EAB /* TNINewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* TNINewsViewController.m */; };
 		31B112A8176B5DAD00060EAB /* TNIMyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* TNIMyStakesViewController.m */; };
@@ -190,6 +192,10 @@
 		3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "catalogueHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		3195D390176A26F5005E4856 /* TNIRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIRegistrationViewController.h; sourceTree = "<group>"; };
 		3195D391176A26F5005E4856 /* TNIRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIRegistrationViewController.m; sourceTree = "<group>"; };
+		31AD161A1785CE78000D8F2C /* TNIMessagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIMessagePresenter.h; sourceTree = "<group>"; };
+		31AD161B1785CE78000D8F2C /* TNIMessagePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIMessagePresenter.m; sourceTree = "<group>"; };
+		31AD161D1785D294000D8F2C /* TNIErrorParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNIErrorParameter.h; sourceTree = "<group>"; };
+		31AD161E1785D294000D8F2C /* TNIErrorParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNIErrorParameter.m; sourceTree = "<group>"; };
 		31B112A0176B5CD000060EAB /* TNICatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNICatalogueViewController.h; sourceTree = "<group>"; };
 		31B112A1176B5CD000060EAB /* TNICatalogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNICatalogueViewController.m; sourceTree = "<group>"; };
 		31B112A3176B5D6100060EAB /* TNINewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNINewsViewController.h; sourceTree = "<group>"; };
@@ -479,6 +485,8 @@
 				31DDC096176B234F000E99F3 /* TNIConstants.m */,
 				761D81D61769C7F7009455B1 /* TNIHTTPClient.h */,
 				761D81D71769C7F7009455B1 /* TNIHTTPClient.m */,
+				31AD161A1785CE78000D8F2C /* TNIMessagePresenter.h */,
+				31AD161B1785CE78000D8F2C /* TNIMessagePresenter.m */,
 				31F47E1B177318090047ECCF /* TNIObjectManager.h */,
 				31F47E1C177318090047ECCF /* TNIObjectManager.m */,
 			);
@@ -501,8 +509,6 @@
 		31F47E1A1773078E0047ECCF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				31B3E7431774996300AEFDF5 /* TNIError.h */,
-				31B3E7441774996300AEFDF5 /* TNIError.m */,
 				31F47E27177351FD0047ECCF /* TNIAuthorization.h */,
 				31F47E28177351FE0047ECCF /* TNIAuthorization.m */,
 				31F47E21177324B30047ECCF /* TNICategory.h */,
@@ -511,6 +517,10 @@
 				31F47E31177357550047ECCF /* TNICollection.m */,
 				31F47E2A177356B10047ECCF /* TNIEnter.h */,
 				31F47E2B177356B10047ECCF /* TNIEnter.m */,
+				31B3E7431774996300AEFDF5 /* TNIError.h */,
+				31B3E7441774996300AEFDF5 /* TNIError.m */,
+				31AD161D1785D294000D8F2C /* TNIErrorParameter.h */,
+				31AD161E1785D294000D8F2C /* TNIErrorParameter.m */,
 				31F47E1E17731A910047ECCF /* TNIEvent.h */,
 				31F47E1F17731A910047ECCF /* TNIEvent.m */,
 				31F47E24177325C50047ECCF /* TNIParticipants.h */,
@@ -749,6 +759,8 @@
 				31F47E2F177356F60047ECCF /* TNIRegistration.m in Sources */,
 				31F47E32177357550047ECCF /* TNICollection.m in Sources */,
 				31B3E7451774996300AEFDF5 /* TNIError.m in Sources */,
+				31AD161C1785CE78000D8F2C /* TNIMessagePresenter.m in Sources */,
+				31AD161F1785D294000D8F2C /* TNIErrorParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
