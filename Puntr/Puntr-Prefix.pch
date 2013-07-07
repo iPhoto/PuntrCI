@@ -14,5 +14,5 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <RestKit/RestKit.h>
-    #import "TNIConstants.h"
+    #import "Constants.h"
 #endif
