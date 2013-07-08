@@ -13,29 +13,32 @@
 #import "ObjectManager.h"
 #import "EventModel.h"
 #import "NotificationManager.h"
+#import "SearchCell.h"
+#import "CategoriesCell.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
-const CGFloat eventMinimumLineSpacing = 10.0f;
-const CGFloat eventMinimumInteritemSpacing = 0.0f;
-const UIEdgeInsets eventSectionInset = { 10.0f, 8.0f, 10.0f, 8.0f };
-
 const CGSize headerSize = { 304.0f, 40.0f };
+const CGSize searchSize = { 320.0f, 44.0f };
+const CGSize categoriesSize = { 320.0f, 35.0f };
+const UIEdgeInsets utilityInsets = { 0.0f, 0.0f, 8.0f, 0.0f };
+const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 
 @interface CatalogueViewController ()
 
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSArray *collectionData;
 @property (nonatomic, strong) NSArray *sections;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @end
 
 @implementation CatalogueViewController
 
-- (id)init
-{
-    self = [super initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-    if (self) {
-        
-    }
+- (id)init {
+    _layout = [[UICollectionViewFlowLayout alloc] init];
+    _layout.minimumLineSpacing = 10.0f;
+    _layout.minimumInteritemSpacing = 0.0f;
+    self = [super initWithCollectionViewLayout:_layout];
     return self;
 }
 
@@ -46,9 +49,17 @@ const CGSize headerSize = { 304.0f, 40.0f };
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
+    
+    
+    self.collectionView.collectionViewLayout = self.layout;
     [self.collectionView registerClass:[EventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
+    [self.collectionView registerClass:[SearchCell class] forCellWithReuseIdentifier:@"CatalogueSearchCell"];
+    [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    SectionModel *sectionUtility = [[SectionModel alloc] init];
+    sectionUtility.group = @"utility";
     
     SectionModel *sectionPopular = [[SectionModel alloc] init];
     sectionPopular.title = @"Популярное";
@@ -75,11 +86,15 @@ const CGSize headerSize = { 304.0f, 40.0f };
     sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
     sectionMaximumWinnings.group = @"maximumWinnings";
     
-    self.sections = @[sectionPopular, sectionLive];
+    self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];
     
     NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
     for (SectionModel *section in self.sections) {
-        [collectionData addObject:@[section]];
+        if (section == sectionUtility) {
+            [collectionData addObject:[NSArray arrayWithObjects:[[SearchCell alloc] init], [[CategoriesCell alloc] init], nil]];
+        } else {
+            [collectionData addObject:@[section]];
+        }
     }
     self.collectionData = [collectionData copy];
     [self updateSections];
@@ -96,35 +111,67 @@ const CGSize headerSize = { 304.0f, 40.0f };
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    if ([cellObject isMemberOfClass:[SectionModel class]]) {
+        SectionModel *section = (SectionModel *)cellObject;
         HeaderCell *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
-        [header loadWithSection:self.sections[indexPath.section]];
+        header.frame = header.bounds;
+        [header loadWithSection:section];
         return header;
-    } else {
+    } else if ([cellObject isMemberOfClass:[EventModel class]]) {
+        EventModel *event = (EventModel *)cellObject;
         EventCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueEventCell" forIndexPath:indexPath];
-        EventModel *event = self.collectionData[indexPath.section][indexPath.row];
+        cell.frame = cell.bounds;
         [cell loadWithEvent:event];
         [cell.buttonStake addTarget:self action:@selector(buttonStakeTouched) forControlEvents:UIControlEventTouchUpInside];
         return cell;
+    } else if ([cellObject isMemberOfClass:[SearchCell class]]) {
+        SearchCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSearchCell" forIndexPath:indexPath];
+        cell.frame = cell.bounds;
+        [cell loadSearchWithQuery:nil];
+        return cell;
+    } else if ([cellObject isMemberOfClass:[CategoriesCell class]]) {
+        CategoriesCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueCategoriesCell" forIndexPath:indexPath];
+        cell.frame = cell.bounds;
+        NSMutableArray *categories = [NSMutableArray arrayWithCapacity:10];
+        for (NSUInteger counter = 0; counter < 10; counter++) {
+            [categories addObject:[[CategoryModel alloc] init]];
+        }
+        [cell loadWithCategories:[categories copy]];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        return cell;
+    } else {
+        return nil;
     }
 }
 
 #pragma mark - CollectionView Delegate
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return eventSectionInset;
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (section == 0) {
+        return utilityInsets;
+    } else {
+        return sectionInsets;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? headerSize : eventItemSize;
+    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    if ([cellObject isMemberOfClass:[SectionModel class]]) {
+        return headerSize;
+    } else if ([cellObject isMemberOfClass:[EventModel class]]) {
+        return eventItemSize;
+    } else if ([cellObject isMemberOfClass:[SearchCell class]]) {
+        return searchSize;
+    } else if ([cellObject isMemberOfClass:[CategoriesCell class]]) {
+        return categoriesSize;
+    } else {
+        return CGSizeZero;
+    }
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return eventMinimumInteritemSpacing;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return eventMinimumLineSpacing;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"DID IP: %@", indexPath.description);
 }
 
 #pragma mark - Logic
@@ -135,18 +182,20 @@ const CGSize headerSize = { 304.0f, 40.0f };
 
 - (void)updateSections {
     for (SectionModel *section in self.sections) {
-        [[ObjectManager sharedManager] eventsForGroup:section.group limit:@10 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            [self updatedSection:section withMapping:mappingResult.array];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            [NotificationManager showError:error forViewController:self];
-        }];
+        if (![section.group isEqualToString:@"utility"]) {
+            [[ObjectManager sharedManager] eventsForGroup:section.group limit:@10 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                [self updatedSection:section withMapping:mappingResult.array];
+            } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                [NotificationManager showError:error forViewController:self];
+            }];
+        }
     }
 }
 
 - (void)updatedSection:(SectionModel *)section withMapping:(NSArray *)arrayMapping {
     NSUInteger sectionIndex = NSUIntegerMax;
     sectionIndex = [self.sections indexOfObject:section];
-    if (sectionIndex != NSUIntegerMax) {
+    if (sectionIndex != NSUIntegerMax && sectionIndex != 0) {
         NSMutableArray *updatedSection = [arrayMapping mutableCopy];
         [updatedSection insertObject:section atIndex:0];
         
