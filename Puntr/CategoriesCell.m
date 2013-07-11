@@ -14,7 +14,8 @@
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *categories;
-@property (nonatomic) BOOL selectionOccured;
+@property (nonatomic) NSUInteger selectionIndex;
+@property (nonatomic) BOOL alreadyInitialized;
 
 @end
 
@@ -23,19 +24,25 @@
 - (void)loadWithCategories:(NSArray *)categories {
     self.categories = categories;
     
-    self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.layout.minimumLineSpacing = 0.0f;
-    self.layout.minimumInteritemSpacing = 5.0f;
-    self.layout.itemSize = CGSizeMake(49.0f, 35.0f);
-    self.layout.sectionInset = UIEdgeInsetsZero;
+    if (!self.alreadyInitialized) {
+        self.layout = [[UICollectionViewFlowLayout alloc] init];
+        self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        self.layout.minimumLineSpacing = 0.0f;
+        self.layout.minimumInteritemSpacing = 5.0f;
+        self.layout.itemSize = CGSizeMake(49.0f, 35.0f);
+        self.layout.sectionInset = UIEdgeInsetsZero;
+        
+        self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:self.layout];
+        [self.collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:@"CategoriesCategoryCell"];
+        self.collectionView.backgroundColor = [UIColor clearColor];
+        self.collectionView.showsHorizontalScrollIndicator = NO;
+        self.collectionView.bounces = NO;
+        self.collectionView.delegate = self;
+        self.collectionView.dataSource = self;
+        [self addSubview:self.collectionView];
+    }
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:self.layout];
-    [self.collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:@"CategoriesCategoryCell"];
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    [self addSubview:self.collectionView];
+    self.alreadyInitialized = YES;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -49,10 +56,19 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CategoryCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CategoriesCategoryCell" forIndexPath:indexPath];
     [cell loadWithCategory:self.categories[indexPath.row]];
-    if (!self.selectionOccured && indexPath.row == 0) {
+    if (indexPath.row == (NSInteger)self.selectionIndex) {
         cell.selected = YES;
+        [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectionIndex = (NSUInteger)indexPath.row;
+}
+
+- (void)prepareForReuse {
+    self.categories = nil;
 }
 
 @end

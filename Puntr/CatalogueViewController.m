@@ -15,6 +15,7 @@
 #import "NotificationManager.h"
 #import "SearchCell.h"
 #import "CategoriesCell.h"
+#import "EventViewController.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
@@ -138,7 +139,6 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
             [categories addObject:[[CategoryModel alloc] init]];
         }
         [cell loadWithCategories:[categories copy]];
-        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
         return cell;
     } else {
         return nil;
@@ -171,7 +171,17 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"DID IP: %@", indexPath.description);
+    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    if ([cellObject isMemberOfClass:[EventModel class]]) {
+        EventModel *event = (EventModel *)cellObject;
+        [self.navigationController pushViewController:[[EventViewController alloc] initWithEvent:event] animated:YES];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [cell resignFirstResponder];
+    }
 }
 
 #pragma mark - Logic

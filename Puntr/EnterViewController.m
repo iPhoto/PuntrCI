@@ -81,7 +81,7 @@ typedef enum {
     [self.view addSubview:self.imageViewLogoDescription];
     
     self.imageViewTextFieldsBackground = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 130.0f, 300.0f, 74.0f)];
-    self.imageViewTextFieldsBackground.image = [[UIImage imageNamed:@"enterTextFieldsBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(74.0f, 6.0f, 74.0f, 6.0f)];
+    self.imageViewTextFieldsBackground.image = [[UIImage imageNamed:@"enterTextFieldsBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 6.0f, 0.0f, 6.0f)];
     [self.view addSubview:self.imageViewTextFieldsBackground];
     
     self.textFieldLogin = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0, 278.0, 35.0)];
@@ -115,7 +115,7 @@ typedef enum {
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"buttonGrey"] resizableImageWithCapInsets:UIEdgeInsetsMake(40.0f, 7.0f, 40.0f, 7.0f)] forState:UIControlStateNormal];
+    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f,8.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonRegistration];
     
     self.buttonEnter = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,7 +125,7 @@ typedef enum {
     self.buttonEnter.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonEnter.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonEnter.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonEnter setBackgroundImage:[[UIImage imageNamed:@"buttonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(40.0f, 7.0f, 40.0f, 7.0f)] forState:UIControlStateNormal];
+    [self.buttonEnter setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f) resizingMode:UIImageResizingModeStretch] forState:UIControlStateNormal];
     [self.buttonEnter addTarget:self action:@selector(enterButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonEnter];
     

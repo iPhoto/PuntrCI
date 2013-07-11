@@ -130,7 +130,7 @@
     self.viewTextFieldsBackground.frame = textFieldsBackgroundFrame;
     
     self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 62.0f, viewControllerFrame.size.width, 2.0f)];
-    self.imageViewDelimiter.image = [[UIImage imageNamed:@"delimiter"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 2.0f, 0.0f)];
+    self.imageViewDelimiter.image = [[UIImage imageNamed:@"delimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [self.scrollView addSubview:self.imageViewDelimiter];
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -141,7 +141,7 @@
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"buttonGrey"] resizableImageWithCapInsets:UIEdgeInsetsMake(40.0f, 7.0f, 40.0f, 7.0f)] forState:UIControlStateNormal];
+    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.scrollView addSubview:self.buttonRegistration];
 }
 

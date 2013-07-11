@@ -31,6 +31,11 @@
     [self addSubview:_searchBar];
 }
 
+- (BOOL)resignFirstResponder {
+    return [super resignFirstResponder];
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)prepareForReuse {
     
 }

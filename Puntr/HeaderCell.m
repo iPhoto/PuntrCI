@@ -22,7 +22,7 @@
 - (void)loadWithSection:(SectionModel *)section {
     CGRect backgroundFrame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
     self.imageViewBackground = [[UIImageView alloc] initWithFrame:backgroundFrame];
-    self.imageViewBackground.image = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(40.0f, 4.0f, 40.0f, 17.0f)];
+    self.imageViewBackground.image = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 17.0f)];
     [self addSubview:self.imageViewBackground];
     
     self.imageViewSection = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.height, self.frame.size.height)];
