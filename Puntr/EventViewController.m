@@ -9,6 +9,8 @@
 #import "EventViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "EventModel.h"
+#import "ObjectManager.h"
+#import "NotificationManager.h"
 
 @interface EventViewController ()
 
@@ -123,7 +125,11 @@
 }
 
 - (void)stakeButtonTouched {
-    
+    [[ObjectManager sharedManager] setStakeForEvent:self.event.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
 }
 
 @end

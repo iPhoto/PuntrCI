@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FormatterKit/TTTTimeIntervalFormatter.h>
 #import "ObjectManager.h"
+#import "NotificationManager.h"
 
 @interface EventCell ()
 
@@ -94,7 +95,9 @@
 }
 
 - (void)stakeButtonTouched {
-    [[ObjectManager sharedManager] setStakeForEvent:self.event.tag success:nil failure:nil];
+    [[ObjectManager sharedManager] setStakeForEvent:self.event.tag success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
 }
 
 - (void)prepareForReuse {

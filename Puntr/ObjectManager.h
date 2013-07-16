@@ -24,6 +24,10 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
 
 - (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+#pragma mark - Categories
+
+- (void)categoriesWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
 #pragma mark - Events
 
 - (void)eventsForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;

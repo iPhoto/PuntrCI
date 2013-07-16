@@ -13,6 +13,20 @@
 
 @implementation NotificationManager
 
++ (void)showError:(NSError *)error {
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([topController isKindOfClass:[UITabBarController class]]) {
+        topController = [(UITabBarController *)topController selectedViewController];
+    }
+    if ([topController isKindOfClass:[UINavigationController class]]) {
+        topController = [(UINavigationController *)topController visibleViewController];
+    }
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    [self showError:error forViewController:topController];
+}
+
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController {
     NSString *errorTitle = @"Ошибка";
     NSString *errorMessage = @"";

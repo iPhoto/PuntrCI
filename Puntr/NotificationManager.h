@@ -10,6 +10,7 @@
 
 @interface NotificationManager : NSObject
 
++ (void)showError:(NSError *)error;
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController;
 
 @end

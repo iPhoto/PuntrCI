@@ -8,6 +8,9 @@
 
 #import "CategoriesCell.h"
 #import "CategoryCell.h"
+#import "ObjectManager.h"
+#import "CategoryModel.h"
+#import "NotificationManager.h"
 
 @interface CategoriesCell ()
 
@@ -21,9 +24,7 @@
 
 @implementation CategoriesCell
 
-- (void)loadWithCategories:(NSArray *)categories {
-    self.categories = categories;
-    
+- (void)loadCategories {
     if (!self.alreadyInitialized) {
         self.layout = [[UICollectionViewFlowLayout alloc] init];
         self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -41,8 +42,8 @@
         self.collectionView.dataSource = self;
         [self addSubview:self.collectionView];
     }
-    
     self.alreadyInitialized = YES;
+    [self reload];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -65,6 +66,25 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectionIndex = (NSUInteger)indexPath.row;
+    if (self.selectedCategoryCallback) {
+        CategoryModel *selectedCategory = self.categories[self.selectionIndex];
+        self.selectedCategoryCallback(selectedCategory.tag);
+    }
+}
+
+- (void)reload {
+    [[ObjectManager sharedManager] categoriesWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        CategoryModel *categoryAll = [[CategoryModel alloc] init];
+        categoryAll.tag = @0;
+        categoryAll.title = @"Все";
+        NSMutableArray *categories = [NSMutableArray arrayWithCapacity:mappingResult.array.count + 1];
+        [categories addObject:categoryAll];
+        [categories addObjectsFromArray:mappingResult.array];
+        self.categories = [categories copy];
+        [self.collectionView reloadData];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
 }
 
 - (void)prepareForReuse {

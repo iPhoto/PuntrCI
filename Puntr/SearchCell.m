@@ -23,6 +23,7 @@
     self.searchBar.delegate = self;
     //self.searchBar.tintColor = [UIColor clearColor];
     self.searchBar.backgroundImage = [UIImage imageNamed:@"clear"];
+    self.searchBar.userInteractionEnabled = NO;
     if (query) {
         self.searchBar.text = query;
     } else {

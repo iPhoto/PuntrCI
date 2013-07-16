@@ -15,6 +15,7 @@
 #import "EnterModel.h"
 #import "ErrorModel.h"
 #import "ErrorParameterModel.h"
+#import "StakeModel.h"
 
 @interface ObjectManager ()
 
@@ -77,19 +78,35 @@
     [errorStatusCodes addIndex:500];
     RKResponseDescriptor *errorMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:nil statusCodes:errorStatusCodes];
     
-    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor]];
+    // Categories Mapping
+    RKObjectMapping *categoriesMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
+    [categoriesMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
+    RKResponseDescriptor *categoriesMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoriesMapping pathPattern:APICategories keyPath:KeyCategories statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    // Stake Mapping
+    RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
+    [stakeMapping addAttributeMappingsFromArray:@[KeyTag]];
+    RKResponseDescriptor *stakeMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIEvents keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:201]];
+    
+    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor, categoriesMappingResponseDescriptor, stakeMappingResponseDescriptor]];
+    
+    // Serialization
     
     // Enter Serialization
     RKObjectMapping *enterMapping = [RKObjectMapping requestMapping];
     [enterMapping addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
     RKRequestDescriptor *enterRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:enterMapping objectClass:[EnterModel class] rootKeyPath:nil];
     
-    //Registration Serialization
-    RKObjectMapping *registrationMapping = [RKObjectMapping requestMapping];
-    [registrationMapping addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyUsername, KeyFirstName, KeyLastName]];
-    RKRequestDescriptor *registrationRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:registrationMapping objectClass:[RegistrationModel class] rootKeyPath:nil];
+    // Registration Serialization
+    RKObjectMapping *registrationSerialization = [RKObjectMapping requestMapping];
+    [registrationSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyUsername, KeyFirstName, KeyLastName]];
+    RKRequestDescriptor *registrationRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:registrationSerialization objectClass:[RegistrationModel class] rootKeyPath:nil];
     
-    [self addRequestDescriptorsFromArray:@[enterRequestDescriptor, registrationRequestDescriptor]];
+    RKObjectMapping *authorizationSerialization = [RKObjectMapping requestMapping];
+    [authorizationSerialization addAttributeMappingsFromArray:@[KeyTag, KeySID]];
+    RKRequestDescriptor *authorizationRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:authorizationSerialization objectClass:[AuthorizationModel class] rootKeyPath:nil];
+    
+    [self addRequestDescriptorsFromArray:@[enterRequestDescriptor, registrationRequestDescriptor, authorizationRequestDescriptor]];
 }
 
 #pragma mark - Authorization
@@ -112,6 +129,12 @@
     } failure:failure];
 }
 
+#pragma mark - Categories
+
+- (void)categoriesWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:APICategories parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+}
+
 #pragma mark - Events
 
 - (void)eventsForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
@@ -124,7 +147,7 @@
     if (group) {
         [parameters setObject:group forKey:KeyGroup];
     }
-    if (categoryTags) {
+    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0]) {
         [parameters setObject:categoryTags forKey:KeyFilter];
     }
     if (search) {

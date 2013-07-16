@@ -23,12 +23,14 @@ NSString *const                     DevelopmentAPIScheme = @"http";
 NSString *const                     DevelopmentAPIHost = @"puntr.dev.2nova.com/v1";
 
 NSString *const                     APIAuthorization = @"authorization";
+NSString *const                     APICategories = @"categories";
 NSString *const                     APIUsers = @"users";
 NSString *const                     APIEvents = @"events";
 
 #pragma mark - Parameters
 
 NSString *const                     KeyAvatar = @"avatar";
+NSString *const                     KeyCategories = @"categories";
 NSString *const                     KeyCategory = @"category";
 NSString *const                     KeyCode = @"code";
 NSString *const                     KeyCreatedAt = @"createdAt";

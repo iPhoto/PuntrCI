@@ -28,6 +28,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSArray *collectionData;
+@property (nonatomic, strong) NSNumber *currentCategoryTag;
 @property (nonatomic, strong) NSArray *sections;
 @property (nonatomic, strong) UISearchBar *searchBar;
 
@@ -58,6 +59,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [self.collectionView registerClass:[SearchCell class] forCellWithReuseIdentifier:@"CatalogueSearchCell"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    self.currentCategoryTag = @0;
     
     SectionModel *sectionUtility = [[SectionModel alloc] init];
     sectionUtility.group = @"utility";
@@ -134,11 +137,11 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     } else if ([cellObject isMemberOfClass:[CategoriesCell class]]) {
         CategoriesCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueCategoriesCell" forIndexPath:indexPath];
         cell.frame = cell.bounds;
-        NSMutableArray *categories = [NSMutableArray arrayWithCapacity:10];
-        for (NSUInteger counter = 0; counter < 10; counter++) {
-            [categories addObject:[[CategoryModel alloc] init]];
-        }
-        [cell loadWithCategories:[categories copy]];
+        cell.selectedCategoryCallback = ^(NSNumber *selectedCategoryTag){
+            self.currentCategoryTag = selectedCategoryTag;
+            [self updateSections];
+        };
+        [cell loadCategories];
         return cell;
     } else {
         return nil;
@@ -193,7 +196,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 - (void)updateSections {
     for (SectionModel *section in self.sections) {
         if (![section.group isEqualToString:@"utility"]) {
-            [[ObjectManager sharedManager] eventsForGroup:section.group limit:@10 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            [[ObjectManager sharedManager] eventsForGroup:section.group filter:@[self.currentCategoryTag] search:nil limit:@10 page:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                 [self updatedSection:section withMapping:mappingResult.array];
             } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                 [NotificationManager showError:error forViewController:self];

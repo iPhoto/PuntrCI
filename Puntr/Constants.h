@@ -23,12 +23,14 @@ FOUNDATION_EXPORT NSString *const   DevelopmentAPIScheme;
 FOUNDATION_EXPORT NSString *const   DevelopmentAPIHost;
 
 FOUNDATION_EXPORT NSString *const   APIAuthorization;
+FOUNDATION_EXPORT NSString *const   APICategories;
 FOUNDATION_EXPORT NSString *const   APIUsers;
 FOUNDATION_EXPORT NSString *const   APIEvents;
 
 #pragma mark - Parameters
 
 FOUNDATION_EXPORT NSString *const   KeyAvatar;
+FOUNDATION_EXPORT NSString *const   KeyCategories;
 FOUNDATION_EXPORT NSString *const   KeyCategory;
 FOUNDATION_EXPORT NSString *const   KeyCode;
 FOUNDATION_EXPORT NSString *const   KeyCreatedAt;

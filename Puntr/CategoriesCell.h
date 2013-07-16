@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^SelectedCategory)(NSNumber *selectedCategoryTag);
+
 @interface CategoriesCell : UICollectionViewCell <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
-- (void)loadWithCategories:(NSArray *)categories;
+@property (nonatomic, strong) SelectedCategory selectedCategoryCallback;
+
+- (void)loadCategories;
 
 @end

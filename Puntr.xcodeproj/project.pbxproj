@@ -143,6 +143,7 @@
 		31F47E2C177356B20047ECCF /* EnterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E2B177356B10047ECCF /* EnterModel.m */; };
 		31F47E2F177356F60047ECCF /* RegistrationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E2E177356F60047ECCF /* RegistrationModel.m */; };
 		31F47E32177357550047ECCF /* CollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E31177357550047ECCF /* CollectionModel.m */; };
+		7611C7BA178FA99E00356455 /* StakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611C7B9178FA99E00356455 /* StakeModel.m */; };
 		761D81D81769C7F7009455B1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* HTTPClient.m */; };
 		761D81D91769C7F7009455B1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* HTTPClient.m */; };
 		76335D4E17697C3F009F75E2 /* EnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76335D4D17697C3F009F75E2 /* EnterViewController.m */; };
@@ -331,6 +332,8 @@
 		31F47E2E177356F60047ECCF /* RegistrationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationModel.m; sourceTree = "<group>"; };
 		31F47E30177357540047ECCF /* CollectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionModel.h; sourceTree = "<group>"; };
 		31F47E31177357550047ECCF /* CollectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionModel.m; sourceTree = "<group>"; };
+		7611C7B8178FA99E00356455 /* StakeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeModel.h; sourceTree = "<group>"; };
+		7611C7B9178FA99E00356455 /* StakeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeModel.m; sourceTree = "<group>"; };
 		761D81D61769C7F7009455B1 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		761D81D71769C7F7009455B1 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
 		76335D4C17697C3F009F75E2 /* EnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterViewController.h; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 		31F47E1A1773078E0047ECCF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7611C7B8178FA99E00356455 /* StakeModel.h */,
+				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				31F47E27177351FD0047ECCF /* AuthorizationModel.h */,
 				31F47E28177351FE0047ECCF /* AuthorizationModel.m */,
 				31F47E21177324B30047ECCF /* CategoryModel.h */,
@@ -953,6 +958,7 @@
 				3180CF6F178AD955001B2DD1 /* CategoriesCell.m in Sources */,
 				3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */,
 				765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */,
+				7611C7BA178FA99E00356455 /* StakeModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
