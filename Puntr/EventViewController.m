@@ -11,6 +11,7 @@
 #import "EventModel.h"
 #import "ObjectManager.h"
 #import "NotificationManager.h"
+#import "StakeViewController.h"
 
 @interface EventViewController ()
 
@@ -99,7 +100,6 @@
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    //[self.buttonSubscribe addTarget:self action:@selector(subscribeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonSubscribe];
     
@@ -125,10 +125,8 @@
 }
 
 - (void)stakeButtonTouched {
-    [[ObjectManager sharedManager] setStakeForEvent:self.event.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[StakeViewController alloc] initWithEvent:self.event]] animated:YES completion:^{
+        
     }];
 }
 

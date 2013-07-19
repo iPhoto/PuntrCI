@@ -76,10 +76,11 @@
     [[UISegmentedControl appearance] setDividerImage:[UIImage imageNamed:@"ButtonControlNormalSelected"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [[UISegmentedControl appearance] setDividerImage:[UIImage imageNamed:@"ButtonControlSelectedNormal"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"ButtonBarBack"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 6.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"ButtonBarBack"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 14.0f, 0.0f, 6.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
 }
 
 #pragma mark - Application Delegate

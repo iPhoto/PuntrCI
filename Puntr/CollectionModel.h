@@ -10,7 +10,7 @@
 
 @interface CollectionModel : NSObject
 
-@property (nonatomic, copy) NSString *q;
+@property (nonatomic, copy) NSString *search;
 @property (nonatomic, strong) NSNumber *limit;
 @property (nonatomic, strong) NSNumber *offset;
 
