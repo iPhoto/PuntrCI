@@ -159,6 +159,10 @@
 
 -(void)showStars:(int)count
 {
+    if(count<0 || count>5)
+    {
+        return;
+    }
     int i = 0;
     for(; i< count; i++)
     {
