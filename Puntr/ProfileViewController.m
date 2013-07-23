@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UILabel *labelStatsNumber;
 @property (nonatomic, strong) UILabel *labelActivity;
 @property (nonatomic, strong) UIImageView *imageViewAvatar;
+@property (nonatomic, strong) NSArray *stars;
 
 @end
 
@@ -36,6 +37,8 @@
 	
     self.title = @"Профиль";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
     UIView *greyView = [[UIView alloc]initWithFrame:CGRectMake(0, 78, 305, 58)];
@@ -44,6 +47,12 @@
     whiteView.layer.cornerRadius = 3.75;
     whiteView.layer.masksToBounds = YES;
     
+    self.stars = [[NSArray alloc] initWithObjects:[UIImageView new], [UIImageView new], [UIImageView new], [UIImageView new], [UIImageView new], nil];
+    for(int i = 0; i<5; i++)
+    {
+        [[self.stars objectAtIndex:i] setFrame:CGRectMake(80 + 15*i, 55, 14, 13)];
+        [whiteView addSubview:[self.stars objectAtIndex:i]];
+    }
     self.labelName = [[UILabel alloc]initWithFrame:CGRectMake(78, 10, 225, 15)];
     [self.labelName setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     [whiteView addSubview:self.labelName];
@@ -144,6 +153,21 @@
     [self.labelActivity setTextColor:[UIColor whiteColor]];
     [self.labelActivity setText:@"Активность"];
     [self.view addSubview:self.labelActivity];
+    
+    [self showStars:5];
+}
+
+-(void)showStars:(int)count
+{
+    int i = 0;
+    for(; i< count; i++)
+    {
+        [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarSelected.png"]];
+    }
+    for(; i<5; i++)
+    {
+        [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarUnselected.png"]];
+    }
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface ProfileViewController : UIViewController
 
+-(void)showStars:(int)count;
+
 @end

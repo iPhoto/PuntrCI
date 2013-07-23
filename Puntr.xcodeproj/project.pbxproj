@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F3DB90D179E727F00F9B3AE /* StarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB909179E725000F9B3AE /* StarSelected.png */; };
+		0F3DB90E179E727F00F9B3AE /* StarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */; };
+		0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90B179E726700F9B3AE /* StarUnselected.png */; };
+		0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -183,6 +187,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F3DB909179E725000F9B3AE /* StarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarSelected.png; sourceTree = "<group>"; };
+		0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarSelected@2x.png"; sourceTree = "<group>"; };
+		0F3DB90B179E726700F9B3AE /* StarUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarUnselected.png; sourceTree = "<group>"; };
+		0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarUnselected@2x.png"; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -531,6 +539,10 @@
 				319403401772201E009F0DBE /* tabBarStakesSelected@2x.png */,
 				319403181771BE85009F0DBE /* textField.png */,
 				319403191771BE85009F0DBE /* textField@2x.png */,
+				0F3DB909179E725000F9B3AE /* StarSelected.png */,
+				0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */,
+				0F3DB90B179E726700F9B3AE /* StarUnselected.png */,
+				0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -931,6 +943,10 @@
 				31EF4AEE179994E000F27702 /* ButtonPlusSelected@2x.png in Resources */,
 				31EF4AF11799AB1C00F27702 /* area.png in Resources */,
 				31EF4AF21799AB1C00F27702 /* area@2x.png in Resources */,
+				0F3DB90D179E727F00F9B3AE /* StarSelected.png in Resources */,
+				0F3DB90E179E727F00F9B3AE /* StarSelected@2x.png in Resources */,
+				0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */,
+				0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
