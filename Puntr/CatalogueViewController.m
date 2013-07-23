@@ -31,12 +31,15 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 @property (nonatomic, strong) NSNumber *currentCategoryTag;
 @property (nonatomic, strong) NSArray *sections;
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) SectionModel *selectedSection;
+@property () int currentPage;
 
 @end
 
 @implementation CatalogueViewController
 
 - (id)init {
+    _selectedSection = nil;
     _layout = [[UICollectionViewFlowLayout alloc] init];
     _layout.minimumLineSpacing = 10.0f;
     _layout.minimumInteritemSpacing = 0.0f;
@@ -44,10 +47,20 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     return self;
 }
 
+- (id)initWhithCategory:(SectionModel *)selectedSection
+{
+    _layout = [[UICollectionViewFlowLayout alloc] init];
+    _layout.minimumLineSpacing = 10.0f;
+    _layout.minimumInteritemSpacing = 0.0f;
+    self = [super initWithCollectionViewLayout:_layout];
+    _selectedSection = selectedSection;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.title = @"Каталог";
+	
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
@@ -59,39 +72,45 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [self.collectionView registerClass:[SearchCell class] forCellWithReuseIdentifier:@"CatalogueSearchCell"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
-    
+    self.currentPage = 0;
     self.currentCategoryTag = @0;
     
     SectionModel *sectionUtility = [[SectionModel alloc] init];
     sectionUtility.group = @"utility";
+    if(self.selectedSection == nil)
+    {
+        self.title = @"Каталог";
+        SectionModel *sectionPopular = [[SectionModel alloc] init];
+        sectionPopular.title = @"Популярное";
+        sectionPopular.image = [UIImage imageNamed:@"sectionPopular"];
+        sectionPopular.group = @"popular";
     
-    SectionModel *sectionPopular = [[SectionModel alloc] init];
-    sectionPopular.title = @"Популярное";
-    sectionPopular.image = [UIImage imageNamed:@"sectionPopular"];
-    sectionPopular.group = @"popular";
+        SectionModel *sectionLive = [[SectionModel alloc] init];
+        sectionLive.title = @"Идут сейчас";
+        sectionLive.image = [UIImage imageNamed:@"sectionLive"];
+        sectionLive.group = @"live";
     
-    SectionModel *sectionLive = [[SectionModel alloc] init];
-    sectionLive.title = @"Идут сейчас";
-    sectionLive.image = [UIImage imageNamed:@"sectionLive"];
-    sectionLive.group = @"live";
+        SectionModel *sectionTournaments = [[SectionModel alloc] init];
+        sectionTournaments.title = @"Турниры";
+        sectionTournaments.image = [UIImage imageNamed:@"sectionTournaments"];
+        sectionTournaments.group = @"tournaments";
     
-    SectionModel *sectionTournaments = [[SectionModel alloc] init];
-    sectionTournaments.title = @"Турниры";
-    sectionTournaments.image = [UIImage imageNamed:@"sectionTournaments"];
-    sectionTournaments.group = @"tournaments";
+        SectionModel *sectionEditorsChoice = [[SectionModel alloc] init];
+        sectionEditorsChoice.title = @"Выбор редакции";
+        sectionEditorsChoice.image = [UIImage imageNamed:@"sectionEditorsChoice"];
+        sectionEditorsChoice.group = @"editorsChoice";
     
-    SectionModel *sectionEditorsChoice = [[SectionModel alloc] init];
-    sectionEditorsChoice.title = @"Выбор редакции";
-    sectionEditorsChoice.image = [UIImage imageNamed:@"sectionEditorsChoice"];
-    sectionEditorsChoice.group = @"editorsChoice";
+        SectionModel *sectionMaximumWinnings = [[SectionModel alloc] init];
+        sectionMaximumWinnings.title = @"Максимальный выигрыш!!!";
+        sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
+        sectionMaximumWinnings.group = @"maximumWinnings";
     
-    SectionModel *sectionMaximumWinnings = [[SectionModel alloc] init];
-    sectionMaximumWinnings.title = @"Максимальный выигрыш!!!";
-    sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
-    sectionMaximumWinnings.group = @"maximumWinnings";
-    
-    self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];
-    
+        self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];
+    }else
+    {
+        self.title = self.selectedSection.title;
+        self.sections = @[sectionUtility, self.selectedSection];
+    }
     NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
     for (SectionModel *section in self.sections) {
         if (section == sectionUtility) {
@@ -115,7 +134,14 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    id cellObject ;//= self.collectionData[indexPath.section][indexPath.row];
+    if(self.selectedSection != nil)
+    {
+        cellObject = self.collectionData[indexPath.section][(indexPath.row+1)%([self.collectionData[indexPath.section] count])];
+    }else
+    {
+        cellObject = self.collectionData[indexPath.section][indexPath.row];
+    }
     if ([cellObject isMemberOfClass:[SectionModel class]]) {
         SectionModel *section = (SectionModel *)cellObject;
         HeaderCell *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
@@ -159,7 +185,15 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    //id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    id cellObject ;
+    if(self.selectedSection != nil)
+    {
+        cellObject = self.collectionData[indexPath.section][(indexPath.row+1)%([self.collectionData[indexPath.section] count])];
+    }else
+    {
+        cellObject = self.collectionData[indexPath.section][indexPath.row];
+    }
     if ([cellObject isMemberOfClass:[SectionModel class]]) {
         return headerSize;
     } else if ([cellObject isMemberOfClass:[EventModel class]]) {
@@ -174,11 +208,31 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    //id cellObject = self.collectionData[indexPath.section][indexPath.row];
+    id cellObject;
+    if(self.selectedSection != nil)
+    {
+        cellObject = self.collectionData[indexPath.section][(indexPath.row+1)%([self.collectionData[indexPath.section] count])];
+        if ([cellObject isMemberOfClass:[SectionModel class]]) {
+            NSLog(@"section clicked");
+            [self buttonStakeTouched];
+        }
+    }else
+    {
+        cellObject = self.collectionData[indexPath.section][indexPath.row];
+        if ([cellObject isMemberOfClass:[SectionModel class]]) {
+            NSLog(@"section clicked");
+            [self.navigationController pushViewController:[[CatalogueViewController alloc] initWhithCategory:cellObject] animated:YES];
+        }
+    }
+    
     if ([cellObject isMemberOfClass:[EventModel class]]) {
         EventModel *event = (EventModel *)cellObject;
         [self.navigationController pushViewController:[[EventViewController alloc] initWithEvent:event] animated:YES];
-    }
+    }/*else if ([cellObject isMemberOfClass:[SectionModel class]]) {
+        NSLog(@"section clicked");
+        [self.navigationController pushViewController:[[CatalogueViewController alloc] initWhithCategory:cellObject] animated:YES];
+        }*/
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -190,13 +244,14 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 #pragma mark - Logic
 
 - (void)buttonStakeTouched {
+    self.currentPage++;
     [self updateSections];
 }
 
 - (void)updateSections {
     for (SectionModel *section in self.sections) {
         if (![section.group isEqualToString:@"utility"]) {
-            [[ObjectManager sharedManager] eventsForGroup:section.group filter:@[self.currentCategoryTag] search:nil limit:@10 page:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            [[ObjectManager sharedManager] eventsForGroup:section.group filter:@[self.currentCategoryTag] search:nil limit:@10 page:[NSNumber numberWithInt:self.currentPage] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                 [self updatedSection:section withMapping:mappingResult.array];
             } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                 [NotificationManager showError:error forViewController:self];
@@ -213,8 +268,17 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         [updatedSection insertObject:section atIndex:0];
         
         NSMutableArray *mutableCollectionData = [self.collectionData mutableCopy];
-        [mutableCollectionData replaceObjectAtIndex:sectionIndex withObject:[updatedSection copy]];
-        
+        if(self.currentPage > 0)
+        {
+            //[mutableCollectionData[sectionIndex] addObjectsFromArray:updatedSection];
+            NSMutableArray *mutableSection = [mutableCollectionData[sectionIndex] mutableCopy];
+            [updatedSection removeObjectAtIndex:0];
+            [mutableSection addObjectsFromArray:updatedSection];
+            mutableCollectionData[sectionIndex] = [mutableSection copy];
+        }else
+        {
+            [mutableCollectionData replaceObjectAtIndex:sectionIndex withObject:[updatedSection copy]];
+        }
         self.collectionData = [mutableCollectionData copy];
         [self.collectionView performBatchUpdates:^{
             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
