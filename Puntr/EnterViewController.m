@@ -85,7 +85,7 @@ typedef enum {
     [self.view addSubview:self.imageViewTextFieldsBackground];
     
     self.textFieldLogin = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0, 278.0, 35.0)];
-    self.textFieldLogin.font = [UIFont fontWithName:@"Arial" size:13.0f];
+    self.textFieldLogin.font = [UIFont fontWithName:@"ArialMT" size:13.0f];
     self.textFieldLogin.placeholder = @"Email или никнейм...";
     self.textFieldLogin.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textFieldLogin.keyboardType = UIKeyboardTypeEmailAddress;
@@ -96,7 +96,7 @@ typedef enum {
     [self.view addSubview:self.textFieldLogin];
     
     self.textFieldPassword = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0 + 38.0, 278.0, 36.0)];
-    self.textFieldPassword.font = [UIFont fontWithName:@"Arial" size:13.0f];
+    self.textFieldPassword.font = [UIFont fontWithName:@"ArialMT" size:13.0f];
     self.textFieldPassword.placeholder = @"Пароль...";
     self.textFieldPassword.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textFieldPassword.secureTextEntry = YES;

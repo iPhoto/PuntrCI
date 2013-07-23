@@ -7,7 +7,7 @@
 //
 
 #import "RKObjectManager.h"
-@class EnterModel, RegistrationModel;
+@class EnterModel, RegistrationModel, EventModel, LineModel;
 
 typedef void (^ObjectRequestSuccess)(RKObjectRequestOperation *operation, RKMappingResult *mappingResult);
 typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSError *error);
@@ -24,6 +24,10 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
 
 - (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+#pragma mark - Balance
+
+- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
 #pragma mark - Categories
 
 - (void)categoriesWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
@@ -39,6 +43,12 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
                   page:(NSNumber *)page
                success:(ObjectRequestSuccess)success
                failure:(ObjectRequestFailure)failure;
+
+#pragma mark - Stakes
+
+- (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 - (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 

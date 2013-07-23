@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong, readonly) NSNumber *position;
 @property (nonatomic, strong, readonly) NSArray *criteria;
-@property (nonatomic, strong, readonly) NSNumber *selectedCriterion;
+@property (nonatomic, strong) NSNumber *selectedCriterion;
 
 @end

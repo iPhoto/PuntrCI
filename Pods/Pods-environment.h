@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 1
 
+// ActionSheetPicker
+#define COCOAPODS_POD_AVAILABLE_ActionSheetPicker
+#define COCOAPODS_VERSION_MAJOR_ActionSheetPicker 0
+#define COCOAPODS_VERSION_MINOR_ActionSheetPicker 0
+#define COCOAPODS_VERSION_PATCH_ActionSheetPicker 2
+
 // FormatterKit
 #define COCOAPODS_POD_AVAILABLE_FormatterKit
 #define COCOAPODS_VERSION_MAJOR_FormatterKit 1
@@ -100,7 +106,7 @@
 #define COCOAPODS_POD_AVAILABLE_Reveal_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Reveal_iOS_SDK 0
 #define COCOAPODS_VERSION_MINOR_Reveal_iOS_SDK 8
-#define COCOAPODS_VERSION_PATCH_Reveal_iOS_SDK 1
+#define COCOAPODS_VERSION_PATCH_Reveal_iOS_SDK 3
 
 // SOCKit
 #define COCOAPODS_POD_AVAILABLE_SOCKit

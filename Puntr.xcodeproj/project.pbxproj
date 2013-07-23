@@ -38,6 +38,7 @@
 		3127C041179856AE0056D78A /* CriterionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3127C040179856AE0056D78A /* CriterionModel.m */; };
 		3127C044179857100056D78A /* CoefficientModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3127C043179857100056D78A /* CoefficientModel.m */; };
 		3127C0471798576A0056D78A /* MoneyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3127C0461798576A0056D78A /* MoneyModel.m */; };
+		31651A7E179D9162006CCFAF /* StakeRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31651A7D179D9162006CCFAF /* StakeRequestModel.m */; };
 		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
 		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
 		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
@@ -128,6 +129,8 @@
 		31D708E8178EC933004746E6 /* ButtonGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708D6178EC933004746E6 /* ButtonGreen.png */; };
 		31D708E9178EC933004746E6 /* ButtonGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708D7178EC933004746E6 /* ButtonGreen@2x.png */; };
 		31D7B62C17958511000DCAF3 /* StakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7B62B17958511000DCAF3 /* StakeViewController.m */; };
+		31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F151179EA81A00C8AC17 /* ComponentPicker.m */; };
+		31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F154179EBFFF00C8AC17 /* LinePicker.m */; };
 		31DDC097176B234F000E99F3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDC096176B234F000E99F3 /* Constants.m */; };
 		31E3E7921754E24800B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7941754E24800B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
@@ -220,6 +223,8 @@
 		3127C043179857100056D78A /* CoefficientModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoefficientModel.m; sourceTree = "<group>"; };
 		3127C0451798576A0056D78A /* MoneyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyModel.h; sourceTree = "<group>"; };
 		3127C0461798576A0056D78A /* MoneyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyModel.m; sourceTree = "<group>"; };
+		31651A7C179D9162006CCFAF /* StakeRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeRequestModel.h; sourceTree = "<group>"; };
+		31651A7D179D9162006CCFAF /* StakeRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeRequestModel.m; sourceTree = "<group>"; };
 		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -326,6 +331,10 @@
 		31D708D7178EC933004746E6 /* ButtonGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonGreen@2x.png"; sourceTree = "<group>"; };
 		31D7B62A17958511000DCAF3 /* StakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeViewController.h; sourceTree = "<group>"; };
 		31D7B62B17958511000DCAF3 /* StakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeViewController.m; sourceTree = "<group>"; };
+		31D9F150179EA81A00C8AC17 /* ComponentPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentPicker.h; sourceTree = "<group>"; };
+		31D9F151179EA81A00C8AC17 /* ComponentPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComponentPicker.m; sourceTree = "<group>"; };
+		31D9F153179EBFFF00C8AC17 /* LinePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePicker.h; sourceTree = "<group>"; };
+		31D9F154179EBFFF00C8AC17 /* LinePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinePicker.m; sourceTree = "<group>"; };
 		31DDC095176B234F000E99F3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		31DDC096176B234F000E99F3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		31E3E78E1754E24800B09DAD /* Puntr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puntr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -688,6 +697,10 @@
 		31F47E19177307810047ECCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
+				31D9F151179EA81A00C8AC17 /* ComponentPicker.m */,
+				31D9F153179EBFFF00C8AC17 /* LinePicker.h */,
+				31D9F154179EBFFF00C8AC17 /* LinePicker.m */,
 				31EF4AE41799941800F27702 /* AmountView.h */,
 				31EF4AE51799941800F27702 /* AmountView.m */,
 				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
@@ -743,6 +756,8 @@
 				31940358177231C8009F0DBE /* SectionModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
+				31651A7C179D9162006CCFAF /* StakeRequestModel.h */,
+				31651A7D179D9162006CCFAF /* StakeRequestModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
 				3127C037179851850056D78A /* UserModel.m */,
 			);
@@ -1037,6 +1052,9 @@
 				3127C0471798576A0056D78A /* MoneyModel.m in Sources */,
 				31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */,
 				31EF4AE61799941800F27702 /* AmountView.m in Sources */,
+				31651A7E179D9162006CCFAF /* StakeRequestModel.m in Sources */,
+				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
+				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

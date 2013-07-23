@@ -10,11 +10,18 @@
 #import "StakeModel.h"
 #import "EventModel.h"
 #import "StakeElementView.h"
+#import "ObjectManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ComponentPicker.h"
+#import "LinePicker.h"
+#import "NotificationManager.h"
 
 @interface StakeViewController ()
 
 @property (nonatomic, strong, readonly) EventModel *event;
+@property (nonatomic, strong) LineModel *selectedLine;
+@property (nonatomic, strong) NSArray *components;
+@property (nonatomic, strong) MoneyModel *balance;
 
 @property (nonatomic, strong) UIImageView *imageViewTopDelimiter;
 @property (nonatomic, strong) UIImageView *imageViewBottomDelimiter;
@@ -119,11 +126,11 @@
     CGFloat stakeElementHeight = 40.0f;
     
     self.elementViewLineSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.imageViewTopDelimiter.frame.origin.y + self.imageViewTopDelimiter.frame.size.height + coverMargin, screenWidth - coverMargin * 4.0f, stakeElementHeight)];
-    [self.elementViewLineSelection loadWithTitle:@"Ставка на:" target:self action:@selector(showLineSelection)];
+    [self.elementViewLineSelection loadWithTitle:@"Ставка на:" target:self action:@selector(showLineSelection:)];
     [self.view addSubview:self.elementViewLineSelection];
     
     self.elementViewCriterionSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewLineSelection.frame.origin.y + self.elementViewLineSelection.frame.size.height + coverMargin, screenWidth - coverMargin * 4.0f, stakeElementHeight)];
-    [self.elementViewCriterionSelection loadWithTitle:@"Текущий выбор:" target:self action:@selector(showCriterionSelection)];
+    [self.elementViewCriterionSelection loadWithTitle:@"Текущий выбор:" target:self action:@selector(showCriterionSelection:)];
     [self.view addSubview:self.elementViewCriterionSelection];
     
     
@@ -156,7 +163,8 @@
     self.textFieldAmount.background = [[UIImage imageNamed:@"area"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 6.0f, 0.0f, 6.0f)];
     self.textFieldAmount.userInteractionEnabled = NO;
     self.textFieldAmount.textAlignment = NSTextAlignmentCenter;
-    self.textFieldAmount.text = @"";
+    self.textFieldAmount.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.textFieldAmount.text = @"0";
     self.textFieldAmount.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     [self.view addSubview:self.textFieldAmount];
     
@@ -205,6 +213,8 @@
     [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonStake];
+    
+    [self loadBalance];
 }
 
 - (void)close {
@@ -213,12 +223,43 @@
     }];
 }
 
-- (void)showLineSelection {
-    [self.elementViewLineSelection updateResult:@"Результат"];
+- (void)showLineSelection:(UIControl *)sender {
+    [LinePicker showPickerWithLines:self.event.lines selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line) {
+        self.selectedLine = line;
+        [self.elementViewLineSelection updateResult:line.title];
+        [[ObjectManager sharedManager] componentsForEvent:self.event line:self.selectedLine success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            self.components = mappingResult.array;
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            
+        }];
+    } cancelBlock:^(LinePicker *picker) {
+        
+    } origin:sender];
 }
 
-- (void)showCriterionSelection {
-    [self.elementViewCriterionSelection updateResult:@"2:3"];
+- (void)showCriterionSelection:(UIControl *)sender {
+    if (self.components) {
+        [ComponentPicker showPickerWithComponents:self.components doneBlock:^(ComponentPicker *picker, NSArray *components) {
+            self.components = components;
+            NSString *result = @"";
+            for (ComponentModel *component in components) {
+                if (component.selectedCriterion) {
+                    NSUInteger index = 0;
+                    for (CriterionModel *criterion in component.criteria) {
+                        if ([component.selectedCriterion isEqualToNumber:criterion.tag]) {
+                            result = [NSString stringWithFormat:@"%@ %@", result, criterion.title];
+                            break;
+                        }
+                        index++;
+                    }
+                }
+            }
+            [self.elementViewCriterionSelection updateResult:result];
+            
+        } cancelBlock:^(ComponentPicker *picker, NSArray *components) {
+            
+        } origin:sender];
+    }
 }
 
 - (void)stakeButtonTouched {
@@ -226,11 +267,66 @@
 }
 
 - (void)amountDecrease {
-    NSLog(@"Decrease");
+    if ([self selectedAmount] - 10 >= 0) {
+        self.textFieldAmount.text = @([self selectedAmount] - 10).stringValue;
+    } else {
+        self.textFieldAmount.text = @"0";
+    }
 }
 
 - (void)amountIncrease {
-    NSLog(@"Increse");
+    if ([self selectedAmount] + 10 <= [self balanceAmount]) {
+        self.textFieldAmount.text = @([self selectedAmount] + 10).stringValue;
+    } else {
+        self.textFieldAmount.text = @([self balanceAmount]).stringValue;
+    }
+}
+
+- (NSInteger)selectedAmount {
+    return [self.textFieldAmount.text integerValue];
+}
+
+- (NSInteger)balanceAmount {
+    if (self.balance) {
+        return self.balance.amount.integerValue;
+    } else {
+        return 0;
+    }
+}
+
+- (void)loadBalance {
+    [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
+        self.balance = money;
+        if (self.balance.amount.integerValue >= 200) {
+            self.textFieldAmount.text = @"200";
+        } else {
+            self.textFieldAmount.text = self.balance.amount.stringValue;
+        }
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
+}
+
+- (void)loadSomething {
+    [[ObjectManager sharedManager] componentsForEvent:self.event line:self.event.lines[0] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSArray *components = mappingResult.array;
+        ComponentModel *component = components[0];
+        NSLog(@"position:%i criteria:0 tag: %ld title: %@ ", component.position.integerValue, (long)[(CriterionModel *)component.criteria[0] tag], [(CriterionModel *)component.criteria[0] title]);
+        for (ComponentModel *component in components) {
+            component.selectedCriterion = [(CriterionModel *)component.criteria[0] tag];
+        }
+        [[ObjectManager sharedManager] coefficientForEvent:self.event line:self.event.lines[0] components:components success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            CoefficientModel *coefficient = mappingResult.firstObject;
+            NSLog(@"value: %@", coefficient.value.stringValue);
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            
+        }];
+        
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 @end
