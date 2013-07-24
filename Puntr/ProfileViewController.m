@@ -59,7 +59,7 @@
     self.labelName = [[UILabel alloc]initWithFrame:CGRectMake(78, 10, 225, 15)];
     [self.labelName setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     [whiteView addSubview:self.labelName];
-    [self.labelName setText:@"userName"];
+    //[self.labelName setText:@"userName"];
     
     self.labelRating = [[UILabel alloc]initWithFrame:CGRectMake(78, 35, 55, 15)];
     [self.labelRating setFont:[UIFont fontWithName:@"ArialMT" size:13.0f]];
@@ -69,7 +69,7 @@
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(133, 35, 175, 15)];
     [self.labelRatingNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     [whiteView addSubview:self.labelRatingNumber];
-    [self.labelRatingNumber setText:@"123456"];
+    //[self.labelRatingNumber setText:@"123456"];
     [self.view addSubview:whiteView];
     
     self.labelFollow = [[UILabel alloc]initWithFrame:CGRectMake(2, 105, 75, 15)];
@@ -115,7 +115,7 @@
     [self.labelFollowNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelFollowNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelFollowNumber];
-    [self.labelFollowNumber setText:@"140"];
+    //[self.labelFollowNumber setText:@"140"];
     
     self.labelFollowerNumber = [[UILabel alloc]initWithFrame:CGRectMake(77, 88, 75, 15)];
     [self.labelFollowerNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -124,7 +124,7 @@
     [self.labelFollowerNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelFollowerNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelFollowerNumber];
-    [self.labelFollowerNumber setText:@"220"];
+    //[self.labelFollowerNumber setText:@"220"];
     
     self.labelAwardNumber = [[UILabel alloc]initWithFrame:CGRectMake(152, 88, 75, 15)];
     [self.labelAwardNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -133,7 +133,7 @@
     [self.labelAwardNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelAwardNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelAwardNumber];
-    [self.labelAwardNumber setText:@"14"];
+    //[self.labelAwardNumber setText:@"14"];
     
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(227, 88, 75, 15)];
     [self.labelRatingNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -142,10 +142,10 @@
     [self.labelRatingNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelRatingNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelRatingNumber];
-    [self.labelRatingNumber setText:@"14/2"];
+    //[self.labelRatingNumber setText:@"14/2"];
     
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
-    [self.imageViewAvatar setBackgroundColor:[UIColor blackColor]];
+    //[self.imageViewAvatar setBackgroundColor:[UIColor blackColor]];
     [whiteView addSubview:self.imageViewAvatar];
     
     [self.view addSubview:whiteView];
@@ -159,13 +159,22 @@
     
     [self loadProfile];
     
-    [self showStars:5];
+    //[self showStars:5];
 }
 
 - (void)loadProfile {
     [[ObjectManager sharedManager] profileWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         UserModel *profile = (UserModel *)mappingResult.firstObject;
         NSLog(@"ProfileName: %@", profile.firstName);
+        [self.imageViewAvatar setImageWithURL:profile.avatar];
+        [self showStars:profile.rating.intValue];
+        [self.labelName setText:profile.firstName];
+        [self.labelRatingNumber setText:profile.topPosition.stringValue];
+        [self.labelFollowNumber setText:profile.subscriptionsCount.stringValue];
+        [self.labelFollowerNumber setText:profile.subscribersCount.stringValue];
+        [self.labelAwardNumber setText:profile.badgesCount.stringValue];
+        [self.labelRatingNumber setText:[NSString stringWithFormat:@"%@/%@",profile.winCount.stringValue,profile.lossCount.stringValue]];
+        
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [NotificationManager showError:error];
     }];
