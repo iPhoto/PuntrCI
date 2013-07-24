@@ -21,6 +21,7 @@
 @property (nonatomic, strong, readonly) EventModel *event;
 @property (nonatomic, strong) LineModel *selectedLine;
 @property (nonatomic, strong) NSArray *components;
+@property (nonatomic, strong) CoefficientModel *coefficient;
 @property (nonatomic, strong) MoneyModel *balance;
 
 @property (nonatomic, strong) UIImageView *imageViewTopDelimiter;
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) UILabel *labelParticipantSecond;
 @property (nonatomic, strong) UILabel *labelStatus;
 @property (nonatomic, strong) UILabel *labelAmount;
-@property (nonatomic, strong) UILabel *labelPrize;
+@property (nonatomic, strong) UILabel *labelReward;
 
 @property (nonatomic, strong) UIButton *buttonBet;
 @property (nonatomic, strong) UIButton *buttonStake;
@@ -181,13 +182,13 @@
     
     CGFloat buttonHeight = 40.0f;
     
-    self.labelPrize = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height, screenWidth - 4.0f * coverMargin, (screenHeight - 3.0f * coverMargin - buttonHeight) - (self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height))];
-    self.labelPrize.font = font;
-    self.labelPrize.backgroundColor = [UIColor clearColor];
-    self.labelPrize.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
-    self.labelPrize.textAlignment = NSTextAlignmentCenter;
-    self.labelPrize.text = @"Выигрыш:";
-    [self.view addSubview:self.labelPrize];
+    self.labelReward = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height, screenWidth - 4.0f * coverMargin, (screenHeight - 3.0f * coverMargin - buttonHeight) - (self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height))];
+    self.labelReward.font = font;
+    self.labelReward.backgroundColor = [UIColor clearColor];
+    self.labelReward.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
+    self.labelReward.textAlignment = NSTextAlignmentCenter;
+    self.labelReward.text = @"Выигрыш: ";
+    [self.view addSubview:self.labelReward];
     
     self.imageViewBottomDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, screenHeight - 3.0f * coverMargin - buttonHeight, screenWidth - coverMargin * 2.0f, 1.0f)];
     self.imageViewBottomDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
@@ -255,7 +256,7 @@
                 }
             }
             [self.elementViewCriterionSelection updateResult:result];
-            
+            [self updateCoefficient];
         } cancelBlock:^(ComponentPicker *picker, NSArray *components) {
             
         } origin:sender];
@@ -272,6 +273,7 @@
     } else {
         self.textFieldAmount.text = @"0";
     }
+    [self updateReward];
 }
 
 - (void)amountIncrease {
@@ -280,6 +282,7 @@
     } else {
         self.textFieldAmount.text = @([self balanceAmount]).stringValue;
     }
+    [self updateReward];
 }
 
 - (NSInteger)selectedAmount {
@@ -294,6 +297,27 @@
     }
 }
 
+- (void)updateReward {
+    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+    self.labelReward.text = [NSString stringWithFormat:@"Выигрыш: %@ Р", [twoDecimalPlacesFormatter stringFromNumber:@(self.textFieldAmount.text.integerValue * self.coefficient.value.floatValue)]];
+}
+
+- (void)updateCoefficient {
+    [[ObjectManager sharedManager] coefficientForEvent:self.event line:self.selectedLine components:self.components success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        CoefficientModel *coefficient = (CoefficientModel *)mappingResult.firstObject;
+        self.coefficient = coefficient;
+        NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+        [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+        [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+        [self.elementViewCoefficient updateResult:[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
+        [self updateReward];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 - (void)loadBalance {
     [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
@@ -303,29 +327,9 @@
         } else {
             self.textFieldAmount.text = self.balance.amount.stringValue;
         }
+        [self updateReward];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [NotificationManager showError:error];
-    }];
-}
-
-- (void)loadSomething {
-    [[ObjectManager sharedManager] componentsForEvent:self.event line:self.event.lines[0] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSArray *components = mappingResult.array;
-        ComponentModel *component = components[0];
-        NSLog(@"position:%i criteria:0 tag: %ld title: %@ ", component.position.integerValue, (long)[(CriterionModel *)component.criteria[0] tag], [(CriterionModel *)component.criteria[0] title]);
-        for (ComponentModel *component in components) {
-            component.selectedCriterion = [(CriterionModel *)component.criteria[0] tag];
-        }
-        [[ObjectManager sharedManager] coefficientForEvent:self.event line:self.event.lines[0] components:components success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            CoefficientModel *coefficient = mappingResult.firstObject;
-            NSLog(@"value: %@", coefficient.value.stringValue);
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            
-        }];
-        
-        
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        
     }];
 }
 

@@ -125,13 +125,13 @@
     ComponentModel *activeComponent = (ComponentModel *)self.components[component];
     CriterionModel *criterion = (CriterionModel *)activeComponent.criteria[row];
     if (row == [activeComponent.criteria indexOfObject:activeComponent.criteria.lastObject]) {
-        [self scrollToSelectedInComponent:component];
+        [self performSelector:@selector(scrollToSelectedInComponent:) withObject:@(component) afterDelay:0.1f];
     }
     return criterion.title;
 }
 
-- (void)scrollToSelectedInComponent:(NSInteger)component {
-    ComponentModel *activeComponent = self.components[component];
+- (void)scrollToSelectedInComponent:(NSNumber *)component {
+    ComponentModel *activeComponent = self.components[component.integerValue];
     NSInteger row = 0;
     if (activeComponent.selectedCriterion) {
         NSUInteger index = 0;
@@ -142,8 +142,10 @@
             }
             index++;
         }
+    } else {
+        activeComponent.selectedCriterion = [(CriterionModel *)activeComponent.criteria[row] tag];
     }
-    [(UIPickerView *)self.pickerView selectRow:row inComponent:component animated:YES];
+    [(UIPickerView *)self.pickerView selectRow:row inComponent:component.integerValue animated:NO];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {

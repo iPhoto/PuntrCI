@@ -131,9 +131,13 @@
         } else {
             self.selectedLine = (LineModel *)self.lines[0];
         }
-        [pickerView selectRow:selectedLineIndex inComponent:0 animated:YES];
+        [self performSelector:@selector(scrollToLine:) withObject:@(selectedLineIndex) afterDelay:0.1f];
     }
     return line.title;
+}
+
+- (void)scrollToLine:(NSNumber *)line {
+    [(UIPickerView *)self.pickerView selectRow:line.integerValue inComponent:0 animated:NO];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {

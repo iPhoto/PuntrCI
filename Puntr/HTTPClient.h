@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import <AFNetworking/AFHTTPClient.h>
+#import "AFHTTPClientTweak.h"
 
 typedef void (^JSONSuccess)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON);
 typedef void (^JSONFailure)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON);
 
-@interface HTTPClient : AFHTTPClient
+@interface HTTPClient : AFHTTPClientTweak
 
 + (HTTPClient *)sharedClient;
 
