@@ -11,6 +11,7 @@
 		0F3DB90E179E727F00F9B3AE /* StarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */; };
 		0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90B179E726700F9B3AE /* StarUnselected.png */; };
 		0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */; };
+		0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -194,6 +195,8 @@
 		0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarSelected@2x.png"; sourceTree = "<group>"; };
 		0F3DB90B179E726700F9B3AE /* StarUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarUnselected.png; sourceTree = "<group>"; };
 		0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarUnselected@2x.png"; sourceTree = "<group>"; };
+		0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadButtonCell.h; sourceTree = "<group>"; };
+		0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadButtonCell.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 				3194035517722ECC009F0DBE /* EventCell.m */,
 				3194035117722BED009F0DBE /* HeaderCell.h */,
 				3194035217722BEE009F0DBE /* HeaderCell.m */,
+				0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */,
+				0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */,
 				3180CF6A178ABAF4001B2DD1 /* SearchCell.h */,
 				3180CF6B178ABAF4001B2DD1 /* SearchCell.m */,
 				31EF4AE117995BFC00F27702 /* StakeElementView.h */,
@@ -1071,6 +1076,7 @@
 				31651A7E179D9162006CCFAF /* StakeRequestModel.m in Sources */,
 				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
+				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
