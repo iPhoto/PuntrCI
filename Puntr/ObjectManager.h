@@ -24,6 +24,10 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
 
 - (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+#pragma mark - User
+
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
 #pragma mark - Balance
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;

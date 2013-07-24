@@ -9,6 +9,9 @@
 #import "ProfileViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
+#import "ObjectManager.h"
+#import "UserModel.h"
+#import "NotificationManager.h"
 
 @interface ProfileViewController ()
 
@@ -154,7 +157,18 @@
     [self.labelActivity setText:@"Активность"];
     [self.view addSubview:self.labelActivity];
     
+    [self loadProfile];
+    
     [self showStars:5];
+}
+
+- (void)loadProfile {
+    [[ObjectManager sharedManager] profileWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        UserModel *profile = (UserModel *)mappingResult.firstObject;
+        NSLog(@"ProfileName: %@", profile.firstName);
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
 }
 
 -(void)showStars:(int)count

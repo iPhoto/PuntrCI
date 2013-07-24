@@ -93,6 +93,7 @@
     // User Mapping
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
+    RKResponseDescriptor *userMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers] keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
     // Criterion Mapping
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
@@ -136,7 +137,7 @@
     
     // Response Descriptors
     
-    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor, categoriesMappingResponseDescriptor, stakeMappingResponseDescriptor, stakesMappingResponseDescriptor, componentsResponseDescriptor, coefficientResponseDescriptor, balanceResponseDescriptor]];
+    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor, categoriesMappingResponseDescriptor, stakeMappingResponseDescriptor, stakesMappingResponseDescriptor, componentsResponseDescriptor, coefficientResponseDescriptor, balanceResponseDescriptor, userMappingResponseDescriptor]];
     
     // Serialization
     
@@ -193,6 +194,12 @@
         self.authorization = mappingResult.firstObject;
         success(operation, mappingResult);
     } failure:failure];
+}
+
+#pragma mark - User
+
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.authorization.tag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
 }
 
 #pragma mark - Balance
