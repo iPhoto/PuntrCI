@@ -178,6 +178,7 @@
 		764C42691769CCA500B7FBF2 /* MyStakesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42681769CCA500B7FBF2 /* MyStakesNavigationController.m */; };
 		764C426C1769CCD400B7FBF2 /* ProfileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */; };
 		765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765FCDB8178D0CC100A58B81 /* EventViewController.m */; };
+		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -411,6 +412,8 @@
 		764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNavigationController.m; sourceTree = "<group>"; };
 		765FCDB7178D0CC100A58B81 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		765FCDB8178D0CC100A58B81 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		76F6715D17A049570032C9AE /* AFHTTPClientTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClientTweak.h; sourceTree = "<group>"; };
+		76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClientTweak.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -695,6 +698,8 @@
 		31F47E18177307720047ECCF /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				76F6715D17A049570032C9AE /* AFHTTPClientTweak.h */,
+				76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */,
 				31E3E7A01754E24900B09DAD /* AppDelegate.h */,
 				31E3E7A11754E24900B09DAD /* AppDelegate.m */,
 				31DDC095176B234F000E99F3 /* Constants.h */,
@@ -1077,6 +1082,7 @@
 				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
 				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,
+				76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
