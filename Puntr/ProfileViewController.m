@@ -59,7 +59,6 @@
     self.labelName = [[UILabel alloc]initWithFrame:CGRectMake(78, 10, 225, 15)];
     [self.labelName setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     [whiteView addSubview:self.labelName];
-    //[self.labelName setText:@"userName"];
     
     self.labelRating = [[UILabel alloc]initWithFrame:CGRectMake(78, 35, 55, 15)];
     [self.labelRating setFont:[UIFont fontWithName:@"ArialMT" size:13.0f]];
@@ -69,7 +68,6 @@
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(133, 35, 175, 15)];
     [self.labelRatingNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     [whiteView addSubview:self.labelRatingNumber];
-    //[self.labelRatingNumber setText:@"123456"];
     [self.view addSubview:whiteView];
     
     self.labelFollow = [[UILabel alloc]initWithFrame:CGRectMake(2, 105, 75, 15)];
@@ -115,7 +113,6 @@
     [self.labelFollowNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelFollowNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelFollowNumber];
-    //[self.labelFollowNumber setText:@"140"];
     
     self.labelFollowerNumber = [[UILabel alloc]initWithFrame:CGRectMake(77, 88, 75, 15)];
     [self.labelFollowerNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -124,7 +121,6 @@
     [self.labelFollowerNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelFollowerNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelFollowerNumber];
-    //[self.labelFollowerNumber setText:@"220"];
     
     self.labelAwardNumber = [[UILabel alloc]initWithFrame:CGRectMake(152, 88, 75, 15)];
     [self.labelAwardNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -133,7 +129,6 @@
     [self.labelAwardNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelAwardNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelAwardNumber];
-    //[self.labelAwardNumber setText:@"14"];
     
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(227, 88, 75, 15)];
     [self.labelRatingNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
@@ -142,10 +137,8 @@
     [self.labelRatingNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelRatingNumber setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelRatingNumber];
-    //[self.labelRatingNumber setText:@"14/2"];
     
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
-    //[self.imageViewAvatar setBackgroundColor:[UIColor blackColor]];
     [whiteView addSubview:self.imageViewAvatar];
     
     [self.view addSubview:whiteView];
@@ -155,11 +148,12 @@
     [self.labelActivity setBackgroundColor:[UIColor clearColor]];
     [self.labelActivity setTextColor:[UIColor whiteColor]];
     [self.labelActivity setText:@"Активность"];
-    [self.view addSubview:self.labelActivity];
-    
+    [self.view addSubview:self.labelActivity];    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadProfile];
-    
-    //[self showStars:5];
 }
 
 - (void)loadProfile {
