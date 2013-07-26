@@ -12,6 +12,7 @@
 		0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90B179E726700F9B3AE /* StarUnselected.png */; };
 		0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */; };
 		0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */; };
+		0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -198,6 +199,8 @@
 		0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarUnselected@2x.png"; sourceTree = "<group>"; };
 		0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadButtonCell.h; sourceTree = "<group>"; };
 		0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadButtonCell.m; sourceTree = "<group>"; };
+		0F3DB91717A26BA000F9B3AE /* ParticipantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantViewController.h; sourceTree = "<group>"; };
+		0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantViewController.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				31B112A7176B5DAD00060EAB /* MyStakesViewController.m */,
 				31B112A3176B5D6100060EAB /* NewsViewController.h */,
 				31B112A4176B5D6100060EAB /* NewsViewController.m */,
+				0F3DB91717A26BA000F9B3AE /* ParticipantViewController.h */,
+				0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */,
 				31B112A9176B5DDC00060EAB /* ProfileViewController.h */,
 				31B112AA176B5DDC00060EAB /* ProfileViewController.m */,
 				3195D390176A26F5005E4856 /* RegistrationViewController.h */,
@@ -1083,6 +1088,7 @@
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
 				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,
 				76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */,
+				0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
