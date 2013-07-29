@@ -17,7 +17,7 @@ NSString *const                     TestFlightApplicationToken = @"bbd518f9-ee98
 #pragma mark - API
 
 NSString *const                     APIScheme = @"http";
-NSString *const                     APIHost = @"puntr.dev.2nova.com/api/v1";
+NSString *const                     APIHost = @"puntr.dev.2nova.pw/api/v1";
 
 NSString *const                     DevelopmentAPIScheme = @"http";
 NSString *const                     DevelopmentAPIHost = @"puntr.dev.2nova.com/v1";

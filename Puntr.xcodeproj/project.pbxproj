@@ -13,6 +13,7 @@
 		0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */; };
 		0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */; };
 		0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */; };
+		0F3DB91C17A66A9900F9B3AE /* UIViewController+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -201,6 +202,8 @@
 		0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadButtonCell.m; sourceTree = "<group>"; };
 		0F3DB91717A26BA000F9B3AE /* ParticipantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantViewController.h; sourceTree = "<group>"; };
 		0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantViewController.m; sourceTree = "<group>"; };
+		0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Puntr.h"; sourceTree = "<group>"; };
+		0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Puntr.m"; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 				764C42621769CC0D00B7FBF2 /* NewsNavigationController.m */,
 				764C426A1769CCD400B7FBF2 /* ProfileNavigationController.h */,
 				764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */,
+				0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */,
+				0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -1089,6 +1094,7 @@
 				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,
 				76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */,
 				0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */,
+				0F3DB91C17A66A9900F9B3AE /* UIViewController+Puntr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

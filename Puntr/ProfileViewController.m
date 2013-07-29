@@ -12,6 +12,7 @@
 #import "ObjectManager.h"
 #import "UserModel.h"
 #import "NotificationManager.h"
+#import "UIViewController+Puntr.h"
 
 @interface ProfileViewController ()
 
@@ -41,6 +42,7 @@
     self.title = @"Профиль";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
+    [self addBalanceButton];
     
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
@@ -154,6 +156,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadProfile];
+    [self updateBalance];
 }
 
 - (void)loadProfile {

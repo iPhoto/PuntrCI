@@ -17,6 +17,7 @@
 #import "SearchCell.h"
 #import "CategoriesCell.h"
 #import "EventViewController.h"
+#import "UIViewController+Puntr.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
@@ -62,6 +63,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    [self addBalanceButton];
     
     [self.collectionView registerClass:[EventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
@@ -116,6 +119,11 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     }
     self.collectionData = [collectionData copy];
     [self updateSections];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 #pragma mark - CollectionView DataSource

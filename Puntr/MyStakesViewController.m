@@ -7,6 +7,7 @@
 //
 
 #import "MyStakesViewController.h"
+#import "UIViewController+Puntr.h"
 
 @interface MyStakesViewController ()
 
@@ -21,6 +22,7 @@
     [super viewDidLoad];
 	
     self.title = @"Мои ставки";
+    [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Ставки", @"Пари"]];
@@ -31,6 +33,11 @@
     dispatch_async(dispatch_get_main_queue(),^{
         self.segmentedControl.selectedSegmentIndex = 1;
     });
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 @end

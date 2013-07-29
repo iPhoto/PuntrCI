@@ -13,6 +13,7 @@
 #import "NotificationManager.h"
 #import "StakeViewController.h"
 #import "ParticipantViewController.h"
+#import "UIViewController+Puntr.h"
 
 @interface EventViewController ()
 
@@ -48,6 +49,8 @@
     [super viewDidLoad];
 	
     self.title = @"Событие";
+    
+    [self addBalanceButton];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
@@ -147,6 +150,11 @@
     dispatch_async(dispatch_get_main_queue(),^{
         self.segmentedControl.selectedSegmentIndex = 1;
     });
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 - (void)stakeButtonTouched {

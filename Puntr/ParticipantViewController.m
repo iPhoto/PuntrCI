@@ -10,6 +10,7 @@
 #import "ParticipantModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIViewController+Puntr.h"
 
 @interface ParticipantViewController ()
 
@@ -53,6 +54,7 @@
     self.title = @"Команда";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
+    [self addBalanceButton];
     
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 76)];//155)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
@@ -97,6 +99,11 @@
     [whiteView addSubview:self.buttonSubscribe];
     
     [self.view addSubview:whiteView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 - (void)didReceiveMemoryWarning
