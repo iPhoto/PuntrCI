@@ -30,6 +30,7 @@ NSString *const                     APIComponents = @"components";
 NSString *const                     APIUsers = @"users";
 NSString *const                     APIEvents = @"events";
 NSString *const                     APIStakes = @"stakes";
+NSString *const                     APISubscriptions = @"subscriptions";
 
 #pragma mark - Parameters
 

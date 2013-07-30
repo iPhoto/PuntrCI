@@ -30,6 +30,7 @@ FOUNDATION_EXPORT NSString *const   APIComponents;
 FOUNDATION_EXPORT NSString *const   APIUsers;
 FOUNDATION_EXPORT NSString *const   APIEvents;
 FOUNDATION_EXPORT NSString *const   APIStakes;
+FOUNDATION_EXPORT NSString *const   APISubscriptions;
 
 #pragma mark - Parameters
 

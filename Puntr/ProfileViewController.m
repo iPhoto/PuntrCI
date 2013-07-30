@@ -203,6 +203,17 @@
     }];
 }
 
+-(void)checkSubscriptions
+{
+    [[ObjectManager sharedManager] userSubscriptionsWithTag:[[ObjectManager sharedManager] loginedUserTag] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSLog(@"subscriptions: %@", mappingResult);
+        
+        NSLog(@"");
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+    }];
+}
+
 -(void)showStars:(int)count
 {
     if(count<0 || count>5)

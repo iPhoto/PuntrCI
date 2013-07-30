@@ -206,6 +206,10 @@
     [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
 }
 
+- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+}
+
 - (NSNumber *)loginedUserTag
 {
     return self.authorization.tag;
