@@ -29,7 +29,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 
 @interface CatalogueViewController ()
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+//@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSArray *collectionData;
 @property (nonatomic, strong) NSNumber *currentCategoryTag;
 @property (nonatomic, strong) NSArray *sections;
@@ -42,20 +42,17 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 @implementation CatalogueViewController
 
 - (id)init {
-    _selectedSection = nil;
-    _layout = [[UICollectionViewFlowLayout alloc] init];
-    _layout.minimumLineSpacing = 10.0f;
-    _layout.minimumInteritemSpacing = 0.0f;
-    self = [super initWithCollectionViewLayout:_layout];
+    self = [self initWhithCategory:nil];
     return self;
 }
 
 - (id)initWhithCategory:(SectionModel *)selectedSection {
-	_layout = [[UICollectionViewFlowLayout alloc] init];
-	_layout.minimumLineSpacing = 10.0f;
-	_layout.minimumInteritemSpacing = 0.0f;
-	self = [super initWithCollectionViewLayout:_layout];
-	_selectedSection = selectedSection;
+	UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+	layout.minimumLineSpacing = 10.0f;
+	layout.minimumInteritemSpacing = 0.0f;
+	if (self = [super initWithCollectionViewLayout:layout]) {
+        _selectedSection = selectedSection;
+    }
 	return self;
 }
 
