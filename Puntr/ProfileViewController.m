@@ -29,16 +29,30 @@
 @property (nonatomic, strong) UILabel *labelStatsNumber;
 @property (nonatomic, strong) UILabel *labelActivity;
 @property (nonatomic, strong) UIImageView *imageViewAvatar;
+@property (nonatomic, strong) UIButton *buttonSubscribe;
 @property (nonatomic, strong) NSArray *stars;
+@property (nonatomic, strong) NSNumber *userTag;
 
 @end
 
 @implementation ProfileViewController
 
+- (id)initWithUserTag:(NSNumber *)userTag
+{
+    self = [super init];
+    if(self)
+    {
+        self.userTag = userTag;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	if(self.userTag == nil)
+    {
+        self.userTag = [[ObjectManager sharedManager] loginedUserTag];
+    }
     self.title = @"Профиль";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
@@ -143,6 +157,18 @@
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
     [whiteView addSubview:self.imageViewAvatar];
     
+    if( self.userTag != [[ObjectManager sharedManager] loginedUserTag])
+    {
+        self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 95, 40)];
+        [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f,8.0f)] forState:UIControlStateNormal];
+        [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
+        [self.buttonSubscribe.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
+        self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
+        self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+        [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
+        [whiteView addSubview:self.buttonSubscribe];
+    }
+        
     [self.view addSubview:whiteView];
     
     self.labelActivity = [[UILabel alloc]initWithFrame:CGRectMake(18, 150, 90, 15)];
@@ -160,7 +186,7 @@
 }
 
 - (void)loadProfile {
-    [[ObjectManager sharedManager] profileWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [[ObjectManager sharedManager] userWithTag:self.userTag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         UserModel *profile = (UserModel *)mappingResult.firstObject;
         NSLog(@"ProfileName: %@", profile.firstName);
         [self.imageViewAvatar setImageWithURL:profile.avatar];

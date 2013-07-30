@@ -202,6 +202,15 @@
     [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.authorization.tag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
 }
 
+- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+}
+
+- (NSNumber *)loginedUserTag
+{
+    return self.authorization.tag;
+}
+
 #pragma mark - Balance
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {

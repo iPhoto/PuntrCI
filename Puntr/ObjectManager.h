@@ -28,6 +28,10 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
 
 - (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (NSNumber *)loginedUserTag;
+
 #pragma mark - Balance
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
