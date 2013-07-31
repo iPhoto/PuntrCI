@@ -245,12 +245,20 @@
     if (search) {
         [parameters setObject:search forKey:KeySearch];
     }
-    if (limit) {
+/*    if (limit) {
         [parameters setObject:limit forKey:KeyLimit];
     }
     if (page && limit) {
         [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
+    }*/
+    NSMutableDictionary *pagingParamenters = [NSMutableDictionary new];
+    if (limit) {
+        pagingParamenters[KeyLimit] = limit;
     }
+    if (page && limit) {
+        pagingParamenters[KeyOffset] = @(page.integerValue * limit.integerValue);
+    }
+    [parameters setObject:pagingParamenters forKey:KeyPaging];
     
     [self getObject:nil path:APIEvents parameters:parameters success:success failure:failure];
 }

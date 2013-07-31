@@ -65,6 +65,7 @@ FOUNDATION_EXPORT NSString *const   KeyLossCount;
 FOUNDATION_EXPORT NSString *const   KeyMessage;
 FOUNDATION_EXPORT NSString *const   KeyMoney;
 FOUNDATION_EXPORT NSString *const   KeyOffset;
+FOUNDATION_EXPORT NSString *const   KeyPaging;
 FOUNDATION_EXPORT NSString *const   KeyParticipants;
 FOUNDATION_EXPORT NSString *const   KeyPassword;
 FOUNDATION_EXPORT NSString *const   KeyPosition;
