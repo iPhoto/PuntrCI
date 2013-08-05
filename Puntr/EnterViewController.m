@@ -14,6 +14,8 @@
 #import "EnterModel.h"
 #import "ObjectManager.h"
 #import "NotificationManager.h"
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 
 typedef enum {
     DirectionUp,
@@ -27,6 +29,8 @@ typedef enum {
 
 @property (nonatomic, strong) UIButton *buttonRegistration;
 @property (nonatomic, strong) UIButton *buttonEnter;
+@property (nonatomic, strong) UIButton *buttonFb;
+@property (nonatomic, strong) UIButton *buttonTw;
 
 @property (nonatomic, strong) EnterModel *enter;
 
@@ -36,6 +40,10 @@ typedef enum {
 @property (nonatomic, strong) UIImageView *imageViewEnterServicies;
 
 @property (nonatomic) BOOL textFildsActive;
+
+@property (nonatomic, retain) ACAccountStore *accountStore;
+@property (nonatomic, retain) ACAccount *facebookAccount;
+@property (nonatomic, retain) ACAccount *twitterAccount;
 
 @end
 
@@ -132,6 +140,18 @@ typedef enum {
     self.imageViewEnterServicies = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 148.0f, 320.0f, 148.0f)];
     self.imageViewEnterServicies.image = [UIImage imageNamed:@"enterServicies"];
     [self.view addSubview:self.imageViewEnterServicies];
+    
+    self.buttonFb = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 52, 300, 42)];
+    [self.buttonFb setBackgroundColor:[UIColor redColor]];
+    [self.buttonFb setAlpha:0.2];
+    [self.buttonFb addTarget:self action:@selector(fbButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.buttonFb];
+    
+    self.buttonTw = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 94, 300, 42)];
+    [self.buttonTw setBackgroundColor:[UIColor greenColor]];
+    [self.buttonTw setAlpha:0.2];
+    [self.buttonTw addTarget:self action:@selector(twButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.buttonTw];
 }
 
 #pragma mark - Actions
@@ -143,6 +163,50 @@ typedef enum {
 
 - (void)enterButtonTouched {
     [self login];
+}
+
+- (void)fbButtonTouched {
+    NSLog(@"fb touched");
+    if(!self.accountStore)
+        self.accountStore = [[ACAccountStore alloc] init];
+    
+    ACAccountType *facebookTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    [self.accountStore requestAccessToAccountsWithType:facebookTypeAccount
+                                           options:@{ACFacebookAppIdKey: @"203657029796954", ACFacebookPermissionsKey: @[@"email"]}
+                                        completion:^(BOOL granted, NSError *error) {
+                                            if(granted){
+                                                NSArray *accounts = [self.accountStore accountsWithAccountType:facebookTypeAccount];
+                                                self.facebookAccount = [accounts lastObject];
+                                                NSLog(@"Success");
+                                                NSLog(@"acces token %@",[[self.facebookAccount credential] oauthToken]);
+                                                [self myFbData];
+                                            }else{
+                                                NSLog(@"Fail");
+                                                NSLog(@"Error: %@", error);
+                                            }
+                                        }];
+}
+
+- (void)twButtonTouched {
+    NSLog(@"tw touched");
+    if(!self.accountStore)
+        self.accountStore = [[ACAccountStore alloc] init];
+    
+    ACAccountType *twitterTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
+    
+    [self.accountStore requestAccessToAccountsWithType:twitterTypeAccount options:nil completion:^(BOOL granted, NSError *error) {
+        if(granted) {
+            NSArray *accountsArray = [self.accountStore accountsWithAccountType:twitterTypeAccount];
+            
+            if ([accountsArray count] > 0) {
+                self.twitterAccount = [accountsArray objectAtIndex:0];
+                NSLog(@"%@",self.twitterAccount.username);
+                NSLog(@"%@",self.twitterAccount);
+                NSLog(@"acces token %@",[[self.twitterAccount credential] oauthToken]);            }
+        }
+    }];
 }
 
 #pragma mark - TextField Delegate
@@ -217,6 +281,25 @@ typedef enum {
     self.enter.password = self.textFieldPassword.text;
 }
 
+- (void)myFbData {
+    
+    NSURL *meurl = [NSURL URLWithString:@"https://graph.facebook.com/me"];
+    
+    SLRequest *merequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                              requestMethod:SLRequestMethodGET
+                                                        URL:meurl
+                                                 parameters:nil];
+    
+    merequest.account = self.facebookAccount;
+    
+    [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        NSString *meDataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"%@", meDataString);
+        
+    }];
+    
+}
 - (BOOL)dataIsValid {
     if (!self.enter.login || self.enter.login.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

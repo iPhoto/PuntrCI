@@ -14,6 +14,8 @@
 		0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */; };
 		0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */; };
 		0F3DB91C17A66A9900F9B3AE /* UIViewController+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */; };
+		0FA5FC8317AFC25000352827 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8117AFC22F00352827 /* Social.framework */; };
+		0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8417AFCC5600352827 /* Accounts.framework */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -204,6 +206,8 @@
 		0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantViewController.m; sourceTree = "<group>"; };
 		0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Puntr.h"; sourceTree = "<group>"; };
 		0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Puntr.m"; sourceTree = "<group>"; };
+		0FA5FC8117AFC22F00352827 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		0FA5FC8417AFCC5600352827 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */,
+				0FA5FC8317AFC25000352827 /* Social.framework in Frameworks */,
 				764C425A1769C8EB00B7FBF2 /* MobileCoreServices.framework in Frameworks */,
 				764C42581769C8E400B7FBF2 /* SystemConfiguration.framework in Frameworks */,
 				31E3E7921754E24800B09DAD /* UIKit.framework in Frameworks */,
@@ -592,6 +598,8 @@
 		31E3E7901754E24800B09DAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FA5FC8417AFCC5600352827 /* Accounts.framework */,
+				0FA5FC8117AFC22F00352827 /* Social.framework */,
 				31E3E7951754E24800B09DAD /* CoreGraphics.framework */,
 				31E3E7931754E24800B09DAD /* Foundation.framework */,
 				BB61E77802DE4F2BAA561855 /* libPods.a */,
