@@ -15,6 +15,7 @@
 #import "ComponentPicker.h"
 #import "LinePicker.h"
 #import "NotificationManager.h"
+#import "ParticipantViewController.h"
 
 @interface StakeViewController ()
 
@@ -38,6 +39,8 @@
 @property (nonatomic, strong) UIButton *buttonStake;
 @property (nonatomic, strong) UIButton *buttonPlus;
 @property (nonatomic, strong) UIButton *buttonMinus;
+@property (nonatomic, strong) UIButton *buttonParticipantFirst;
+@property (nonatomic, strong) UIButton *buttonParticipantSecond;
 
 @property (nonatomic, strong) StakeElementView *elementViewLineSelection;
 @property (nonatomic, strong) StakeElementView *elementViewCriterionSelection;
@@ -93,7 +96,7 @@
     
     CGSize participantSize = CGSizeMake((screenWidth - 2.0f * coverMargin) / 2.0f, participantsHeight);
     CGFloat labelPadding = 20.0f;
-    
+    /*
     self.labelParticipantFirst = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding, descriptionPadding, participantSize.width - labelPadding * 2.0f, participantSize.height)];
     self.labelParticipantFirst.font = font;
     self.labelParticipantFirst.backgroundColor = [UIColor clearColor];
@@ -102,6 +105,17 @@
     self.labelParticipantFirst.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.labelParticipantFirst.text = [(ParticipantModel *)self.event.participants[0] title];
     [self.view addSubview:self.labelParticipantFirst];
+     */
+    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2*coverMargin, descriptionPadding + 13, 128, 44)];
+    [self.buttonParticipantFirst setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    self.buttonParticipantFirst.titleLabel.font = font;
+    //self.buttonParticipantFirst.titleLabel.backgroundColor = [UIColor clearColor];
+    self.buttonParticipantFirst.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.buttonParticipantFirst.titleLabel.numberOfLines = 0;
+    [self.buttonParticipantFirst setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
+    [self.buttonParticipantFirst setTitle:[(ParticipantModel *)self.event.participants[0] title] forState:UIControlStateNormal];
+    [self.buttonParticipantFirst addTarget:self action:@selector(showParticipant:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.buttonParticipantFirst];
     
     self.labelStatus = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + participantSize.width - labelPadding, descriptionPadding, labelPadding * 2.0f, participantSize.height)];
     self.labelStatus.font = font;
@@ -110,7 +124,7 @@
     self.labelStatus.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.labelStatus.text = self.event.status ? self.event.status : @"—";
     [self.view addSubview:self.labelStatus];
-    
+    /*
     self.labelParticipantSecond = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding + participantSize.width, descriptionPadding, participantSize.width - labelPadding * 2.0f, participantSize.height)];
     self.labelParticipantSecond.font = font;
     self.labelParticipantSecond.backgroundColor = [UIColor clearColor];
@@ -119,6 +133,17 @@
     self.labelParticipantSecond.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.labelParticipantSecond.text = [(ParticipantModel *)self.event.participants[1] title];
     [self.view addSubview:self.labelParticipantSecond];
+    */
+    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2*coverMargin + 128), descriptionPadding + 13, 128, 44)];
+    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    self.buttonParticipantSecond.titleLabel.font = font;
+    self.buttonParticipantSecond.titleLabel.backgroundColor = [UIColor clearColor];
+    self.buttonParticipantSecond.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.buttonParticipantSecond.titleLabel.numberOfLines = 0;
+    [self.buttonParticipantSecond setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
+    [self.buttonParticipantSecond setTitle:[(ParticipantModel *)self.event.participants[1] title] forState:UIControlStateNormal];
+    [self.buttonParticipantSecond addTarget:self action:@selector(showParticipant:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.buttonParticipantSecond];
     
     self.imageViewTopDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, descriptionPadding + participantSize.height, screenWidth - coverMargin * 2.0f, 1.0f)];
     self.imageViewTopDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
@@ -331,6 +356,17 @@
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [NotificationManager showError:error];
     }];
+}
+
+- (void)showParticipant:(id)sender {
+    int i;
+    if((UIButton *)sender == self.buttonParticipantFirst)
+    {
+        i = 0;
+    }else{
+        i = 1;
+    }
+    [self.navigationController pushViewController:[[ParticipantViewController alloc] initWithParticipant:self.event.participants[i]] animated:YES];
 }
 
 @end

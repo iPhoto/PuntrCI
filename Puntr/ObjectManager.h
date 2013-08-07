@@ -40,7 +40,24 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Authorization
 
+- (void)enter:(EnterModel *)enter success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+#pragma mark - Registration
+
+- (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+#pragma mark - User
+
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
 - (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure;
+- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (NSNumber *)loginedUserTag;
+
+#pragma mark - Balance
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
 

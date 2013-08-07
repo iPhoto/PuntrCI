@@ -30,6 +30,7 @@ FOUNDATION_EXPORT NSString *const   APIComponents;
 FOUNDATION_EXPORT NSString *const   APIUsers;
 FOUNDATION_EXPORT NSString *const   APIEvents;
 FOUNDATION_EXPORT NSString *const   APIStakes;
+FOUNDATION_EXPORT NSString *const   APISubscriptions;
 
 #pragma mark - Parameters
 
@@ -66,6 +67,7 @@ FOUNDATION_EXPORT NSString *const   KeyLossCount;
 FOUNDATION_EXPORT NSString *const   KeyMessage;
 FOUNDATION_EXPORT NSString *const   KeyMoney;
 FOUNDATION_EXPORT NSString *const   KeyOffset;
+FOUNDATION_EXPORT NSString *const   KeyPaging;
 FOUNDATION_EXPORT NSString *const   KeyParticipants;
 FOUNDATION_EXPORT NSString *const   KeyPassword;
 FOUNDATION_EXPORT NSString *const   KeyPosition;

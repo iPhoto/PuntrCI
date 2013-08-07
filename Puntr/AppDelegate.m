@@ -13,6 +13,7 @@
 #import "TextField.h"
 #import "HTTPClient.h"
 #import "ObjectManager.h"
+#import "SocialManager.h"
 
 @interface AppDelegate ()
 
@@ -32,6 +33,7 @@
     HTTPClient *client = [HTTPClient sharedClient];
     ObjectManager *objectManager = [[ObjectManager alloc] initWithHTTPClient:client];
     [objectManager configureMapping];
+    SocialManager *socialManager = [[SocialManager alloc] init];
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

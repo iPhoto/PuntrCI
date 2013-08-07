@@ -10,6 +10,6 @@
 
 @interface ProfileViewController : UIViewController
 
--(void)showStars:(int)count;
+- (id)initWithUserTag:(NSNumber *)userTag;
 
 @end

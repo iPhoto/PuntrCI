@@ -17,6 +17,7 @@
 #import "SearchCell.h"
 #import "CategoriesCell.h"
 #import "EventViewController.h"
+#import "UIViewController+Puntr.h"
 
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
@@ -28,7 +29,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 
 @interface CatalogueViewController ()
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+//@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSArray *collectionData;
 @property (nonatomic, strong) NSNumber *currentCategoryTag;
 @property (nonatomic, strong) NSArray *sections;
@@ -41,11 +42,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 @implementation CatalogueViewController
 
 - (id)init {
-    _selectedSection = nil;
-    _layout = [[UICollectionViewFlowLayout alloc] init];
-    _layout.minimumLineSpacing = 10.0f;
-    _layout.minimumInteritemSpacing = 0.0f;
-    self = [super initWithCollectionViewLayout:_layout];
+    self = [self initWhithCategory:nil];
     return self;
 }
 
@@ -55,6 +52,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 	_layout.minimumInteritemSpacing = 0.0f;
 	self = [super initWithCollectionViewLayout:_layout];
 	_selectedSection = selectedSection;
+    }
 	return self;
 }
 
@@ -62,6 +60,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    [self addBalanceButton];
     
     [self.collectionView registerClass:[EventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
@@ -116,6 +116,11 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     }
     self.collectionData = [collectionData copy];
     [self updateSections];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 #pragma mark - CollectionView DataSource
