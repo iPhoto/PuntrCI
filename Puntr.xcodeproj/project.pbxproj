@@ -37,6 +37,7 @@
 		0FA5FCD417B2387200352827 /* VKCachedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC317B2387200352827 /* VKCachedData.m */; };
 		0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC617B2387200352827 /* VKStorageItem.m */; };
 		0FA5FCD617B2387200352827 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC917B2387200352827 /* VKUser.m */; };
+		0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCD817B23ED800352827 /* SocialManager.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
 		310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CFA178EEECB006D9C8A /* BarDown@2x.png */; };
@@ -270,6 +271,8 @@
 		0FA5FCC617B2387200352827 /* VKStorageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKStorageItem.m; sourceTree = "<group>"; };
 		0FA5FCC817B2387200352827 /* VKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUser.h; sourceTree = "<group>"; };
 		0FA5FCC917B2387200352827 /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
+		0FA5FCD717B23ED800352827 /* SocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialManager.h; sourceTree = "<group>"; };
+		0FA5FCD817B23ED800352827 /* SocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialManager.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		310A9CF9178EEECB006D9C8A /* BarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarDown.png; sourceTree = "<group>"; };
 		310A9CFA178EEECB006D9C8A /* BarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BarDown@2x.png"; sourceTree = "<group>"; };
@@ -959,6 +962,8 @@
 				31AD161B1785CE78000D8F2C /* NotificationManager.m */,
 				31F47E1B177318090047ECCF /* ObjectManager.h */,
 				31F47E1C177318090047ECCF /* ObjectManager.m */,
+				0FA5FCD717B23ED800352827 /* SocialManager.h */,
+				0FA5FCD817B23ED800352827 /* SocialManager.m */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -1355,6 +1360,7 @@
 				0FA5FCD417B2387200352827 /* VKCachedData.m in Sources */,
 				0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */,
 				0FA5FCD617B2387200352827 /* VKUser.m in Sources */,
+				0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,7 @@
 #import "NotificationManager.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "SocialManager.h"
 
 typedef enum {
     DirectionUp,
@@ -31,6 +32,7 @@ typedef enum {
 @property (nonatomic, strong) UIButton *buttonEnter;
 @property (nonatomic, strong) UIButton *buttonFb;
 @property (nonatomic, strong) UIButton *buttonTw;
+@property (nonatomic, strong) UIButton *buttonVk;
 
 @property (nonatomic, strong) EnterModel *enter;
 
@@ -152,6 +154,12 @@ typedef enum {
     [self.buttonTw setAlpha:0.2];
     [self.buttonTw addTarget:self action:@selector(twButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonTw];
+    
+    self.buttonVk = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 10, 300, 40)];
+    [self.buttonVk setBackgroundColor:[UIColor blueColor]];
+    [self.buttonVk setAlpha:0.2];
+    [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.buttonVk];
 }
 
 #pragma mark - Actions
@@ -166,7 +174,7 @@ typedef enum {
 }
 
 - (void)fbButtonTouched {
-    NSLog(@"fb touched");
+   /* NSLog(@"fb touched");
     if(!self.accountStore)
         self.accountStore = [[ACAccountStore alloc] init];
     
@@ -185,7 +193,8 @@ typedef enum {
                                                 NSLog(@"Fail");
                                                 NSLog(@"Error: %@", error);
                                             }
-                                        }];
+                                        }];*/
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:nil];
 }
 
 - (void)twButtonTouched {
@@ -209,6 +218,9 @@ typedef enum {
     }];
 }
 
+- (void)vkButtonTouched {
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:nil];
+}
 #pragma mark - TextField Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -280,7 +292,7 @@ typedef enum {
     self.enter.login = self.textFieldLogin.text;
     self.enter.password = self.textFieldPassword.text;
 }
-
+/*
 - (void)myFbData {
     
     NSURL *meurl = [NSURL URLWithString:@"https://graph.facebook.com/me"];
@@ -299,7 +311,7 @@ typedef enum {
         
     }];
     
-}
+}*/
 - (BOOL)dataIsValid {
     if (!self.enter.login || self.enter.login.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

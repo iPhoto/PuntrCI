@@ -74,7 +74,11 @@
     _permissions = permissions;
     _appID = appID;
 
-    _settings = [self.permissions componentsJoinedByString:@","];
+    if(self.permissions != nil){
+        _settings = [self.permissions componentsJoinedByString:@","];
+    }else{
+        _settings = @"";
+    }
     _redirectURL = @"https://oauth.vk.com/blank.html";
 
     if (nil == _mainView) {

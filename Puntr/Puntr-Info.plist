@@ -34,5 +34,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>TWITTER_CONSUMER_KEY</key>
+	<string>hL7hYmgLaLvb84jyCtjw</string>
+	<key>TWITTER_CONSUMER_SECRET</key>
+	<string>WR7ZUatyJge8g3ReA0Yo2l0nuuED3uyCTVyth1iN7Oc</string>
 </dict>
 </plist>
