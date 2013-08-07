@@ -10,7 +10,7 @@
 #import "HeaderCell.h"
 #import "EventCell.h"
 #import "LoadButtonCell.h"
-#import "SectionModel.h"
+#import "GroupModel.h"
 #import "ObjectManager.h"
 #import "EventModel.h"
 #import "NotificationManager.h"
@@ -33,7 +33,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 @property (nonatomic, strong) NSNumber *currentCategoryTag;
 @property (nonatomic, strong) NSArray *sections;
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) SectionModel *selectedSection;
+@property (nonatomic, strong) GroupModel *selectedSection;
 @property () int currentPage;
 
 @end
@@ -49,7 +49,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     return self;
 }
 
-- (id)initWhithCategory:(SectionModel *)selectedSection {
+- (id)initWhithCategory:(GroupModel *)selectedSection {
 	_layout = [[UICollectionViewFlowLayout alloc] init];
 	_layout.minimumLineSpacing = 10.0f;
 	_layout.minimumInteritemSpacing = 0.0f;
@@ -72,34 +72,34 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     self.currentPage = 0;
     self.currentCategoryTag = @0;
     
-    SectionModel *sectionUtility = [[SectionModel alloc] init];
-    sectionUtility.group = @"utility";
+    GroupModel *sectionUtility = [[GroupModel alloc] init];
+    sectionUtility.slug = @"utility";
     if (self.selectedSection == nil) {
         self.title = @"Каталог";
-        SectionModel *sectionPopular = [[SectionModel alloc] init];
+        GroupModel *sectionPopular = [[GroupModel alloc] init];
         sectionPopular.title = @"Популярное";
         sectionPopular.image = [UIImage imageNamed:@"sectionPopular"];
-        sectionPopular.group = @"popular";
+        sectionPopular.slug = @"popular";
         
-        SectionModel *sectionLive = [[SectionModel alloc] init];
+        GroupModel *sectionLive = [[GroupModel alloc] init];
         sectionLive.title = @"Идут сейчас";
         sectionLive.image = [UIImage imageNamed:@"sectionLive"];
-        sectionLive.group = @"live";
+        sectionLive.slug = @"live";
         
-        SectionModel *sectionTournaments = [[SectionModel alloc] init];
+        GroupModel *sectionTournaments = [[GroupModel alloc] init];
         sectionTournaments.title = @"Турниры";
         sectionTournaments.image = [UIImage imageNamed:@"sectionTournaments"];
-        sectionTournaments.group = @"tournaments";
+        sectionTournaments.slug = @"tournaments";
         
-        SectionModel *sectionEditorsChoice = [[SectionModel alloc] init];
+        GroupModel *sectionEditorsChoice = [[GroupModel alloc] init];
         sectionEditorsChoice.title = @"Выбор редакции";
         sectionEditorsChoice.image = [UIImage imageNamed:@"sectionEditorsChoice"];
-        sectionEditorsChoice.group = @"editorsChoice";
+        sectionEditorsChoice.slug = @"editorsChoice";
         
-        SectionModel *sectionMaximumWinnings = [[SectionModel alloc] init];
+        GroupModel *sectionMaximumWinnings = [[GroupModel alloc] init];
         sectionMaximumWinnings.title = @"Максимальный выигрыш!!!";
         sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
-        sectionMaximumWinnings.group = @"maximumWinnings";
+        sectionMaximumWinnings.slug = @"maximumWinnings";
         
         self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];
     } else {
@@ -107,7 +107,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         self.sections = @[sectionUtility, self.selectedSection];
     }
     NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
-    for (SectionModel *section in self.sections) {
+    for (GroupModel *section in self.sections) {
         if (section == sectionUtility) {
             [collectionData addObject:[NSArray arrayWithObjects:[[SearchCell alloc] init], [[CategoriesCell alloc] init], nil]];
         } else {
@@ -135,14 +135,14 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     } else {
         cellObject = self.collectionData[indexPath.section][indexPath.row];
     }
-    if ([cellObject isMemberOfClass:[SectionModel class]]) {
+    if ([cellObject isMemberOfClass:[GroupModel class]]) {
         if (self.selectedSection != nil) {
             LoadButtonCell *buttonLoad = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueLoadButton" forIndexPath:indexPath];
             buttonLoad.frame = buttonLoad.bounds;
             [buttonLoad loadButton];
             return buttonLoad;
         }
-        SectionModel *section = (SectionModel *)cellObject;
+        GroupModel *section = (GroupModel *)cellObject;
         HeaderCell *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
         header.frame = header.bounds;
         [header loadWithSection:section];
@@ -191,7 +191,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     } else {
         cellObject = self.collectionData[indexPath.section][indexPath.row];
     }
-    if ([cellObject isMemberOfClass:[SectionModel class]]) {
+    if ([cellObject isMemberOfClass:[GroupModel class]]) {
         if (self.selectedSection != nil) {
             return buttonSize;
         }
@@ -212,13 +212,13 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     id cellObject;
     if (self.selectedSection != nil) {
         cellObject = self.collectionData[indexPath.section][(indexPath.row + 1) % ([self.collectionData[indexPath.section] count])];
-        if ([cellObject isMemberOfClass:[SectionModel class]]) {
+        if ([cellObject isMemberOfClass:[GroupModel class]]) {
             NSLog(@"section clicked");
             [self buttonStakeTouched];
         }
     } else {
         cellObject = self.collectionData[indexPath.section][indexPath.row];
-        if ([cellObject isMemberOfClass:[SectionModel class]]) {
+        if ([cellObject isMemberOfClass:[GroupModel class]]) {
             NSLog(@"section clicked");
             [self.navigationController pushViewController:[[CatalogueViewController alloc] initWhithCategory:cellObject] animated:YES];
         }
@@ -244,9 +244,9 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 }
 
 - (void)updateSections {
-    for (SectionModel *section in self.sections) {
-        if (![section.group isEqualToString:@"utility"]) {
-            [[ObjectManager sharedManager] eventsForGroup:section.group filter:@[self.currentCategoryTag] search:nil limit:@10 page:[NSNumber numberWithInt:self.currentPage] success: ^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    for (GroupModel *section in self.sections) {
+        if (![section.slug isEqualToString:@"utility"]) {
+            [[ObjectManager sharedManager] eventsForGroup:section.slug filter:@[self.currentCategoryTag] search:nil limit:@10 page:[NSNumber numberWithInt:self.currentPage] success: ^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                 [self updatedSection:section withMapping:mappingResult.array];
             } failure: ^(RKObjectRequestOperation *operation, NSError *error) {
                 [NotificationManager showError:error forViewController:self];
@@ -255,7 +255,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     }
 }
 
-- (void)updatedSection:(SectionModel *)section withMapping:(NSArray *)arrayMapping {
+- (void)updatedSection:(GroupModel *)section withMapping:(NSArray *)arrayMapping {
     NSUInteger sectionIndex = NSUIntegerMax;
     sectionIndex = [self.sections indexOfObject:section];
     if (sectionIndex != NSUIntegerMax && sectionIndex != 0) {

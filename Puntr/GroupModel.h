@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SectionModel : NSObject
+@interface GroupModel : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSString *group;
+@property (nonatomic, strong) NSString *slug;
 
 @end

@@ -73,18 +73,16 @@
 }
 
 - (void)reload {
-    [[ObjectManager sharedManager] categoriesWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories) {
         CategoryModel *categoryAll = [[CategoryModel alloc] init];
         categoryAll.tag = @0;
         categoryAll.title = @"Все";
-        NSMutableArray *categories = [NSMutableArray arrayWithCapacity:mappingResult.array.count + 1];
-        [categories addObject:categoryAll];
-        [categories addObjectsFromArray:mappingResult.array];
-        self.categories = [categories copy];
+        NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
+        [consolidatedCategories addObject:categoryAll];
+        [consolidatedCategories addObjectsFromArray:categories];
+        self.categories = [consolidatedCategories copy];
         [self.collectionView reloadData];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-    }];
+    } failure:nil];
 }
 
 - (void)prepareForReuse {

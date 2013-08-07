@@ -6,21 +6,25 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "ObjectManager.h"
-#import "EventModel.h"
-#import "CategoryModel.h"
-#import "ParticipantModel.h"
 #import "AuthorizationModel.h"
-#import "RegistrationModel.h"
-#import "EnterModel.h"
+#import "CategoryModel.h"
+#import "CredentialsModel.h"
 #import "ErrorModel.h"
 #import "ErrorParameterModel.h"
+#import "EventModel.h"
+#import "FilterModel.h"
+#import "NotificationManager.h"
+#import "ObjectManager.h"
+#import "PagingModel.h"
+#import "ParticipantModel.h"
+#import "RegistrationModel.h"
 #import "StakeModel.h"
 #import "StakeRequestModel.h"
 
 @interface ObjectManager ()
 
 @property (nonatomic, strong) AuthorizationModel *authorization;
+@property (nonatomic, strong) UserModel *user;
 
 @end
 
@@ -36,6 +40,34 @@
 }
 
 - (void)configureMapping {
+    // Status Codes
+    NSIndexSet *statusCodeCreated = [NSIndexSet indexSetWithIndex:201];
+    NSIndexSet *statusCodeOK = [NSIndexSet indexSetWithIndex:200];
+    NSIndexSet *statusCodeNoContent = [NSIndexSet indexSetWithIndex:204];
+    NSIndexSet *statusCodeNotModified = [NSIndexSet indexSetWithIndex:304];
+    NSIndexSet *statusCodeBadRequest = [NSIndexSet indexSetWithIndex:400];
+    NSIndexSet *statusCodeUnauthorized = [NSIndexSet indexSetWithIndex:401];
+    NSIndexSet *statusCodeForbidden = [NSIndexSet indexSetWithIndex:403];
+    NSIndexSet *statusCodeNotFound = [NSIndexSet indexSetWithIndex:404];
+    NSIndexSet *statusCodeConflict = [NSIndexSet indexSetWithIndex:409];
+    NSIndexSet *statusCodeUnprocessableEntity = [NSIndexSet indexSetWithIndex:422];
+    NSIndexSet *statusCodeInternalServerError = [NSIndexSet indexSetWithIndex:500];
+    NSIndexSet *statusCodeNotImplemented = [NSIndexSet indexSetWithIndex:501];
+    
+    
+    
+    
+    // Authorization Mapping
+    RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
+    [authorizationMapping addAttributeMappingsFromArray:@[KeySID]];
+    
+    RKResponseDescriptor *authorizationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIAuthorization keyPath:KeyAuthorization statusCodes:statusCodeCreated];
+    RKResponseDescriptor *authorizationUsersMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIUsers keyPath:KeyAuthorization statusCodes:statusCodeCreated];
+    
+    // Categories Mapping
+    RKObjectMapping *categoriesMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
+    [categoriesMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
+    RKResponseDescriptor *categoriesMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoriesMapping pathPattern:APICategories keyPath:KeyCategories statusCodes:statusCodeOK];
     
     // Line Mapping
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
@@ -56,14 +88,9 @@
     RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyLines toKeyPath:KeyLines withMapping:lineMapping];
     
     [eventMapping addPropertyMappingsFromArray:@[categoryRelationship, participantsRelationship, eventLineRelationship]];
-    RKResponseDescriptor *eventMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    RKResponseDescriptor *eventMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:statusCodeOK];
     
-    // Authorization Mapping
-    RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
-    [authorizationMapping addAttributeMappingsFromArray:@[KeyTag, KeySID]];
     
-    RKResponseDescriptor *authorizationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIAuthorization keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    RKResponseDescriptor *registrationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIUsers keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
     // Error Parameter Mapping
     RKObjectMapping *errorParameterMapping = [RKObjectMapping mappingForClass:[ErrorParameterModel class]];
@@ -76,24 +103,24 @@
     [errorMapping addPropertyMappingsFromArray:@[errorParameterRelationship]];
     
     NSMutableIndexSet *errorStatusCodes = [NSMutableIndexSet indexSet];
-    [errorStatusCodes addIndex:304];
-    [errorStatusCodes addIndex:400];
-    [errorStatusCodes addIndex:401];
-    [errorStatusCodes addIndex:403];
-    [errorStatusCodes addIndex:404];
-    [errorStatusCodes addIndex:422];
-    [errorStatusCodes addIndex:500];
+    [errorStatusCodes addIndexes:statusCodeNotModified];
+    [errorStatusCodes addIndexes:statusCodeBadRequest];
+    [errorStatusCodes addIndexes:statusCodeUnauthorized];
+    [errorStatusCodes addIndexes:statusCodeForbidden];
+    [errorStatusCodes addIndexes:statusCodeNotFound];
+    [errorStatusCodes addIndexes:statusCodeUnprocessableEntity];
+    [errorStatusCodes addIndexes:statusCodeInternalServerError];
+    [errorStatusCodes addIndexes:statusCodeNotImplemented];
     RKResponseDescriptor *errorMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:nil statusCodes:errorStatusCodes];
     
-    // Categories Mapping
-    RKObjectMapping *categoriesMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
-    [categoriesMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
-    RKResponseDescriptor *categoriesMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoriesMapping pathPattern:APICategories keyPath:KeyCategories statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
     
     // User Mapping
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
-    RKResponseDescriptor *userMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers] keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor *userMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers] keyPath:KeyUser statusCodes:statusCodeOK];
+    RKResponseDescriptor *userCreationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:APIUsers keyPath:KeyUser statusCodes:statusCodeCreated];
+    RKResponseDescriptor *userAuthorizationMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:APIAuthorization keyPath:KeyUser statusCodes:statusCodeCreated];
     
     // Criterion Mapping
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
@@ -105,19 +132,19 @@
     RKRelationshipMapping *componentCriterionRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCriteria toKeyPath:KeyCriteria withMapping:criterionMapping];
     [componentMapping addPropertyMapping:componentCriterionRelationship];
     
-    RKResponseDescriptor *componentsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents] keyPath:KeyComponents statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor *componentsResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents] keyPath:KeyComponents statusCodes:statusCodeOK];
     
     // Coefficient Mapping
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
     [coefficientMapping addAttributeMappingsFromArray:@[KeyValue]];
     
-    RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient] keyPath:KeyCoefficient statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient] keyPath:KeyCoefficient statusCodes:statusCodeOK];
     
     // Money Mapping
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
     
-    RKResponseDescriptor *balanceResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance] keyPath:KeyBalance statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor *balanceResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance] keyPath:KeyBalance statusCodes:statusCodeOK];
     
     // Stake Mapping
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
@@ -132,19 +159,19 @@
     
     [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentsRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
     
-    RKResponseDescriptor *stakeMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStake statusCodes:[NSIndexSet indexSetWithIndex:200]];
-    RKResponseDescriptor *stakesMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStakes statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor *stakeMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStake statusCodes:statusCodeOK];
+    RKResponseDescriptor *stakesMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStakes statusCodes:statusCodeOK];
     
     // Response Descriptors
     
-    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, registrationMappingResponseDescriptor, errorMappingResponseDescriptor, categoriesMappingResponseDescriptor, stakeMappingResponseDescriptor, stakesMappingResponseDescriptor, componentsResponseDescriptor, coefficientResponseDescriptor, balanceResponseDescriptor, userMappingResponseDescriptor]];
+    [self addResponseDescriptorsFromArray:@[eventMappingResponseDescriptor, authorizationMappingResponseDescriptor, authorizationUsersMappingResponseDescriptor, errorMappingResponseDescriptor, categoriesMappingResponseDescriptor, stakeMappingResponseDescriptor, stakesMappingResponseDescriptor, componentsResponseDescriptor, coefficientResponseDescriptor, balanceResponseDescriptor, userMappingResponseDescriptor, userAuthorizationMappingResponseDescriptor, userCreationMappingResponseDescriptor]];
     
     // Serialization
     
-    // Enter Serialization
-    RKObjectMapping *enterMapping = [RKObjectMapping requestMapping];
-    [enterMapping addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
-    RKRequestDescriptor *enterRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:enterMapping objectClass:[EnterModel class] rootKeyPath:nil];
+    // Credentials Serialization
+    RKObjectMapping *credentialsMapping = [RKObjectMapping requestMapping];
+    [credentialsMapping addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
+    RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsMapping objectClass:[CredentialsModel class] rootKeyPath:KeyCredentials];
     
     // Registration Serialization
     RKObjectMapping *registrationSerialization = [RKObjectMapping requestMapping];
@@ -173,48 +200,51 @@
     [stakeRequestSerialization addPropertyMappingsFromArray:@[stakeRequestComponentsRelationship, stakeRequestCoefficientRelationship, stakeRequestMoneyRelationship]];
     RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:stakeRequestSerialization objectClass:[StakeRequestModel class] rootKeyPath:nil];
     
-    [self addRequestDescriptorsFromArray:@[enterRequestDescriptor, registrationRequestDescriptor, authorizationRequestDescriptor, componentsRequestDescriptor, stakeRequestDescriptor]];
+    [self addRequestDescriptorsFromArray:@[credentialsRequestDescriptor, registrationRequestDescriptor, authorizationRequestDescriptor, componentsRequestDescriptor, stakeRequestDescriptor]];
 }
 
 #pragma mark - Authorization
 
-- (void)enter:(EnterModel *)enter success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self postObject:enter path:APIAuthorization parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        if (![mappingResult.firstObject isMemberOfClass:[ErrorModel class]]) {
-            self.authorization = mappingResult.firstObject;
-        }
-        success(operation, mappingResult);
-    } failure:failure];
+- (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure {
+    [self postObject:credentials path:APIAuthorization parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSDictionary *response = mappingResult.dictionary;
+        AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
+        UserModel *user = (UserModel *)response[KeyUser];
+        self.authorization = authorization;
+        self.user = user;
+        success(authorization, user);
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+        failure();
+    }];
 }
 
-#pragma mark - Registration
-
-- (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self postObject:registration path:APIUsers parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        self.authorization = mappingResult.firstObject;
-        success(operation, mappingResult);
-    } failure:failure];
-}
-
-#pragma mark - User
-
-- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.authorization.tag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
-}
-
-#pragma mark - Balance
-
-- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.authorization.tag.stringValue, APIBalance] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+- (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure {
+    [self.HTTPClient deletePath:APIAuthorization parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+        failure();
+    }];
 }
 
 #pragma mark - Categories
 
-- (void)categoriesWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:APICategories parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+- (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure {
+    [self getObject:nil path:APICategories parameters:@{KeySID: self.authorization.sid} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSArray *categories = mappingResult.dictionary[KeyCategories];
+        success(categories);
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [NotificationManager showError:error];
+        failure();
+    }];
 }
 
 #pragma mark - Events
+
+- (void)eventsWithFilter:(FilterModel *)filter paging:(PagingModel *)paging success:(Events)success failure:(EmptyFailure)failure {
+    
+}
 
 - (void)eventsForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     [self eventsForGroup:group filter:nil search:nil limit:limit page:nil success:success failure:failure];
@@ -222,7 +252,7 @@
 
 - (void)eventsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeySID: self.authorization.sid}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: @{KeySID: self.authorization.sid}}];
     if (group) {
         [parameters setObject:group forKey:KeyGroup];
     }
@@ -240,6 +270,29 @@
     }
     
     [self getObject:nil path:APIEvents parameters:parameters success:success failure:failure];
+}
+
+#pragma mark - Registration
+
+- (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self postObject:registration path:APIUsers parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        NSDictionary *response = mappingResult.dictionary;
+        self.authorization = (AuthorizationModel *)response[KeyAuthorization];
+        self.user = (UserModel *)response[KeyUser];
+        success(operation, mappingResult);
+    } failure:failure];
+}
+
+#pragma mark - User
+
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+}
+
+#pragma mark - Balance
+
+- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
 }
 
 #pragma mark - Stakes

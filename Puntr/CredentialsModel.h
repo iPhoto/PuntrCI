@@ -1,5 +1,5 @@
 //
-//  EnterModel.h
+//  CredentialsModel.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 20.06.13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EnterModel : NSObject
+@interface CredentialsModel : NSObject
 
 @property (nonatomic, copy) NSString *login;
 @property (nonatomic, copy) NSString *password;

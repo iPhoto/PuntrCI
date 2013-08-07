@@ -11,9 +11,8 @@
 #import "RegistrationViewController.h"
 #import "HTTPClient.h"
 #import "TabBarViewController.h"
-#import "EnterModel.h"
+#import "CredentialsModel.h"
 #import "ObjectManager.h"
-#import "NotificationManager.h"
 
 typedef enum {
     DirectionUp,
@@ -28,7 +27,7 @@ typedef enum {
 @property (nonatomic, strong) UIButton *buttonRegistration;
 @property (nonatomic, strong) UIButton *buttonEnter;
 
-@property (nonatomic, strong) EnterModel *enter;
+@property (nonatomic, strong) CredentialsModel *credentials;
 
 @property (nonatomic, strong) UIImageView *imageViewLogoTitle;
 @property (nonatomic, strong) UIImageView *imageViewLogoDescription;
@@ -68,7 +67,7 @@ typedef enum {
     CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.bounds.size.height);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    self.enter = [[EnterModel alloc] init];
+    self.credentials = [[CredentialsModel alloc] init];
     
     self.imageViewLogoTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, 320.0f, 42.0f)];
     self.imageViewLogoTitle.image = [UIImage imageNamed:@"logoTitle"];
@@ -159,9 +158,9 @@ typedef enum {
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if (textField == self.textFieldLogin) {
-        self.enter.login = textField.text;
+        self.credentials.login = textField.text;
     } else if (textField == self.textFieldPassword) {
-        self.enter.password = textField.text;
+        self.credentials.password = textField.text;
     }
     return YES;
 }
@@ -213,17 +212,17 @@ typedef enum {
 #pragma mark - Logic
 
 - (void)bufferData {
-    self.enter.login = self.textFieldLogin.text;
-    self.enter.password = self.textFieldPassword.text;
+    self.credentials.login = self.textFieldLogin.text;
+    self.credentials.password = self.textFieldPassword.text;
 }
 
 - (BOOL)dataIsValid {
-    if (!self.enter.login || self.enter.login.length == 0) {
+    if (!self.credentials.login || self.credentials.login.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.enter.password || self.enter.password.length == 0) {
+    if (!self.credentials.password || self.credentials.password.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
@@ -233,15 +232,13 @@ typedef enum {
 
 - (void)login {
     [self bufferData];
-    if ([self dataIsValid]) {        
-        [[ObjectManager sharedManager] enter:self.enter success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    if ([self dataIsValid]) {
+        [[ObjectManager sharedManager] logInWithCredentials:self.credentials success:^(AuthorizationModel *authorization, UserModel *user) {
             TabBarViewController *tabBar = [[TabBarViewController alloc] init];
             [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
             } completion:nil];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            [NotificationManager showError:error forViewController:self];
-        }];
+        } failure:nil];
     }
      
 }

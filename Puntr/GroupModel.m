@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "SectionModel.h"
+#import "GroupModel.h"
 
-@implementation SectionModel
+@implementation GroupModel
 
 @end

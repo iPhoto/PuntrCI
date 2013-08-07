@@ -34,6 +34,7 @@ NSString *const                     APIStakes = @"stakes";
 #pragma mark - Parameters
 
 NSString *const                     KeyAmount = @"amount";
+NSString *const                     KeyAuthorization = @"authorization";
 NSString *const                     KeyAvatar = @"avatar";
 NSString *const                     KeyBadgesCount = @"badgesCount";
 NSString *const                     KeyBalance = @"balance";
@@ -43,6 +44,7 @@ NSString *const                     KeyCode = @"code";
 NSString *const                     KeyCoefficient = @"coefficient";
 NSString *const                     KeyComponents = @"components";
 NSString *const                     KeyCreatedAt = @"createdAt";
+NSString *const                     KeyCredentials = @"credentials";
 NSString *const                     KeyCriteria = @"criteria";
 NSString *const                     KeyEmail = @"email";
 NSString *const                     KeyEndTime = @"endTime";

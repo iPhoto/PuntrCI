@@ -10,7 +10,7 @@
 
 @interface AuthorizationModel : NSObject
 
-@property (nonatomic, strong) NSNumber *tag;
 @property (nonatomic, copy) NSString *sid;
+@property (nonatomic, copy) NSString *secret;
 
 @end

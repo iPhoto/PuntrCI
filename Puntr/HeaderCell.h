@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class SectionModel;
+@class GroupModel;
 
 @interface HeaderCell : UICollectionViewCell
 
-- (void)loadWithSection:(SectionModel *)section;
+- (void)loadWithSection:(GroupModel *)section;
 
 @end
