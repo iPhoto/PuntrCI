@@ -26,4 +26,6 @@
 @property (nonatomic, strong, readonly) CoefficientModel *coefficient;
 @property (nonatomic, strong, readonly) MoneyModel *money;
 
++ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient money:(MoneyModel *)money;
+
 @end

@@ -86,6 +86,8 @@ typedef void (^User)(UserModel *user);
 
 - (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
+
 - (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 @end

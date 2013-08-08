@@ -10,4 +10,15 @@
 
 @implementation AuthorizationModel
 
+- (NSDictionary *)parameters {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (self.sid) {
+        [parameters setObject:self.sid forKey:KeySID];
+    }
+    if (self.secret) {
+        [parameters setObject:self.secret forKey:KeySecret];
+    }
+    return @{KeyAuthorization: [parameters copy]};
+}
+
 @end

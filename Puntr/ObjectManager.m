@@ -18,6 +18,7 @@
 #import "PagingModel.h"
 #import "ParticipantModel.h"
 #import "RegistrationModel.h"
+#import "RKObjectRequestOperation+HeaderFields.h"
 #import "StakeModel.h"
 #import "StakeRequestModel.h"
 
@@ -77,7 +78,7 @@
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
     
     RKObjectMapping *participantsMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
-    [participantsMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
+    [participantsMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount]];
     
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
     [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus]];
@@ -204,12 +205,13 @@
     
     // Stake Request Serialization
     RKObjectMapping *stakeRequestSerialization = [RKObjectMapping requestMapping];
-    [stakeRequestSerialization addAttributeMappingsFromArray:@[KeyLine]];
-    RKRelationshipMapping *stakeRequestComponentsRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyComponents toKeyPath:KeyComponents withMapping:componentsSerializationMapping];
-    RKRelationshipMapping *stakeRequestCoefficientRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCoefficient toKeyPath:KeyCoefficient withMapping:coefficientMapping];
-    RKRelationshipMapping *stakeRequestMoneyRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyMoney toKeyPath:KeyMoney withMapping:moneyMapping];
-    [stakeRequestSerialization addPropertyMappingsFromArray:@[stakeRequestComponentsRelationship, stakeRequestCoefficientRelationship, stakeRequestMoneyRelationship]];
-    RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:stakeRequestSerialization objectClass:[StakeRequestModel class] rootKeyPath:nil];
+    [stakeRequestSerialization addPropertyMappingsFromArray:@[
+     [stakeLineRelationship copy],
+     [stakeComponentsRelationship copy],
+     [stakeCoefficientRelationship copy],
+     [stakeMoneyRelationship copy]]];
+    
+    RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[stakeMapping inverseMapping] objectClass:[StakeModel class] rootKeyPath:nil];
     
     [self addRequestDescriptorsFromArray:@[
      credentialsRequestDescriptor,
@@ -248,7 +250,7 @@
 #pragma mark - Categories
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure {
-    [self getObject:nil path:APICategories parameters:@{KeySID: self.authorization.sid} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [self getObject:nil path:APICategories parameters:self.authorization.parameters success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSArray *categories = mappingResult.dictionary[KeyCategories];
         success(categories);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -269,7 +271,7 @@
 
 - (void)eventsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: @{KeySID: self.authorization.sid}}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.parameters];
     if (group) {
         [parameters setObject:group forKey:KeyGroup];
     }
@@ -303,15 +305,15 @@
 #pragma mark - User
 
 - (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:self.authorization.parameters success:success failure:failure];
 }
 
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:self.authorization.parameters success:success failure:failure];
 }
 
 - (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:self.authorization.parameters success:success failure:failure];
 }
 
 - (NSNumber *)loginedUserTag {
@@ -321,18 +323,18 @@
 #pragma mark - Balance
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:@{KeySID: self.authorization.sid} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:self.authorization.parameters success:success failure:failure];
 }
 
 #pragma mark - Stakes
 
 - (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeySID: self.authorization.sid, KeyLine: line.tag} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: line.tag} success:success failure:failure];
 }
 
 - (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeySID: self.authorization.sid, KeyLine: line.tag}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: line.tag}];
     NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:components.count];
     for (ComponentModel *component in components) {
         [componentsParamenters addObject:@{KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion}];
@@ -344,6 +346,24 @@
 
 - (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     [self postObject:nil path:[NSString stringWithFormat:@"events/%i/stakes", event.integerValue] parameters:@{KeySID: self.authorization.sid, @"amount": @50} success:success failure:failure];
+}
+
+- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure {
+    
+    [self postObject:stake
+                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, stake.event.tag.integerValue, APIStakes]
+          parameters:self.authorization.parameters
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        
+                 success(operation.locationHeader);
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+        [NotificationManager showError:error];
+        failure();
+        
+    }];
+    
 }
 
 @end

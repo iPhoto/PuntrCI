@@ -13,7 +13,18 @@
 
 @implementation NotificationManager
 
+
++ (void)showErrorMessage:(NSString *)message {
+    if (message) {
+        [self showErrorMessage:message forViewController:[self topController]];
+    }
+}
+
 + (void)showError:(NSError *)error {
+    [self showError:error forViewController:[self topController]];
+}
+
++ (UIViewController *)topController {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     if ([topController isKindOfClass:[UITabBarController class]]) {
         topController = [(UITabBarController *)topController selectedViewController];
@@ -24,7 +35,11 @@
     while (topController.presentedViewController) {
         topController = topController.presentedViewController;
     }
-    [self showError:error forViewController:topController];
+    return topController;
+}
+
++ (void)showErrorMessage:(NSString *)message forViewController:(UIViewController *)viewController {
+    [TSMessage showNotificationInViewController:viewController withTitle:@"Внимание" withMessage:message withType:TSMessageNotificationTypeWarning];
 }
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController {
