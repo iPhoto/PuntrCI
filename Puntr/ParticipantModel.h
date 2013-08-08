@@ -13,5 +13,6 @@
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, strong, readonly) NSURL *logo;
+@property (nonatomic, strong, readonly) NSNumber *subscribersCount;
 
 @end

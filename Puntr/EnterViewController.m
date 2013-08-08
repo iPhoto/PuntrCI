@@ -335,8 +335,6 @@ typedef enum {
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
             } completion:nil];
         } failure:nil];
-            [NotificationManager showError:error forViewController:self];
-        }];
     }
      
 }

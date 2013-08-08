@@ -1,5 +1,5 @@
 platform :ios, '6.0'
-
+inhibit_all_warnings!
 pod 'RestKit'
 pod 'AFNetworking'
 pod 'TestFlightSDK', '~> 1.2.5'
