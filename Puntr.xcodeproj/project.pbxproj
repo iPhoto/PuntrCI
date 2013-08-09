@@ -197,6 +197,7 @@
 		7611C7BA178FA99E00356455 /* StakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611C7B9178FA99E00356455 /* StakeModel.m */; };
 		761D81D81769C7F7009455B1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* HTTPClient.m */; };
 		761D81D91769C7F7009455B1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* HTTPClient.m */; };
+		7629C8A317B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */; };
 		76335D4E17697C3F009F75E2 /* EnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76335D4D17697C3F009F75E2 /* EnterViewController.m */; };
 		764C42581769C8E400B7FBF2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C42571769C8E400B7FBF2 /* SystemConfiguration.framework */; };
 		764C425A1769C8EB00B7FBF2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C42591769C8EB00B7FBF2 /* MobileCoreServices.framework */; };
@@ -477,6 +478,8 @@
 		7611C7B9178FA99E00356455 /* StakeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeModel.m; sourceTree = "<group>"; };
 		761D81D61769C7F7009455B1 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		761D81D71769C7F7009455B1 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
+		7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKObjectRequestOperation+HeaderFields.h"; sourceTree = "<group>"; };
+		7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKObjectRequestOperation+HeaderFields.m"; sourceTree = "<group>"; };
 		76335D4C17697C3F009F75E2 /* EnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterViewController.h; sourceTree = "<group>"; };
 		76335D4D17697C3F009F75E2 /* EnterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterViewController.m; sourceTree = "<group>"; };
 		764C42571769C8E400B7FBF2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -968,6 +971,8 @@
 				31AD161B1785CE78000D8F2C /* NotificationManager.m */,
 				31F47E1B177318090047ECCF /* ObjectManager.h */,
 				31F47E1C177318090047ECCF /* ObjectManager.m */,
+				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
+				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
 				0FA5FCD717B23ED800352827 /* SocialManager.h */,
 				0FA5FCD817B23ED800352827 /* SocialManager.m */,
 			);
@@ -1020,8 +1025,8 @@
 				31F47E2B177356B10047ECCF /* CredentialsModel.m */,
 				3127C03F179856AE0056D78A /* CriterionModel.h */,
 				3127C040179856AE0056D78A /* CriterionModel.m */,
-				31F47E2A177356B10047ECCF /* EnterModel.h */,
-				31F47E2B177356B10047ECCF /* EnterModel.m */,
+				31F47E2A177356B10047ECCF /* CredentialsModel.h */,
+				31F47E2B177356B10047ECCF /* CredentialsModel.m */,
 				31B3E7431774996300AEFDF5 /* ErrorModel.h */,
 				31B3E7441774996300AEFDF5 /* ErrorModel.m */,
 				31AD161D1785D294000D8F2C /* ErrorParameterModel.h */,
@@ -1042,8 +1047,8 @@
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
 				31F47E2D177356F60047ECCF /* RegistrationModel.h */,
 				31F47E2E177356F60047ECCF /* RegistrationModel.m */,
-				31940357177231C8009F0DBE /* SectionModel.h */,
-				31940358177231C8009F0DBE /* SectionModel.m */,
+				31940357177231C8009F0DBE /* GroupModel.h */,
+				31940358177231C8009F0DBE /* GroupModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				31651A7C179D9162006CCFAF /* StakeRequestModel.h */,
@@ -1377,6 +1382,7 @@
 				0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */,
 				315A60FB17B287AA0010756F /* FilterModel.m in Sources */,
 				315A60FE17B2898C0010756F /* PagingModel.m in Sources */,
+				7629C8A317B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

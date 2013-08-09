@@ -289,7 +289,32 @@
 }
 
 - (void)stakeButtonTouched {
-    
+    if ([self stakeIsComplete]) {
+        StakeModel *stake = [self generateStake];
+        [[ObjectManager sharedManager] setStake:stake success:^(NSNumber *tag) {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        } failure:nil];
+    }
+}
+
+- (BOOL)stakeIsComplete {
+    if ([self selectedAmount] == 0) {
+        [NotificationManager showErrorMessage:@"Задайте сумму ставки"];
+        return NO;
+    }
+    if (!self.selectedLine) {
+        [NotificationManager showErrorMessage:@"Выберите линию ставки"];
+        return NO;
+    }
+    if (!self.coefficient) {
+        [NotificationManager showErrorMessage:@"Выберите критерии ставки"];
+        return NO;
+    }
+    return YES;
+}
+
+- (StakeModel *)generateStake {
+    return [StakeModel stakeWithEvent:self.event Line:self.selectedLine components:self.components coefficient:self.coefficient money:self.balance];;
 }
 
 - (void)amountDecrease {

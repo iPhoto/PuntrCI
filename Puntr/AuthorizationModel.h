@@ -13,4 +13,6 @@
 @property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *secret;
 
+- (NSDictionary *)parameters;
+
 @end
