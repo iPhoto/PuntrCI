@@ -183,6 +183,7 @@
 		31E3E7B11754E24900B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
+		31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082A17B509D0003FEFA7 /* LeadCell.m */; };
 		31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE217995BFC00F27702 /* StakeElementView.m */; };
 		31EF4AE61799941800F27702 /* AmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE51799941800F27702 /* AmountView.m */; };
 		31EF4AEB179994E000F27702 /* ButtonMinusSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF4AE7179994E000F27702 /* ButtonMinusSelected.png */; };
@@ -463,6 +464,8 @@
 		31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		31E3E7B71754E24900B09DAD /* PuntrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuntrTests-Info.plist"; sourceTree = "<group>"; };
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		31ED082917B509D0003FEFA7 /* LeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCell.h; sourceTree = "<group>"; };
+		31ED082A17B509D0003FEFA7 /* LeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadCell.m; sourceTree = "<group>"; };
 		31EF4AE117995BFC00F27702 /* StakeElementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeElementView.h; sourceTree = "<group>"; };
 		31EF4AE217995BFC00F27702 /* StakeElementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeElementView.m; sourceTree = "<group>"; };
 		31EF4AE41799941800F27702 /* AmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountView.h; sourceTree = "<group>"; };
@@ -997,20 +1000,22 @@
 		31F47E19177307810047ECCF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
-				31D9F151179EA81A00C8AC17 /* ComponentPicker.m */,
-				31D9F153179EBFFF00C8AC17 /* LinePicker.h */,
-				31D9F154179EBFFF00C8AC17 /* LinePicker.m */,
 				31EF4AE41799941800F27702 /* AmountView.h */,
 				31EF4AE51799941800F27702 /* AmountView.m */,
 				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
 				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
 				3180CF7E178B29F1001B2DD1 /* CategoryCell.m */,
+				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
+				31D9F151179EA81A00C8AC17 /* ComponentPicker.m */,
 				3194035417722ECB009F0DBE /* EventCell.h */,
 				3194035517722ECC009F0DBE /* EventCell.m */,
 				3194035117722BED009F0DBE /* HeaderCell.h */,
 				3194035217722BEE009F0DBE /* HeaderCell.m */,
+				31ED082917B509D0003FEFA7 /* LeadCell.h */,
+				31ED082A17B509D0003FEFA7 /* LeadCell.m */,
+				31D9F153179EBFFF00C8AC17 /* LinePicker.h */,
+				31D9F154179EBFFF00C8AC17 /* LinePicker.m */,
 				0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */,
 				0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */,
 				3180CF6A178ABAF4001B2DD1 /* SearchCell.h */,
@@ -1413,6 +1418,7 @@
 				0F40905717B4FAC7001CC23F /* NewsModel.m in Sources */,
 				0F40905A17B4FBBE001CC23F /* CommentModel.m in Sources */,
 				0F40905D17B500A7001CC23F /* TournamentModel.m in Sources */,
+				31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
