@@ -85,7 +85,7 @@
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelTitle.textAlignment = NSTextAlignmentCenter;
     self.labelTitle.textColor = [UIColor whiteColor];
-    self.labelTitle.text = [NSString stringWithFormat:@"Ставка на %@", self.event.category.title];
+    self.labelTitle.text = [NSString stringWithFormat:@"Ставка на %@", self.event.tournament.category.title];
     [self.view addSubview:self.labelTitle];
     
     UIView *backgroundCover = [[UIView alloc] initWithFrame:CGRectMake(coverMargin, descriptionPadding, screenWidth - coverMargin * 2.0f, screenHeight - coverMargin - descriptionPadding)];

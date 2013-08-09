@@ -16,6 +16,7 @@ PODS:
   - FormatterKit/TimeIntervalFormatter (1.1.2)
   - FormatterKit/UnitOfInformationFormatter (1.1.2)
   - FormatterKit/URLRequestFormatter (1.1.2)
+  - Masonry (0.1.5)
   - RestKit (0.20.2):
     - RestKit/Core
   - RestKit/Core (0.20.2):
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - ActionSheetPicker
   - AFNetworking
   - FormatterKit
+  - Masonry
   - RestKit
   - Reveal-iOS-SDK (~> 0.8.3)
   - TestFlightSDK (~> 1.2.5)
@@ -50,6 +52,7 @@ SPEC CHECKSUMS:
   ActionSheetPicker: 16e212011d5c2e92b3e38609a58b93919b4056aa
   AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
   FormatterKit: bb53f3de30773e6b06f91dee1f82b46f536278d7
+  Masonry: b9be654975191d03885c8bc9f1fdb045f87a6d7f
   RestKit: e511651e916245fa4becfb0e8f966a1fa021fcd4
   Reveal-iOS-SDK: 0d58ea01260eb109b924a09631d9cc8dd96e12c4
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
@@ -57,4 +60,4 @@ SPEC CHECKSUMS:
   TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
   TSMessages: e741d102e8291074b4ee7545b53c90ed5f220dd5
 
-COCOAPODS: 0.18.1
+COCOAPODS: 0.22.2

@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_FormatterKit_UnitOfInformationFormatter 1
 #define COCOAPODS_VERSION_PATCH_FormatterKit_UnitOfInformationFormatter 2
 
+// Masonry
+#define COCOAPODS_POD_AVAILABLE_Masonry
+#define COCOAPODS_VERSION_MAJOR_Masonry 0
+#define COCOAPODS_VERSION_MINOR_Masonry 1
+#define COCOAPODS_VERSION_PATCH_Masonry 5
+
 // RestKit
 #define COCOAPODS_POD_AVAILABLE_RestKit
 #define COCOAPODS_VERSION_MAJOR_RestKit 0

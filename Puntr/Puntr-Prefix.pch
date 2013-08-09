@@ -15,4 +15,6 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <RestKit/RestKit.h>
     #import "Constants.h"
+#define MAS_SHORTHAND
+    #import "Masonry.h"
 #endif

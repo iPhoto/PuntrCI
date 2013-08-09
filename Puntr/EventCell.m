@@ -38,7 +38,7 @@
     self.labelCategory.font = [UIFont fontWithName:@"ArialMT" size:10.4f];
     self.labelCategory.backgroundColor = [UIColor clearColor];
     self.labelCategory.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelCategory.text = [event.category.title capitalizedString];
+    self.labelCategory.text = [event.tournament.category.title capitalizedString];
     [self addSubview:self.labelCategory];
     
     self.labelParticipants = [[UILabel alloc] init];
@@ -93,13 +93,11 @@
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 }
-/*
+
 - (void)stakeButtonTouched {
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[StakeViewController alloc] initWithEvent:self.event]] animated:YES completion:^{
-        
-    }];
+    
 }
-*/
+
 - (void)prepareForReuse {
     [self.labelCategory removeFromSuperview];
     self.labelCategory = nil;

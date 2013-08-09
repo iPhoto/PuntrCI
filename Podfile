@@ -7,3 +7,4 @@ pod 'Reveal-iOS-SDK', '~> 0.8.3' #Remove for Release
 pod 'FormatterKit'
 pod 'TSMessages'
 pod 'ActionSheetPicker'
+pod 'Masonry'
