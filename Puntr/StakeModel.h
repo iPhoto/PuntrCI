@@ -28,4 +28,6 @@
 
 + (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient money:(MoneyModel *)money;
 
+- (void)prepareForTransmission;
+
 @end

@@ -233,8 +233,7 @@
         self.user = user;
         success(authorization, user);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-        failure();
+        [self reportWithFailure:failure error:error];
     }];
 }
 
@@ -242,8 +241,7 @@
     [self.HTTPClient deletePath:APIAuthorization parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-        failure();
+        [self reportWithFailure:failure error:error];
     }];
 }
 
@@ -254,8 +252,7 @@
         NSArray *categories = mappingResult.dictionary[KeyCategories];
         success(categories);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-        failure();
+        [self reportWithFailure:failure error:error];
     }];
 }
 
@@ -329,12 +326,12 @@
 #pragma mark - Stakes
 
 - (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: line.tag} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: @{KeyTag: line.tag}} success:success failure:failure];
 }
 
 - (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: line.tag}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: @{KeyTag: line.tag}}];
     NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:components.count];
     for (ComponentModel *component in components) {
         [componentsParamenters addObject:@{KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion}];
@@ -344,14 +341,11 @@
     [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APICoefficient] parameters:[parameters copy] success:success failure:failure];
 }
 
-- (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self postObject:nil path:[NSString stringWithFormat:@"events/%i/stakes", event.integerValue] parameters:@{KeySID: self.authorization.sid, @"amount": @50} success:success failure:failure];
-}
-
 - (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure {
-    
+    EventModel *event = stake.event;
+    [stake prepareForTransmission];
     [self postObject:stake
-                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, stake.event.tag.integerValue, APIStakes]
+                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIStakes]
           parameters:self.authorization.parameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         
@@ -359,11 +353,19 @@
         
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         
-        [NotificationManager showError:error];
-        failure();
+        [self reportWithFailure:failure error:error];
         
     }];
     
+}
+
+#pragma mark - Helpers
+
+- (void)reportWithFailure:(EmptyFailure)failure error:(NSError *)error {
+    [NotificationManager showError:error];
+    if (failure) {
+        failure();
+    }
 }
 
 @end

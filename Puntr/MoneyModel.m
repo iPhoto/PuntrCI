@@ -8,6 +8,18 @@
 
 #import "MoneyModel.h"
 
+@interface MoneyModel ()
+
+@property (nonatomic, strong) NSNumber *amount;
+
+@end
+
 @implementation MoneyModel
+
++ (MoneyModel *)moneyWithAmount:(NSNumber *)amount {
+    MoneyModel *money = [[MoneyModel alloc] init];
+    money.amount = amount;
+    return money;
+}
 
 @end

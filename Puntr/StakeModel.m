@@ -34,4 +34,8 @@
     
 }
 
+- (void)prepareForTransmission {
+    self.event = nil;
+}
+
 @end

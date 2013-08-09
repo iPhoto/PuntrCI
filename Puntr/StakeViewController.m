@@ -314,7 +314,7 @@
 }
 
 - (StakeModel *)generateStake {
-    return [StakeModel stakeWithEvent:self.event Line:self.selectedLine components:self.components coefficient:self.coefficient money:self.balance];;
+    return [StakeModel stakeWithEvent:self.event Line:self.selectedLine components:self.components coefficient:self.coefficient money:[self selectedMoney]];;
 }
 
 - (void)amountDecrease {
@@ -337,6 +337,11 @@
 
 - (NSInteger)selectedAmount {
     return [self.textFieldAmount.text integerValue];
+}
+
+- (MoneyModel *)selectedMoney {
+    MoneyModel *money = [MoneyModel moneyWithAmount:@([self selectedAmount])];
+    return money;
 }
 
 - (NSInteger)balanceAmount {
