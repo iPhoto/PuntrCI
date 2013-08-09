@@ -18,10 +18,20 @@ typedef enum {
     SocialNetworkTypeVkontakte
 } SocialNetworkType;
 
+@class SocialManager;
+
+@protocol SocialManagerDelegate
+
+- (void) socialManagerDelegateMethod: (SocialManager *) sender;
+
+@end
+
 @interface SocialManager : NSObject<VKConnectorDelegate>
 
 + (instancetype)sharedManager;
 
 - (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success;
+
+@property (nonatomic, weak) id <SocialManagerDelegate> delegate;
 
 @end
