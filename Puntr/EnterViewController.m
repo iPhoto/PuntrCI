@@ -144,20 +144,17 @@ typedef enum {
     [self.view addSubview:self.imageViewEnterServicies];
     
     self.buttonFb = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 52, 300, 42)];
-    [self.buttonFb setBackgroundColor:[UIColor redColor]];
-    [self.buttonFb setAlpha:0.2];
+    [self.buttonFb setBackgroundColor:[UIColor clearColor]];
     [self.buttonFb addTarget:self action:@selector(fbButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonFb];
     
     self.buttonTw = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 94, 300, 42)];
-    [self.buttonTw setBackgroundColor:[UIColor greenColor]];
-    [self.buttonTw setAlpha:0.2];
+    [self.buttonTw setBackgroundColor:[UIColor clearColor]];
     [self.buttonTw addTarget:self action:@selector(twButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonTw];
     
     self.buttonVk = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 10, 300, 40)];
-    [self.buttonVk setBackgroundColor:[UIColor blueColor]];
-    [self.buttonVk setAlpha:0.2];
+    [self.buttonVk setBackgroundColor:[UIColor clearColor]];
     [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonVk];
 }
@@ -199,7 +196,9 @@ typedef enum {
 
 - (void)twButtonTouched {
     NSLog(@"tw touched");
-    if(!self.accountStore)
+    [SocialManager sharedManager].delegate = self;
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter success:nil];
+    /*if(!self.accountStore)
         self.accountStore = [[ACAccountStore alloc] init];
     
     ACAccountType *twitterTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
@@ -215,11 +214,15 @@ typedef enum {
                 NSLog(@"%@",self.twitterAccount);
                 NSLog(@"acces token %@",[[self.twitterAccount credential] oauthToken]);            }
         }
-    }];
+    }];*/
 }
 
 - (void)vkButtonTouched {
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:nil];
+}
+
+- (void) socialManagerDelegateMethod: (SocialManager *) sender {
+    NSLog(@"here choose your twitter");
 }
 #pragma mark - TextField Delegate
 

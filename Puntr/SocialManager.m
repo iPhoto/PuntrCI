@@ -25,6 +25,8 @@ static SocialManager  *sharedManager = nil;
 
 @implementation SocialManager
 
+@synthesize delegate;
+
 - (id) init{
     self = [super init];
     if (nil == sharedManager) {
@@ -51,7 +53,7 @@ static SocialManager  *sharedManager = nil;
             break;
         
         case SocialNetworkTypeTwitter:
-            //[self loginVkWithSuccess];
+            [self loginTw];
             break;
             
         case SocialNetworkTypeVkontakte:
@@ -85,8 +87,10 @@ static SocialManager  *sharedManager = nil;
                                             }];
 }
 
-- (void)loginTwWithSuccess:(SocialManagerSuccess)success{
+- (void)loginTw{
     
+    [self.delegate socialManagerDelegateMethod:self];
+
 }
 
 - (void)loginVk{

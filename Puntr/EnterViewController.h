@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SocialManager.h"
 
-@interface EnterViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface EnterViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, SocialManagerDelegate>
 
 @end
