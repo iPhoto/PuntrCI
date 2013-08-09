@@ -85,11 +85,12 @@
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
     // Small Stake Button
+    /*
     [[SmallStakeButton appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)] forBarMetrics:UIBarMetricsDefault];
     [[SmallStakeButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [[SmallStakeButton appearance] setTitleShadowColor:[UIColor colorWithWhite:0.000 alpha:0.200] forState:UIControlStateNormal];
     [[SmallStakeButton appearance] setShadowOffset:CGSizeMake(0.0f, -1.5f)];
-    
+    */
     
 }
 
