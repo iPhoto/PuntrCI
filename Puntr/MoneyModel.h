@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong, readonly) NSNumber *amount;
 
++ (MoneyModel *)moneyWithAmount:(NSNumber *)amount;
+
 @end

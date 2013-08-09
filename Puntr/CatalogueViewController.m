@@ -65,7 +65,6 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [self.collectionView registerClass:[EventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     [self.collectionView registerClass:[LoadButtonCell class] forCellWithReuseIdentifier:@"CatalogueLoadButton"];
-    [self.collectionView registerClass:[SearchCell class] forCellWithReuseIdentifier:@"CatalogueSearchCell"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.currentPage = 0;
@@ -108,7 +107,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     NSMutableArray *collectionData = [NSMutableArray arrayWithCapacity:self.sections.count];
     for (GroupModel *section in self.sections) {
         if (section == sectionUtility) {
-            [collectionData addObject:[NSArray arrayWithObjects:[[SearchCell alloc] init], [[CategoriesCell alloc] init], nil]];
+            [collectionData addObject:[NSArray arrayWithObjects:[[CategoriesCell alloc] init], nil]];
         } else {
             [collectionData addObject:@[section]];
         }
@@ -268,7 +267,6 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         
         NSMutableArray *mutableCollectionData = [self.collectionData mutableCopy];
         if (self.currentPage > 0) {
-            //[mutableCollectionData[sectionIndex] addObjectsFromArray:updatedSection];
             NSMutableArray *mutableSection = [mutableCollectionData[sectionIndex] mutableCopy];
             [updatedSection removeObjectAtIndex:0];
             [mutableSection addObjectsFromArray:updatedSection];

@@ -93,13 +93,13 @@
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 }
-
+/*
 - (void)stakeButtonTouched {
-    [[ObjectManager sharedManager] setStakeForEvent:self.event.tag success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[StakeViewController alloc] initWithEvent:self.event]] animated:YES completion:^{
+        
     }];
 }
-
+*/
 - (void)prepareForReuse {
     [self.labelCategory removeFromSuperview];
     self.labelCategory = nil;

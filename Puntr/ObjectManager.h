@@ -88,6 +88,4 @@ typedef void (^User)(UserModel *user);
 
 - (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
 
-- (void)setStakeForEvent:(NSNumber *)event success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
 @end
