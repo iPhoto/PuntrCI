@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CategoryModel.h"
 #import "ParticipantModel.h"
 #import "LineModel.h"
+#import "TournamentModel.h"
 
 @interface EventModel : NSObject
 
@@ -19,7 +19,8 @@
 @property (nonatomic, strong, readonly) NSDate *startTime;
 @property (nonatomic, strong, readonly) NSDate *endTime;
 @property (nonatomic, copy, readonly) NSString *status;
-@property (nonatomic, strong, readonly) CategoryModel *category;
+@property (nonatomic, copy, readonly) NSURL *banner;
+@property (nonatomic, strong, readonly) TournamentModel *tournament;
 @property (nonatomic, strong, readonly) NSArray *participants;
 @property (nonatomic, strong, readonly) NSArray *lines;
 
