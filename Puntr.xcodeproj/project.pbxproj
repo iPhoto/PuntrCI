@@ -184,6 +184,11 @@
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
 		31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082A17B509D0003FEFA7 /* LeadCell.m */; };
+		31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */; };
+		31ED083117B522B8003FEFA7 /* ButtonGreenSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */; };
+		31ED083217B522B8003FEFA7 /* ButtonGreenSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083017B522B8003FEFA7 /* ButtonGreenSmall@2x.png */; };
+		31ED083517B53580003FEFA7 /* delimiterBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083317B53580003FEFA7 /* delimiterBlack.png */; };
+		31ED083617B53580003FEFA7 /* delimiterBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083417B53580003FEFA7 /* delimiterBlack@2x.png */; };
 		31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE217995BFC00F27702 /* StakeElementView.m */; };
 		31EF4AE61799941800F27702 /* AmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE51799941800F27702 /* AmountView.m */; };
 		31EF4AEB179994E000F27702 /* ButtonMinusSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF4AE7179994E000F27702 /* ButtonMinusSelected.png */; };
@@ -466,6 +471,12 @@
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31ED082917B509D0003FEFA7 /* LeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCell.h; sourceTree = "<group>"; };
 		31ED082A17B509D0003FEFA7 /* LeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadCell.m; sourceTree = "<group>"; };
+		31ED082C17B521C0003FEFA7 /* SmallStakeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallStakeButton.h; sourceTree = "<group>"; };
+		31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallStakeButton.m; sourceTree = "<group>"; };
+		31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGreenSmall.png; sourceTree = "<group>"; };
+		31ED083017B522B8003FEFA7 /* ButtonGreenSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonGreenSmall@2x.png"; sourceTree = "<group>"; };
+		31ED083317B53580003FEFA7 /* delimiterBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delimiterBlack.png; sourceTree = "<group>"; };
+		31ED083417B53580003FEFA7 /* delimiterBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delimiterBlack@2x.png"; sourceTree = "<group>"; };
 		31EF4AE117995BFC00F27702 /* StakeElementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeElementView.h; sourceTree = "<group>"; };
 		31EF4AE217995BFC00F27702 /* StakeElementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeElementView.m; sourceTree = "<group>"; };
 		31EF4AE41799941800F27702 /* AmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountView.h; sourceTree = "<group>"; };
@@ -745,6 +756,8 @@
 				31D708D5178EC933004746E6 /* ButtonGray@2x.png */,
 				31D708D6178EC933004746E6 /* ButtonGreen.png */,
 				31D708D7178EC933004746E6 /* ButtonGreen@2x.png */,
+				31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */,
+				31ED083017B522B8003FEFA7 /* ButtonGreenSmall@2x.png */,
 				310A9CFF178EEECB006D9C8A /* ButtonMinus.png */,
 				310A9D00178EEECB006D9C8A /* ButtonMinus@2x.png */,
 				31EF4AE7179994E000F27702 /* ButtonMinusSelected.png */,
@@ -768,6 +781,8 @@
 				31E3E7A51754E24900B09DAD /* Default@2x.png */,
 				319403161771BE85009F0DBE /* delimiter.png */,
 				319403171771BE85009F0DBE /* delimiter@2x.png */,
+				31ED083317B53580003FEFA7 /* delimiterBlack.png */,
+				31ED083417B53580003FEFA7 /* delimiterBlack@2x.png */,
 				3175212B176F18DE007CCD82 /* enterServicies.png */,
 				3175212C176F18DE007CCD82 /* enterServicies@2x.png */,
 				3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */,
@@ -1020,6 +1035,8 @@
 				0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */,
 				3180CF6A178ABAF4001B2DD1 /* SearchCell.h */,
 				3180CF6B178ABAF4001B2DD1 /* SearchCell.m */,
+				31ED082C17B521C0003FEFA7 /* SmallStakeButton.h */,
+				31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */,
 				31EF4AE117995BFC00F27702 /* StakeElementView.h */,
 				31EF4AE217995BFC00F27702 /* StakeElementView.m */,
 				3194031E1771C221009F0DBE /* TextField.h */,
@@ -1277,6 +1294,10 @@
 				0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */,
 				0FA5FC9A17B237C700352827 /* LICENSE in Resources */,
 				0FA5FC9E17B237C700352827 /* README.md in Resources */,
+				31ED083117B522B8003FEFA7 /* ButtonGreenSmall.png in Resources */,
+				31ED083217B522B8003FEFA7 /* ButtonGreenSmall@2x.png in Resources */,
+				31ED083517B53580003FEFA7 /* delimiterBlack.png in Resources */,
+				31ED083617B53580003FEFA7 /* delimiterBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,6 +1440,7 @@
 				0F40905A17B4FBBE001CC23F /* CommentModel.m in Sources */,
 				0F40905D17B500A7001CC23F /* TournamentModel.m in Sources */,
 				31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */,
+				31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ActivityModel, EventModel, NewsModel, StakeModel;
+
 @interface LeadCell : UICollectionViewCell
+
+- (void)loadWithEvent:(EventModel *)event;
+
+- (void)loadWithStake:(StakeModel *)stake;
 
 @end
