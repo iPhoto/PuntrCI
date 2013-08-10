@@ -31,6 +31,7 @@ NSString *const                     APIUsers = @"users";
 NSString *const                     APIEvents = @"events";
 NSString *const                     APIStakes = @"stakes";
 NSString *const                     APISubscriptions = @"subscriptions";
+NSString *const                     APITournaments = @"tournaments";
 
 #pragma mark - Parameters
 
@@ -87,6 +88,7 @@ NSString *const                     KeyTag = @"tag";
 NSString *const                     KeyTopPosition = @"topPosition";
 NSString *const                     KeyType = @"type";
 NSString *const                     KeyTitle = @"title";
+NSString *const                     KeyTournaments = @"tournaments";
 NSString *const                     KeyUser = @"user";
 NSString *const                     KeyUsername = @"username";
 NSString *const                     KeyValue = @"value";
