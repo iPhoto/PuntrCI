@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TournamentModel.h"
+
 
 @interface TournamentCell : UICollectionViewCell
+
+- (void)loadWithTournament:(TournamentModel *)tournament;
 
 @end

@@ -10,6 +10,7 @@
 #import "HeaderCell.h"
 #import "EventCell.h"
 #import "LoadButtonCell.h"
+#import "TournamentCell.h"
 #import "GroupModel.h"
 #import "ObjectManager.h"
 #import "EventModel.h"
@@ -66,6 +67,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     [self.collectionView registerClass:[LoadButtonCell class] forCellWithReuseIdentifier:@"CatalogueLoadButton"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
+    [self.collectionView registerClass:[TournamentCell class] forCellWithReuseIdentifier:@"CatalogueTournamentCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.currentPage = 0;
     self.currentCategoryTag = @0;
@@ -170,6 +172,12 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
             [self updateSections];
         };
         [cell loadCategories];
+        return cell;
+    } else if ([cellObject isMemberOfClass:[TournamentCell class]]) {
+        TournamentModel *tournament = (TournamentModel *)cellObject;
+        TournamentCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueTournamentCell" forIndexPath:indexPath];
+        cell.frame = cell.bounds;
+        [cell loadWithTournament:tournament];
         return cell;
     } else {
         return nil;
