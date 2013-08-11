@@ -7,8 +7,16 @@
 //
 
 #import "TournamentViewController.h"
+#import "TournamentModel.h"
 
 @interface TournamentViewController ()
+
+@property (nonatomic, retain) TournamentModel *tournament;
+
+@property (nonatomic, retain) UIImageView *tournamentImage;
+@property (nonatomic, retain) UIButton *subscribeButton;
+
+
 
 @end
 

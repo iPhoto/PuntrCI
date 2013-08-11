@@ -24,6 +24,7 @@ const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
 const CGSize searchSize = { 304.0f, 44.0f };
 const CGSize categoriesSize = { 320.0f, 35.0f };
+const CGSize tournamentsSize = { 320.0f, 35.0f };
 const CGSize buttonSize = { 304.0f, 48.0f };
 const UIEdgeInsets utilityInsets = { 0.0f, 0.0f, 8.0f, 0.0f };
 const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
@@ -213,6 +214,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         return searchSize;
     } else if ([cellObject isMemberOfClass:[CategoriesCell class]]) {
         return categoriesSize;
+    } else if ([cellObject isMemberOfClass:[TournamentCell class]]) {
+        return tournamentsSize;
     } else {
         return CGSizeZero;
     }

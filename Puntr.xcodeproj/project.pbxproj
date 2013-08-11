@@ -223,6 +223,9 @@
 		764C426C1769CCD400B7FBF2 /* ProfileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */; };
 		765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765FCDB8178D0CC100A58B81 /* EventViewController.m */; };
 		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
+		D6B1956617B7D9F300D1B352 /* IconLiga@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */; };
+		D6B1956717B7D9F300D1B352 /* IconLiga.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956517B7D9E400D1B352 /* IconLiga.png */; };
+		D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */; };
 		D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B449BC17B658EE000B9F5E /* TournamentCell.m */; };
 		D6B449C017B66272000B9F5E /* TournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B449BF17B66272000B9F5E /* TournamentViewController.m */; };
 /* End PBXBuildFile section */
@@ -538,6 +541,10 @@
 		76F6715D17A049570032C9AE /* AFHTTPClientTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClientTweak.h; sourceTree = "<group>"; };
 		76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClientTweak.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconLiga@2x.png"; sourceTree = "<group>"; };
+		D6B1956517B7D9E400D1B352 /* IconLiga.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLiga.png; sourceTree = "<group>"; };
+		D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuntrUtilities.h; sourceTree = "<group>"; };
+		D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuntrUtilities.m; sourceTree = "<group>"; };
 		D6B449BB17B658EE000B9F5E /* TournamentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentCell.h; sourceTree = "<group>"; };
 		D6B449BC17B658EE000B9F5E /* TournamentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentCell.m; sourceTree = "<group>"; };
 		D6B449BE17B66272000B9F5E /* TournamentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentViewController.h; sourceTree = "<group>"; };
@@ -807,6 +814,8 @@
 				310A9D06178EEECB006D9C8A /* IconArrow@2x.png */,
 				310A9D07178EEECB006D9C8A /* IconLive.png */,
 				310A9D08178EEECB006D9C8A /* IconLive@2x.png */,
+				D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */,
+				D6B1956517B7D9E400D1B352 /* IconLiga.png */,
 				310A9D09178EEECB006D9C8A /* IconMoney.png */,
 				310A9D0A178EEECB006D9C8A /* IconMoney@2x.png */,
 				310A9D0B178EEECB006D9C8A /* IconUser.png */,
@@ -1028,6 +1037,8 @@
 				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
 				0FA5FCD717B23ED800352827 /* SocialManager.h */,
 				0FA5FCD817B23ED800352827 /* SocialManager.m */,
+				D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */,
+				D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -1324,6 +1335,8 @@
 				31ED083A17B53C21003FEFA7 /* logo2-puntr@2x.png in Resources */,
 				31ED083D17B53D1C003FEFA7 /* logo-puntr.png in Resources */,
 				31ED083E17B53D1C003FEFA7 /* logo-puntr@2x.png in Resources */,
+				D6B1956617B7D9F300D1B352 /* IconLiga@2x.png in Resources */,
+				D6B1956717B7D9F300D1B352 /* IconLiga.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1469,6 +1482,7 @@
 				31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */,
 				D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */,
 				D6B449C017B66272000B9F5E /* TournamentViewController.m in Sources */,
+				D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
