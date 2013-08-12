@@ -126,6 +126,11 @@
     [eventMapping addPropertyMappingsFromArray:@[eventCategoryRelationship, eventParticipantRelationship, eventLineRelationship]];
     RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:statusCodeOK];
     
+    // Feed
+    [feedMapping addAttributeMappingsFromArray:@[KeyCreatedAt, KeyMessage]];
+    RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyUser toKeyPath:KeyUser withMapping:userMapping];
+    [feedMapping addPropertyMapping:feedUserRelationship];
+    
     // Line
     [lineMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
     
