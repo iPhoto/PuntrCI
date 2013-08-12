@@ -30,7 +30,6 @@
 #import "NewsModel.h"
 #import "PagingModel.h"
 #import "ParticipantModel.h"
-#import "RegistrationModel.h"
 #import "StakeModel.h"
 #import "StakeRequestModel.h"
 #import "TournamentModel.h"

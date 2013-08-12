@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TextField.h"
 #import "ObjectManager.h"
-#import "RegistrationModel.h"
+#import "UserModel.h"
 #import "TabBarViewController.h"
 #import "NotificationManager.h"
 
@@ -26,7 +26,7 @@
 @property (nonatomic, strong) TextField *textFieldPassword;
 @property (nonatomic, strong) TextField *textFieldEmail;
 
-@property (nonatomic, strong) RegistrationModel *registration;
+@property (nonatomic, strong) UserModel *user;
 
 @property (nonatomic, strong) UIImageView *imageViewDelimiter;
 
@@ -46,8 +46,8 @@
 {
     self = [super init];
     if (self) {
-        _registration = [[RegistrationModel alloc] init];
-        _registration.email = email;
+        _user = [[UserModel alloc] init];
+        _user.email = email;
     }
     return self;
 }
@@ -83,7 +83,7 @@
     
     self.textFieldEmail = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 19.0f, 282.0f, 38.0f)];
     self.textFieldEmail.placeholder = @"Email...";
-    self.textFieldEmail.text = self.registration.email;
+    self.textFieldEmail.text = self.user.email;
     self.textFieldEmail.keyboardType = UIKeyboardTypeEmailAddress;
     self.textFieldEmail.returnKeyType = UIReturnKeyNext;
     self.textFieldEmail.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -165,15 +165,15 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if (textField == self.textFieldEmail) {
-        self.registration.email = self.textFieldEmail.text;
+        self.user.email = self.textFieldEmail.text;
     } else if (textField == self.textFieldPassword) {
-        self.registration.password = self.textFieldPassword.text;
+        self.user.password = self.textFieldPassword.text;
     } else if (textField == self.textFieldUsername) {
-        self.registration.username = self.textFieldUsername.text;
+        self.user.username = self.textFieldUsername.text;
     } else if (textField == self.textFieldFirstName) {
-        self.registration.firstName= self.textFieldFirstName.text;
+        self.user.firstName= self.textFieldFirstName.text;
     } else if (textField == self.textFieldLastName) {
-        self.registration.lastName = self.textFieldLastName.text;
+        self.user.lastName = self.textFieldLastName.text;
     }
     return YES;
 }
@@ -225,35 +225,35 @@
 }
 
 - (void)bufferData {
-    self.registration.email = self.textFieldEmail.text;
-    self.registration.password = self.textFieldPassword.text;
-    self.registration.username = self.textFieldUsername.text;
-    self.registration.firstName = self.textFieldFirstName.text;
-    self.registration.lastName = self.textFieldLastName.text;
+    self.user.email = self.textFieldEmail.text;
+    self.user.password = self.textFieldPassword.text;
+    self.user.username = self.textFieldUsername.text;
+    self.user.firstName = self.textFieldFirstName.text;
+    self.user.lastName = self.textFieldLastName.text;
 }
 
 - (BOOL)dataIsValid {
-    if (!self.registration.email || self.registration.email.length == 0) {
+    if (!self.user.email || self.user.email.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.registration.password || self.registration.password.length == 0) {
+    if (!self.user.password || self.user.password.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.registration.username || self.registration.username.length == 0) {
+    if (!self.user.username || self.user.username.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.registration.firstName || self.registration.firstName.length == 0) {
+    if (!self.user.firstName || self.user.firstName.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите имя" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.registration.lastName || self.registration.lastName.length == 0) {
+    if (!self.user.lastName || self.user.lastName.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите фамилию" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
@@ -262,20 +262,18 @@
 }
 
 - (void)registrationButtonTouched {
-    [self registrate];
+    [self registration];
 }
 
-- (void)registrate {
+- (void)registration {
     [self bufferData];
     if ([self dataIsValid]) {
-        [[ObjectManager sharedManager] registration:self.registration success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [[ObjectManager sharedManager] registerWithUser:self.user success:^(AuthorizationModel *authorization, UserModel *user) {
             TabBarViewController *tabBar = [[TabBarViewController alloc] init];
             [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
             } completion:nil];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            [NotificationManager showError:error forViewController:self];
-        }];
+        } failure:nil];
     }
 }
 

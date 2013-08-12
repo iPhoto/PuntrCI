@@ -11,11 +11,12 @@
 @interface UserModel : NSObject
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
-@property (nonatomic, copy, readonly) NSString *email;
-@property (nonatomic, copy, readonly) NSString *firstName;
-@property (nonatomic, copy, readonly) NSString *lastName;
-@property (nonatomic, copy, readonly) NSString *username;
-@property (nonatomic, strong, readonly) NSURL *avatar;
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, strong) NSURL *avatar;
 @property (nonatomic, strong, readonly) NSNumber *topPosition;
 @property (nonatomic, strong, readonly) NSNumber *rating;
 @property (nonatomic, strong, readonly) NSNumber *subscriptionsCount;

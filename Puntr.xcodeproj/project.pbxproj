@@ -207,7 +207,6 @@
 		31F47E23177324B30047ECCF /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E22177324B30047ECCF /* CategoryModel.m */; };
 		31F47E26177325C50047ECCF /* ParticipantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E25177325C50047ECCF /* ParticipantModel.m */; };
 		31F47E29177351FF0047ECCF /* AuthorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E28177351FE0047ECCF /* AuthorizationModel.m */; };
-		31F47E2F177356F60047ECCF /* RegistrationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E2E177356F60047ECCF /* RegistrationModel.m */; };
 		31F47E32177357550047ECCF /* CollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F47E31177357550047ECCF /* CollectionModel.m */; };
 		7611C7BA178FA99E00356455 /* StakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611C7B9178FA99E00356455 /* StakeModel.m */; };
 		761D81D81769C7F7009455B1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 761D81D71769C7F7009455B1 /* HTTPClient.m */; };
@@ -513,8 +512,6 @@
 		31F47E25177325C50047ECCF /* ParticipantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantModel.m; sourceTree = "<group>"; };
 		31F47E27177351FD0047ECCF /* AuthorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AuthorizationModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F47E28177351FE0047ECCF /* AuthorizationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AuthorizationModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		31F47E2D177356F60047ECCF /* RegistrationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationModel.h; sourceTree = "<group>"; };
-		31F47E2E177356F60047ECCF /* RegistrationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationModel.m; sourceTree = "<group>"; };
 		31F47E30177357540047ECCF /* CollectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionModel.h; sourceTree = "<group>"; };
 		31F47E31177357550047ECCF /* CollectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionModel.m; sourceTree = "<group>"; };
 		7611C7B8178FA99E00356455 /* StakeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeModel.h; sourceTree = "<group>"; };
@@ -1123,8 +1120,6 @@
 				315A60FD17B2898C0010756F /* PagingModel.m */,
 				31F47E24177325C50047ECCF /* ParticipantModel.h */,
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
-				31F47E2D177356F60047ECCF /* RegistrationModel.h */,
-				31F47E2E177356F60047ECCF /* RegistrationModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				31651A7C179D9162006CCFAF /* StakeRequestModel.h */,
@@ -1420,7 +1415,6 @@
 				31F47E23177324B30047ECCF /* CategoryModel.m in Sources */,
 				31F47E26177325C50047ECCF /* ParticipantModel.m in Sources */,
 				31F47E29177351FF0047ECCF /* AuthorizationModel.m in Sources */,
-				31F47E2F177356F60047ECCF /* RegistrationModel.m in Sources */,
 				31F47E32177357550047ECCF /* CollectionModel.m in Sources */,
 				31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */,
 				31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */,
