@@ -81,7 +81,7 @@ typedef enum {
     self.credentials = [[CredentialsModel alloc] init];
     
     self.imageViewLogoTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, 320.0f, 42.0f)];
-    self.imageViewLogoTitle.image = [UIImage imageNamed:@"logoTitle"];
+    self.imageViewLogoTitle.image = [UIImage imageNamed:@"logo-puntr"];
     self.imageViewLogoTitle.userInteractionEnabled = YES;
     [self.imageViewLogoTitle addGestureRecognizer:tap];
     [self.view addSubview:self.imageViewLogoTitle];

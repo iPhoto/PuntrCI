@@ -6,21 +6,10 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "AuthorizationModel.h"
-#import "CategoryModel.h"
-#import "CredentialsModel.h"
-#import "ErrorModel.h"
-#import "ErrorParameterModel.h"
-#import "EventModel.h"
-#import "FilterModel.h"
+#import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "PagingModel.h"
-#import "ParticipantModel.h"
-#import "RegistrationModel.h"
 #import "RKObjectRequestOperation+HeaderFields.h"
-#import "StakeModel.h"
-#import "StakeRequestModel.h"
 
 @interface ObjectManager ()
 
@@ -89,6 +78,15 @@
     
     [eventMapping addPropertyMappingsFromArray:@[categoryRelationship, participantsRelationship, eventLineRelationship]];
     RKResponseDescriptor *eventMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:statusCodeOK];
+    
+    // Tournaments mapping
+    RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCategory toKeyPath:KeyCategory withMapping:categoryMapping];
+
+    RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
+    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
+    
+    [tournamentMapping addPropertyMappingsFromArray:@[tournamentCategoryRelationship]];
+    RKResponseDescriptor *tournamentMappingResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping pathPattern:APITournaments keyPath:KeyTournaments statusCodes:statusCodeOK];
     
     // Error Parameter Mapping
     RKObjectMapping *errorParameterMapping = [RKObjectMapping mappingForClass:[ErrorParameterModel class]];
@@ -175,7 +173,8 @@
      balanceResponseDescriptor,
      userMappingResponseDescriptor,
      userAuthorizationMappingResponseDescriptor,
-     userCreationMappingResponseDescriptor
+     userCreationMappingResponseDescriptor,
+     tournamentMappingResponseDescriptor
      ]];
     
     // Serialization
@@ -297,6 +296,33 @@
         self.user = (UserModel *)response[KeyUser];
         success(operation, mappingResult);
     } failure:failure];
+}
+
+#pragma mark - Tournaments
+
+- (void)tournamentssForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    [self tournamentsForGroup:group filter:nil search:nil limit:limit page:nil success:success failure:failure];
+}
+
+- (void)tournamentsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: @{KeySID: self.authorization.sid}}];
+    if (group) {
+        [parameters setObject:group forKey:KeyGroup];
+    }
+    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0]) {
+        [parameters setObject:categoryTags forKey:KeyFilter];
+    }
+    if (search) {
+        [parameters setObject:search forKey:KeySearch];
+    }
+    if (limit) {
+        [parameters setObject:limit forKey:KeyLimit];
+    }
+    if (page && limit) {
+        [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
+    }
+    
+    [self getObject:nil path:APITournaments parameters:parameters success:success failure:failure];
 }
 
 #pragma mark - User

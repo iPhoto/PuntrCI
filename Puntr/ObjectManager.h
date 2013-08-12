@@ -88,4 +88,14 @@ typedef void (^User)(UserModel *user);
 
 - (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
 
+#pragma mark - Tournaments
+
+- (void)tournamentsForGroup:(NSString *)group
+                     filter:(NSArray *)categoryTags
+                     search:(NSString *)search
+                      limit:(NSNumber *)limit
+                       page:(NSNumber *)page
+                    success:(ObjectRequestSuccess)success
+                    failure:(ObjectRequestFailure)failure;
+
 @end
