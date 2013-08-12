@@ -22,6 +22,7 @@ FOUNDATION_EXPORT NSString *const   APIHost;
 FOUNDATION_EXPORT NSString *const   DevelopmentAPIScheme;
 FOUNDATION_EXPORT NSString *const   DevelopmentAPIHost;
 
+FOUNDATION_EXPORT NSString *const   APIActivities;
 FOUNDATION_EXPORT NSString *const   APIAuthorization;
 FOUNDATION_EXPORT NSString *const   APIBalance;
 FOUNDATION_EXPORT NSString *const   APICategories;
@@ -35,6 +36,7 @@ FOUNDATION_EXPORT NSString *const   APISubscriptions;
 
 #pragma mark - Parameters
 
+FOUNDATION_EXPORT NSString *const   KeyActivities;
 FOUNDATION_EXPORT NSString *const   KeyAmount;
 FOUNDATION_EXPORT NSString *const   KeyAuthorization;
 FOUNDATION_EXPORT NSString *const   KeyAvatar;
@@ -53,6 +55,7 @@ FOUNDATION_EXPORT NSString *const   KeyEndTime;
 FOUNDATION_EXPORT NSString *const   KeyErrors;
 FOUNDATION_EXPORT NSString *const   KeyEvent;
 FOUNDATION_EXPORT NSString *const   KeyEvents;
+FOUNDATION_EXPORT NSString *const   KeyFeed;
 FOUNDATION_EXPORT NSString *const   KeyField;
 FOUNDATION_EXPORT NSString *const   KeyFilter;
 FOUNDATION_EXPORT NSString *const   KeyFirstName;

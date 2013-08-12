@@ -52,6 +52,7 @@
 #pragma clang diagnostic pop
     
     // Mapping Declaration
+    RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[ActivityModel class]];
     RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
     RKObjectMapping *categoryMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
@@ -60,6 +61,7 @@
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
     RKObjectMapping *errorParameterMapping = [RKObjectMapping mappingForClass:[ErrorParameterModel class]];
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
+    RKObjectMapping *feedMapping = [RKObjectMapping mappingForClass:[FeedModel class]];
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
@@ -68,6 +70,13 @@
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
     
     // Mapping
+    
+    // Activity
+    [activityMapping addAttributeMappingsFromArray:@[KeyTag]];
+    RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyStake toKeyPath:KeyStake withMapping:stakeMapping];
+    RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyFeed toKeyPath:KeyFeed withMapping:feedMapping];
+    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityFeedRelationship]];
+    RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities] keyPath:KeyActivities statusCodes:statusCodeOK];
     
     // Authorization
     [authorizationMapping addAttributeMappingsFromArray:@[KeySID]];
@@ -153,6 +162,7 @@
 
     // Response Descriptors
     [self addResponseDescriptorsFromArray:@[
+     activityResponseDescriptor,
      authorizationResponseDescriptor,
      authorizationUserCreateResponseDescriptor,
      moneyResponseDescriptor,

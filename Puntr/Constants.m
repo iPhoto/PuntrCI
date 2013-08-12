@@ -22,6 +22,7 @@ NSString *const                     APIHost = @"puntr.dev.2nova.pw/api/v1";
 NSString *const                     DevelopmentAPIScheme = @"http";
 NSString *const                     DevelopmentAPIHost = @"puntr.dev.2nova.com/v1";
 
+NSString *const                     APIActivities = @"activities";
 NSString *const                     APIAuthorization = @"authorization";
 NSString *const                     APIBalance = @"balance";
 NSString *const                     APICategories = @"categories";
@@ -35,6 +36,7 @@ NSString *const                     APITournaments = @"tournaments";
 
 #pragma mark - Parameters
 
+NSString *const                     KeyActivities = @"activities";
 NSString *const                     KeyAmount = @"amount";
 NSString *const                     KeyAuthorization = @"authorization";
 NSString *const                     KeyAvatar = @"avatar";
@@ -53,6 +55,7 @@ NSString *const                     KeyEndTime = @"endTime";
 NSString *const                     KeyErrors = @"errors";
 NSString *const                     KeyEvent = @"event";
 NSString *const                     KeyEvents = @"events";
+NSString *const                     KeyFeed = @"feed";
 NSString *const                     KeyField = @"field";
 NSString *const                     KeyFilter = @"filter";
 NSString *const                     KeyFirstName = @"firstName";
