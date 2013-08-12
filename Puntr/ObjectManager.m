@@ -6,22 +6,10 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "AuthorizationModel.h"
-#import "CategoryModel.h"
-#import "CredentialsModel.h"
-#import "ErrorModel.h"
-#import "ErrorParameterModel.h"
-#import "EventModel.h"
-#import "FilterModel.h"
+#import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "PagingModel.h"
-#import "ParticipantModel.h"
-#import "RegistrationModel.h"
 #import "RKObjectRequestOperation+HeaderFields.h"
-#import "StakeModel.h"
-#import "StakeRequestModel.h"
-#import "TournamentModel.h"
 
 @interface ObjectManager ()
 
