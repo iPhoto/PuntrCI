@@ -56,6 +56,7 @@
     RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
     RKObjectMapping *categoryMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
+    RKObjectMapping *commentMapping = [RKObjectMapping mappingForClass:[CommentModel class]];
     RKObjectMapping *componentMapping = [RKObjectMapping mappingForClass:[ComponentModel class]];
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
@@ -90,6 +91,13 @@
     // Coefficient
     [coefficientMapping addAttributeMappingsFromArray:@[KeyValue]];
     RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient] keyPath:KeyCoefficient statusCodes:statusCodeOK];
+    
+    // Comment
+    [commentMapping addAttributeMappingsFromArray:@[KeyMessage]];
+    RKRelationshipMapping *commentUserRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyUser toKeyPath:KeyUser withMapping:userMapping];
+    RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyEvent toKeyPath:KeyEvent withMapping:eventMapping];
+    [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
+    RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments] keyPath:KeyActivities statusCodes:statusCodeOK];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
@@ -173,6 +181,7 @@
      moneyResponseDescriptor,
      categoryCollectionResponseDescriptor,
      coefficientResponseDescriptor,
+     commentResponseDescriptor,
      componentCollectionResponseDescriptor,
      errorResponseDescriptor,
      eventCollectionResponseDescriptor,
