@@ -40,7 +40,7 @@ static SocialManager  *sharedManager = nil;
     sharedManager = manager;
 }
 
-+ (instancetype)sharedManager
++ (SocialManager*)sharedManager
 {
     return sharedManager;
 }

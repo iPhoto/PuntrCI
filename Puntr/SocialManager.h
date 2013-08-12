@@ -28,7 +28,7 @@ typedef enum {
 
 @interface SocialManager : NSObject<VKConnectorDelegate>
 
-+ (instancetype)sharedManager;
++ (SocialManager*)sharedManager;
 
 - (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success;
 
