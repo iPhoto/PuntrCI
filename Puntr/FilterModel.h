@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CategoryModel.h"
 #import "GroupModel.h"
 
 @interface FilterModel : NSObject
 
 @property (nonatomic, copy) NSArray *categories;
 @property (nonatomic, strong) GroupModel *group;
+
+- (NSDictionary *)parameters;
 
 @end
