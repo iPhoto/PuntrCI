@@ -26,8 +26,16 @@
 @property (nonatomic, strong, readonly) CoefficientModel *coefficient;
 @property (nonatomic, strong, readonly) MoneyModel *money;
 
+// Stake Creation
+
 + (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient money:(MoneyModel *)money;
 
 - (void)prepareForTransmission;
+
+// Coefficient Query
+
++ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components;
+
+- (NSDictionary *)parameters;
 
 @end

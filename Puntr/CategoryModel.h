@@ -14,4 +14,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSURL *image;
 
+- (NSDictionary *)parameters;
+
 @end

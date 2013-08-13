@@ -15,4 +15,6 @@
 @property (nonatomic, strong, readonly) NSArray *criteria;
 @property (nonatomic, strong) NSNumber *selectedCriterion;
 
+- (NSDictionary *)parameters;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  ErrorParameterModel.h
+//  ParameterModel.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 04.07.13.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ErrorParameterModel : NSObject
+@interface ParameterModel : NSObject
 
-@property (nonatomic, copy) NSString *field;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSString *description;
 
 @end

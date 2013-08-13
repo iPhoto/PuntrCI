@@ -10,4 +10,12 @@
 
 @implementation GroupModel
 
+- (NSDictionary *)parameters {
+    if (self.slug) {
+        return @{KeySlug: self.slug};
+    } else {
+        return @{};
+    }
+}
+
 @end

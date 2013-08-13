@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParameterModel.h"
 
 @interface ErrorModel : NSObject
 
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, strong) NSNumber *code;
-@property (nonatomic, copy) NSArray *errors;
+@property (nonatomic, copy) NSArray *parameters;
 
 @end

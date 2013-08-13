@@ -62,24 +62,6 @@ typedef void (^User)(UserModel *user);
                success:(ObjectRequestSuccess)success
                failure:(ObjectRequestFailure)failure;
 
-#pragma mark - Registration
-
-- (void)registration:(RegistrationModel *)registration success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
-#pragma mark - User
-
-- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
-- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
-- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
-- (NSNumber *)loginedUserTag;
-
-#pragma mark - Balance
-
-- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
-
 #pragma mark - Stakes
 
 - (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
@@ -97,5 +79,21 @@ typedef void (^User)(UserModel *user);
                        page:(NSNumber *)page
                     success:(ObjectRequestSuccess)success
                     failure:(ObjectRequestFailure)failure;
+
+#pragma mark - Subscriptions
+
+- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+#pragma mark - User
+
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure;
+
+- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (NSNumber *)loginedUserTag;
 
 @end

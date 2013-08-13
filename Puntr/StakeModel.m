@@ -38,4 +38,30 @@
     self.event = nil;
 }
 
++ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components {
+    
+    StakeModel *stake = [[StakeModel alloc] init];
+    
+    stake.event = event;
+    stake.line = line;
+    stake.components = components;
+    
+    return stake;
+}
+
+- (NSDictionary *)parameters {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (self.line) {
+        [parameters setObject:self.line.parameters forKey:KeyLine];
+    }
+    if (self.components) {
+        NSMutableArray *components = [NSMutableArray arrayWithCapacity:self.components.count];
+        for (ComponentModel *component in self.components) {
+            [components addObject:component.parameters];
+        }
+        [parameters setObject:[components copy] forKey:KeyComponents];
+    }
+    return [parameters copy];
+}
+
 @end
