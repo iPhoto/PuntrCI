@@ -14,11 +14,12 @@
 @property (nonatomic, strong, readonly) NSNumber *offset;
 @property (nonatomic, strong, readonly) NSDate *beforeTimestamp;
 
+- (NSDictionary *)parameters;
+
 // Helper
 
 - (void)firstPage;
 - (void)nextPage;
 - (void)setDefaultLimit:(NSNumber *)limit;
-
 
 @end

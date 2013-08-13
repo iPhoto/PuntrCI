@@ -44,6 +44,7 @@ NSString *const                     KeyAvatar = @"avatar";
 NSString *const                     KeyBadgesCount = @"badgesCount";
 NSString *const                     KeyBalance = @"balance";
 NSString *const                     KeyBanner = @"banner";
+NSString *const                     KeyBeforeTimestamp = @"beforeTimestamp";
 NSString *const                     KeyCategories = @"categories";
 NSString *const                     KeyCategory = @"category";
 NSString *const                     KeyCode = @"code";
