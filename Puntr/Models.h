@@ -20,7 +20,7 @@
 #import "CredentialsModel.h"
 #import "CriterionModel.h"
 #import "ErrorModel.h"
-#import "ErrorParameterModel.h"
+#import "ParameterModel.h"
 #import "EventModel.h"
 #import "FeedModel.h"
 #import "FilterModel.h"

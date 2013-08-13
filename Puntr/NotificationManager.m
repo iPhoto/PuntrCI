@@ -9,7 +9,6 @@
 #import "NotificationManager.h"
 #import <TSMessages/TSMessage.h>
 #import "ErrorModel.h"
-#import "ErrorParameterModel.h"
 
 @implementation NotificationManager
 
@@ -47,10 +46,10 @@
     NSString *errorMessage = @"";
     if ([error.userInfo objectForKey:@"RKObjectMapperErrorObjectsKey"]) {
         ErrorModel *errorResponse = (ErrorModel *)[error.userInfo[@"RKObjectMapperErrorObjectsKey"] firstObject];
-        if (errorResponse.errors && errorResponse.errors.count > 0) {
+        if (errorResponse.parameters && errorResponse.parameters.count > 0) {
             errorTitle = errorResponse.message;
-            for (ErrorParameterModel *errorParameter in errorResponse.errors) {
-                errorMessage = [errorMessage stringByAppendingFormat:@"\n%@ : %@", errorParameter.field, errorParameter.type];
+            for (ParameterModel *errorParameter in errorResponse.parameters) {
+                errorMessage = [errorMessage stringByAppendingFormat:@"\n%@ : %@", errorParameter.key, errorParameter.description];
             }
         } else {
             errorMessage = errorResponse.message;

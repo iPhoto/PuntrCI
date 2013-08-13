@@ -143,12 +143,13 @@
 		3194037117723718009F0DBE /* catalogueHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */; };
 		3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* RegistrationViewController.m */; };
 		31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161B1785CE78000D8F2C /* NotificationManager.m */; };
-		31AD161F1785D294000D8F2C /* ErrorParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* ErrorParameterModel.m */; };
+		31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* ParameterModel.m */; };
 		31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueViewController.m */; };
 		31B112A5176B5D6100060EAB /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* NewsViewController.m */; };
 		31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* MyStakesViewController.m */; };
 		31B112AB176B5DDC00060EAB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* ProfileViewController.m */; };
 		31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B3E7441774996300AEFDF5 /* ErrorModel.m */; };
+		31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */; };
 		31D708D8178EC933004746E6 /* ButtonControlNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C6178EC933004746E6 /* ButtonControlNormal.png */; };
 		31D708D9178EC933004746E6 /* ButtonControlNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */; };
 		31D708DA178EC933004746E6 /* ButtonControlNormalNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */; };
@@ -425,8 +426,8 @@
 		3195D391176A26F5005E4856 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		31AD161A1785CE78000D8F2C /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		31AD161B1785CE78000D8F2C /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
-		31AD161D1785D294000D8F2C /* ErrorParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorParameterModel.h; sourceTree = "<group>"; };
-		31AD161E1785D294000D8F2C /* ErrorParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorParameterModel.m; sourceTree = "<group>"; };
+		31AD161D1785D294000D8F2C /* ParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterModel.h; sourceTree = "<group>"; };
+		31AD161E1785D294000D8F2C /* ParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParameterModel.m; sourceTree = "<group>"; };
 		31B112A0176B5CD000060EAB /* CatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CatalogueViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31B112A1176B5CD000060EAB /* CatalogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogueViewController.m; sourceTree = "<group>"; };
 		31B112A3176B5D6100060EAB /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
@@ -437,6 +438,8 @@
 		31B112AA176B5DDC00060EAB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		31B3E7431774996300AEFDF5 /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
 		31B3E7441774996300AEFDF5 /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
+		31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKRelationshipMapping+Convenience.h"; sourceTree = "<group>"; };
+		31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRelationshipMapping+Convenience.m"; sourceTree = "<group>"; };
 		31D708C6178EC933004746E6 /* ButtonControlNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormal.png; sourceTree = "<group>"; };
 		31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonControlNormal@2x.png"; sourceTree = "<group>"; };
 		31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormalNormal.png; sourceTree = "<group>"; };
@@ -1031,12 +1034,14 @@
 				31AD161B1785CE78000D8F2C /* NotificationManager.m */,
 				31F47E1B177318090047ECCF /* ObjectManager.h */,
 				31F47E1C177318090047ECCF /* ObjectManager.m */,
-				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
-				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
-				0FA5FCD717B23ED800352827 /* SocialManager.h */,
-				0FA5FCD817B23ED800352827 /* SocialManager.m */,
 				D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */,
 				D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */,
+				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
+				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
+				31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */,
+				31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */,
+				0FA5FCD717B23ED800352827 /* SocialManager.h */,
+				0FA5FCD817B23ED800352827 /* SocialManager.m */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -1099,8 +1104,6 @@
 				3127C040179856AE0056D78A /* CriterionModel.m */,
 				31B3E7431774996300AEFDF5 /* ErrorModel.h */,
 				31B3E7441774996300AEFDF5 /* ErrorModel.m */,
-				31AD161D1785D294000D8F2C /* ErrorParameterModel.h */,
-				31AD161E1785D294000D8F2C /* ErrorParameterModel.m */,
 				31F47E1E17731A910047ECCF /* EventModel.h */,
 				31F47E1F17731A910047ECCF /* EventModel.m */,
 				0F40905217B4F8AE001CC23F /* FeedModel.h */,
@@ -1118,6 +1121,8 @@
 				0F40905617B4FAC7001CC23F /* NewsModel.m */,
 				315A60FC17B2898C0010756F /* PagingModel.h */,
 				315A60FD17B2898C0010756F /* PagingModel.m */,
+				31AD161D1785D294000D8F2C /* ParameterModel.h */,
+				31AD161E1785D294000D8F2C /* ParameterModel.m */,
 				31F47E24177325C50047ECCF /* ParticipantModel.h */,
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
@@ -1418,7 +1423,7 @@
 				31F47E32177357550047ECCF /* CollectionModel.m in Sources */,
 				31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */,
 				31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */,
-				31AD161F1785D294000D8F2C /* ErrorParameterModel.m in Sources */,
+				31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */,
 				3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */,
 				3180CF6F178AD955001B2DD1 /* CategoriesCell.m in Sources */,
 				3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */,
@@ -1475,6 +1480,7 @@
 				D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */,
 				318D475917B8E0F400A64C6A /* CredentialsModel.m in Sources */,
 				310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */,
+				31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

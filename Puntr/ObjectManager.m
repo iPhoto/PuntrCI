@@ -10,6 +10,7 @@
 #import "NotificationManager.h"
 #import "ObjectManager.h"
 #import "RKObjectRequestOperation+HeaderFields.h"
+#import "RKRelationshipMapping+Convenience.h"
 
 @interface ObjectManager ()
 
@@ -60,11 +61,11 @@
     RKObjectMapping *componentMapping = [RKObjectMapping mappingForClass:[ComponentModel class]];
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
-    RKObjectMapping *errorParameterMapping = [RKObjectMapping mappingForClass:[ErrorParameterModel class]];
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
     RKObjectMapping *feedMapping = [RKObjectMapping mappingForClass:[FeedModel class]];
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
+    RKObjectMapping *parameterMapping = [RKObjectMapping mappingForClass:[ParameterModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
@@ -74,8 +75,8 @@
     
     // Activity
     [activityMapping addAttributeMappingsFromArray:@[KeyTag]];
-    RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyStake toKeyPath:KeyStake withMapping:stakeMapping];
-    RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyFeed toKeyPath:KeyFeed withMapping:feedMapping];
+    RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
+    RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
     [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityFeedRelationship]];
     RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities] keyPath:KeyActivities statusCodes:statusCodeOK];
     
@@ -94,14 +95,14 @@
     
     // Comment
     [commentMapping addAttributeMappingsFromArray:@[KeyMessage]];
-    RKRelationshipMapping *commentUserRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyUser toKeyPath:KeyUser withMapping:userMapping];
-    RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyEvent toKeyPath:KeyEvent withMapping:eventMapping];
+    RKRelationshipMapping *commentUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
     RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments] keyPath:KeyActivities statusCodes:statusCodeOK];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
-    RKRelationshipMapping *componentCriterionRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCriteria toKeyPath:KeyCriteria withMapping:criterionMapping];
+    RKRelationshipMapping *componentCriterionRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCriteria mapping:criterionMapping];
     [componentMapping addPropertyMapping:componentCriterionRelationship];
     RKResponseDescriptor *componentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents] keyPath:KeyComponents statusCodes:statusCodeOK];
     
@@ -110,7 +111,7 @@
     
     // Error
     [errorMapping addAttributeMappingsFromArray:@[KeyMessage, KeyCode]];
-    RKRelationshipMapping *errorParameterRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyErrors toKeyPath:KeyErrors withMapping:errorParameterMapping];
+    RKRelationshipMapping *errorParameterRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParameters mapping:parameterMapping];
     [errorMapping addPropertyMapping:errorParameterRelationship];
     NSMutableIndexSet *errorStatusCodes = [NSMutableIndexSet indexSet];
     [errorStatusCodes addIndexes:statusCodeNotModified];
@@ -123,20 +124,17 @@
     [errorStatusCodes addIndexes:statusCodeNotImplemented];
     RKResponseDescriptor *errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:nil statusCodes:errorStatusCodes];
     
-    // Error Parameter
-    [errorParameterMapping addAttributeMappingsFromArray:@[KeyField, KeyType]];
-    
     // Event
     [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus]];
-    RKRelationshipMapping *eventCategoryRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCategory toKeyPath:KeyCategory withMapping:categoryMapping];
-    RKRelationshipMapping *eventParticipantRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyParticipants toKeyPath:KeyParticipants withMapping:participantMapping];
-    RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyLines toKeyPath:KeyLines withMapping:lineMapping];
+    RKRelationshipMapping *eventCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
+    RKRelationshipMapping *eventParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipants mapping:participantMapping];
+    RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLines mapping:lineMapping];
     [eventMapping addPropertyMappingsFromArray:@[eventCategoryRelationship, eventParticipantRelationship, eventLineRelationship]];
     RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:statusCodeOK];
     
     // Feed
     [feedMapping addAttributeMappingsFromArray:@[KeyCreatedAt, KeyMessage]];
-    RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyUser toKeyPath:KeyUser withMapping:userMapping];
+    RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [feedMapping addPropertyMapping:feedUserRelationship];
     
     // Line
@@ -146,24 +144,27 @@
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
     RKResponseDescriptor *moneyResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance] keyPath:KeyBalance statusCodes:statusCodeOK];
     
+    // Parameter
+    [parameterMapping addAttributeMappingsFromArray:@[KeyKey, KeyDescription]];
+    
     // Participant
     [participantMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount]];
     
     // Stake
     [stakeMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyStatus]];
-    RKRelationshipMapping *stakeUserRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyUser toKeyPath:KeyUser withMapping:userMapping];
-    RKRelationshipMapping *stakeEventRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyEvent toKeyPath:KeyEvent withMapping:eventMapping];
-    RKRelationshipMapping *stakeLineRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyLine toKeyPath:KeyLine withMapping:lineMapping];
-    RKRelationshipMapping *stakeComponentRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyComponents toKeyPath:KeyComponents withMapping:componentMapping];
-    RKRelationshipMapping *stakeCoefficientRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCoefficient toKeyPath:KeyCoefficient withMapping:coefficientMapping];
-    RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyMoney toKeyPath:KeyMoney withMapping:moneyMapping];
+    RKRelationshipMapping *stakeUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    RKRelationshipMapping *stakeEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *stakeLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLine mapping:lineMapping];
+    RKRelationshipMapping *stakeComponentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComponents mapping:componentMapping];
+    RKRelationshipMapping *stakeCoefficientRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCoefficient mapping:coefficientMapping];
+    RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
     [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
     RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStake statusCodes:statusCodeOK];
     RKResponseDescriptor *stakeCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStakes statusCodes:statusCodeOK];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
-    RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingFromKeyPath:KeyCategory toKeyPath:KeyCategory withMapping:categoryMapping];
+    RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
     RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping pathPattern:APITournaments keyPath:KeyTournaments statusCodes:statusCodeOK];
     
