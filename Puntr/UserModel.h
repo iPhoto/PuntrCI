@@ -25,4 +25,6 @@
 @property (nonatomic, strong, readonly) NSNumber *winCount;
 @property (nonatomic, strong, readonly) NSNumber *lossCount;
 
+- (NSDictionary *)parameters;
+
 @end
