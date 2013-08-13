@@ -85,6 +85,7 @@ NSString *const                     KeySearch = @"search";
 NSString *const                     KeySecret = @"secret";
 NSString *const                     KeySelectedCriterion = @"selectedCriterion";
 NSString *const                     KeySID = @"sid";
+NSString *const                     KeySlug = @"slug";
 NSString *const                     KeyStake = @"stake";
 NSString *const                     KeyStakes = @"stakes";
 NSString *const                     KeyStakesCount = @"stakesCount";

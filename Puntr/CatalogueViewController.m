@@ -75,31 +75,26 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     
     GroupModel *sectionUtility = [[GroupModel alloc] init];
     sectionUtility.slug = @"utility";
-    if (self.selectedSection == nil) {
+    if (!self.selectedSection) {
         self.title = @"Каталог";
         GroupModel *sectionPopular = [[GroupModel alloc] init];
         sectionPopular.title = @"Популярное";
-        sectionPopular.image = [UIImage imageNamed:@"sectionPopular"];
         sectionPopular.slug = @"popular";
         
         GroupModel *sectionLive = [[GroupModel alloc] init];
         sectionLive.title = @"Идут сейчас";
-        sectionLive.image = [UIImage imageNamed:@"sectionLive"];
         sectionLive.slug = @"live";
         
         GroupModel *sectionTournaments = [[GroupModel alloc] init];
         sectionTournaments.title = @"Турниры";
-        sectionTournaments.image = [UIImage imageNamed:@"sectionTournaments"];
         sectionTournaments.slug = @"tournaments";
         
         GroupModel *sectionEditorsChoice = [[GroupModel alloc] init];
         sectionEditorsChoice.title = @"Выбор редакции";
-        sectionEditorsChoice.image = [UIImage imageNamed:@"sectionEditorsChoice"];
         sectionEditorsChoice.slug = @"editorsChoice";
         
         GroupModel *sectionMaximumWinnings = [[GroupModel alloc] init];
         sectionMaximumWinnings.title = @"Максимальный выигрыш!!!";
-        sectionMaximumWinnings.image = [UIImage imageNamed:@"sectionMaximumWinnings"];
         sectionMaximumWinnings.slug = @"maximumWinnings";
         
         self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];

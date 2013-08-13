@@ -8,6 +8,7 @@
 
 #import "HeaderCell.h"
 #import "GroupModel.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface HeaderCell ()
 
@@ -26,7 +27,7 @@
     [self addSubview:self.imageViewBackground];
     
     self.imageViewSection = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.height, self.frame.size.height)];
-    self.imageViewSection.image = section.image;
+    [self.imageViewSection setImageWithURL:section.image];
     self.imageViewSection.contentMode = UIViewContentModeCenter;
     [self addSubview:self.imageViewSection];
     

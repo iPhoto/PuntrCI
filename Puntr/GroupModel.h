@@ -11,7 +11,9 @@
 @interface GroupModel : NSObject
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSURL *image;
 @property (nonatomic, strong) NSString *slug;
+
+- (NSDictionary *)parameters;
 
 @end
