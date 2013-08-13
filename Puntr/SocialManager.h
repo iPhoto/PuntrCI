@@ -22,7 +22,7 @@ typedef enum {
 
 @protocol SocialManagerDelegate
 
-- (void) socialManagerDelegateMethod: (SocialManager *) sender;
+- (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array;
 
 @end
 
@@ -31,6 +31,8 @@ typedef enum {
 + (SocialManager*)sharedManager;
 
 - (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success;
+
+- (void)loginTwWithUser:(NSInteger)index;
 
 @property (nonatomic, weak) id <SocialManagerDelegate> delegate;
 

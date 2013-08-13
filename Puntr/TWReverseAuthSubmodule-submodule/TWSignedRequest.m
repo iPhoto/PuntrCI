@@ -32,8 +32,8 @@
 #define TW_HTTP_METHOD_DELETE @"DELETE"
 #define TW_HTTP_HEADER_AUTHORIZATION @"Authorization"
 
-#define kTWConsumerKey @"TWITTER_CONSUMER_KEY"
-#define kTWConsumerSecret @"TWITTER_CONSUMER_SECRET"
+#define kTWConsumerKey @"hL7hYmgLaLvb84jyCtjw"
+#define kTWConsumerSecret @"WR7ZUatyJge8g3ReA0Yo2l0nuuED3uyCTVyth1iN7Oc"
 
 @interface TWSignedRequest()
 {

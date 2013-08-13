@@ -171,58 +171,30 @@ typedef enum {
 }
 
 - (void)fbButtonTouched {
-   /* NSLog(@"fb touched");
-    if(!self.accountStore)
-        self.accountStore = [[ACAccountStore alloc] init];
-    
-    ACAccountType *facebookTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    [self.accountStore requestAccessToAccountsWithType:facebookTypeAccount
-                                           options:@{ACFacebookAppIdKey: @"203657029796954", ACFacebookPermissionsKey: @[@"email"]}
-                                        completion:^(BOOL granted, NSError *error) {
-                                            if(granted){
-                                                NSArray *accounts = [self.accountStore accountsWithAccountType:facebookTypeAccount];
-                                                self.facebookAccount = [accounts lastObject];
-                                                NSLog(@"Success");
-                                                NSLog(@"acces token %@",[[self.facebookAccount credential] oauthToken]);
-                                                [self myFbData];
-                                            }else{
-                                                NSLog(@"Fail");
-                                                NSLog(@"Error: %@", error);
-                                            }
-                                        }];*/
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:nil];
 }
 
-- (void)twButtonTouched {
+- (void)twButtonTouched
+{
     NSLog(@"tw touched");
     [SocialManager sharedManager].delegate = self;
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter success:nil];
-    /*if(!self.accountStore)
-        self.accountStore = [[ACAccountStore alloc] init];
-    
-    ACAccountType *twitterTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    
-    [self.accountStore requestAccessToAccountsWithType:twitterTypeAccount options:nil completion:^(BOOL granted, NSError *error) {
-        if(granted) {
-            NSArray *accountsArray = [self.accountStore accountsWithAccountType:twitterTypeAccount];
-            
-            if ([accountsArray count] > 0) {
-                self.twitterAccount = [accountsArray objectAtIndex:0];
-                NSLog(@"%@",self.twitterAccount.username);
-                NSLog(@"%@",self.twitterAccount);
-                NSLog(@"acces token %@",[[self.twitterAccount credential] oauthToken]);            }
-        }
-    }];*/
 }
 
-- (void)vkButtonTouched {
+- (void)vkButtonTouched
+{
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:nil];
 }
 
-- (void) socialManagerDelegateMethod: (SocialManager *) sender {
-    NSLog(@"here choose your twitter");
+- (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    for (NSString *name in array)
+    {
+        [sheet addButtonWithTitle:name];
+    }
+    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
+    [sheet showInView:self.view];
 }
 #pragma mark - TextField Delegate
 
@@ -253,6 +225,16 @@ typedef enum {
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.cancelButtonIndex)
+    {
+        [[SocialManager sharedManager] loginTwWithUser:buttonIndex];
+    }
 }
 
 #pragma mark - Notifications
@@ -295,26 +277,7 @@ typedef enum {
     self.credentials.login = self.textFieldLogin.text;
     self.credentials.password = self.textFieldPassword.text;
 }
-/*
-- (void)myFbData {
-    
-    NSURL *meurl = [NSURL URLWithString:@"https://graph.facebook.com/me"];
-    
-    SLRequest *merequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
-                                              requestMethod:SLRequestMethodGET
-                                                        URL:meurl
-                                                 parameters:nil];
-    
-    merequest.account = self.facebookAccount;
-    
-    [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        NSString *meDataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        
-        NSLog(@"%@", meDataString);
-        
-    }];
-    
-}*/
+
 - (BOOL)dataIsValid {
     if (!self.credentials.login || self.credentials.login.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
