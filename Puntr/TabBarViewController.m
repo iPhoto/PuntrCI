@@ -16,6 +16,8 @@
 #import "CatalogueViewController.h"
 #import "MyStakesViewController.h"
 #import "ProfileViewController.h"
+#import "SettingsViewController.h"
+
 
 @interface TabBarViewController ()
 
@@ -30,7 +32,8 @@
         NSArray *viewControllers = @[[[NewsNavigationController alloc] initWithRootViewController:[[NewsViewController alloc] init]],
                                      [[CatalogueNavigationController alloc] initWithRootViewController:[[CatalogueViewController alloc] init]],
                                      [[MyStakesNavigationController alloc] initWithRootViewController:[[MyStakesViewController alloc] init]],
-                                     [[ProfileNavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]]];
+//                                     [[ProfileNavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]]];
+                                     [[ProfileNavigationController alloc] initWithRootViewController:[[SettingsViewController alloc] init]]];
         [self setViewControllers:viewControllers animated:YES];
         [self setSelectedIndex:0];
     }
