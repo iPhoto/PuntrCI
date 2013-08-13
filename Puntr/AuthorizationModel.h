@@ -14,5 +14,6 @@
 @property (nonatomic, copy) NSString *secret;
 
 - (NSDictionary *)parameters;
+- (NSDictionary *)wrappedParameters;
 
 @end

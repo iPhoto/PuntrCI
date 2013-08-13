@@ -238,7 +238,7 @@
 }
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure {
-    [self.HTTPClient deletePath:APIAuthorization parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.HTTPClient deletePath:APIAuthorization parameters:self.authorization.wrappedParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self reportWithFailure:failure error:error];
@@ -248,7 +248,7 @@
 #pragma mark - Categories
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure {
-    [self getObject:nil path:APICategories parameters:self.authorization.parameters success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [self getObject:nil path:APICategories parameters:self.authorization.wrappedParameters success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSArray *categories = mappingResult.dictionary[KeyCategories];
         success(categories);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -268,7 +268,7 @@
 
 - (void)eventsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.parameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
     if (group) {
         [parameters setObject:group forKey:KeyGroup];
     }
@@ -291,12 +291,12 @@
 #pragma mark - Stakes
 
 - (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: @{KeyTag: line.tag}} success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters, KeyLine: @{KeyTag: line.tag}} success:success failure:failure];
 }
 
 - (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters[KeyAuthorization], KeyLine: @{KeyTag: line.tag}}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters, KeyLine: @{KeyTag: line.tag}}];
     NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:components.count];
     for (ComponentModel *component in components) {
         [componentsParamenters addObject:@{KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion}];
@@ -311,7 +311,7 @@
     [stake prepareForTransmission];
     [self postObject:stake
                 path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIStakes]
-          parameters:self.authorization.parameters
+          parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                  
                  success(operation.locationHeader);
@@ -331,7 +331,7 @@
 }
 
 - (void)tournamentsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: @{KeySID: self.authorization.sid}}];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
     if (group) {
         [parameters setObject:group forKey:KeyGroup];
     }
@@ -354,17 +354,17 @@
 #pragma mark - Subscriptions
 
 - (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:self.authorization.parameters success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:self.authorization.wrappedParameters success:success failure:failure];
 }
 
 #pragma mark - User
 
 - (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:self.authorization.parameters success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:self.authorization.wrappedParameters success:success failure:failure];
 }
 
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:self.authorization.parameters success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:self.authorization.wrappedParameters success:success failure:failure];
 }
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure {
@@ -381,7 +381,7 @@
 }
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:self.authorization.parameters success:success failure:failure];
+    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:self.authorization.wrappedParameters success:success failure:failure];
 }
 
 - (NSNumber *)loginedUserTag {

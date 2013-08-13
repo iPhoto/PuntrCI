@@ -18,7 +18,11 @@
     if (self.secret) {
         [parameters setObject:self.secret forKey:KeySecret];
     }
-    return @{KeyAuthorization: [parameters copy]};
+    return [parameters copy];
+}
+
+- (NSDictionary *)wrappedParameters {
+    return @{KeyAuthorization: [self parameters]};
 }
 
 @end
