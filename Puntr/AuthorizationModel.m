@@ -10,19 +10,23 @@
 
 @implementation AuthorizationModel
 
-- (NSDictionary *)parameters {
+- (NSDictionary *)parameters
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (self.sid) {
+    if (self.sid)
+    {
         [parameters setObject:self.sid forKey:KeySID];
     }
-    if (self.secret) {
+    if (self.secret)
+    {
         [parameters setObject:self.secret forKey:KeySecret];
     }
     return [parameters copy];
 }
 
-- (NSDictionary *)wrappedParameters {
-    return @{KeyAuthorization: [self parameters]};
+- (NSDictionary *)wrappedParameters
+{
+    return @{ KeyAuthorization: [self parameters] };
 }
 
 @end

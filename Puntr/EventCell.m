@@ -27,8 +27,8 @@
 
 @implementation EventCell
 
-- (void)loadWithEvent:(EventModel *)event {
-    
+- (void)loadWithEvent:(EventModel *)event
+{
     self.event = event;
     
     self.backgroundColor = [UIColor whiteColor];
@@ -48,10 +48,14 @@
     self.labelParticipants.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     NSString *participants = @"";
     NSUInteger counter = 0;
-    for (ParticipantModel *participant in event.participants) {
-        if (counter == 0) {
+    for (ParticipantModel *participant in event.participants)
+    {
+        if (counter == 0)
+        {
             participants = participant.title;
-        } else {
+        }
+        else
+        {
             participants = [NSString stringWithFormat:@"%@ — %@", participants, participant.title];
         }
         counter++;
@@ -94,11 +98,12 @@
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 }
 
-- (void)stakeButtonTouched {
-    
+- (void)stakeButtonTouched
+{
 }
 
-- (void)prepareForReuse {
+- (void)prepareForReuse
+{
     [self.labelCategory removeFromSuperview];
     self.labelCategory = nil;
     [self.labelParticipants removeFromSuperview];
@@ -111,10 +116,7 @@
     self.labelTime = nil;
     [self.labelStakes removeFromSuperview];
     self.labelStakes = nil;
-    
     self.event = nil;
-    
-    
 }
 
 @end

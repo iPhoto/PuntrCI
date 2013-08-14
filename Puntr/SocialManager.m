@@ -16,7 +16,7 @@
 #import "VKAccessToken.h"
 #import "VKUser.h"
 
-static SocialManager  *sharedManager = nil;
+static SocialManager *sharedManager = nil;
 
 @interface SocialManager ()
 
@@ -32,7 +32,7 @@ static SocialManager  *sharedManager = nil;
 
 @synthesize delegate;
 
-- (id) init
+- (id)init
 {
     self = [super init];
     if (nil == sharedManager)
@@ -47,7 +47,7 @@ static SocialManager  *sharedManager = nil;
     sharedManager = manager;
 }
 
-+ (SocialManager*)sharedManager
++ (SocialManager *)sharedManager
 {
     return sharedManager;
 }
@@ -60,7 +60,7 @@ static SocialManager  *sharedManager = nil;
         case SocialNetworkTypeFacebook:
             [self loginFb];
             break;
-        
+            
         case SocialNetworkTypeTwitter:
             [self loginTw];
             break;
@@ -68,6 +68,7 @@ static SocialManager  *sharedManager = nil;
         case SocialNetworkTypeVkontakte:
             [self loginVk];
             break;
+            
         default:
             break;
     }
@@ -75,8 +76,7 @@ static SocialManager  *sharedManager = nil;
 
 - (void)loginFb
 {
-    
-    if(!self.accountStore)
+    if (!self.accountStore)
     {
         self.accountStore = [[ACAccountStore alloc] init];
     }
@@ -84,14 +84,15 @@ static SocialManager  *sharedManager = nil;
     ACAccountType *facebookTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     
     [self.accountStore requestAccessToAccountsWithType:facebookTypeAccount
-                                               options:@{ACFacebookAppIdKey: @"203657029796954", ACFacebookPermissionsKey: @[@"email"]}
-                                            completion:^(BOOL granted, NSError *error) {
-                                                if(granted)
+                                               options:@{ ACFacebookAppIdKey: @"203657029796954", ACFacebookPermissionsKey: @[@"email"] }
+                                            completion:^(BOOL granted, NSError *error)
+                                            {
+                                                if (granted)
                                                 {
                                                     NSArray *accounts = [self.accountStore accountsWithAccountType:facebookTypeAccount];
                                                     self.facebookAccount = [accounts lastObject];
                                                     NSLog(@"Success");
-                                                    NSLog(@"acces token %@",[[self.facebookAccount credential] oauthToken]);
+                                                    NSLog(@"acces token %@", [[self.facebookAccount credential] oauthToken]);
                                                     [self userFbData];
                                                 }
                                                 else
@@ -99,98 +100,79 @@ static SocialManager  *sharedManager = nil;
                                                     NSLog(@"Fail");
                                                     NSLog(@"Error: %@", error);
                                                 }
-                                            }];
+                                            }
+     ];
 }
 
 - (void)loginTw
 {
-    if(!self.accountStore)
+    if (!self.accountStore)
     {
         self.accountStore = [[ACAccountStore alloc] init];
     }
     ACAccountType *twitterType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    /*
-    ACAccountStoreRequestAccessCompletionHandler handler = ^(BOOL granted, NSError *error) {
-        if (granted) {
-            self.twitterAccounts = [self.accountStore accountsWithAccountType:twitterType];
-            NSMutableArray *twitterAccountsNames;
-            for(ACAccount *acct in self.twitterAccounts)
-            {
-                [twitterAccountsNames addObject:acct.username];
-            }
-            [self.delegate socialManager:self twitterAccounts:twitterAccountsNames];
-        }
-        else
-        {
-            NSLog(@"no access");
-        }
-    };
-*/
-    [self.accountStore requestAccessToAccountsWithType:twitterType options:nil completion:^(BOOL granted, NSError *error) {
-        if (granted) {
-            self.twitterAccounts = [self.accountStore accountsWithAccountType:twitterType];
-            NSMutableArray *twitterAccountsNames = [[NSMutableArray alloc] init];
-            for(ACAccount *acct in self.twitterAccounts)
-            {
-                [twitterAccountsNames addObject:acct.username];
-            }
-            [self.delegate socialManager:self twitterAccounts:twitterAccountsNames];
-        }
-        else
-        {
-            NSLog(@"no access");
-        }
-    }];
+    
+    [self.accountStore requestAccessToAccountsWithType:twitterType
+                                               options:nil
+                                            completion:^(BOOL granted, NSError *error)
+                                            {
+                                                if (granted)
+                                                {
+                                                    self.twitterAccounts = [self.accountStore accountsWithAccountType:twitterType];
+                                                    NSMutableArray *twitterAccountsNames = [[NSMutableArray alloc] init];
+                                                    for (ACAccount * acct in self.twitterAccounts)
+                                                    {
+                                                        [twitterAccountsNames addObject:acct.username];
+                                                    }
+                                                    [self.delegate socialManager:self twitterAccounts:twitterAccountsNames];
+                                                }
+                                                else
+                                                {
+                                                    NSLog(@"no access");
+                                                }
+                                            }
+    ];
 }
 
 - (void)loginTwWithUser:(NSInteger)index
 {
-    if(!self.twitterApiManager)
+    if (!self.twitterApiManager)
     {
         self.twitterApiManager = [[TWAPIManager alloc] init];
     }
-    [self.twitterApiManager performReverseAuthForAccount:self.twitterAccounts[index] withHandler:^(NSData *responseData,NSHTTPURLResponse *response, NSError *error)
-     {
-        if (responseData)
+    [self.twitterApiManager performReverseAuthForAccount:self.twitterAccounts[index] withHandler:^(NSData *responseData, NSHTTPURLResponse *response, NSError *error)
         {
-            NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-            
-            NSLog(@"Reverse Auth process returned: %@", responseStr);
-            
-            TwitterReverseOAuthResponse *twitterUserData = [TwitterReverseOAuthResponse oauthResponseForResponseData:responseData];
-            NSLog(@"tw user token: %@; token_secret: %@; name: %@; id: %@;", twitterUserData.oauth_token, twitterUserData.oauth_token_secret, twitterUserData.screen_name, twitterUserData.user_id);
-            /*NSArray *parts = [responseStr componentsSeparatedByString:@"&"];
-            NSString *lined = [parts componentsJoinedByString:@"\n"];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:lined delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-            });*/
+             if (responseData)
+             {
+                 NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                 
+                 NSLog(@"Reverse Auth process returned: %@", responseStr);
+                 
+                 TwitterReverseOAuthResponse *twitterUserData = [TwitterReverseOAuthResponse oauthResponseForResponseData:responseData];
+                 NSLog(@"tw user token: %@; token_secret: %@; name: %@; id: %@;", twitterUserData.oauth_token, twitterUserData.oauth_token_secret, twitterUserData.screen_name, twitterUserData.user_id);
+             }
+             else
+             {
+                 NSLog(@"Reverse Auth process failed. Error returned was: %@\n", [error localizedDescription]);
+             }
         }
-        else
-        {
-            NSLog(@"Reverse Auth process failed. Error returned was: %@\n", [error localizedDescription]);
-        }
-    }];
+    ];
 }
 
 - (void)loginVk
 {
-
     [[VKConnector sharedInstance] setDelegate:self];
-    [[VKConnector sharedInstance] startWithAppID:@"3806903"
-                                      permissons:nil];
+    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:nil];
 }
 
-- (void) VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken
+- (void)VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken
 {
-    NSLog(@"vk_user_id: %lu",(unsigned long)[VKUser currentUser].accessToken.userID);
-    NSLog(@"vk_user_token: %@",[VKUser currentUser].accessToken.token);
-    //self.success();
+    NSLog(@"vk_user_id: %lu", (unsigned long)[VKUser currentUser].accessToken.userID);
+    NSLog(@"vk_user_token: %@", [VKUser currentUser].accessToken.token);
 }
 
-- (void)userFbData {
-    
+- (void)userFbData
+{
     NSURL *meurl = [NSURL URLWithString:@"https://graph.facebook.com/me"];
     
     SLRequest *merequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
@@ -200,11 +182,12 @@ static SocialManager  *sharedManager = nil;
     
     merequest.account = self.facebookAccount;
     
-    [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"dict: %@", fbDictionary);
-    }];
-    
+    [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
+        {
+            NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"dict: %@", fbDictionary);
+        }
+    ];
 }
 
 @end

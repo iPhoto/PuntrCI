@@ -10,7 +10,8 @@
 
 @implementation PuntrUtilities
 
-+ (NSString *)formattedDate:(NSDate *)date {
++ (NSString *)formattedDate:(NSDate *)date
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];

@@ -36,9 +36,11 @@
 
 @implementation EventViewController
 
-- (id)initWithEvent:(EventModel *)event {
+- (id)initWithEvent:(EventModel *)event
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _event = event;
     }
     return self;
@@ -47,7 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.title = @"Событие";
     
     [self addBalanceButton];
@@ -68,20 +70,10 @@
     
     CGSize participantSize = CGSizeMake((screenWidth - 2.0f * coverMargin) / 2.0f, participantsHeight);
     CGFloat labelPadding = 20.0f;
-    /*
-    self.labelParticipantFirst = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding, coverMargin, participantSize.width - labelPadding * 2.0f, participantSize.height)];
-    self.labelParticipantFirst.font = fontParticipants;
-    self.labelParticipantFirst.backgroundColor = [UIColor clearColor];
-    self.labelParticipantFirst.textAlignment = NSTextAlignmentCenter;
-    self.labelParticipantFirst.numberOfLines = 0;
-    self.labelParticipantFirst.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelParticipantFirst.text = [(ParticipantModel *)self.event.participants[0] title];
-    [self.view addSubview:self.labelParticipantFirst];
-    */
-    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2*coverMargin, coverMargin + 13, 128, 44)];
+    
+    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2 * coverMargin, coverMargin + 13, 128, 44)];
     [self.buttonParticipantFirst setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
     self.buttonParticipantFirst.titleLabel.font = fontParticipants;
-    //self.buttonParticipantFirst.titleLabel.backgroundColor = [UIColor clearColor];
     self.buttonParticipantFirst.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.buttonParticipantFirst.titleLabel.numberOfLines = 0;
     [self.buttonParticipantFirst setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
@@ -96,18 +88,11 @@
     self.labelStatus.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.labelStatus.text = self.event.status ? self.event.status : @"—";
     [self.view addSubview:self.labelStatus];
-    /*
-    self.labelParticipantSecond = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding + participantSize.width, coverMargin, participantSize.width - labelPadding * 2.0f, participantSize.height)];
-    self.labelParticipantSecond.font = fontParticipants;
-    self.labelParticipantSecond.backgroundColor = [UIColor clearColor];
-    self.labelParticipantSecond.textAlignment = NSTextAlignmentCenter;
-    self.labelParticipantSecond.numberOfLines = 0;
-    self.labelParticipantSecond.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelParticipantSecond.text = [(ParticipantModel *)self.event.participants[1] title];
-    [self.view addSubview:self.labelParticipantSecond];
-    */
-    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2*coverMargin + 128), coverMargin + 13, 128, 44)];
-    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    
+    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2 * coverMargin + 128), coverMargin + 13, 128, 44)];
+    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"]
+                                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
+                                            forState:UIControlStateNormal];
     self.buttonParticipantSecond.titleLabel.font = fontParticipants;
     self.buttonParticipantSecond.titleLabel.backgroundColor = [UIColor clearColor];
     self.buttonParticipantSecond.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -128,7 +113,9 @@
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"]
+                                              resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                    forState:UIControlStateNormal];
     [self.view addSubview:self.buttonSubscribe];
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -138,7 +125,9 @@
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"]
+                                          resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                forState:UIControlStateNormal];
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonStake];
     
@@ -147,28 +136,34 @@
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor blackColor];
     [self.view addSubview:self.segmentedControl];
-    dispatch_async(dispatch_get_main_queue(),^{
-        self.segmentedControl.selectedSegmentIndex = 1;
-    });
+    dispatch_async(dispatch_get_main_queue(), ^
+        {
+            self.segmentedControl.selectedSegmentIndex = 1;
+        }
+    );
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self updateBalance];
 }
 
-- (void)stakeButtonTouched {
+- (void)stakeButtonTouched
+{
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[StakeViewController alloc] initWithEvent:self.event]] animated:YES completion:^{
-        
     }];
 }
 
-- (void)showParticipant:(id)sender {
+- (void)showParticipant:(id)sender
+{
     int i;
-    if((UIButton *)sender == self.buttonParticipantFirst)
+    if ((UIButton *)sender == self.buttonParticipantFirst)
     {
         i = 0;
-    }else{
+    }
+    else
+    {
         i = 1;
     }
     [self.navigationController pushViewController:[[ParticipantViewController alloc] initWithParticipant:self.event.participants[i]] animated:YES];

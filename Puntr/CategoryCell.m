@@ -18,8 +18,10 @@
 
 @implementation CategoryCell
 
-- (void)loadWithCategory:(CategoryModel *)category {
-    if (!self.loaded) {
+- (void)loadWithCategory:(CategoryModel *)category
+{
+    if (!self.loaded)
+    {
         UIImageView *imageViewBackground = [[UIImageView alloc] initWithFrame:self.frame];
         imageViewBackground.image = [[UIImage imageNamed:@"categoryNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 1.0f, 1.0f, 1.0f)];
         self.backgroundView = imageViewBackground;
@@ -39,10 +41,10 @@
         self.loaded = YES;
     }
     self.labelTitle.text = category.title;
-    
 }
 
-- (void)prepareForReuse {
+- (void)prepareForReuse
+{
     self.selected = NO;
 }
 

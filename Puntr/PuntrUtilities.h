@@ -11,5 +11,5 @@
 @interface PuntrUtilities : NSObject
 
 + (NSString *)formattedDate:(NSDate *)date;
-    
+
 @end

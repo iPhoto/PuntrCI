@@ -10,7 +10,7 @@
 
 @class ComponentPicker;
 
-typedef void(^ComponentBlock)(ComponentPicker *picker, NSArray *components);
+typedef void (^ComponentBlock)(ComponentPicker *picker, NSArray *components);
 
 @interface ComponentPicker : AbstractActionSheetPicker <UIPickerViewDelegate, UIPickerViewDataSource>
 

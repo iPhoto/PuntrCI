@@ -50,9 +50,15 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Events
 
-- (void)eventsWithFilter:(FilterModel *)filter paging:(PagingModel *)paging success:(Events)success failure:(EmptyFailure)failure;
+- (void)eventsWithFilter:(FilterModel *)filter
+                  paging:(PagingModel *)paging
+                 success:(Events)success
+                 failure:(EmptyFailure)failure;
 
-- (void)eventsForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)eventsForGroup:(NSString *)group
+                 limit:(NSNumber *)limit
+               success:(ObjectRequestSuccess)success
+               failure:(ObjectRequestFailure)failure;
 
 - (void)eventsForGroup:(NSString *)group
                 filter:(NSArray *)categoryTags
@@ -64,9 +70,16 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Stakes
 
-- (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)componentsForEvent:(EventModel *)event
+                      line:(LineModel *)line
+                   success:(ObjectRequestSuccess)success
+                   failure:(ObjectRequestFailure)failure;
 
-- (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)coefficientForEvent:(EventModel *)event
+                       line:(LineModel *)line
+                 components:(NSArray *)components
+                    success:(ObjectRequestSuccess)success
+                    failure:(ObjectRequestFailure)failure;
 
 - (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
 

@@ -10,12 +10,15 @@
 
 @implementation ComponentModel
 
-- (NSDictionary *)parameters {
+- (NSDictionary *)parameters
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (self.position) {
+    if (self.position)
+    {
         [parameters setObject:self.position forKey:KeyPosition];
     }
-    if (self.selectedCriterion) {
+    if (self.selectedCriterion)
+    {
         [parameters setObject:self.selectedCriterion forKey:KeySelectedCriterion];
     }
     return [parameters copy];

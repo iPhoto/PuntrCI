@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.title = @"Мои ставки";
     [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
@@ -30,12 +30,15 @@
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor blackColor];
     [self.view addSubview:self.segmentedControl];
-    dispatch_async(dispatch_get_main_queue(),^{
-        self.segmentedControl.selectedSegmentIndex = 1;
-    });
+    dispatch_async(dispatch_get_main_queue(), ^
+        {
+            self.segmentedControl.selectedSegmentIndex = 1;
+        }
+    );
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self updateBalance];
 }

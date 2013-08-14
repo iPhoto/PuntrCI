@@ -40,16 +40,17 @@
 - (id)initWithUserTag:(NSNumber *)userTag
 {
     self = [super init];
-    if(self)
+    if (self)
     {
         self.userTag = userTag;
     }
     return self;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	if(self.userTag == nil)
+    if (self.userTag == nil)
     {
         self.userTag = [[ObjectManager sharedManager] loginedUserTag];
     }
@@ -67,9 +68,9 @@
     whiteView.layer.masksToBounds = YES;
     
     self.stars = [[NSArray alloc] initWithObjects:[UIImageView new], [UIImageView new], [UIImageView new], [UIImageView new], [UIImageView new], nil];
-    for(int i = 0; i<5; i++)
+    for (int i = 0; i < 5; i++)
     {
-        [[self.stars objectAtIndex:i] setFrame:CGRectMake(80 + 15*i, 55, 14, 13)];
+        [[self.stars objectAtIndex:i] setFrame:CGRectMake(80 + 15 * i, 55, 14, 13)];
         [whiteView addSubview:[self.stars objectAtIndex:i]];
     }
     self.labelName = [[UILabel alloc]initWithFrame:CGRectMake(78, 10, 225, 15)];
@@ -157,10 +158,12 @@
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
     [whiteView addSubview:self.imageViewAvatar];
     
-    if( self.userTag != [[ObjectManager sharedManager] loginedUserTag])
+    if (self.userTag != [[ObjectManager sharedManager] loginedUserTag])
     {
         self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 95, 40)];
-        [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f,8.0f)] forState:UIControlStateNormal];
+        [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"]
+                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                        forState:UIControlStateNormal];
         [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
         [self.buttonSubscribe.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
         self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
@@ -168,7 +171,7 @@
         [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
         [whiteView addSubview:self.buttonSubscribe];
     }
-        
+    
     [self.view addSubview:whiteView];
     
     self.labelActivity = [[UILabel alloc]initWithFrame:CGRectMake(18, 150, 90, 15)];
@@ -176,56 +179,66 @@
     [self.labelActivity setBackgroundColor:[UIColor clearColor]];
     [self.labelActivity setTextColor:[UIColor whiteColor]];
     [self.labelActivity setText:@"Активность"];
-    [self.view addSubview:self.labelActivity];    
+    [self.view addSubview:self.labelActivity];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self loadProfile];
     [self updateBalance];
 }
 
-- (void)loadProfile {
-    [[ObjectManager sharedManager] userWithTag:self.userTag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        UserModel *profile = (UserModel *)mappingResult.firstObject;
-        NSLog(@"ProfileName: %@", profile.firstName);
-        [self.imageViewAvatar setImageWithURL:profile.avatar];
-        [self showStars:profile.rating.intValue];
-        [self.labelName setText:profile.firstName];
-        [self.labelRatingNumber setText:profile.topPosition.stringValue];
-        [self.labelFollowNumber setText:profile.subscriptionsCount.stringValue];
-        [self.labelFollowerNumber setText:profile.subscribersCount.stringValue];
-        [self.labelAwardNumber setText:profile.badgesCount.stringValue];
-        [self.labelRatingNumber setText:[NSString stringWithFormat:@"%@/%@",profile.winCount.stringValue,profile.lossCount.stringValue]];
-        
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-    }];
+- (void)loadProfile
+{
+    [[ObjectManager sharedManager] userWithTag:self.userTag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        {
+            UserModel *profile = (UserModel *)mappingResult.firstObject;
+            NSLog(@"ProfileName: %@", profile.firstName);
+            [self.imageViewAvatar setImageWithURL:profile.avatar];
+            [self showStars:profile.rating.intValue];
+            [self.labelName setText:profile.firstName];
+            [self.labelRatingNumber setText:profile.topPosition.stringValue];
+            [self.labelFollowNumber setText:profile.subscriptionsCount.stringValue];
+            [self.labelFollowerNumber setText:profile.subscribersCount.stringValue];
+            [self.labelAwardNumber setText:profile.badgesCount.stringValue];
+            [self.labelRatingNumber setText:[NSString stringWithFormat:@"%@/%@", profile.winCount.stringValue, profile.lossCount.stringValue]];
+        }
+        failure:^(RKObjectRequestOperation *operation, NSError *error)
+        {
+            [NotificationManager showError:error];
+        }
+    ];
 }
 
--(void)checkSubscriptions
+- (void)checkSubscriptions
 {
-    [[ObjectManager sharedManager] userSubscriptionsWithTag:[[ObjectManager sharedManager] loginedUserTag] success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"subscriptions: %@", mappingResult);
-        
-        NSLog(@"");
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-    }];
+    [[ObjectManager sharedManager] userSubscriptionsWithTag:[[ObjectManager sharedManager] loginedUserTag]
+                                                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                    {
+                                                        NSLog(@"subscriptions: %@", mappingResult);
+                                                        
+                                                        NSLog(@"");
+                                                    }
+                                                    failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                                    {
+                                                        [NotificationManager showError:error];
+                                                    }
+    ];
 }
 
--(void)showStars:(int)count
+- (void)showStars:(int)count
 {
-    if(count<0 || count>5)
+    if (count < 0 || count > 5)
     {
         return;
     }
     int i = 0;
-    for(; i< count; i++)
+    for (; i < count; i++)
     {
         [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarSelected.png"]];
     }
-    for(; i<5; i++)
+    for (; i < 5; i++)
     {
         [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarUnselected.png"]];
     }

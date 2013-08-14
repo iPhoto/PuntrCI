@@ -20,39 +20,48 @@
 
 @implementation PagingModel
 
-- (NSDictionary *)parameters {
+- (NSDictionary *)parameters
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (self.limit) {
+    if (self.limit)
+    {
         [parameters setObject:self.limit forKey:KeyLimit];
     }
-    if (self.offset) {
+    if (self.offset)
+    {
         [parameters setObject:self.offset forKey:KeyOffset];
     }
-    if (self.beforeTimestamp) {
+    if (self.beforeTimestamp)
+    {
         [parameters setObject:self.beforeTimestamp forKey:KeyBeforeTimestamp];
     }
     return [parameters copy];
 }
 
-- (void)firstPage {
+- (void)firstPage
+{
     self.page = 0;
-    if (!self.limit) {
+    if (!self.limit)
+    {
         self.limit = @10;
     }
     [self calculateOffset];
     self.beforeTimestamp = [NSDate date];
 }
 
-- (void)nextPage {
+- (void)nextPage
+{
     self.page++;
     [self calculateOffset];
 }
 
-- (void)setDefaultLimit:(NSNumber *)limit {
+- (void)setDefaultLimit:(NSNumber *)limit
+{
     self.limit = limit;
 }
 
-- (void)calculateOffset {
+- (void)calculateOffset
+{
     self.offset = @(self.page * self.limit.integerValue);
 }
 

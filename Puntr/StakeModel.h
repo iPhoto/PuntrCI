@@ -28,13 +28,17 @@
 
 // Stake Creation
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient money:(MoneyModel *)money;
++ (StakeModel *)stakeWithEvent:(EventModel *)event
+                          line:(LineModel *)line
+                    components:(NSArray *)components
+                   coefficient:(CoefficientModel *)coefficient
+                         money:(MoneyModel *)money;
 
 - (void)prepareForTransmission;
 
 // Coefficient Query
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components;
++ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components;
 
 - (NSDictionary *)parameters;
 

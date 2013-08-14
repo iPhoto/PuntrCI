@@ -31,15 +31,6 @@
 
 @implementation TournamentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,7 +41,7 @@
     CGFloat screenWidth = 320.0f;
     CGFloat coverMargin = 8.0f;
     CGFloat backgroundHeight = 70.0f;
-
+    
     UIView *backgroundCover = [[UIView alloc] initWithFrame:CGRectMake(coverMargin, coverMargin, screenWidth - coverMargin * 2.0f, backgroundHeight * 2.0f)];
     backgroundCover.backgroundColor = [UIColor whiteColor];
     backgroundCover.layer.cornerRadius = 3.75f;
@@ -59,16 +50,21 @@
     
     self.tournamentImageView = [[UIImageView alloc] init];
     
-    dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSData * data = [[NSData alloc] initWithContentsOfURL:self.tournament.banner];
-        if (data == nil) {
-            return;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^
+        {
+            NSData *data = [[NSData alloc] initWithContentsOfURL:self.tournament.banner];
+            if (data == nil)
+            {
+                return;
+            }
+            dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    self.tournamentImageView.image = [UIImage imageWithData:data];
+                    self.tournamentImageView.frame = CGRectMake(0.0f, 0.0f, screenWidth, self.tournamentImageView.image.size.height);
+                }
+            );
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.tournamentImageView.image = [UIImage imageWithData:data];
-            self.tournamentImageView.frame = CGRectMake(0.0f, 0.0f, screenWidth, self.tournamentImageView.image.size.height);
-        });
-    });
+    );
     
     self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, coverMargin + self.tournamentImageView.frame.size.height, screenWidth - coverMargin * 2.0f, 1.0f)];
     self.imageViewDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
@@ -81,16 +77,9 @@
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                    forState:UIControlStateNormal];
     [backgroundCover addSubview:self.buttonSubscribe];
-    
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

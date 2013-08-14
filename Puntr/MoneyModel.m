@@ -16,7 +16,8 @@
 
 @implementation MoneyModel
 
-+ (MoneyModel *)moneyWithAmount:(NSNumber *)amount {
++ (MoneyModel *)moneyWithAmount:(NSNumber *)amount
+{
     MoneyModel *money = [[MoneyModel alloc] init];
     money.amount = amount;
     return money;

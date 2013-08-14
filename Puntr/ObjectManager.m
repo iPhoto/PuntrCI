@@ -78,33 +78,54 @@
     RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
     [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityFeedRelationship]];
-    RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities] keyPath:KeyActivities statusCodes:statusCodeOK];
+    RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping
+                                                                                               pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities]
+                                                                                                   keyPath:KeyActivities
+                                                                                               statusCodes:statusCodeOK];
     
     // Authorization
     [authorizationMapping addAttributeMappingsFromArray:@[KeySID]];
-    RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIAuthorization keyPath:KeyAuthorization statusCodes:statusCodeCreated];
-    RKResponseDescriptor *authorizationUserCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping pathPattern:APIUsers keyPath:KeyAuthorization statusCodes:statusCodeCreated];
+    RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
+                                                                                                    pathPattern:APIAuthorization
+                                                                                                        keyPath:KeyAuthorization
+                                                                                                    statusCodes:statusCodeCreated];
+    RKResponseDescriptor *authorizationUserCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
+                                                                                                              pathPattern:APIUsers
+                                                                                                                  keyPath:KeyAuthorization
+                                                                                                              statusCodes:statusCodeCreated];
     
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
-    RKResponseDescriptor *categoryCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoryMapping pathPattern:APICategories keyPath:KeyCategories statusCodes:statusCodeOK];
+    RKResponseDescriptor *categoryCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoryMapping
+                                                                                                         pathPattern:APICategories
+                                                                                                             keyPath:KeyCategories
+                                                                                                         statusCodes:statusCodeOK];
     
     // Coefficient
     [coefficientMapping addAttributeMappingsFromArray:@[KeyValue]];
-    RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient] keyPath:KeyCoefficient statusCodes:statusCodeOK];
+    RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping
+                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient]
+                                                                                                      keyPath:KeyCoefficient
+                                                                                                  statusCodes:statusCodeOK];
     
     // Comment
     [commentMapping addAttributeMappingsFromArray:@[KeyMessage]];
     RKRelationshipMapping *commentUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
-    RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments] keyPath:KeyActivities statusCodes:statusCodeOK];
+    RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
+                                                                                              pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
+                                                                                                  keyPath:KeyActivities
+                                                                                              statusCodes:statusCodeOK];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
     RKRelationshipMapping *componentCriterionRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCriteria mapping:criterionMapping];
     [componentMapping addPropertyMapping:componentCriterionRelationship];
-    RKResponseDescriptor *componentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents] keyPath:KeyComponents statusCodes:statusCodeOK];
+    RKResponseDescriptor *componentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping
+                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents]
+                                                                                                              keyPath:KeyComponents
+                                                                                                          statusCodes:statusCodeOK];
     
     // Criterion
     [criterionMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
@@ -122,7 +143,10 @@
     [errorStatusCodes addIndexes:statusCodeUnprocessableEntity];
     [errorStatusCodes addIndexes:statusCodeInternalServerError];
     [errorStatusCodes addIndexes:statusCodeNotImplemented];
-    RKResponseDescriptor *errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping pathPattern:nil keyPath:nil statusCodes:errorStatusCodes];
+    RKResponseDescriptor *errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
+                                                                                            pathPattern:nil
+                                                                                                keyPath:nil
+                                                                                            statusCodes:errorStatusCodes];
     
     // Event
     [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus, KeyBanner]];
@@ -130,7 +154,10 @@
     RKRelationshipMapping *eventParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipants mapping:participantMapping];
     RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLines mapping:lineMapping];
     [eventMapping addPropertyMappingsFromArray:@[eventTournamentRelationship, eventParticipantRelationship, eventLineRelationship]];
-    RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:APIEvents keyPath:KeyEvents statusCodes:statusCodeOK];
+    RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
+                                                                                                    pathPattern:APIEvents
+                                                                                                          keyPath:KeyEvents
+                                                                                                      statusCodes:statusCodeOK];
     
     // Feed
     [feedMapping addAttributeMappingsFromArray:@[KeyCreatedAt, KeyMessage]];
@@ -142,7 +169,10 @@
     
     // Money
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
-    RKResponseDescriptor *moneyResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance] keyPath:KeyBalance statusCodes:statusCodeOK];
+    RKResponseDescriptor *moneyResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping
+                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance]
+                                                                                                keyPath:KeyBalance
+                                                                                            statusCodes:statusCodeOK];
     
     // Parameter
     [parameterMapping addAttributeMappingsFromArray:@[KeyKey, KeyDescription]];
@@ -159,21 +189,39 @@
     RKRelationshipMapping *stakeCoefficientRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCoefficient mapping:coefficientMapping];
     RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
     [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
-    RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStake statusCodes:statusCodeOK];
-    RKResponseDescriptor *stakeCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping pathPattern:APIStakes keyPath:KeyStakes statusCodes:statusCodeOK];
+    RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                            pathPattern:APIStakes
+                                                                                                keyPath:KeyStake
+                                                                                            statusCodes:statusCodeOK];
+    RKResponseDescriptor *stakeCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                      pathPattern:APIStakes
+                                                                                                          keyPath:KeyStakes
+                                                                                                      statusCodes:statusCodeOK];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
-    RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping pathPattern:APITournaments keyPath:KeyTournaments statusCodes:statusCodeOK];
+    RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping
+                                                                                                           pathPattern:APITournaments
+                                                                                                               keyPath:KeyTournaments
+                                                                                                           statusCodes:statusCodeOK];
     
     // User
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
-    RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers] keyPath:KeyUser statusCodes:statusCodeOK];
-    RKResponseDescriptor *userCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:APIUsers keyPath:KeyUser statusCodes:statusCodeCreated];
-    RKResponseDescriptor *userAuthorizationCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping pathPattern:APIAuthorization keyPath:KeyUser statusCodes:statusCodeCreated];
-
+    RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
+                                                                                               keyPath:KeyUser
+                                                                                           statusCodes:statusCodeOK];
+    RKResponseDescriptor *userCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                 pathPattern:APIUsers
+                                                                                                     keyPath:KeyUser
+                                                                                                 statusCodes:statusCodeCreated];
+    RKResponseDescriptor *userAuthorizationCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                              pathPattern:APIAuthorization
+                                                                                                                  keyPath:KeyUser
+                                                                                                              statusCodes:statusCodeCreated];
+    
     // Response Descriptors
     [self addResponseDescriptorsFromArray:@[
      activityResponseDescriptor,
@@ -199,7 +247,9 @@
     // Credentials
     RKObjectMapping *credentialsMapping = [RKObjectMapping requestMapping];
     [credentialsMapping addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
-    RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsMapping objectClass:[CredentialsModel class] rootKeyPath:KeyCredentials];
+    RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsMapping
+                                                                                              objectClass:[CredentialsModel class]
+                                                                                              rootKeyPath:KeyCredentials];
     
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
@@ -208,12 +258,16 @@
      [stakeComponentRelationship copy],
      [stakeCoefficientRelationship copy],
      [stakeMoneyRelationship copy]]];
-    RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[stakeMapping inverseMapping] objectClass:[StakeModel class] rootKeyPath:nil];
+    RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[stakeMapping inverseMapping]
+                                                                                        objectClass:[StakeModel class]
+                                                                                        rootKeyPath:nil];
     
     // User
     RKObjectMapping *userSerialization = [RKObjectMapping requestMapping];
     [userSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
-    RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userSerialization objectClass:[UserModel class] rootKeyPath:nil];
+    RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userSerialization
+                                                                                       objectClass:[UserModel class]
+                                                                                       rootKeyPath:nil];
     
     [self addRequestDescriptorsFromArray:@[
      credentialsRequestDescriptor,
@@ -224,175 +278,301 @@
 
 #pragma mark - Authorization
 
-- (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure {
-    [self postObject:credentials path:APIAuthorization parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSDictionary *response = mappingResult.dictionary;
-        AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
-        UserModel *user = (UserModel *)response[KeyUser];
-        self.authorization = authorization;
-        self.user = user;
-        success(authorization, user);
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [self reportWithFailure:failure error:error];
-    }];
+- (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure
+{
+    [self postObject:credentials
+                path:APIAuthorization
+          parameters:nil
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 NSDictionary *response = mappingResult.dictionary;
+                 AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
+                 UserModel *user = (UserModel *)response[KeyUser];
+                 self.authorization = authorization;
+                 self.user = user;
+                 success(authorization, user);
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
+    ];
 }
 
-- (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure {
-    [self.HTTPClient deletePath:APIAuthorization parameters:self.authorization.wrappedParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self reportWithFailure:failure error:error];
-    }];
+- (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self.HTTPClient deletePath:APIAuthorization
+                     parameters:self.authorization.wrappedParameters
+                        success:^(AFHTTPRequestOperation *operation, id responseObject)
+                        {
+                            success();
+                        }
+                        failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                        {
+                            [self reportWithFailure:failure error:error];
+                        }
+    ];
 }
 
 #pragma mark - Categories
 
-- (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure {
-    [self getObject:nil path:APICategories parameters:self.authorization.wrappedParameters success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSArray *categories = mappingResult.dictionary[KeyCategories];
-        success(categories);
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [self reportWithFailure:failure error:error];
-    }];
+- (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:APICategories
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *categories = mappingResult.dictionary[KeyCategories];
+                success(categories);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - Events
 
-- (void)eventsWithFilter:(FilterModel *)filter paging:(PagingModel *)paging success:(Events)success failure:(EmptyFailure)failure {
+- (void)eventsWithFilter:(FilterModel *)filter
+                paging:(PagingModel *)paging
+                 success:(Events)success
+                 failure:(EmptyFailure)failure
+{
     
 }
 
-- (void)eventsForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self eventsForGroup:group filter:nil search:nil limit:limit page:nil success:success failure:failure];
+- (void)eventsForGroup:(NSString *)group
+                 limit:(NSNumber *)limit
+               success:(ObjectRequestSuccess)success
+               failure:(ObjectRequestFailure)failure
+{
+    [self eventsForGroup:group
+                  filter:nil
+                  search:nil
+                   limit:limit
+                    page:nil
+                 success:success
+                 failure:failure];
 }
 
-- (void)eventsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    
+- (void)eventsForGroup:(NSString *)group
+                filter:(NSArray *)categoryTags
+                search:(NSString *)search
+                 limit:(NSNumber *)limit
+                  page:(NSNumber *)page
+               success:(ObjectRequestSuccess)success
+               failure:(ObjectRequestFailure)failure
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (group) {
+    if (group)
+    {
         [parameters setObject:group forKey:KeyGroup];
     }
-    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0]) {
+    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0])
+    {
         [parameters setObject:categoryTags forKey:KeyFilter];
     }
-    if (search) {
+    if (search)
+    {
         [parameters setObject:search forKey:KeySearch];
     }
-    if (limit) {
+    if (limit)
+    {
         [parameters setObject:limit forKey:KeyLimit];
     }
-    if (page && limit) {
+    if (page && limit)
+    {
         [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
     }
     
-    [self getObject:nil path:APIEvents parameters:parameters success:success failure:failure];
+    [self getObject:nil
+               path:APIEvents
+         parameters:parameters
+            success:success
+            failure:failure];
 }
 
 #pragma mark - Stakes
 
-- (void)componentsForEvent:(EventModel *)event line:(LineModel *)line success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents] parameters:@{KeyAuthorization: self.authorization.parameters, KeyLine: @{KeyTag: line.tag}} success:success failure:failure];
+- (void)componentsForEvent:(EventModel *)event
+                      line:(LineModel *)line
+                   success:(ObjectRequestSuccess)success
+                   failure:(ObjectRequestFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents]
+         parameters:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{ KeyTag: line.tag } }
+            success:success
+            failure:failure];
 }
 
-- (void)coefficientForEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{KeyAuthorization: self.authorization.parameters, KeyLine: @{KeyTag: line.tag}}];
+- (void)coefficientForEvent:(EventModel *)event
+                       line:(LineModel *)line
+                 components:(NSArray *)components
+                    success:(ObjectRequestSuccess)success
+                    failure:(ObjectRequestFailure)failure
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{ KeyTag: line.tag } }];
     NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:components.count];
-    for (ComponentModel *component in components) {
-        [componentsParamenters addObject:@{KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion}];
+    for (ComponentModel *component in components)
+    {
+        [componentsParamenters addObject:@{ KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion }];
     }
     [parameters setObject:[componentsParamenters copy] forKey:KeyComponents];
     
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APICoefficient] parameters:[parameters copy] success:success failure:failure];
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APICoefficient]
+         parameters:[parameters copy]
+            success:success
+            failure:failure];
 }
 
-- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure {
+- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure
+{
     EventModel *event = stake.event;
     [stake prepareForTransmission];
     [self postObject:stake
                 path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIStakes]
           parameters:self.authorization.wrappedParameters
-             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                 
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
                  success(operation.locationHeader);
-                 
-             } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                 
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
                  [self reportWithFailure:failure error:error];
-                 
-             }];
-    
+             }
+    ];
 }
 
 #pragma mark - Tournaments
 
-- (void)tournamentssForGroup:(NSString *)group limit:(NSNumber *)limit success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self tournamentsForGroup:group filter:nil search:nil limit:limit page:nil success:success failure:failure];
+- (void)tournamentssForGroup:(NSString *)group
+                       limit:(NSNumber *)limit
+                     success:(ObjectRequestSuccess)success
+                     failure:(ObjectRequestFailure)failure
+{
+    [self tournamentsForGroup:group
+                    filter:nil
+                       search:nil
+                        limit:limit
+                         page:nil
+                      success:success
+                      failure:failure];
 }
 
-- (void)tournamentsForGroup:(NSString *)group filter:(NSArray *)categoryTags search:(NSString *)search limit:(NSNumber *)limit page:(NSNumber *)page success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
+- (void)tournamentsForGroup:(NSString *)group
+                     filter:(NSArray *)categoryTags
+                     search:(NSString *)search
+                      limit:(NSNumber *)limit
+                    page:(NSNumber *)page
+                    success:(ObjectRequestSuccess)success
+                    failure:(ObjectRequestFailure)failure
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (group) {
+    if (group)
+    {
         [parameters setObject:group forKey:KeyGroup];
     }
-    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0]) {
+    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0])
+    {
         [parameters setObject:categoryTags forKey:KeyFilter];
     }
-    if (search) {
+    if (search)
+    {
         [parameters setObject:search forKey:KeySearch];
     }
-    if (limit) {
+    if (limit)
+    {
         [parameters setObject:limit forKey:KeyLimit];
     }
-    if (page && limit) {
+    if (page && limit)
+    {
         [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
     }
     
-    [self getObject:nil path:APITournaments parameters:parameters success:success failure:failure];
+    [self getObject:nil
+               path:APITournaments
+         parameters:parameters
+            success:success
+            failure:failure];
 }
 
 #pragma mark - Subscriptions
 
-- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions] parameters:self.authorization.wrappedParameters success:success failure:failure];
+- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions]
+         parameters:self.authorization.wrappedParameters
+            success:success
+            failure:failure];
 }
 
 #pragma mark - User
 
-- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue] parameters:self.authorization.wrappedParameters success:success failure:failure];
+- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
+         parameters:self.authorization.wrappedParameters
+            success:success
+            failure:failure];
 }
 
-- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue] parameters:self.authorization.wrappedParameters success:success failure:failure];
+- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue]
+         parameters:self.authorization.wrappedParameters
+            success:success
+            failure:failure];
 }
 
-- (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure {
-    [self postObject:user path:APIUsers parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSDictionary *response = mappingResult.dictionary;
-        AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
-        UserModel *user = (UserModel *)response[KeyUser];
-        self.authorization = authorization;
-        self.user = user;
-        success(authorization, user);
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [self reportWithFailure:failure error:error];
-    }];
+- (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure
+{
+    [self postObject:user
+                path:APIUsers
+          parameters:nil
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 NSDictionary *response = mappingResult.dictionary;
+                 AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
+                 UserModel *user = (UserModel *)response[KeyUser];
+                 self.authorization = authorization;
+                 self.user = user;
+                 success(authorization, user);
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
+    ];
 }
 
-- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure {
-    [self getObject:nil path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance] parameters:self.authorization.wrappedParameters success:success failure:failure];
+- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance]
+         parameters:self.authorization.wrappedParameters
+            success:success
+            failure:failure];
 }
 
-- (NSNumber *)loginedUserTag {
+- (NSNumber *)loginedUserTag
+{
     return self.user.tag;
 }
 
 #pragma mark - Helpers
 
-- (void)reportWithFailure:(EmptyFailure)failure error:(NSError *)error {
+- (void)reportWithFailure:(EmptyFailure)failure error:(NSError *)error
+{
     [NotificationManager showError:error];
-    if (failure) {
+    if (failure)
+    {
         failure();
     }
 }

@@ -44,7 +44,7 @@
 
 @property (nonatomic, strong) StakeElementView *elementViewLineSelection;
 @property (nonatomic, strong) StakeElementView *elementViewCriterionSelection;
-@property (nonatomic, strong) StakeElementView *elementViewCoefficient;;
+@property (nonatomic, strong) StakeElementView *elementViewCoefficient;
 
 @property (nonatomic, strong) UITextField *textFieldAmount;
 
@@ -55,7 +55,8 @@
 - (id)initWithEvent:(EventModel *)event
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _event = event;
     }
     return self;
@@ -64,10 +65,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.title = @"Ставка";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(close)];
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height);
@@ -96,20 +100,11 @@
     
     CGSize participantSize = CGSizeMake((screenWidth - 2.0f * coverMargin) / 2.0f, participantsHeight);
     CGFloat labelPadding = 20.0f;
-    /*
-    self.labelParticipantFirst = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding, descriptionPadding, participantSize.width - labelPadding * 2.0f, participantSize.height)];
-    self.labelParticipantFirst.font = font;
-    self.labelParticipantFirst.backgroundColor = [UIColor clearColor];
-    self.labelParticipantFirst.textAlignment = NSTextAlignmentCenter;
-    self.labelParticipantFirst.numberOfLines = 0;
-    self.labelParticipantFirst.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelParticipantFirst.text = [(ParticipantModel *)self.event.participants[0] title];
-    [self.view addSubview:self.labelParticipantFirst];
-     */
-    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2*coverMargin, descriptionPadding + 13, 128, 44)];
-    [self.buttonParticipantFirst setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    
+    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2 * coverMargin, descriptionPadding + 13, 128, 44)];
+    [self.buttonParticipantFirst setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
+                                           forState:UIControlStateNormal];
     self.buttonParticipantFirst.titleLabel.font = font;
-    //self.buttonParticipantFirst.titleLabel.backgroundColor = [UIColor clearColor];
     self.buttonParticipantFirst.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.buttonParticipantFirst.titleLabel.numberOfLines = 0;
     [self.buttonParticipantFirst setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
@@ -124,18 +119,10 @@
     self.labelStatus.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.labelStatus.text = self.event.status ? self.event.status : @"—";
     [self.view addSubview:self.labelStatus];
-    /*
-    self.labelParticipantSecond = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + labelPadding + participantSize.width, descriptionPadding, participantSize.width - labelPadding * 2.0f, participantSize.height)];
-    self.labelParticipantSecond.font = font;
-    self.labelParticipantSecond.backgroundColor = [UIColor clearColor];
-    self.labelParticipantSecond.textAlignment = NSTextAlignmentCenter;
-    self.labelParticipantSecond.numberOfLines = 0;
-    self.labelParticipantSecond.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelParticipantSecond.text = [(ParticipantModel *)self.event.participants[1] title];
-    [self.view addSubview:self.labelParticipantSecond];
-    */
-    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2*coverMargin + 128), descriptionPadding + 13, 128, 44)];
-    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    
+    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2 * coverMargin + 128), descriptionPadding + 13, 128, 44)];
+    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
+                                            forState:UIControlStateNormal];
     self.buttonParticipantSecond.titleLabel.font = font;
     self.buttonParticipantSecond.titleLabel.backgroundColor = [UIColor clearColor];
     self.buttonParticipantSecond.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -226,7 +213,8 @@
     self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                              forState:UIControlStateNormal];
     [self.view addSubview:self.buttonBet];
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -236,60 +224,78 @@
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                forState:UIControlStateNormal];
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonStake];
     
     [self loadBalance];
 }
 
-- (void)close {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+- (void)close
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)showLineSelection:(UIControl *)sender {
-    [LinePicker showPickerWithLines:self.event.lines selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line) {
-        self.selectedLine = line;
-        [self.elementViewLineSelection updateResult:line.title];
-        [[ObjectManager sharedManager] componentsForEvent:self.event line:self.selectedLine success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            self.components = mappingResult.array;
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            
-        }];
-    } cancelBlock:^(LinePicker *picker) {
-        
-    } origin:sender];
+- (void)showLineSelection:(UIControl *)sender
+{
+    [LinePicker showPickerWithLines:self.event.lines selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line)
+        {
+            self.selectedLine = line;
+            [self.elementViewLineSelection updateResult:line.title];
+            [[ObjectManager sharedManager] componentsForEvent:self.event
+                                                         line:self.selectedLine
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                      {
+                                                          self.components = mappingResult.array;
+                                                      }
+                                                      failure:nil
+            ];
+        }
+        cancelBlock:^(LinePicker *picker) {
+        }
+        origin:sender
+    ];
 }
 
-- (void)showCriterionSelection:(UIControl *)sender {
-    if (self.components) {
-        [ComponentPicker showPickerWithComponents:self.components doneBlock:^(ComponentPicker *picker, NSArray *components) {
-            self.components = components;
-            NSString *result = @"";
-            for (ComponentModel *component in components) {
-                if (component.selectedCriterion) {
-                    NSUInteger index = 0;
-                    for (CriterionModel *criterion in component.criteria) {
-                        if ([component.selectedCriterion isEqualToNumber:criterion.tag]) {
-                            result = [NSString stringWithFormat:@"%@ %@", result, criterion.title];
-                            break;
-                        }
-                        index++;
-                    }
-                }
-            }
-            [self.elementViewCriterionSelection updateResult:result];
-            [self updateCoefficient];
-        } cancelBlock:^(ComponentPicker *picker, NSArray *components) {
-            
-        } origin:sender];
+- (void)showCriterionSelection:(UIControl *)sender
+{
+    if (self.components)
+    {
+        [ComponentPicker showPickerWithComponents:self.components
+                                        doneBlock:^(ComponentPicker *picker, NSArray *components)
+                                        {
+                                            self.components = components;
+                                            NSString *result = @"";
+                                            for (ComponentModel * component in components)
+                                            {
+                                                if (component.selectedCriterion)
+                                                {
+                                                    NSUInteger index = 0;
+                                                    for (CriterionModel * criterion in component.criteria)
+                                                    {
+                                                        if ([component.selectedCriterion isEqualToNumber:criterion.tag])
+                                                        {
+                                                            result = [NSString stringWithFormat:@"%@ %@", result, criterion.title];
+                                                            break;
+                                                        }
+                                                        index++;
+                                                    }
+                                                }
+                                            }
+                                            [self.elementViewCriterionSelection updateResult:result];
+                                            [self updateCoefficient];
+                                        }
+                                      cancelBlock:nil
+                                           origin:sender
+        ];
     }
 }
 
-- (void)stakeButtonTouched {
-    if ([self stakeIsComplete]) {
+- (void)stakeButtonTouched
+{
+    if ([self stakeIsComplete])
+    {
         StakeModel *stake = [self generateStake];
         [[ObjectManager sharedManager] setStake:stake success:^(NSNumber *tag) {
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -297,103 +303,143 @@
     }
 }
 
-- (BOOL)stakeIsComplete {
-    if ([self selectedAmount] == 0) {
+- (BOOL)stakeIsComplete
+{
+    if ([self selectedAmount] == 0)
+    {
         [NotificationManager showErrorMessage:@"Задайте сумму ставки"];
         return NO;
     }
-    if (!self.selectedLine) {
+    if (!self.selectedLine)
+    {
         [NotificationManager showErrorMessage:@"Выберите линию ставки"];
         return NO;
     }
-    if (!self.coefficient) {
+    if (!self.coefficient)
+    {
         [NotificationManager showErrorMessage:@"Выберите критерии ставки"];
         return NO;
     }
     return YES;
 }
 
-- (StakeModel *)generateStake {
-    return [StakeModel stakeWithEvent:self.event Line:self.selectedLine components:self.components coefficient:self.coefficient money:[self selectedMoney]];;
+- (StakeModel *)generateStake
+{
+    return [StakeModel stakeWithEvent:self.event
+                                 line:self.selectedLine
+                           components:self.components
+                          coefficient:self.coefficient
+                                money:[self selectedMoney]];
 }
 
-- (void)amountDecrease {
-    if ([self selectedAmount] - 10 >= 0) {
+- (void)amountDecrease
+{
+    if ([self selectedAmount] - 10 >= 0)
+    {
         self.textFieldAmount.text = @([self selectedAmount] - 10).stringValue;
-    } else {
+    }
+    else
+    {
         self.textFieldAmount.text = @"0";
     }
     [self updateReward];
 }
 
-- (void)amountIncrease {
-    if ([self selectedAmount] + 10 <= [self balanceAmount]) {
+- (void)amountIncrease
+{
+    if ([self selectedAmount] + 10 <= [self balanceAmount])
+    {
         self.textFieldAmount.text = @([self selectedAmount] + 10).stringValue;
-    } else {
+    }
+    else
+    {
         self.textFieldAmount.text = @([self balanceAmount]).stringValue;
     }
     [self updateReward];
 }
 
-- (NSInteger)selectedAmount {
+- (NSInteger)selectedAmount
+{
     return [self.textFieldAmount.text integerValue];
 }
 
-- (MoneyModel *)selectedMoney {
+- (MoneyModel *)selectedMoney
+{
     MoneyModel *money = [MoneyModel moneyWithAmount:@([self selectedAmount])];
     return money;
 }
 
-- (NSInteger)balanceAmount {
-    if (self.balance) {
+- (NSInteger)balanceAmount
+{
+    if (self.balance)
+    {
         return self.balance.amount.integerValue;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-- (void)updateReward {
+- (void)updateReward
+{
     NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
     [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
     [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
     self.labelReward.text = [NSString stringWithFormat:@"Выигрыш: %@ Р", [twoDecimalPlacesFormatter stringFromNumber:@(self.textFieldAmount.text.integerValue * self.coefficient.value.floatValue)]];
 }
 
-- (void)updateCoefficient {
-    [[ObjectManager sharedManager] coefficientForEvent:self.event line:self.selectedLine components:self.components success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        CoefficientModel *coefficient = (CoefficientModel *)mappingResult.firstObject;
-        self.coefficient = coefficient;
-        NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
-        [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
-        [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-        [self.elementViewCoefficient updateResult:[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
-        [self updateReward];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        
-    }];
-}
-
-- (void)loadBalance {
-    [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
-        self.balance = money;
-        if (self.balance.amount.integerValue >= 200) {
-            self.textFieldAmount.text = @"200";
-        } else {
-            self.textFieldAmount.text = self.balance.amount.stringValue;
+- (void)updateCoefficient
+{
+    [[ObjectManager sharedManager] coefficientForEvent:self.event
+                                                  line:self.selectedLine
+                                            components:self.components
+                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        {
+            CoefficientModel *coefficient = (CoefficientModel *)mappingResult.firstObject;
+            self.coefficient = coefficient;
+            NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+            [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+            [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+            [self.elementViewCoefficient updateResult:[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
+            [self updateReward];
         }
-        [self updateReward];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [NotificationManager showError:error];
-    }];
+                                               failure:nil
+    ];
 }
 
-- (void)showParticipant:(id)sender {
+- (void)loadBalance
+{
+    [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        {
+            MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
+            self.balance = money;
+            if (self.balance.amount.integerValue >= 200)
+            {
+                self.textFieldAmount.text = @"200";
+            }
+            else
+            {
+                self.textFieldAmount.text = self.balance.amount.stringValue;
+            }
+            [self updateReward];
+        }
+        failure:^(RKObjectRequestOperation *operation, NSError *error)
+        {
+            [NotificationManager showError:error];
+        }
+    ];
+}
+
+- (void)showParticipant:(id)sender
+{
     int i;
-    if((UIButton *)sender == self.buttonParticipantFirst)
+    if ((UIButton *)sender == self.buttonParticipantFirst)
     {
         i = 0;
-    }else{
+    }
+    else
+    {
         i = 1;
     }
     [self.navigationController pushViewController:[[ParticipantViewController alloc] initWithParticipant:self.event.participants[i]] animated:YES];

@@ -12,7 +12,8 @@
 
 typedef void (^SocialManagerSuccess)();
 
-typedef enum {
+typedef enum
+{
     SocialNetworkTypeTwitter,
     SocialNetworkTypeFacebook,
     SocialNetworkTypeVkontakte
@@ -28,7 +29,7 @@ typedef enum {
 
 @interface SocialManager : NSObject<VKConnectorDelegate>
 
-+ (SocialManager*)sharedManager;
++ (SocialManager *)sharedManager;
 
 - (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success;
 

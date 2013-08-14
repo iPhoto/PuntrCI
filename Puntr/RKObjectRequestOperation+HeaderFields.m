@@ -10,11 +10,15 @@
 
 @implementation RKObjectRequestOperation (HeaderFields)
 
-- (NSNumber *)locationHeader {
+- (NSNumber *)locationHeader
+{
     NSString *locationHeader = self.HTTPRequestOperation.request.allHTTPHeaderFields[@"Location"];
-    if (locationHeader) {
+    if (locationHeader)
+    {
         return @(locationHeader.integerValue);
-    } else {
+    }
+    else
+    {
         return nil;
     }
 }

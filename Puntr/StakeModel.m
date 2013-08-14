@@ -20,8 +20,12 @@
 
 @implementation StakeModel
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient money:(MoneyModel *)money {
-    
++ (StakeModel *)stakeWithEvent:(EventModel *)event
+                          line:(LineModel *)line
+                    components:(NSArray *)components
+                   coefficient:(CoefficientModel *)coefficient
+                         money:(MoneyModel *)money
+{
     StakeModel *stake = [[StakeModel alloc] init];
     
     stake.event = event;
@@ -31,15 +35,15 @@
     stake.money = money;
     
     return stake;
-    
 }
 
-- (void)prepareForTransmission {
+- (void)prepareForTransmission
+{
     self.event = nil;
 }
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event Line:(LineModel *)line components:(NSArray *)components {
-    
++ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components
+{
     StakeModel *stake = [[StakeModel alloc] init];
     
     stake.event = event;
@@ -49,14 +53,18 @@
     return stake;
 }
 
-- (NSDictionary *)parameters {
+- (NSDictionary *)parameters
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (self.line) {
+    if (self.line)
+    {
         [parameters setObject:self.line.parameters forKey:KeyLine];
     }
-    if (self.components) {
+    if (self.components)
+    {
         NSMutableArray *components = [NSMutableArray arrayWithCapacity:self.components.count];
-        for (ComponentModel *component in self.components) {
+        for (ComponentModel *component in self.components)
+        {
             [components addObject:component.parameters];
         }
         [parameters setObject:[components copy] forKey:KeyComponents];

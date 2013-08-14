@@ -20,7 +20,8 @@
 
 @implementation StakeElementView
 
-- (void)loadWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+- (void)loadWithTitle:(NSString *)title target:(id)target action:(SEL)action
+{
     self.backgroundColor = [UIColor clearColor];
     self.layer.cornerRadius = 6.0f;
     self.layer.masksToBounds = YES;
@@ -61,7 +62,8 @@
     [self addSubview:self.button];
 }
 
-- (void)updateResult:(NSString *)result {
+- (void)updateResult:(NSString *)result
+{
     self.labelResult.text = result;
 }
 

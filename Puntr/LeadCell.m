@@ -40,7 +40,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         _generalMargin = 8.0f;
     }
     return self;
@@ -48,25 +49,37 @@
 
 #pragma mark - General Loading
 
-- (void)loadWithEvent:(EventModel *)event {
+- (void)loadWithEvent:(EventModel *)event
+{
     
 }
 
-- (void)loadWithStake:(StakeModel *)stake {
+- (void)loadWithStake:(StakeModel *)stake
+{
     [self blackBackground];
-    [self displayCategory:stake.event.tournament.category participants:stake.event.participants time:stake.createdAt final:NO];
-    [self displayLine:stake.line components:stake.components coefficient:stake.coefficient final:YES];
+    [self displayCategory:stake.event.tournament.category
+             participants:stake.event.participants
+                     time:stake.createdAt
+                    final:NO];
+    [self displayLine:stake.line
+           components:stake.components
+          coefficient:stake.coefficient
+                final:YES];
 }
 
 #pragma mark - Lead Components
 
-- (void)blackBackground {
+- (void)blackBackground
+{
     self.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     self.black = YES;
 }
 
-- (void)displayCategory:(CategoryModel *)category participants:(NSArray *)participants time:(NSDate *)time final:(BOOL)final {
-    
+- (void)displayCategory:(CategoryModel *)category
+           participants:(NSArray *)participants
+                   time:(NSDate *)time
+                  final:(BOOL)final
+{
     // Category
     
     CGFloat stopLeft = self.generalMargin;
@@ -74,8 +87,8 @@
     
     CGSize categoryImageSize = CGSizeMake(12.0f, 12.0f);
     
-    if (category.image) {
-        
+    if (category.image)
+    {
         self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(stopLeft, self.usedHeight + self.generalMargin, categoryImageSize.width, categoryImageSize.height)];
         
         [self.imageViewCategoryImage setImageWithURL:category.image];
@@ -106,7 +119,8 @@
     
     // Time
     
-    if (time) {
+    if (time)
+    {
         self.labelPublicationTime = [[UILabel alloc] init];
         self.labelPublicationTime.frame = CGRectMake(stopLeft, self.usedHeight + self.generalMargin, self.frame.size.width - stopLeft - self.generalMargin, categoryImageSize.height);
         self.labelPublicationTime.font = smallFont;
@@ -115,15 +129,15 @@
         TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
         self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
         [self addSubview:self.labelPublicationTime];
-    } else {
-        
+    }
+    else
+    {
         CGSize buttonSize = CGSizeMake(62.0f, 31.0f);
         
         // Stake Button
         self.buttonEventStake = [SmallStakeButton buttonWithType:UIButtonTypeCustom];
         self.buttonEventStake.frame = CGRectMake(self.frame.size.width - self.generalMargin - buttonSize.width, self.usedHeight + self.generalMargin, buttonSize.width, buttonSize.height);
         [self addSubview:self.buttonEventStake];
-        
     }
     
     // Participants
@@ -135,10 +149,14 @@
     self.labelParticipants.textColor = colorText;
     NSString *participantsConsolidated = @"";
     NSUInteger counter = 0;
-    for (ParticipantModel *participant in participants) {
-        if (counter == 0) {
+    for (ParticipantModel *participant in participants)
+    {
+        if (counter == 0)
+        {
             participantsConsolidated = participant.title;
-        } else {
+        }
+        else
+        {
             participantsConsolidated = [NSString stringWithFormat:@"%@ — %@", participants, participant.title];
         }
         counter++;
@@ -151,12 +169,13 @@
     
     self.usedHeight = stopTop + self.generalMargin;
     
-    if (!final) {
-        
+    if (!final)
+    {
         CGFloat delimiterHeight = 1.0f;
         UIImage *delimiterImage = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
         
-        if (self.black) {
+        if (self.black)
+        {
             delimiterHeight = 2.0f;
             delimiterImage = [[UIImage imageNamed:@"delimiterBlack"] resizableImageWithCapInsets:UIEdgeInsetsZero];
         }
@@ -166,20 +185,19 @@
         [self addSubview:self.imageViewDelimiterEvent];
         
         self.usedHeight += delimiterHeight;
-        
     }
-    
 }
 
-- (void)displayLine:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient final:(BOOL)final {
-    
+- (void)displayLine:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient final:(BOOL)final
+{
     CGFloat labelHeight = 12.0f;
     
     UIColor *colorText = [UIColor colorWithWhite:0.200 alpha:1.000];
-    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
     UIFont *fontSmall = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
-    
+#pragma clang diagnostic pop
     self.labelLine = [[UILabel alloc] init];
     self.labelLine.frame = CGRectMake(self.generalMargin, self.usedHeight + self.generalMargin, self.frame.size.width, labelHeight);
     self.labelLine.font = fontSmall;

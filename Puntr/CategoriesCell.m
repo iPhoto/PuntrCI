@@ -24,8 +24,10 @@
 
 @implementation CategoriesCell
 
-- (void)loadCategories {
-    if (!self.alreadyInitialized) {
+- (void)loadCategories
+{
+    if (!self.alreadyInitialized)
+    {
         self.layout = [[UICollectionViewFlowLayout alloc] init];
         self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         self.layout.minimumLineSpacing = 0.0f;
@@ -46,46 +48,57 @@
     [self reload];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.categories.count;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CategoryCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CategoriesCategoryCell" forIndexPath:indexPath];
     [cell loadWithCategory:self.categories[indexPath.row]];
-    if (indexPath.row == (NSInteger)self.selectionIndex) {
+    if (indexPath.row == (NSInteger)self.selectionIndex)
+    {
         cell.selected = YES;
         [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     self.selectionIndex = (NSUInteger)indexPath.row;
-    if (self.selectedCategoryCallback) {
+    if (self.selectedCategoryCallback)
+    {
         CategoryModel *selectedCategory = self.categories[self.selectionIndex];
         self.selectedCategoryCallback(selectedCategory.tag);
     }
 }
 
-- (void)reload {
-    [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories) {
-        CategoryModel *categoryAll = [[CategoryModel alloc] init];
-        categoryAll.tag = @0;
-        categoryAll.title = @"Все";
-        NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
-        [consolidatedCategories addObject:categoryAll];
-        [consolidatedCategories addObjectsFromArray:categories];
-        self.categories = [consolidatedCategories copy];
-        [self.collectionView reloadData];
-    } failure:nil];
+- (void)reload
+{
+    [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories)
+        {
+            CategoryModel *categoryAll = [[CategoryModel alloc] init];
+            categoryAll.tag = @0;
+            categoryAll.title = @"Все";
+            NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
+            [consolidatedCategories addObject:categoryAll];
+            [consolidatedCategories addObjectsFromArray:categories];
+            self.categories = [consolidatedCategories copy];
+            [self.collectionView reloadData];
+        }
+        failure:nil
+    ];
 }
 
-- (void)prepareForReuse {
+- (void)prepareForReuse
+{
     self.categories = nil;
 }
 

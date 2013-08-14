@@ -77,7 +77,6 @@
 		3127C0471798576A0056D78A /* MoneyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3127C0461798576A0056D78A /* MoneyModel.m */; };
 		315A60FB17B287AA0010756F /* FilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FA17B287AA0010756F /* FilterModel.m */; };
 		315A60FE17B2898C0010756F /* PagingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FD17B2898C0010756F /* PagingModel.m */; };
-		31651A7E179D9162006CCFAF /* StakeRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31651A7D179D9162006CCFAF /* StakeRequestModel.m */; };
 		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
 		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
 		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
@@ -350,8 +349,6 @@
 		315A60FA17B287AA0010756F /* FilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterModel.m; sourceTree = "<group>"; };
 		315A60FC17B2898C0010756F /* PagingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingModel.h; sourceTree = "<group>"; };
 		315A60FD17B2898C0010756F /* PagingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingModel.m; sourceTree = "<group>"; };
-		31651A7C179D9162006CCFAF /* StakeRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeRequestModel.h; sourceTree = "<group>"; };
-		31651A7D179D9162006CCFAF /* StakeRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeRequestModel.m; sourceTree = "<group>"; };
 		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -1132,8 +1129,6 @@
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
-				31651A7C179D9162006CCFAF /* StakeRequestModel.h */,
-				31651A7D179D9162006CCFAF /* StakeRequestModel.m */,
 				0F40905B17B500A6001CC23F /* TournamentModel.h */,
 				0F40905C17B500A7001CC23F /* TournamentModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
@@ -1443,7 +1438,6 @@
 				3127C0471798576A0056D78A /* MoneyModel.m in Sources */,
 				31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */,
 				31EF4AE61799941800F27702 /* AmountView.m in Sources */,
-				31651A7E179D9162006CCFAF /* StakeRequestModel.m in Sources */,
 				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
 				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,

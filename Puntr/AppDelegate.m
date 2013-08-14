@@ -34,7 +34,6 @@
     HTTPClient *client = [HTTPClient sharedClient];
     ObjectManager *objectManager = [[ObjectManager alloc] initWithHTTPClient:client];
     [objectManager configureMapping];
-    SocialManager *socialManager = [[SocialManager alloc] init];
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -53,14 +52,16 @@
 
 #pragma mark - Style
 
-- (void)applyStylesheet {
+- (void)applyStylesheet
+{
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navigationBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsZero] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.180 alpha:1.000]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                      UITextAttributeFont: [UIFont fontWithName:@"Arial-BoldMT" size:21.0f],
                                 UITextAttributeTextColor: [UIColor colorWithWhite:0.996 alpha:1.000],
                           UITextAttributeTextShadowColor: [UIColor blackColor],
-                         UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, -1.5f)]}];
+                         UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, -1.5f)]
+     }];
     
     [[TextField appearance] setFont:[UIFont fontWithName:@"Arial-BoldMT" size:17.0f]];
     [[TextField appearance] setTextColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
@@ -85,13 +86,11 @@
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
     // Small Stake Button
-    /*
-    [[SmallStakeButton appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)] forBarMetrics:UIBarMetricsDefault];
-    [[SmallStakeButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [[SmallStakeButton appearance] setTitleShadowColor:[UIColor colorWithWhite:0.000 alpha:0.200] forState:UIControlStateNormal];
-    [[SmallStakeButton appearance] setShadowOffset:CGSizeMake(0.0f, -1.5f)];
-    */
-    
+     [[SmallStakeButton appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)] forBarMetrics:UIBarMetricsDefault];
+     [[SmallStakeButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+     [[SmallStakeButton appearance] setTitleShadowColor:[UIColor colorWithWhite:0.000 alpha:0.200] forState:UIControlStateNormal];
+     [[SmallStakeButton appearance] setShadowOffset:CGSizeMake(0.0f, -1.5f)];
+     
 }
 
 #pragma mark - Application Delegate
@@ -104,7 +103,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

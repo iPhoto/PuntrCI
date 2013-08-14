@@ -18,10 +18,11 @@
 #import <Accounts/Accounts.h>
 #import "SocialManager.h"
 
-typedef enum {
+typedef enum
+{
     DirectionUp,
     DirectionDown
-}Direction;
+} Direction;
 
 @interface EnterViewController ()
 
@@ -47,29 +48,26 @@ typedef enum {
 @property (nonatomic, retain) ACAccount *facebookAccount;
 @property (nonatomic, retain) ACAccount *twitterAccount;
 
+@property (nonatomic) BOOL keyboardIsShown;
+
 @end
 
-@implementation EnterViewController {
-    BOOL keyboardIsShown;
-}
+@implementation EnterViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.title = @"Вход";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:self.view.window];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:self.view.window];
-    keyboardIsShown = NO;
+    self.keyboardIsShown = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignAllResponders)];
     tap.delegate = self;
     tap.numberOfTapsRequired = 1;
     
-    //self.view.userInteractionEnabled = YES;
-    //[self.view addGestureRecognizer:tap];
     [self.navigationController.navigationBar.subviews[1] setUserInteractionEnabled:YES];
     [self.navigationController.navigationBar.subviews[1] addGestureRecognizer:tap];
     
@@ -102,7 +100,6 @@ typedef enum {
     self.textFieldLogin.returnKeyType = UIReturnKeyNext;
     self.textFieldLogin.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldLogin.delegate = self;
-    //self.textFieldLogin.backgroundColor = [UIColor colorWithWhite:0.996 alpha:1.000];
     [self.view addSubview:self.textFieldLogin];
     self.textFieldLogin.text = @"qqq@gmail.com";
     
@@ -115,7 +112,6 @@ typedef enum {
     self.textFieldPassword.returnKeyType = UIReturnKeySend;
     self.textFieldPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldPassword.delegate = self;
-    //self.textFieldPassword.backgroundColor = [UIColor colorWithWhite:0.996 alpha:1.000];
     [self.view addSubview:self.textFieldPassword];
     self.textFieldPassword.text = @"qqqqqq";
     
@@ -127,7 +123,7 @@ typedef enum {
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f,8.0f)] forState:UIControlStateNormal];
+    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonRegistration];
     
     self.buttonEnter = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -163,16 +159,19 @@ typedef enum {
 
 #pragma mark - Actions
 
-- (void)registrationButtonTouched {
+- (void)registrationButtonTouched
+{
     [self.navigationController pushViewController:[[RegistrationViewController alloc] initWithEmail:self.textFieldLogin.text] animated:YES];
     [self resignAllResponders];
 }
 
-- (void)enterButtonTouched {
+- (void)enterButtonTouched
+{
     [self login];
 }
 
-- (void)fbButtonTouched {
+- (void)fbButtonTouched
+{
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:nil];
 }
 
@@ -190,7 +189,11 @@ typedef enum {
 
 - (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
     for (NSString *name in array)
     {
         [sheet addButtonWithTitle:name];
@@ -198,22 +201,31 @@ typedef enum {
     sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
     [sheet showInView:self.view];
 }
+
 #pragma mark - TextField Delegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == self.textFieldLogin) {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.textFieldLogin)
+    {
         [self.textFieldPassword becomeFirstResponder];
-    } else if (textField == self.textFieldPassword) {
+    }
+    else if (textField == self.textFieldPassword)
+    {
         [textField resignFirstResponder];
         [self login];
     }
     return YES;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if (textField == self.textFieldLogin) {
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if (textField == self.textFieldLogin)
+    {
         self.credentials.login = textField.text;
-    } else if (textField == self.textFieldPassword) {
+    }
+    else if (textField == self.textFieldPassword)
+    {
         self.credentials.password = textField.text;
     }
     return YES;
@@ -221,11 +233,13 @@ typedef enum {
 
 #pragma mark - GestureRecognizer Delegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
     return (![[[touch view] class] isSubclassOfClass:[UIControl class]]);
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
     return YES;
 }
 
@@ -241,18 +255,21 @@ typedef enum {
 
 #pragma mark - Notifications
 
-- (void)keyboardWillHide:(NSNotification *)notification {
+- (void)keyboardWillHide:(NSNotification *)notification
+{
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
         NSArray *viewsToMove = @[self.textFieldLogin, self.textFieldPassword, self.imageViewTextFieldsBackground, self.buttonEnter, self.buttonRegistration];
         [self moveViews:viewsToMove direction:DirectionDown points:65.0f];
         [self moveViews:@[self.imageViewLogoTitle] direction:DirectionDown points:20.0f];
         self.imageViewLogoDescription.alpha = 1.0f;
     }];
-    keyboardIsShown = NO;
+    self.keyboardIsShown = NO;
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification {
-    if (keyboardIsShown) {
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if (self.keyboardIsShown)
+    {
         return;
     }
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
@@ -261,13 +278,13 @@ typedef enum {
         [self moveViews:@[self.imageViewLogoTitle] direction:DirectionUp points:20.0f];
         self.imageViewLogoDescription.alpha = 0.0f;
     }];
-    keyboardIsShown = YES;
+    self.keyboardIsShown = YES;
 }
 
-- (NSTimeInterval)keyboardAnimationDurationForNotification:(NSNotification*)notification
+- (NSTimeInterval)keyboardAnimationDurationForNotification:(NSNotification *)notification
 {
-    NSDictionary* info = [notification userInfo];
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSDictionary *info = [notification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
     return duration;
@@ -275,49 +292,73 @@ typedef enum {
 
 #pragma mark - Logic
 
-- (void)bufferData {
+- (void)bufferData
+{
     self.credentials.login = self.textFieldLogin.text;
     self.credentials.password = self.textFieldPassword.text;
 }
 
-- (BOOL)dataIsValid {
-    if (!self.credentials.login || self.credentials.login.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+- (BOOL)dataIsValid
+{
+    if (!self.credentials.login || self.credentials.login.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.credentials.password || self.credentials.password.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    if (!self.credentials.password || self.credentials.password.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     return YES;
 }
 
-- (void)login {
+- (void)login
+{
     [self bufferData];
-    if ([self dataIsValid]) {
-        [[ObjectManager sharedManager] logInWithCredentials:self.credentials success:^(AuthorizationModel *authorization, UserModel *user) {
-            TabBarViewController *tabBar = [[TabBarViewController alloc] init];
-            [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-            } completion:nil];
-        } failure:nil];
+    if ([self dataIsValid])
+    {
+        [[ObjectManager sharedManager] logInWithCredentials:self.credentials success:^(AuthorizationModel *authorization, UserModel *user)
+            {
+                TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
+                                  duration:0.3f
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^
+                                {
+                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+                                }
+                                completion:nil];
+            }
+            failure:nil];
     }
-     
 }
 
-- (void)resignAllResponders {
+- (void)resignAllResponders
+{
     [self.textFieldPassword resignFirstResponder];
     [self.textFieldLogin resignFirstResponder];
 }
 
-- (void)moveViews:(NSArray *)views direction:(Direction)direction points:(CGFloat)points {
-    for (UIView *view in views) {
+- (void)moveViews:(NSArray *)views direction:(Direction)direction points:(CGFloat)points
+{
+    for (UIView *view in views)
+    {
         CGRect viewFrame = view.frame;
-        if (direction == DirectionUp) {
+        if (direction == DirectionUp)
+        {
             viewFrame.origin.y -= points;
-        } else {
+        }
+        else
+        {
             viewFrame.origin.y += points;
         }
         view.frame = viewFrame;

@@ -13,25 +13,17 @@
 
 @property (nonatomic, retain) TournamentModel *tournament;
 
-@property (nonatomic, retain) UIImageView   *tournamentIcon;
-@property (nonatomic, retain) UILabel       *tournamentNameLabel;
-@property (nonatomic, retain) UILabel       *tournamentStartTimeLabel;
-@property (nonatomic, retain) UILabel       *tournamentCreatedTimeLabel;
+@property (nonatomic, retain) UIImageView *tournamentIcon;
+@property (nonatomic, retain) UILabel *tournamentNameLabel;
+@property (nonatomic, retain) UILabel *tournamentStartTimeLabel;
+@property (nonatomic, retain) UILabel *tournamentCreatedTimeLabel;
 
 @end
 
 @implementation TournamentCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)loadWithTournament:(TournamentModel *)tournament
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-
-    }
-    return self;
-}
-
-- (void)loadWithTournament:(TournamentModel *)tournament {
     self.tournament = tournament;
     
     UIImage *iconImage = [UIImage imageNamed:@"IconLiga"];
@@ -55,7 +47,7 @@
     self.tournamentStartTimeLabel.text = timeStr;
     [self addSubview:self.tournamentStartTimeLabel];
     
-
+    
     self.tournamentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tournamentIcon.frame.origin.x + self.tournamentIcon.frame.size.width, 2.0f + self.tournamentStartTimeLabel.frame.origin.y + self.tournamentStartTimeLabel.frame.size.height, self.frame.size.width - (self.tournamentIcon.frame.origin.x + self.tournamentIcon.frame.size.width), textSize.height)];
     self.tournamentNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.tournamentNameLabel.textColor = [UIColor whiteColor];

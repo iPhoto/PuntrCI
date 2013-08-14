@@ -31,7 +31,6 @@
 #import "PagingModel.h"
 #import "ParticipantModel.h"
 #import "StakeModel.h"
-#import "StakeRequestModel.h"
 #import "TournamentModel.h"
 #import "UserModel.h"
 

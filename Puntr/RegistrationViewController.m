@@ -36,16 +36,17 @@
 
 @property (nonatomic) BOOL animating;
 
+@property (nonatomic) BOOL keyboardIsShown;
+
 @end
 
-@implementation RegistrationViewController {
-    BOOL keyboardIsShown;
-}
+@implementation RegistrationViewController
 
 - (id)initWithEmail:(NSString *)email
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _user = [[UserModel alloc] init];
         _user.email = email;
     }
@@ -55,8 +56,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.title = @"Регистрация";
+    
     // Frame
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.bounds.size.height);
@@ -147,39 +149,58 @@
 
 #pragma mark - TextField Delegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     NSUInteger index = [self.textFields indexOfObject:textField];
-    if (index + 1 < self.textFields.count) {
+    if (index + 1 < self.textFields.count)
+    {
         UITextField *textField = self.textFields[index + 1];
         [textField becomeFirstResponder];
         [self.scrollView scrollRectToVisible:textField.frame animated:YES];
-    } else {
-        if (!self.animating) {
+    }
+    else
+    {
+        if (!self.animating)
+        {
             [self resignAllResponders];
-        } else {
+        }
+        else
+        {
             return NO;
         }
     }
     return YES;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if (textField == self.textFieldEmail) {
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if (textField == self.textFieldEmail)
+    {
         self.user.email = self.textFieldEmail.text;
-    } else if (textField == self.textFieldPassword) {
+    }
+    else if (textField == self.textFieldPassword)
+    {
         self.user.password = self.textFieldPassword.text;
-    } else if (textField == self.textFieldUsername) {
+    }
+    else if (textField == self.textFieldUsername)
+    {
         self.user.username = self.textFieldUsername.text;
-    } else if (textField == self.textFieldFirstName) {
-        self.user.firstName= self.textFieldFirstName.text;
-    } else if (textField == self.textFieldLastName) {
+    }
+    else if (textField == self.textFieldFirstName)
+    {
+        self.user.firstName = self.textFieldFirstName.text;
+    }
+    else if (textField == self.textFieldLastName)
+    {
         self.user.lastName = self.textFieldLastName.text;
     }
     return YES;
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification {
-    if (keyboardIsShown) {
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if (self.keyboardIsShown)
+    {
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
@@ -188,24 +209,32 @@
     
     viewFrame.size.height -= (keyboardSize.height);
     
-    [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^{
-        [self.scrollView setFrame:viewFrame];
-        self.animating = YES;
-    } completion:^(BOOL finished) {
-        self.animating = NO;
-    }];
-    keyboardIsShown = YES;
+    [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^
+        {
+            [self.scrollView setFrame:viewFrame];
+            self.animating = YES;
+        }
+        completion:^(BOOL finished)
+        {
+            self.animating = NO;
+        }
+    ];
+    self.keyboardIsShown = YES;
 }
 
-- (void)keyboardDidShow:(NSNotification *)notification {
+- (void)keyboardDidShow:(NSNotification *)notification
+{
     TextField *textField = [self firstResponderTextField];
-    if (textField) {
+    if (textField)
+    {
         [self.scrollView scrollRectToVisible:textField.frame animated:YES];
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    if (!keyboardIsShown) {
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    if (!self.keyboardIsShown)
+    {
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
@@ -214,17 +243,22 @@
     
     viewFrame.size.height += (keyboardSize.height);
     
-    [UIView animateWithDuration:0.3f animations:^{
-        [self.scrollView setFrame:viewFrame];
-        self.animating = YES;
-    } completion:^(BOOL finished) {
-        self.animating = NO;
-    }];
+    [UIView animateWithDuration:0.3f animations:^
+        {
+            [self.scrollView setFrame:viewFrame];
+            self.animating = YES;
+        }
+        completion:^(BOOL finished)
+        {
+            self.animating = NO;
+        }
+    ];
     
-    keyboardIsShown = NO;
+    self.keyboardIsShown = NO;
 }
 
-- (void)bufferData {
+- (void)bufferData
+{
     self.user.email = self.textFieldEmail.text;
     self.user.password = self.textFieldPassword.text;
     self.user.username = self.textFieldUsername.text;
@@ -232,71 +266,114 @@
     self.user.lastName = self.textFieldLastName.text;
 }
 
-- (BOOL)dataIsValid {
-    if (!self.user.email || self.user.email.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+- (BOOL)dataIsValid
+{
+    if (!self.user.email || self.user.email.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.user.password || self.user.password.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    if (!self.user.password || self.user.password.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.user.username || self.user.username.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите никнейм" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    if (!self.user.username || self.user.username.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите никнейм" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.user.firstName || self.user.firstName.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите имя" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    if (!self.user.firstName || self.user.firstName.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите имя" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    if (!self.user.lastName || self.user.lastName.length == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите фамилию" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    if (!self.user.lastName || self.user.lastName.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите фамилию" message:@""
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
+    
     return YES;
 }
 
-- (void)registrationButtonTouched {
+- (void)registrationButtonTouched
+{
     [self registration];
 }
 
-- (void)registration {
+- (void)registration
+{
     [self bufferData];
-    if ([self dataIsValid]) {
-        [[ObjectManager sharedManager] registerWithUser:self.user success:^(AuthorizationModel *authorization, UserModel *user) {
-            TabBarViewController *tabBar = [[TabBarViewController alloc] init];
-            [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow] duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-            } completion:nil];
-        } failure:nil];
+    if ([self dataIsValid])
+    {
+        [[ObjectManager sharedManager] registerWithUser:self.user success:^(AuthorizationModel *authorization, UserModel *user)
+            {
+                TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
+                                  duration:0.3f
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^
+                                {
+                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+                                }
+                                completion:nil
+                ];
+            }
+            failure:nil
+        ];
     }
 }
 
-- (NSTimeInterval)keyboardAnimationDurationForNotification:(NSNotification*)notification
+- (NSTimeInterval)keyboardAnimationDurationForNotification:(NSNotification *)notification
 {
-    NSDictionary* info = [notification userInfo];
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSDictionary *info = [notification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
     return duration;
 }
 
-- (TextField *)firstResponderTextField {
-    for (TextField *textField in self.textFields) {
-        if ([textField isFirstResponder]) {
+- (TextField *)firstResponderTextField
+{
+    for (TextField *textField in self.textFields)
+    {
+        if ([textField isFirstResponder])
+        {
             return textField;
         }
     }
     return nil;
 }
 
-- (void)resignAllResponders {
-    for (TextField *textField in self.textFields) {
+- (void)resignAllResponders
+{
+    for (TextField *textField in self.textFields)
+    {
         [textField resignFirstResponder];
     }
 }
