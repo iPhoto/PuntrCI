@@ -65,6 +65,7 @@
     RKObjectMapping *feedMapping = [RKObjectMapping mappingForClass:[FeedModel class]];
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
+    RKObjectMapping *newsMapping = [RKObjectMapping mappingForClass:[NewsModel class]];
     RKObjectMapping *parameterMapping = [RKObjectMapping mappingForClass:[ParameterModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
@@ -173,6 +174,14 @@
                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance]
                                                                                                 keyPath:KeyBalance
                                                                                             statusCodes:statusCodeOK];
+
+    // News
+    [newsMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt]];
+    RKRelationshipMapping *newsStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
+    RKRelationshipMapping *newsCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
+    RKRelationshipMapping *newsFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
+    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsFeedRelationship]];
+    RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews] keyPath:KeyNews statusCodes:statusCodeOK];
     
     // Parameter
     [parameterMapping addAttributeMappingsFromArray:@[KeyKey, KeyDescription]];
@@ -227,15 +236,16 @@
      activityResponseDescriptor,
      authorizationResponseDescriptor,
      authorizationUserCreateResponseDescriptor,
-     moneyResponseDescriptor,
      categoryCollectionResponseDescriptor,
      coefficientResponseDescriptor,
      commentResponseDescriptor,
      componentCollectionResponseDescriptor,
      errorResponseDescriptor,
      eventCollectionResponseDescriptor,
-     stakeResponseDescriptor,
+     moneyResponseDescriptor,
+     newsCollectionResponseDescriptor,
      stakeCollectionResponseDescriptor,
+     stakeResponseDescriptor,
      tournamentCollectionResponseDescriptor,
      userAuthorizationCreateResponseDescriptor,
      userCreateResponseDescriptor,

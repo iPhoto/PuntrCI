@@ -12,7 +12,7 @@
 
 #pragma mark - Services
 
-FOUNDATION_EXPORT NSString * const TestFlightApplicationToken;
+FOUNDATION_EXPORT NSString *const TestFlightApplicationToken;
 
 #pragma mark - API
 
@@ -29,11 +29,12 @@ FOUNDATION_EXPORT NSString *const APICategories;
 FOUNDATION_EXPORT NSString *const APICoefficient;
 FOUNDATION_EXPORT NSString *const APIComments;
 FOUNDATION_EXPORT NSString *const APIComponents;
-FOUNDATION_EXPORT NSString *const APIUsers;
 FOUNDATION_EXPORT NSString *const APIEvents;
-FOUNDATION_EXPORT NSString *const APITournaments;
+FOUNDATION_EXPORT NSString *const APINews;
 FOUNDATION_EXPORT NSString *const APIStakes;
 FOUNDATION_EXPORT NSString *const APISubscriptions;
+FOUNDATION_EXPORT NSString *const APITournaments;
+FOUNDATION_EXPORT NSString *const APIUsers;
 
 #pragma mark - Parameters
 
@@ -75,6 +76,7 @@ FOUNDATION_EXPORT NSString *const KeyLogo;
 FOUNDATION_EXPORT NSString *const KeyLossCount;
 FOUNDATION_EXPORT NSString *const KeyMessage;
 FOUNDATION_EXPORT NSString *const KeyMoney;
+FOUNDATION_EXPORT NSString *const KeyNews;
 FOUNDATION_EXPORT NSString *const KeyOffset;
 FOUNDATION_EXPORT NSString *const KeyPaging;
 FOUNDATION_EXPORT NSString *const KeyParameters;
@@ -95,8 +97,8 @@ FOUNDATION_EXPORT NSString *const KeyStatus;
 FOUNDATION_EXPORT NSString *const KeySubscribersCount;
 FOUNDATION_EXPORT NSString *const KeySubscriptionsCount;
 FOUNDATION_EXPORT NSString *const KeyTag;
-FOUNDATION_EXPORT NSString *const KeyTopPosition;
 FOUNDATION_EXPORT NSString *const KeyTitle;
+FOUNDATION_EXPORT NSString *const KeyTopPosition;
 FOUNDATION_EXPORT NSString *const KeyTournament;
 FOUNDATION_EXPORT NSString *const KeyTournaments;
 FOUNDATION_EXPORT NSString *const KeyUser;
