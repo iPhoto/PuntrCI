@@ -189,10 +189,11 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     {
         CategoriesCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueCategoriesCell" forIndexPath:indexPath];
         cell.frame = cell.bounds;
-        cell.selectedCategoryCallback = ^(NSNumber *selectedCategoryTag) {
-            self.currentCategoryTag = selectedCategoryTag;
-            [self updateSections];
-        };
+        cell.selectedCategoryCallback = ^(NSNumber *selectedCategoryTag)
+            {
+                self.currentCategoryTag = selectedCategoryTag;
+                [self updateSections];
+            };
         [cell loadCategories];
         return cell;
     }

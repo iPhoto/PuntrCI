@@ -12,12 +12,12 @@
 
 typedef void (^SocialManagerSuccess)();
 
-typedef enum
+typedef NS_ENUM(NSInteger, SocialNetworkType)
 {
     SocialNetworkTypeTwitter,
     SocialNetworkTypeFacebook,
     SocialNetworkTypeVkontakte
-} SocialNetworkType;
+};
 
 @class SocialManager;
 

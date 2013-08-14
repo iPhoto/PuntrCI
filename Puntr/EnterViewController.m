@@ -18,11 +18,11 @@
 #import <Accounts/Accounts.h>
 #import "SocialManager.h"
 
-typedef enum
+typedef NS_ENUM(NSInteger, Direction)
 {
     DirectionUp,
     DirectionDown
-} Direction;
+};
 
 @interface EnterViewController ()
 

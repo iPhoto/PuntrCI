@@ -252,8 +252,7 @@
                                                       failure:nil
             ];
         }
-        cancelBlock:^(LinePicker *picker) {
-        }
+        cancelBlock:nil
         origin:sender
     ];
 }
@@ -297,9 +296,12 @@
     if ([self stakeIsComplete])
     {
         StakeModel *stake = [self generateStake];
-        [[ObjectManager sharedManager] setStake:stake success:^(NSNumber *tag) {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        } failure:nil];
+        [[ObjectManager sharedManager] setStake:stake success:^(NSNumber *tag)
+            {
+                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            }
+            failure:nil
+        ];
     }
 }
 
