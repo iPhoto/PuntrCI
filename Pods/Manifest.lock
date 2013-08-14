@@ -34,7 +34,7 @@ PODS:
     - TransitionKit (= 1.1.1)
   - Reveal-iOS-SDK (0.8.3)
   - SOCKit (1.1)
-  - TestFlightSDK (1.2.6)
+  - TestFlightSDK (2.0)
   - TransitionKit (1.1.1)
   - TSMessages (0.9.3)
 
@@ -45,7 +45,7 @@ DEPENDENCIES:
   - Masonry
   - RestKit
   - Reveal-iOS-SDK (~> 0.8.3)
-  - TestFlightSDK (~> 1.2.5)
+  - TestFlightSDK (~> 2.0)
   - TSMessages
 
 SPEC CHECKSUMS:
@@ -56,8 +56,8 @@ SPEC CHECKSUMS:
   RestKit: e511651e916245fa4becfb0e8f966a1fa021fcd4
   Reveal-iOS-SDK: 0d58ea01260eb109b924a09631d9cc8dd96e12c4
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
-  TestFlightSDK: 7d9abce62f5a17191c4df84fd88e05797e6776e0
+  TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
   TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
   TSMessages: e741d102e8291074b4ee7545b53c90ed5f220dd5
 
-COCOAPODS: 0.22.2
+COCOAPODS: 0.23.0
