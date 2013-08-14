@@ -89,7 +89,7 @@
     self.labelStatus.text = self.event.status ? self.event.status : @"—";
     [self.view addSubview:self.labelStatus];
     
-    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2 * coverMargin + 128), coverMargin + 13, 128, 44)];
+    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - (2 * coverMargin + 128), coverMargin + 13, 128, 44)];
     [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"]
                                                       resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
                                             forState:UIControlStateNormal];

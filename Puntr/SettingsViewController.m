@@ -46,14 +46,14 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:titleLabel];
     
-    currentTop += titleLabel.frame.size.height;
+    currentTop += CGRectGetHeight(titleLabel.frame);
     
     NSInteger tableTag;
     UITableView *tv;
     UIImage *backgroundImage = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 17.0f)];
     
     tableTag = 0;
-    tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, fullScreen.size.width - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
+    tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, CGRectGetWidth(fullScreen) - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
     self.settingsTable1 = tv;
     self.settingsTable1.dataSource = self;
     self.settingsTable1.delegate = self;
@@ -65,7 +65,7 @@
     self.settingsTable1.tag = tableTag;
     [self.view addSubview:self.settingsTable1];
     
-    currentTop += self.settingsTable1.frame.size.height;
+    currentTop += CGRectGetHeight(self.settingsTable1.frame);
     currentTop += 10;
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, currentTop, 280, 35)];
@@ -75,10 +75,10 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:titleLabel];
     
-    currentTop += titleLabel.frame.size.height;
+    currentTop += CGRectGetHeight(titleLabel.frame);
     
     tableTag++;
-    tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, fullScreen.size.width - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
+    tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, CGRectGetWidth(fullScreen) - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
     self.settingsTable2 = tv;
     self.settingsTable2.dataSource = self;
     self.settingsTable2.delegate = self;
@@ -90,7 +90,7 @@
     self.settingsTable2.tag = tableTag;
     [self.view addSubview:self.settingsTable2];
     
-    currentTop += self.settingsTable2.frame.size.height;
+    currentTop += CGRectGetHeight(self.settingsTable2.frame);
     currentTop += 10;
 }
 

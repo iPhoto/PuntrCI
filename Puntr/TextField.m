@@ -73,10 +73,10 @@
 
 - (CGRect)rect:(CGRect)rect leftOffset:(CGFloat)leftOffset rightOffset:(CGFloat)rightOffset
 {
-    CGRect resultRect = rect;
-    resultRect.origin.x += leftOffset;
-    resultRect.size.width -= leftOffset + rightOffset;
-    return resultRect;
+    CGRect result = rect;
+    result = CGRectOffset(result, leftOffset, 0.0f);
+    result = CGRectResize(result, -(leftOffset + rightOffset), 0.0f);
+    return result;
 }
 
 @end

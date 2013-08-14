@@ -61,7 +61,11 @@
     
     // Frame
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.bounds.size.height);
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds)
+                                            );
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:viewControllerFrame];
@@ -127,16 +131,17 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldLastName];
     [self.scrollView addSubview:self.textFieldLastName];
     
-    CGRect textFieldsBackgroundFrame = self.viewTextFieldsBackground.frame;
-    textFieldsBackgroundFrame.size.height = self.textFieldLastName.frame.origin.y + self.textFieldLastName.frame.size.height + 13.0f - textFieldsBackgroundFrame.origin.y;
-    self.viewTextFieldsBackground.frame = textFieldsBackgroundFrame;
+    self.viewTextFieldsBackground.frame = CGRectSetHeight(
+                                                          self.viewTextFieldsBackground.frame,
+                                                          CGRectGetMaxY(self.textFieldLastName.frame) + 13.0f - CGRectGetMinY(self.viewTextFieldsBackground.frame)
+                                                          );
     
-    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 62.0f, viewControllerFrame.size.width, 2.0f)];
+    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 62.0f, CGRectGetWidth(viewControllerFrame), 2.0f)];
     self.imageViewDelimiter.image = [[UIImage imageNamed:@"delimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [self.scrollView addSubview:self.imageViewDelimiter];
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonRegistration.frame = CGRectMake(10.0f, viewControllerFrame.size.height - 50.0f, 300.0f, 40.0f);
+    self.buttonRegistration.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
     self.buttonRegistration.adjustsImageWhenHighlighted = NO;
     [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
@@ -207,7 +212,7 @@
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect viewFrame = self.scrollView.frame;
     
-    viewFrame.size.height -= (keyboardSize.height);
+    viewFrame = CGRectResize(viewFrame, 0.0f, -keyboardSize.height);
     
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^
         {
@@ -241,7 +246,7 @@
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect viewFrame = self.scrollView.frame;
     
-    viewFrame.size.height += (keyboardSize.height);
+    viewFrame = CGRectResize(viewFrame, 0.0f, keyboardSize.height);
     
     [UIView animateWithDuration:0.3f animations:^
         {

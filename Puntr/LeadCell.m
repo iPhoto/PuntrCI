@@ -81,7 +81,6 @@
                   final:(BOOL)final
 {
     // Category
-    
     CGFloat stopLeft = self.generalMargin;
     CGFloat stopTop = self.generalMargin;
     
@@ -93,8 +92,8 @@
         
         [self.imageViewCategoryImage setImageWithURL:category.image];
         
-        stopLeft = self.imageViewCategoryImage.frame.origin.y + self.imageViewCategoryImage.frame.size.width;
-        stopTop = self.generalMargin + self.imageViewCategoryImage.frame.size.height;
+        stopLeft = CGRectGetMaxX(self.imageViewCategoryImage.frame);
+        stopTop = self.generalMargin + CGRectGetHeight(self.imageViewCategoryImage.frame);
         
         [self addSubview:self.imageViewCategoryImage];
     }
@@ -113,16 +112,15 @@
     self.labelCategoryTitle.textColor = colorText;
     self.labelCategoryTitle.text = category.title;
     
-    stopTop = self.generalMargin + self.labelCategoryTitle.frame.size.height;
+    stopTop = self.generalMargin + CGRectGetHeight(self.labelCategoryTitle.frame);
     
     [self addSubview:self.labelCategoryTitle];
     
     // Time
-    
     if (time)
     {
         self.labelPublicationTime = [[UILabel alloc] init];
-        self.labelPublicationTime.frame = CGRectMake(stopLeft, self.usedHeight + self.generalMargin, self.frame.size.width - stopLeft - self.generalMargin, categoryImageSize.height);
+        self.labelPublicationTime.frame = CGRectMake(stopLeft, self.usedHeight + self.generalMargin, CGRectGetWidth(self.frame) - stopLeft - self.generalMargin, categoryImageSize.height);
         self.labelPublicationTime.font = smallFont;
         self.labelPublicationTime.backgroundColor = [UIColor clearColor];
         self.labelPublicationTime.textColor = colorText;
@@ -136,12 +134,11 @@
         
         // Stake Button
         self.buttonEventStake = [SmallStakeButton buttonWithType:UIButtonTypeCustom];
-        self.buttonEventStake.frame = CGRectMake(self.frame.size.width - self.generalMargin - buttonSize.width, self.usedHeight + self.generalMargin, buttonSize.width, buttonSize.height);
+        self.buttonEventStake.frame = CGRectMake(CGRectGetWidth(self.frame) - self.generalMargin - buttonSize.width, self.usedHeight + self.generalMargin, buttonSize.width, buttonSize.height);
         [self addSubview:self.buttonEventStake];
     }
     
     // Participants
-    
     self.labelParticipants = [[UILabel alloc] init];
     self.labelParticipants.frame = CGRectMake(self.generalMargin, stopTop + self.generalMargin, labelWidth, categoryImageSize.height);
     self.labelParticipants.font = fontSmallBold;
@@ -163,7 +160,7 @@
     }
     self.labelParticipants.text = participantsConsolidated;
     
-    stopTop = self.labelParticipants.frame.origin.y + self.labelParticipants.frame.size.height;
+    stopTop = CGRectGetMaxY(self.labelParticipants.frame);
     
     [self addSubview:self.labelParticipants];
     
@@ -180,7 +177,7 @@
             delimiterImage = [[UIImage imageNamed:@"delimiterBlack"] resizableImageWithCapInsets:UIEdgeInsetsZero];
         }
         
-        self.imageViewDelimiterEvent = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, stopTop + self.generalMargin, self.frame.size.width, delimiterHeight)];
+        self.imageViewDelimiterEvent = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, stopTop + self.generalMargin, CGRectGetWidth(self.frame), delimiterHeight)];
         self.imageViewDelimiterEvent.image = delimiterImage;
         [self addSubview:self.imageViewDelimiterEvent];
         
@@ -199,7 +196,7 @@
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
 #pragma clang diagnostic pop
     self.labelLine = [[UILabel alloc] init];
-    self.labelLine.frame = CGRectMake(self.generalMargin, self.usedHeight + self.generalMargin, self.frame.size.width, labelHeight);
+    self.labelLine.frame = CGRectMake(self.generalMargin, self.usedHeight + self.generalMargin, CGRectGetWidth(self.frame), labelHeight);
     self.labelLine.font = fontSmall;
     self.labelLine.backgroundColor = [UIColor clearColor];
     self.labelLine.textColor = colorText;

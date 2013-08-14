@@ -30,7 +30,7 @@
         imageViewSelectedBackground.image = [[UIImage imageNamed:@"categorySelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 0.0f, 0.0f, 0.0f)];
         self.selectedBackgroundView = imageViewSelectedBackground;
         
-        self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0.0f, self.bounds.size.width - 10.0f, self.bounds.size.height)];
+        self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0.0f, CGRectGetWidth(self.bounds) - 10.0f, CGRectGetHeight(self.bounds))];
         self.labelTitle.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
         self.labelTitle.textColor = [UIColor whiteColor];
         self.labelTitle.backgroundColor = [UIColor clearColor];

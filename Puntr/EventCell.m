@@ -70,12 +70,12 @@
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.buttonStake];
     
-    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 40.0f, self.frame.size.width, 1.0f)];
+    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 40.0f, CGRectGetWidth(self.frame), 1.0f)];
     self.imageViewDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [self addSubview:self.imageViewDelimiter];
     
     self.labelTime = [[UILabel alloc] init];
-    self.labelTime.frame = CGRectMake(8.0f, 47.0f, self.frame.size.width, 10.4f);
+    self.labelTime.frame = CGRectMake(8.0f, 47.0f, CGRectGetWidth(self.frame), 10.4f);
     self.labelTime.font = [UIFont fontWithName:@"ArialMT" size:10.4f];
     self.labelTime.backgroundColor = [UIColor clearColor];
     self.labelTime.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
@@ -84,7 +84,7 @@
     [self addSubview:self.labelTime];
     
     self.labelStakes = [[UILabel alloc] init];
-    self.labelStakes.frame = CGRectMake(8.0f, 47.0f, self.frame.size.width - 8.0f * 2.0f, 10.4f);
+    self.labelStakes.frame = CGRectMake(8.0f, 47.0f, CGRectGetWidth(self.frame) - 8.0f * 2.0f, 10.4f);
     self.labelStakes.font = [UIFont fontWithName:@"ArialMT" size:10.4f];
     self.labelStakes.backgroundColor = [UIColor clearColor];
     self.labelStakes.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];

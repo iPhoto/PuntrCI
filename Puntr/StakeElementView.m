@@ -34,14 +34,14 @@
     CGFloat titlePadding = 10.0f;
     CGFloat resultPadding = 28.0f;
     
-    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(titlePadding, 0.0f, self.frame.size.width / 2.0f - titlePadding, self.frame.size.height)];
+    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(titlePadding, 0.0f, CGRectGetWidth(self.frame) / 2.0f - titlePadding, CGRectGetHeight(self.frame))];
     self.labelTitle.font = font;
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelTitle.textColor = textColor;
     self.labelTitle.text = title;
     [self addSubview:self.labelTitle];
     
-    self.labelResult = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - self.frame.size.width / 2.0f, 0.0f, self.frame.size.width / 2.0f - resultPadding, self.frame.size.height)];
+    self.labelResult = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame) / 2.0f, 0.0f, CGRectGetWidth(self.frame) / 2.0f - resultPadding, CGRectGetHeight(self.frame))];
     self.labelResult.font = font;
     self.labelResult.backgroundColor = [UIColor clearColor];
     self.labelResult.textAlignment = NSTextAlignmentRight;
@@ -51,7 +51,7 @@
     
     CGFloat arrowViewWidth = 25.0f;
     
-    UIImageView *imageViewArrow = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width - arrowViewWidth, 0.0f, arrowViewWidth, self.frame.size.height)];
+    UIImageView *imageViewArrow = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - arrowViewWidth, 0.0f, arrowViewWidth, CGRectGetHeight(self.frame))];
     imageViewArrow.image = [UIImage imageNamed:@"IconArrow"];
     imageViewArrow.contentMode = UIViewContentModeCenter;
     [self addSubview:imageViewArrow];

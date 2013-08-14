@@ -74,11 +74,15 @@
                                                                              action:@selector(close)];
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height);
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds)
+                                            );
     
     CGFloat zero = 0.0f;
     CGFloat screenWidth = 320.0f;
-    CGFloat screenHeight = viewControllerFrame.size.height;
+    CGFloat screenHeight = CGRectGetHeight(viewControllerFrame);
     CGFloat coverMargin = 8.0f;
     CGFloat descriptionPadding = 35.0f;
     CGFloat participantsHeight = 70.0f;
@@ -120,7 +124,7 @@
     self.labelStatus.text = self.event.status ? self.event.status : @"—";
     [self.view addSubview:self.labelStatus];
     
-    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (2 * coverMargin + 128), descriptionPadding + 13, 128, 44)];
+    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - (2 * coverMargin + 128), descriptionPadding + 13, 128, 44)];
     [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
                                             forState:UIControlStateNormal];
     self.buttonParticipantSecond.titleLabel.font = font;
@@ -138,11 +142,21 @@
     
     CGFloat stakeElementHeight = 40.0f;
     
-    self.elementViewLineSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.imageViewTopDelimiter.frame.origin.y + self.imageViewTopDelimiter.frame.size.height + coverMargin, screenWidth - coverMargin * 4.0f, stakeElementHeight)];
+    self.elementViewLineSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(
+                                                                                       coverMargin * 2.0f,
+                                                                                       CGRectGetMaxY(self.imageViewTopDelimiter.frame) + coverMargin,
+                                                                                       screenWidth - coverMargin * 4.0f,
+                                                                                       stakeElementHeight
+                                                                                       )];
     [self.elementViewLineSelection loadWithTitle:@"Ставка на:" target:self action:@selector(showLineSelection:)];
     [self.view addSubview:self.elementViewLineSelection];
     
-    self.elementViewCriterionSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewLineSelection.frame.origin.y + self.elementViewLineSelection.frame.size.height + coverMargin, screenWidth - coverMargin * 4.0f, stakeElementHeight)];
+    self.elementViewCriterionSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(
+                                                                                            coverMargin * 2.0f,
+                                                                                            CGRectGetMaxY(self.elementViewLineSelection.frame) + coverMargin,
+                                                                                            screenWidth - coverMargin * 4.0f,
+                                                                                            stakeElementHeight
+                                                                                            )];
     [self.elementViewCriterionSelection loadWithTitle:@"Текущий выбор:" target:self action:@selector(showCriterionSelection:)];
     [self.view addSubview:self.elementViewCriterionSelection];
     
@@ -151,7 +165,12 @@
     CGFloat amountHeight = 39.0f;
     CGFloat labelAmountWidth = 130.0f;
     
-    self.labelAmount = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewCriterionSelection.frame.origin.y + self.elementViewCriterionSelection.frame.size.height + amountPadding, labelAmountWidth, amountHeight)];
+    self.labelAmount = [[UILabel alloc] initWithFrame:CGRectMake(
+                                                                 coverMargin * 2.0f,
+                                                                 CGRectGetMaxY(self.elementViewCriterionSelection.frame) + amountPadding,
+                                                                 labelAmountWidth,
+                                                                 amountHeight
+                                                                 )];
     self.labelAmount.font = font;
     self.labelAmount.backgroundColor = [UIColor clearColor];
     self.labelAmount.textAlignment = NSTextAlignmentCenter;
@@ -164,7 +183,12 @@
     CGFloat buttonOperationHeight = 30.0f;
     
     self.buttonMinus = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonMinus.frame = CGRectMake(self.labelAmount.frame.origin.x + self.labelAmount.frame.size.width, self.labelAmount.frame.origin.y + buttonOperationPadding, buttonOperationWidth, buttonOperationHeight);
+    self.buttonMinus.frame = CGRectMake(
+                                        CGRectGetMaxX(self.labelAmount.frame),
+                                        CGRectGetMinY(self.labelAmount.frame) + buttonOperationPadding,
+                                        buttonOperationWidth,
+                                        buttonOperationHeight
+                                        );
     [self.buttonMinus setBackgroundImage:[UIImage imageNamed:@"ButtonMinus"] forState:UIControlStateNormal];
     [self.buttonMinus setBackgroundImage:[UIImage imageNamed:@"ButtonMinusSelected"] forState:UIControlStateHighlighted];
     [self.buttonMinus addTarget:self action:@selector(amountDecrease) forControlEvents:UIControlEventTouchUpInside];
@@ -172,7 +196,12 @@
     
     CGFloat amountWidth = 74.0f;
     
-    self.textFieldAmount = [[UITextField alloc] initWithFrame:CGRectMake(self.buttonMinus.frame.origin.x + self.buttonMinus.frame.size.width + coverMargin, self.elementViewCriterionSelection.frame.origin.y + self.elementViewCriterionSelection.frame.size.height + amountPadding, amountWidth, amountHeight)];
+    self.textFieldAmount = [[UITextField alloc] initWithFrame:CGRectMake(
+                                                                         CGRectGetMaxX(self.buttonMinus.frame) + coverMargin,
+                                                                         CGRectGetMaxY(self.elementViewCriterionSelection.frame) + amountPadding,
+                                                                         amountWidth,
+                                                                         amountHeight
+                                                                         )];
     self.textFieldAmount.background = [[UIImage imageNamed:@"area"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 6.0f, 0.0f, 6.0f)];
     self.textFieldAmount.userInteractionEnabled = NO;
     self.textFieldAmount.textAlignment = NSTextAlignmentCenter;
@@ -182,19 +211,34 @@
     [self.view addSubview:self.textFieldAmount];
     
     self.buttonPlus = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonPlus.frame = CGRectMake(self.textFieldAmount.frame.origin.x + self.textFieldAmount.frame.size.width + coverMargin, self.labelAmount.frame.origin.y + buttonOperationPadding, buttonOperationWidth, buttonOperationHeight);
+    self.buttonPlus.frame = CGRectMake(
+                                       CGRectGetMaxX(self.textFieldAmount.frame) + coverMargin,
+                                       CGRectGetMinY(self.labelAmount.frame) + buttonOperationPadding,
+                                       buttonOperationWidth,
+                                       buttonOperationHeight
+                                       );
     [self.buttonPlus setBackgroundImage:[UIImage imageNamed:@"ButtonPlus"] forState:UIControlStateNormal];
     [self.buttonPlus setBackgroundImage:[UIImage imageNamed:@"ButtonPlusSelected"] forState:UIControlStateHighlighted];
     [self.buttonPlus addTarget:self action:@selector(amountIncrease) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonPlus];
     
-    self.elementViewCoefficient = [[StakeElementView alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.textFieldAmount.frame.origin.y + self.textFieldAmount.frame.size.height + amountPadding, screenWidth - coverMargin * 4.0f, stakeElementHeight)];
+    self.elementViewCoefficient = [[StakeElementView alloc] initWithFrame:CGRectMake(
+                                                                                     coverMargin * 2.0f,
+                                                                                     CGRectGetMaxY(self.textFieldAmount.frame) + amountPadding,
+                                                                                     screenWidth - coverMargin * 4.0f,
+                                                                                     stakeElementHeight
+                                                                                     )];
     [self.elementViewCoefficient loadWithTitle:@"Коэффициент:" target:nil action:nil];
     [self.view addSubview:self.elementViewCoefficient];
     
     CGFloat buttonHeight = 40.0f;
     
-    self.labelReward = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin * 2.0f, self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height, screenWidth - 4.0f * coverMargin, (screenHeight - 3.0f * coverMargin - buttonHeight) - (self.elementViewCoefficient.frame.origin.y + self.elementViewCoefficient.frame.size.height))];
+    self.labelReward = [[UILabel alloc] initWithFrame:CGRectMake(
+                                                                 coverMargin * 2.0f,
+                                                                 CGRectGetMaxY(self.elementViewCoefficient.frame),
+                                                                 screenWidth - 4.0f * coverMargin,
+                                                                 (screenHeight - 3.0f * coverMargin - buttonHeight) - CGRectGetMaxY(self.elementViewCoefficient.frame)
+                                                                 )];
     self.labelReward.font = font;
     self.labelReward.backgroundColor = [UIColor clearColor];
     self.labelReward.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];

@@ -66,12 +66,12 @@
         }
     );
     
-    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, coverMargin + self.tournamentImageView.frame.size.height, screenWidth - coverMargin * 2.0f, 1.0f)];
+    self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, coverMargin + CGRectGetHeight(self.tournamentImageView.frame), screenWidth - coverMargin * 2.0f, 1.0f)];
     self.imageViewDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [backgroundCover addSubview:self.imageViewDelimiter];
     
     self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonSubscribe.frame = CGRectMake(coverMargin * 2.0f, coverMargin + self.tournamentImageView.frame.size.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
+    self.buttonSubscribe.frame = CGRectMake(coverMargin * 2.0f, coverMargin + CGRectGetHeight(self.tournamentImageView.frame) + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
     self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
     [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];

@@ -73,7 +73,11 @@ typedef NS_ENUM(NSInteger, Direction)
     
     // Frame
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    CGRect viewControllerFrame = CGRectMake(0.0f, 0.0f, applicationFrame.size.width, applicationFrame.size.height - self.navigationController.navigationBar.bounds.size.height);
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds)
+                                            );
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     self.credentials = [[CredentialsModel alloc] init];
@@ -137,21 +141,36 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonEnter addTarget:self action:@selector(enterButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonEnter];
     
-    self.imageViewEnterServicies = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 148.0f, 320.0f, 148.0f)];
+    self.imageViewEnterServicies = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, CGRectGetHeight(viewControllerFrame) - 148.0f, 320.0f, 148.0f)];
     self.imageViewEnterServicies.image = [UIImage imageNamed:@"enterServicies"];
     [self.view addSubview:self.imageViewEnterServicies];
     
-    self.buttonFb = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 52, 300, 42)];
+    self.buttonFb = [[UIButton alloc]initWithFrame:CGRectMake(
+                                                              10.0f,
+                                                              CGRectGetMinY(self.imageViewEnterServicies.frame) + 52.0f,
+                                                              300.0f,
+                                                              42.0f
+                                                              )];
     [self.buttonFb setBackgroundColor:[UIColor clearColor]];
     [self.buttonFb addTarget:self action:@selector(fbButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonFb];
     
-    self.buttonTw = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 94, 300, 42)];
+    self.buttonTw = [[UIButton alloc]initWithFrame:CGRectMake(
+                                                              10.0f,
+                                                              CGRectGetMinY(self.imageViewEnterServicies.frame) + 94.0f,
+                                                              300.0f,
+                                                              42.0f
+                                                              )];
     [self.buttonTw setBackgroundColor:[UIColor clearColor]];
     [self.buttonTw addTarget:self action:@selector(twButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonTw];
     
-    self.buttonVk = [[UIButton alloc]initWithFrame:CGRectMake(10, self.imageViewEnterServicies.frame.origin.y + 10, 300, 40)];
+    self.buttonVk = [[UIButton alloc]initWithFrame:CGRectMake(
+                                                              10.0f,
+                                                              CGRectGetMinY(self.imageViewEnterServicies.frame) + 10.0f,
+                                                              300.0f,
+                                                              40.0f
+                                                              )];
     [self.buttonVk setBackgroundColor:[UIColor clearColor]];
     [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonVk];
@@ -352,16 +371,14 @@ typedef NS_ENUM(NSInteger, Direction)
 {
     for (UIView *view in views)
     {
-        CGRect viewFrame = view.frame;
         if (direction == DirectionUp)
         {
-            viewFrame.origin.y -= points;
+            view.frame = CGRectOffset(view.frame, 0.0f, -points);
         }
         else
         {
-            viewFrame.origin.y += points;
+            view.frame = CGRectOffset(view.frame, 0.0f, points);
         }
-        view.frame = viewFrame;
     }
 }
 

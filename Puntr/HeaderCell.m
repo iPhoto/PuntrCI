@@ -22,18 +22,18 @@
 
 - (void)loadWithSection:(GroupModel *)section
 {
-    CGRect backgroundFrame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
+    CGRect backgroundFrame = self.bounds;
     self.imageViewBackground = [[UIImageView alloc] initWithFrame:backgroundFrame];
     self.imageViewBackground.image = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 17.0f)];
     [self addSubview:self.imageViewBackground];
     
-    self.imageViewSection = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.height, self.frame.size.height)];
+    self.imageViewSection = [[UIImageView alloc] initWithFrame:backgroundFrame];
     [self.imageViewSection setImageWithURL:section.image];
     self.imageViewSection.contentMode = UIViewContentModeCenter;
     [self addSubview:self.imageViewSection];
     
     self.labelTitle = [[UILabel alloc] init];
-    self.labelTitle.frame = CGRectMake(self.frame.size.height + 4.0f, 0.0f, self.frame.size.width - (self.frame.size.height + 4.0f * 2.0f), self.frame.size.height);
+    self.labelTitle.frame = CGRectMake(CGRectGetHeight(self.frame) + 4.0f, 0.0f, CGRectGetWidth(self.frame) - (CGRectGetHeight(self.frame) + 4.0f * 2.0f), CGRectGetHeight(self.frame));
     self.labelTitle.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelTitle.textColor = [UIColor whiteColor];
