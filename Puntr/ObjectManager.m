@@ -160,7 +160,7 @@
                                                                                                       statusCodes:statusCodeOK];
     
     // Feed
-    [feedMapping addAttributeMappingsFromArray:@[KeyCreatedAt, KeyMessage]];
+    [feedMapping addAttributeMappingsFromArray:@[KeyMessage]];
     RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [feedMapping addPropertyMapping:feedUserRelationship];
     

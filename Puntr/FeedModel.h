@@ -10,7 +10,6 @@
 #import "UserModel.h"
 @interface FeedModel : NSObject
 
-@property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, strong, readonly) NSString *message;
 @property (nonatomic, strong, readonly) UserModel *user;
 
