@@ -109,7 +109,7 @@
                                                                                                   statusCodes:statusCodeOK];
     
     // Comment
-    [commentMapping addAttributeMappingsFromArray:@[KeyMessage]];
+    [commentMapping addAttributeMappingsFromArray:@[KeyMessage, KeyCreatedAt]];
     RKRelationshipMapping *commentUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
