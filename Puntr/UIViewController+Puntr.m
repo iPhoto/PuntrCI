@@ -22,6 +22,12 @@
     buttonBalance.titleLabel.shadowColor = [UIColor blackColor];
     buttonBalance.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [buttonBalance.titleLabel setTextColor:[UIColor whiteColor]];
+    [buttonBalance.titleLabel setTextAlignment:NSTextAlignmentRight];
+    //[buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
+    [buttonBalance setImage:[UIImage imageNamed:@"IconMoney"] forState:UIControlStateNormal];
+    //CGRectGetWidth(buttonBalance.frame)
+    [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 25.0, 0.0, 0.0)];
+    [buttonBalance setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -5.0, 0.0, 20.0)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBalance];
 }
 
@@ -31,7 +37,7 @@
         {
             MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
             
-            [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitle:[NSString stringWithFormat:@"%@ Р", money.amount.stringValue]
+            [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitle:money.amount.stringValue
                                                                            forState:UIControlStateNormal];
         }
         failure:^(RKObjectRequestOperation *operation, NSError *error)
