@@ -23,7 +23,6 @@
     buttonBalance.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [buttonBalance.titleLabel setTextColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBalance];
-    [self updateBalance];
 }
 
 - (void)updateBalance
