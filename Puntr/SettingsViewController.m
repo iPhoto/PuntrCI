@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 #define TABLE_CELLS_HEIGHT      20.0
