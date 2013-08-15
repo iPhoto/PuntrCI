@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIImageView *imageViewDelimiter;
 
 @property (nonatomic, strong) UIButton *buttonRegistration;
+@property (nonatomic, strong) UIButton *buttonPhoto;
 
 @property (nonatomic, strong) NSArray *textFields;
 
@@ -87,7 +88,7 @@
     
     self.textFields = [NSArray array];
     
-    self.textFieldEmail = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 19.0f, 282.0f, 38.0f)];
+    self.textFieldEmail = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];//(18.0f, 19.0f, 282.0f, 38.0f)
     self.textFieldEmail.placeholder = @"Email...";
     self.textFieldEmail.text = self.user.email;
     self.textFieldEmail.keyboardType = UIKeyboardTypeEmailAddress;
@@ -97,7 +98,7 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldEmail];
     [self.scrollView addSubview:self.textFieldEmail];
     
-    self.textFieldPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0, 66.0f, 282.0f, 38.0f)];
+    self.textFieldPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0, 160.0f, 282.0f, 38.0f)];//(18.0, 66.0f, 282.0f, 38.0f)
     self.textFieldPassword.placeholder = @"Пароль...";
     self.textFieldPassword.secureTextEntry = YES;
     self.textFieldPassword.keyboardType = UIKeyboardTypeDefault;
@@ -107,7 +108,7 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldPassword];
     [self.scrollView addSubview:self.textFieldPassword];
     
-    self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0, 113.0f, 282.0f, 38.0f)];
+    self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0, 207.0f, 282.0f, 38.0f)];//(18.0, 113.0f, 282.0f, 38.0f)
     self.textFieldUsername.placeholder = @"Никнейм...";
     self.textFieldUsername.returnKeyType = UIReturnKeyNext;
     self.textFieldUsername.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -115,7 +116,7 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldUsername];
     [self.scrollView addSubview:self.textFieldUsername];
     
-    self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(18.0, 160.0f, 282.0f, 38.0f)];
+    self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 19.0f, 188.0f, 38.0f)];//(18.0, 160.0f, 282.0f, 38.0f)
     self.textFieldFirstName.placeholder = @"Имя...";
     self.textFieldFirstName.returnKeyType = UIReturnKeyNext;
     self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -123,7 +124,7 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldFirstName];
     [self.scrollView addSubview:self.textFieldFirstName];
     
-    self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(18.0, 207.0f, 282.0f, 38.0f)];
+    self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];//(18.0, 207.0f, 282.0f, 38.0f)
     self.textFieldLastName.placeholder = @"Фамилия...";
     self.textFieldLastName.returnKeyType = UIReturnKeyDone;
     self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -131,9 +132,25 @@
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldLastName];
     [self.scrollView addSubview:self.textFieldLastName];
     
+    self.buttonPhoto = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.buttonPhoto.frame = CGRectMake(18.0f, 19.0f, 85.0f, 85.0f);
+    [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
+    [self.buttonPhoto setContentMode:UIViewContentModeCenter];
+    self.buttonPhoto.tintColor = [UIColor clearColor];
+    [self.buttonPhoto.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:10.0f]];
+    [self.buttonPhoto setTitleColor:[UIColor colorWithRed:0.773 green:0.769 blue:0.769 alpha:1] forState:UIControlStateNormal];
+    [self.buttonPhoto.titleLabel setNumberOfLines:0];
+    [self.buttonPhoto.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.buttonPhoto setTitle:@"ЗАГРУЗИТЬ\nФОТО" forState:UIControlStateNormal];
+    [self.buttonPhoto setTitleEdgeInsets:UIEdgeInsetsMake(47.0, 0.0, 0, 0.0)];
+    [self.buttonPhoto addTarget:self action:@selector(buttonPhotoTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.buttonPhoto.layer.cornerRadius = 5;
+    self.buttonPhoto.layer.masksToBounds = YES;
+    [self.scrollView addSubview:self.buttonPhoto];
+    
     self.viewTextFieldsBackground.frame = CGRectSetHeight(
                                                           self.viewTextFieldsBackground.frame,
-                                                          CGRectGetMaxY(self.textFieldLastName.frame) + 13.0f - CGRectGetMinY(self.viewTextFieldsBackground.frame)
+                                                          CGRectGetMaxY(self.textFieldUsername.frame) + 13.0f - CGRectGetMinY(self.viewTextFieldsBackground.frame)
                                                           );
     
     self.imageViewDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, viewControllerFrame.size.height - 62.0f, CGRectGetWidth(viewControllerFrame), 2.0f)];
@@ -354,6 +371,16 @@
     }
 }
 
+- (void)buttonPhotoTouched{
+    UIActionSheet *actionSheet;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Выберите источник" delegate:self cancelButtonTitle:@"Отмена" destructiveButtonTitle:nil otherButtonTitles:@"Камера", @"Галерея", nil];
+        [actionSheet showInView:self.view];
+    } else {
+        [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+}
+
 - (NSTimeInterval)keyboardAnimationDurationForNotification:(NSNotification *)notification
 {
     NSDictionary *info = [notification userInfo];
@@ -381,6 +408,52 @@
     {
         [textField resignFirstResponder];
     }
+}
+
+#pragma mark - ActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != actionSheet.cancelButtonIndex) {
+        if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+            [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        } else {
+            [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    }
+}
+
+- (void)startCameraControllerWithSourceType:(UIImagePickerControllerSourceType)sourceType {
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        return;
+    }
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    cameraUI.sourceType = sourceType;
+    cameraUI.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
+    cameraUI.allowsEditing = YES;
+    cameraUI.delegate = self;
+    [self presentViewController:cameraUI animated:YES completion:nil];
+}
+
+#pragma mark - ImagePickerController Delegate
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *originalImage, *editedImage, *imageToSave;
+    editedImage = (UIImage *)[info objectForKey:UIImagePickerControllerEditedImage];
+    originalImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
+    if (editedImage) {
+        imageToSave = editedImage;
+    } else {
+        imageToSave = originalImage;
+    }
+    self.user.avatarData = imageToSave;
+    [self.buttonPhoto setImage:imageToSave forState:UIControlStateNormal];
+    [self.buttonPhoto.imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.buttonPhoto setTitle:@"" forState:UIControlStateNormal];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

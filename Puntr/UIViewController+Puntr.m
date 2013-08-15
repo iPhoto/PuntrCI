@@ -27,7 +27,6 @@
     [buttonBalance setImage:[UIImage imageNamed:@"IconMoney"] forState:UIControlStateNormal];
     //CGRectGetWidth(buttonBalance.frame)
     [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 23.0, 0.0, 0.0)];
-    [buttonBalance setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -5.0, 0.0, 20.0)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBalance];
 }
 
