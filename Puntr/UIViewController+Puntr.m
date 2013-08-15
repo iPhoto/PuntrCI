@@ -26,7 +26,7 @@
     //[buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
     [buttonBalance setImage:[UIImage imageNamed:@"IconMoney"] forState:UIControlStateNormal];
     //CGRectGetWidth(buttonBalance.frame)
-    [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 25.0, 0.0, 0.0)];
+    [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 23.0, 0.0, 0.0)];
     [buttonBalance setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -5.0, 0.0, 20.0)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBalance];
 }
@@ -36,9 +36,11 @@
     [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
             MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
-            
             [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitle:money.amount.stringValue
                                                                            forState:UIControlStateNormal];
+            //CGRectGetWidth([(UIButton *)self.navigationItem.rightBarButtonItem.customView titleLabel].frame);
+            CGSize maxLabelSize = [@"0000" sizeWithFont:[(UIButton *)self.navigationItem.rightBarButtonItem.customView titleLabel].font];
+            [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -8.0 + maxLabelSize.width - CGRectGetWidth([(UIButton *)self.navigationItem.rightBarButtonItem.customView titleLabel].frame), 0.0, 24.0)];
         }
         failure:^(RKObjectRequestOperation *operation, NSError *error)
         {
