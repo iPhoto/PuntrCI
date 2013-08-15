@@ -366,6 +366,31 @@
     ];
 }
 
+#pragma mark - Comments
+
+- (void)commentsForEvent:(EventModel *)event
+                  paging:(PagingModel *)paging
+                 success:(Comments)success
+                 failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{KeyAuthorization: self.authorization.parameters,
+                                 KeyPaging: paging ? paging.parameters : [NSNull null]
+                                 };
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComments]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *comments = mappingResult.dictionary[KeyComments];
+                success(comments);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+     ];
+}
+
 #pragma mark - Events
 
 - (void)eventsWithFilter:(FilterModel *)filter

@@ -48,6 +48,13 @@ typedef void (^User)(UserModel *user);
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure;
 
+#pragma mark - Comments
+
+- (void)commentsForEvent:(EventModel *)event
+                  paging:(PagingModel *)paging
+                 success:(Comments)success
+                 failure:(EmptyFailure)failure;
+
 #pragma mark - Events
 
 - (void)eventsWithFilter:(FilterModel *)filter
