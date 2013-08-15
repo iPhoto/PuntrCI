@@ -213,7 +213,10 @@
     [subscriberMapping addAttributeMappingsFromArray:@[KeySubscribed]];
     RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriberMapping addPropertyMapping:subscriberUserRelationship];
-    RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscribers] keyPath:KeySubscribers statusCodes:statusCodeOK];
+    RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping
+                                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscribers]
+                                                                                                               keyPath:KeySubscribers
+                                                                                                           statusCodes:statusCodeOK];
     
     // Subscription
     RKRelationshipMapping *subscriptionEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
@@ -221,7 +224,10 @@
     RKRelationshipMapping *subscriptionTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
     RKRelationshipMapping *subscriptionUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriptionMapping addPropertyMappingsFromArray:@[subscriptionEventRelationship, subscriptionParticipantRelationship, subscriptionTournamentRelationship, subscriptionUserRelationship]];
-    RKResponseDescriptor *subscriptionCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions] keyPath:KeySubscriptions statusCodes:statusCodeOK];
+    RKResponseDescriptor *subscriptionCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
+                                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
+                                                                                                                 keyPath:KeySubscriptions
+                                                                                                             statusCodes:statusCodeOK];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeyStartTime, KeyEndTime]];
