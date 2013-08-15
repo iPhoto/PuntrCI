@@ -55,6 +55,11 @@ typedef void (^User)(UserModel *user);
                  success:(Comments)success
                  failure:(EmptyFailure)failure;
 
+- (void)postComment:(CommentModel *)comment
+           forEvent:(EventModel *)event
+            success:(EmptySuccess)success
+            failure:(EmptyFailure)failure;
+
 #pragma mark - Events
 
 - (void)eventsWithFilter:(FilterModel *)filter

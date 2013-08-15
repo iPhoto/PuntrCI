@@ -253,34 +253,43 @@
                                                                                                               statusCodes:statusCodeCreated];
     
     // Response Descriptors
-    [self addResponseDescriptorsFromArray:@[
-     activityResponseDescriptor,
-     authorizationResponseDescriptor,
-     authorizationUserCreateResponseDescriptor,
-     categoryCollectionResponseDescriptor,
-     coefficientResponseDescriptor,
-     commentResponseDescriptor,
-     componentCollectionResponseDescriptor,
-     errorResponseDescriptor,
-     eventCollectionResponseDescriptor,
-     moneyResponseDescriptor,
-     newsCollectionResponseDescriptor,
-     stakeCollectionResponseDescriptor,
-     stakeResponseDescriptor,
-     subscriberCollectionResponseDescriptor,
-     subscriptionCollectionResponseDescriptor,
-     tournamentCollectionResponseDescriptor,
-     userAuthorizationCreateResponseDescriptor,
-     userCreateResponseDescriptor,
-     userResponseDescriptor
-     ]];
+    [self addResponseDescriptorsFromArray:
+        @[
+            activityResponseDescriptor,
+            authorizationResponseDescriptor,
+            authorizationUserCreateResponseDescriptor,
+            categoryCollectionResponseDescriptor,
+            coefficientResponseDescriptor,
+            commentResponseDescriptor,
+            componentCollectionResponseDescriptor,
+            errorResponseDescriptor,
+            eventCollectionResponseDescriptor,
+            moneyResponseDescriptor,
+            newsCollectionResponseDescriptor,
+            stakeCollectionResponseDescriptor,
+            stakeResponseDescriptor,
+            subscriberCollectionResponseDescriptor,
+            subscriptionCollectionResponseDescriptor,
+            tournamentCollectionResponseDescriptor,
+            userAuthorizationCreateResponseDescriptor,
+            userCreateResponseDescriptor,
+            userResponseDescriptor
+         ]
+    ];
     
     // Serialization
     
+    // Comment
+    RKObjectMapping *commentSerialization = [RKObjectMapping requestMapping];
+    [commentSerialization addAttributeMappingsFromArray:@[KeyMessage]];
+    RKRequestDescriptor *commentRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:commentSerialization
+                                                                                          objectClass:[CommentModel class]
+                                                                                          rootKeyPath:nil];
+    
     // Credentials
-    RKObjectMapping *credentialsMapping = [RKObjectMapping requestMapping];
-    [credentialsMapping addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
-    RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsMapping
+    RKObjectMapping *credentialsSerialization = [RKObjectMapping requestMapping];
+    [credentialsSerialization addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
+    RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsSerialization
                                                                                               objectClass:[CredentialsModel class]
                                                                                               rootKeyPath:KeyCredentials];
     
@@ -302,11 +311,14 @@
                                                                                        objectClass:[UserModel class]
                                                                                        rootKeyPath:nil];
     
-    [self addRequestDescriptorsFromArray:@[
-     credentialsRequestDescriptor,
-     stakeRequestDescriptor,
-     userRequestDescriptor
-     ]];
+    [self addRequestDescriptorsFromArray:
+        @[
+            commentRequestDescriptor,
+            credentialsRequestDescriptor,
+            stakeRequestDescriptor,
+            userRequestDescriptor
+         ]
+    ];
 }
 
 #pragma mark - Authorization
@@ -373,7 +385,8 @@
                  success:(Comments)success
                  failure:(EmptyFailure)failure
 {
-    NSDictionary *parameters = @{KeyAuthorization: self.authorization.parameters,
+    NSDictionary *parameters = @{
+                                 KeyAuthorization: self.authorization.parameters,
                                  KeyPaging: paging ? paging.parameters : [NSNull null]
                                  };
     [self getObject:nil
@@ -388,6 +401,22 @@
             {
                 [self reportWithFailure:failure error:error];
             }
+     ];
+}
+
+- (void)postComment:(CommentModel *)comment
+           forEvent:(EventModel *)event
+            success:(EmptySuccess)success
+            failure:(EmptyFailure)failure
+{
+    [self postObject:comment
+                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComments]
+          parameters:self.authorization.wrappedParameters
+             success:success
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
      ];
 }
 
