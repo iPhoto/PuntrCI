@@ -8,7 +8,7 @@
 
 #import "RKObjectManager.h"
 
-@class AuthorizationModel, CoefficientModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, RegistrationModel, StakeModel, UserModel;
+@class AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, RegistrationModel, StakeModel, UserModel;
 
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
@@ -61,6 +61,11 @@ typedef void (^User)(UserModel *user);
             failure:(EmptyFailure)failure;
 
 #pragma mark - Events
+
+- (void)eventsWithPaging:(PagingModel *)paging
+                  filter:(FilterModel *)filter
+                 success:(Events)success
+                 failure:(EmptyFailure)failure;
 
 - (void)eventsWithFilter:(FilterModel *)filter
                   paging:(PagingModel *)paging
