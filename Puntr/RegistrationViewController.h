@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegistrationViewController : UIViewController <UITextFieldDelegate>
+@interface RegistrationViewController : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 - (id)initWithEmail:(NSString *)email;
 
