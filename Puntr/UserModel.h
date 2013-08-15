@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, strong) NSURL *avatar;
+@property (nonatomic, strong, readonly) NSNumber *subscribed;
 @property (nonatomic, strong, readonly) NSNumber *topPosition;
 @property (nonatomic, strong, readonly) NSNumber *rating;
 @property (nonatomic, strong, readonly) NSNumber *subscriptionsCount;

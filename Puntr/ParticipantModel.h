@@ -14,5 +14,6 @@
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, strong, readonly) NSURL *logo;
 @property (nonatomic, strong, readonly) NSNumber *subscribersCount;
+@property (nonatomic, strong, readonly) NSNumber *subscribed;
 
 @end

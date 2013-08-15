@@ -152,7 +152,7 @@
                                                                                             statusCodes:errorStatusCodes];
     
     // Event
-    [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus, KeyBanner]];
+    [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus, KeyBanner, KeySubscribed]];
     RKRelationshipMapping *eventTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
     RKRelationshipMapping *eventParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipants mapping:participantMapping];
     RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLines mapping:lineMapping];
@@ -189,7 +189,7 @@
     [parameterMapping addAttributeMappingsFromArray:@[KeyKey, KeyDescription]];
     
     // Participant
-    [participantMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount]];
+    [participantMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount, KeySubscribed]];
     
     // Stake
     [stakeMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyStatus]];
@@ -210,7 +210,6 @@
                                                                                                       statusCodes:statusCodeOK];
     
     // Subscriber
-    [subscriberMapping addAttributeMappingsFromArray:@[KeySubscribed]];
     RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriberMapping addPropertyMapping:subscriberUserRelationship];
     RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping
@@ -230,7 +229,7 @@
                                                                                                              statusCodes:statusCodeOK];
     
     // Tournament
-    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeyStartTime, KeyEndTime]];
+    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeyStartTime, KeyEndTime, KeySubscribed]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
     RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping
@@ -239,7 +238,7 @@
                                                                                                            statusCodes:statusCodeOK];
     
     // User
-    [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
+    [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeySubscribed, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
     RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
                                                                                                keyPath:KeyUser

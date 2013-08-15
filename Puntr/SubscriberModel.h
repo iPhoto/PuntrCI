@@ -11,7 +11,6 @@
 
 @interface SubscriberModel : NSObject
 
-@property (nonatomic, strong) NSNumber *subscribed;
 @property (nonatomic, strong) UserModel *user;
 
 @end

@@ -20,6 +20,7 @@
 @property (nonatomic, strong, readonly) NSDate *endTime;
 @property (nonatomic, copy, readonly) NSString *status;
 @property (nonatomic, copy, readonly) NSURL *banner;
+@property (nonatomic, strong, readonly) NSNumber *subscribed;
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
 @property (nonatomic, strong, readonly) NSArray *participants;
 @property (nonatomic, strong, readonly) NSArray *lines;
