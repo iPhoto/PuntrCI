@@ -27,6 +27,8 @@
     
     if (self)
     {
+        _authorization = [[AuthorizationModel alloc] init];
+        _user = [[UserModel alloc] init];
         [self setRequestSerializationMIMEType:RKMIMETypeJSON];
         [self setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
     }
@@ -386,9 +388,9 @@
                  failure:(EmptyFailure)failure
 {
     NSDictionary *parameters = @{
-                                 KeyAuthorization: self.authorization.parameters,
-                                 KeyPaging: paging ? paging.parameters : [NSNull null]
-                                 };
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComments]
          parameters:parameters
@@ -421,6 +423,30 @@
 }
 
 #pragma mark - Events
+
+- (void)eventsWithPaging:(PagingModel *)paging
+                  filter:(FilterModel *)filter
+                 success:(Events)success
+                 failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null],
+                                     KeyFilter: filter ? filter.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:APIEvents
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *events = mappingResult.dictionary[KeyEvents];
+                success(events);
+            } failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
 
 - (void)eventsWithFilter:(FilterModel *)filter
                 paging:(PagingModel *)paging
