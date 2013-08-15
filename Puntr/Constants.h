@@ -84,6 +84,8 @@ FOUNDATION_EXPORT NSString *const KeyParameters;
 FOUNDATION_EXPORT NSString *const KeyParticipant;
 FOUNDATION_EXPORT NSString *const KeyParticipants;
 FOUNDATION_EXPORT NSString *const KeyPassword;
+FOUNDATION_EXPORT NSString *const KeyPasswordNew;
+FOUNDATION_EXPORT NSString *const KeyPasswordNewConfirmation;
 FOUNDATION_EXPORT NSString *const KeyPosition;
 FOUNDATION_EXPORT NSString *const KeyRating;
 FOUNDATION_EXPORT NSString *const KeySearch;

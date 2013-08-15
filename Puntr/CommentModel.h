@@ -12,7 +12,7 @@
 
 @interface CommentModel : NSObject
 
-@property (nonatomic, strong, readonly) NSString *message;
+@property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, strong, readonly) UserModel *user;
 @property (nonatomic, strong, readonly) EventModel *event;

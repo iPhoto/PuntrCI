@@ -30,6 +30,7 @@
 #import "PagingModel.h"
 #import "ParameterModel.h"
 #import "ParticipantModel.h"
+#import "PasswordModel.h"
 #import "StakeModel.h"
 #import "SubscriberModel.h"
 #import "SubscriptionModel.h"
