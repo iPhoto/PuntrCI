@@ -106,6 +106,13 @@ typedef void (^User)(UserModel *user);
 
 - (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
 
+- (void)myStakesWithPaging:(PagingModel *)paging success:(Stakes)success failure:(EmptyFailure)failure;
+
+- (void)stakesForEvent:(EventModel *)event
+                paging:(PagingModel *)paging
+               success:(Stakes)success
+               failure:(EmptyFailure)failure;
+
 #pragma mark - Tournaments
 
 - (void)tournamentsForGroup:(NSString *)group

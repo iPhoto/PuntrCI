@@ -590,6 +590,41 @@
     ];
 }
 
+- (void)myStakesWithPaging:(PagingModel *)paging success:(Stakes)success failure:(EmptyFailure)failure
+{
+    [self stakesForEvent:nil paging:paging success:success failure:failure];
+}
+
+- (void)stakesForEvent:(EventModel *)event
+                paging:(PagingModel *)paging
+               success:(Stakes)success
+               failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
+   
+    NSString *api = event ? APIEvents : APIUsers;
+    NSNumber *tag = event ? event.tag : self.user.tag;
+    
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", api, tag.stringValue, APIStakes]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *stakes = mappingResult.dictionary[KeyStakes];
+                success(stakes);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
+
+
 #pragma mark - Tournaments
 
 - (void)tournamentssForGroup:(NSString *)group
