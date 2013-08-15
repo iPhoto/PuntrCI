@@ -65,6 +65,7 @@
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
     RKObjectMapping *feedMapping = [RKObjectMapping mappingForClass:[FeedModel class]];
+    RKObjectMapping *groupMapping = [RKObjectMapping mappingForClass:[GroupModel class]];
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
     RKObjectMapping *newsMapping = [RKObjectMapping mappingForClass:[NewsModel class]];
@@ -169,6 +170,13 @@
     RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [feedMapping addPropertyMapping:feedUserRelationship];
     
+    // Group
+    [groupMapping addAttributeMappingsFromArray:@[KeyTitle, KeyImage, KeySlug]];
+    RKResponseDescriptor *groupCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:groupMapping
+                                                                                                      pathPattern:APIGroups
+                                                                                                          keyPath:KeyGroups
+                                                                                                      statusCodes:statusCodeOK];
+    
     // Line
     [lineMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
     
@@ -266,6 +274,7 @@
             componentCollectionResponseDescriptor,
             errorResponseDescriptor,
             eventCollectionResponseDescriptor,
+            groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
             stakeCollectionResponseDescriptor,
@@ -448,6 +457,8 @@
     ];
 }
 
+#pragma mark - Events Compatibility
+
 - (void)eventsWithFilter:(FilterModel *)filter
                 paging:(PagingModel *)paging
                  success:(Events)success
@@ -505,6 +516,25 @@
          parameters:parameters
             success:success
             failure:failure];
+}
+
+#pragma mark - Groups
+
+- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:APIGroups
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *groups = mappingResult.dictionary[KeyGroups];
+                success(groups);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - Stakes

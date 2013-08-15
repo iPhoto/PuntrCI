@@ -67,6 +67,8 @@ typedef void (^User)(UserModel *user);
                  success:(Events)success
                  failure:(EmptyFailure)failure;
 
+#pragma mark - Events Compatibility
+
 - (void)eventsWithFilter:(FilterModel *)filter
                   paging:(PagingModel *)paging
                  success:(Events)success
@@ -84,6 +86,10 @@ typedef void (^User)(UserModel *user);
                   page:(NSNumber *)page
                success:(ObjectRequestSuccess)success
                failure:(ObjectRequestFailure)failure;
+
+#pragma mark - Groups
+
+- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure;
 
 #pragma mark - Stakes
 
