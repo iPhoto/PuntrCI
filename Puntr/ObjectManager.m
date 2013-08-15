@@ -70,6 +70,7 @@
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
+    RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
     
@@ -214,6 +215,14 @@
     [subscriberMapping addPropertyMapping:subscriberUserRelationship];
     RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscribers] keyPath:KeySubscribers statusCodes:statusCodeOK];
     
+    // Subscription
+    RKRelationshipMapping *subscriptionEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *subscriptionParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipant mapping:participantMapping];
+    RKRelationshipMapping *subscriptionTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
+    RKRelationshipMapping *subscriptionUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    [subscriptionMapping addPropertyMappingsFromArray:@[subscriptionEventRelationship, subscriptionParticipantRelationship, subscriptionTournamentRelationship, subscriptionUserRelationship]];
+    RKResponseDescriptor *subscriptionCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions] keyPath:KeySubscriptions statusCodes:statusCodeOK];
+    
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
@@ -254,6 +263,7 @@
      stakeCollectionResponseDescriptor,
      stakeResponseDescriptor,
      subscriberCollectionResponseDescriptor,
+     subscriptionCollectionResponseDescriptor,
      tournamentCollectionResponseDescriptor,
      userAuthorizationCreateResponseDescriptor,
      userCreateResponseDescriptor,
