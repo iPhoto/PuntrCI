@@ -20,6 +20,13 @@
 #import "EventViewController.h"
 #import "UIViewController+Puntr.h"
 
+#define SECTION_SLUG_POPULAR        @"popular"
+#define SECTION_SLUG_LIVE           @"live"
+#define SECTION_SLUG_TOURNAMENTS    @"tournaments"
+#define SECTION_SLUG_EDITORCHOISE   @"editorsChoice"
+#define SECTION_SLUG_MAXWINNINGS    @"maximumWinnings"
+#define SECTION_SLUG_UTILITY        @"utility"
+
 const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
 const CGSize searchSize = { 304.0f, 44.0f };
@@ -78,29 +85,29 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     self.currentCategoryTag = @0;
     
     GroupModel *sectionUtility = [[GroupModel alloc] init];
-    sectionUtility.slug = @"utility";
+    sectionUtility.slug = SECTION_SLUG_UTILITY;
     if (!self.selectedSection)
     {
         self.title = @"Каталог";
         GroupModel *sectionPopular = [[GroupModel alloc] init];
         sectionPopular.title = @"Популярное";
-        sectionPopular.slug = @"popular";
+        sectionPopular.slug = SECTION_SLUG_POPULAR;
         
         GroupModel *sectionLive = [[GroupModel alloc] init];
         sectionLive.title = @"Идут сейчас";
-        sectionLive.slug = @"live";
+        sectionLive.slug = SECTION_SLUG_LIVE;
         
         GroupModel *sectionTournaments = [[GroupModel alloc] init];
         sectionTournaments.title = @"Турниры";
-        sectionTournaments.slug = @"tournaments";
+        sectionTournaments.slug = SECTION_SLUG_TOURNAMENTS;
         
         GroupModel *sectionEditorsChoice = [[GroupModel alloc] init];
         sectionEditorsChoice.title = @"Выбор редакции";
-        sectionEditorsChoice.slug = @"editorsChoice";
+        sectionEditorsChoice.slug = SECTION_SLUG_EDITORCHOISE;
         
         GroupModel *sectionMaximumWinnings = [[GroupModel alloc] init];
         sectionMaximumWinnings.title = @"Максимальный выигрыш!!!";
-        sectionMaximumWinnings.slug = @"maximumWinnings";
+        sectionMaximumWinnings.slug = SECTION_SLUG_MAXWINNINGS;
         
         self.sections = @[sectionUtility, sectionPopular, sectionLive, sectionTournaments];
     }
@@ -129,6 +136,16 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 {
     [super viewDidAppear:animated];
     [self updateBalance];
+}
+
+#pragma mark - Sections work 
+
+- (void)buildSectionsCatalogue {
+    
+}
+
+- (void)buildTournamentsCatalogue {
+    
 }
 
 #pragma mark - CollectionView DataSource
@@ -197,7 +214,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         [cell loadCategories];
         return cell;
     }
-    else if ([cellObject isMemberOfClass:[TournamentCell class]])
+    else if ([cellObject isMemberOfClass:[TournamentModel class]])
     {
         TournamentModel *tournament = (TournamentModel *)cellObject;
         TournamentCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueTournamentCell" forIndexPath:indexPath];
@@ -257,7 +274,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     {
         return categoriesSize;
     }
-    else if ([cellObject isMemberOfClass:[TournamentCell class]])
+    else if ([cellObject isMemberOfClass:[TournamentModel class]])
     {
         return tournamentsSize;
     }
@@ -316,21 +333,44 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 {
     for (GroupModel *section in self.sections)
     {
-        if (![section.slug isEqualToString:@"utility"])
+        if (![section.slug isEqualToString:SECTION_SLUG_UTILITY])
         {
-            [[ObjectManager sharedManager] eventsForGroup:section.slug
-                                                   filter:@[self.currentCategoryTag]
-                                                   search:nil limit:@10
-                                                     page:[NSNumber numberWithInt:self.currentPage]
-                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-                                                  {
-                                                      [self updatedSection:section withMapping:mappingResult.array];
-                                                  }
-                                                  failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                                  {
-                                                      [NotificationManager showError:error forViewController:self];
-                                                  }
-            ];
+            if ([self.selectedSection.slug isEqualToString:SECTION_SLUG_TOURNAMENTS])
+            {
+                // get tournaments list from server
+                __weak CatalogueViewController* weakSelf = self;
+                [[ObjectManager sharedManager] tournamentsForGroup:section.slug
+                                                            filter:@[self.currentCategoryTag]
+                                                            search:nil limit:@10
+                                                              page:[NSNumber numberWithInt:self.currentPage]
+                                                           success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                           {
+                                                               [weakSelf updatedSection:section withMapping:mappingResult.array];
+                                                           }
+                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                                           {
+                                                               [NotificationManager showError:error forViewController:weakSelf];
+                                                           }
+                
+                ];
+            }
+            else
+            {
+                __weak CatalogueViewController* weakSelf = self;
+                [[ObjectManager sharedManager] eventsForGroup:section.slug
+                                                       filter:@[self.currentCategoryTag]
+                                                       search:nil limit:@10
+                                                         page:[NSNumber numberWithInt:self.currentPage]
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                      {
+                                                          [weakSelf updatedSection:section withMapping:mappingResult.array];
+                                                      }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                                      {
+                                                          [NotificationManager showError:error forViewController:weakSelf];
+                                                      }
+                ];
+            }
         }
     }
 }
