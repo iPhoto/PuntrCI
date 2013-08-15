@@ -48,18 +48,20 @@
     self.labelResult.textColor = [UIColor colorWithRed:0.20f green:0.40f blue:0.60f alpha:1.00f];
     self.labelResult.text = @"";
     [self addSubview:self.labelResult];
-    
-    CGFloat arrowViewWidth = 25.0f;
-    
-    UIImageView *imageViewArrow = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - arrowViewWidth, 0.0f, arrowViewWidth, CGRectGetHeight(self.frame))];
-    imageViewArrow.image = [UIImage imageNamed:@"IconArrow"];
-    imageViewArrow.contentMode = UIViewContentModeCenter;
-    [self addSubview:imageViewArrow];
-    
-    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.button.frame = self.bounds;
-    [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.button];
+    if(target && action)
+    {
+        CGFloat arrowViewWidth = 25.0f;
+        
+        UIImageView *imageViewArrow = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - arrowViewWidth, 0.0f, arrowViewWidth, CGRectGetHeight(self.frame))];
+        imageViewArrow.image = [UIImage imageNamed:@"IconArrow"];
+        imageViewArrow.contentMode = UIViewContentModeCenter;
+        [self addSubview:imageViewArrow];
+        
+        self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.button.frame = self.bounds;
+        [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.button];
+    }
 }
 
 - (void)updateResult:(NSString *)result
