@@ -9,7 +9,10 @@
 #import "SettingsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define TABLE_CELLS_HEIGHT 20.0
+
+#define TABLE_CELLS_HEIGHT 30.0
+
+#define FONT_CONF_LABEL     [UIFont fontWithName:@"Arial-BoldMT" size:11.0f]
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -32,6 +35,11 @@
     CGRect fullScreen = [UIScreen mainScreen].bounds;
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    UIScrollView *bkScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:bkScrollView];
+    
+    
     CGFloat padding = 10;
     CGFloat currentTop = 10;
     
@@ -44,13 +52,13 @@
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
     titleLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:titleLabel];
+    [bkScrollView addSubview:titleLabel];
     
     currentTop += CGRectGetHeight(titleLabel.frame);
     
     NSInteger tableTag;
     UITableView *tv;
-    UIImage *backgroundImage = [[UIImage imageNamed:@"catalogueHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 17.0f)];
+    UIImage *backgroundImage = [[UIImage imageNamed:@"settingsBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0f, 4.0f, 4.0f, 17.0f)];
     
     tableTag = 0;
     tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, CGRectGetWidth(fullScreen) - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
@@ -63,7 +71,7 @@
     self.settingsTable1.separatorColor = [UIColor colorWithWhite:175.0 / 255.0 alpha:1.0];
     self.settingsTable1.scrollEnabled = NO;
     self.settingsTable1.tag = tableTag;
-    [self.view addSubview:self.settingsTable1];
+    [bkScrollView addSubview:self.settingsTable1];
     
     currentTop += CGRectGetHeight(self.settingsTable1.frame);
     currentTop += 10;
@@ -73,7 +81,7 @@
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
     titleLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:titleLabel];
+    [bkScrollView addSubview:titleLabel];
     
     currentTop += CGRectGetHeight(titleLabel.frame);
     
@@ -88,10 +96,39 @@
     self.settingsTable2.separatorColor = [UIColor colorWithWhite:175.0 / 255.0 alpha:1.0];
     self.settingsTable2.scrollEnabled = NO;
     self.settingsTable2.tag = tableTag;
-    [self.view addSubview:self.settingsTable2];
+    [bkScrollView addSubview:self.settingsTable2];
     
     currentTop += CGRectGetHeight(self.settingsTable2.frame);
     currentTop += 10;
+    
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, currentTop, 280, 80)];
+    titleLabel.numberOfLines = 0;
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    titleLabel.text = @"Установите настройку конфиденциальности в \"Да\"б если хотите, чтоб ваши действия были невидимыми всем пользователям, кроме тех, на кого вы подписались. Если другой пользователь захочет подписаться на ваши действия, вы получите запрос";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = FONT_CONF_LABEL;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    [bkScrollView addSubview:titleLabel];
+    
+    currentTop += CGRectGetHeight(titleLabel.frame);
+    
+    tableTag++;
+    tv = [[UITableView alloc] initWithFrame:CGRectMake(padding, currentTop, CGRectGetWidth(fullScreen) - (padding * 2), TABLE_CELLS_HEIGHT * ((NSArray *)self.settingsArray[tableTag]).count - 2) style:UITableViewStylePlain];
+    self.settingsTable3 = tv;
+    self.settingsTable3.dataSource = self;
+    self.settingsTable3.delegate = self;
+    self.settingsTable3.backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    self.settingsTable3.layer.cornerRadius = 2.5;
+    [self.settingsTable3 setBackgroundColor:[UIColor clearColor]];
+    self.settingsTable3.separatorColor = [UIColor colorWithWhite:175.0 / 255.0 alpha:1.0];
+    self.settingsTable3.scrollEnabled = NO;
+    self.settingsTable3.tag = tableTag;
+    [bkScrollView addSubview:self.settingsTable3];
+
+    currentTop += CGRectGetHeight(self.settingsTable3.frame);
+    currentTop += 10;
+    
+    bkScrollView.contentSize = CGSizeMake(bkScrollView.frame.size.width, currentTop + 200);
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,11 +145,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat pictureWidth = 150;
+    
     NSDictionary *cellDictionary = self.settingsArray[tableView.tag][indexPath.item];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SettingsViewCell"];
     cell.backgroundColor = [UIColor clearColor];
     if ([cellDictionary[@"isAccessory"] boolValue])
     {
+//        cell.accessoryView = 
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -151,16 +191,20 @@
 {
     self.settingsArray = @[
                                @[
-                                   @{ @"pictureName": @"", @"title": @"qwe1", @"isAccessory": @(YES) },
-                                   @{ @"pictureName": @"", @"title": @"qwe2", @"isAccessory": @(YES) },
-                                   @{ @"pictureName": @"", @"title": @"qwe3", @"isAccessory": @(NO) },
+                                   @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"3.png", @"title": @"Статистика", @"isAccessory": @(YES) },
                                 ],
                                @[
-                                   @{ @"pictureName": @"", @"title": @"1", @"isAccessory": @(YES) },
-                                   @{ @"pictureName": @"", @"title": @"2", @"isAccessory": @(NO) },
-                                   @{ @"pictureName": @"", @"title": @"3", @"isAccessory": @(NO) },
-                                   @{ @"pictureName": @"", @"title": @"4", @"isAccessory": @(YES) },
-                                   @{ @"pictureName": @"", @"title": @"5", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соцюсетей", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"7.png", @"title": @"Конфиденциальность", @"isAccessory": @(NO) },
+                                   @{ @"pictureName": @"8.png", @"title": @"Выйти", @"isAccessory": @(NO) },
+                                ],
+                               @[
+                                   @{ @"pictureName": @"9.png", @"title": @"Оферта", @"isAccessory": @(YES) },
+                                   @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"isAccessory": @(YES) },
                                 ],
                          ];
 }
