@@ -69,6 +69,7 @@
     RKObjectMapping *parameterMapping = [RKObjectMapping mappingForClass:[ParameterModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
+    RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
     
@@ -207,6 +208,12 @@
                                                                                                           keyPath:KeyStakes
                                                                                                       statusCodes:statusCodeOK];
     
+    // Subscriber
+    [subscriberMapping addAttributeMappingsFromArray:@[KeySubscribed]];
+    RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    [subscriberMapping addPropertyMapping:subscriberUserRelationship];
+    RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscribers] keyPath:KeySubscribers statusCodes:statusCodeOK];
+    
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
@@ -246,6 +253,7 @@
      newsCollectionResponseDescriptor,
      stakeCollectionResponseDescriptor,
      stakeResponseDescriptor,
+     subscriberCollectionResponseDescriptor,
      tournamentCollectionResponseDescriptor,
      userAuthorizationCreateResponseDescriptor,
      userCreateResponseDescriptor,

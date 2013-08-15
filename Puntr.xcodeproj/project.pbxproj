@@ -185,6 +185,7 @@
 		31E3E7B11754E24900B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
+		31EA773617BCB7480060DFCC /* SubscriberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773517BCB7480060DFCC /* SubscriberModel.m */; };
 		31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082A17B509D0003FEFA7 /* LeadCell.m */; };
 		31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */; };
 		31ED083117B522B8003FEFA7 /* ButtonGreenSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */; };
@@ -484,6 +485,8 @@
 		31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		31E3E7B71754E24900B09DAD /* PuntrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuntrTests-Info.plist"; sourceTree = "<group>"; };
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		31EA773417BCB7480060DFCC /* SubscriberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriberModel.h; sourceTree = "<group>"; };
+		31EA773517BCB7480060DFCC /* SubscriberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriberModel.m; sourceTree = "<group>"; };
 		31ED082917B509D0003FEFA7 /* LeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCell.h; sourceTree = "<group>"; };
 		31ED082A17B509D0003FEFA7 /* LeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadCell.m; sourceTree = "<group>"; };
 		31ED082C17B521C0003FEFA7 /* SmallStakeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallStakeButton.h; sourceTree = "<group>"; };
@@ -1134,6 +1137,8 @@
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
+				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
+				31EA773517BCB7480060DFCC /* SubscriberModel.m */,
 				0F40905B17B500A6001CC23F /* TournamentModel.h */,
 				0F40905C17B500A7001CC23F /* TournamentModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
@@ -1487,6 +1492,7 @@
 				310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */,
 				31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */,
 				314E8DF217BB95D90046E1A1 /* CGGeometry+Convenience.m in Sources */,
+				31EA773617BCB7480060DFCC /* SubscriberModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
