@@ -224,7 +224,7 @@
     RKResponseDescriptor *subscriptionCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions] keyPath:KeySubscriptions statusCodes:statusCodeOK];
     
     // Tournament
-    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyStakesCount, KeyStartTime, KeyEndTime]];
+    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeyStartTime, KeyEndTime]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
     RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping
