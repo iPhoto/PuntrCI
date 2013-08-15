@@ -87,7 +87,7 @@
                                                                                                statusCodes:statusCodeOK];
     
     // Authorization
-    [authorizationMapping addAttributeMappingsFromArray:@[KeySID]];
+    [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret]];
     RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
                                                                                                     pathPattern:APIAuthorization
                                                                                                         keyPath:KeyAuthorization
