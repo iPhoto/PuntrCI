@@ -49,6 +49,18 @@
 
 #pragma mark - General Loading
 
+- (void)loadWithModel:(NSObject *)model
+{
+    if ([model isMemberOfClass:[EventModel class]])
+    {
+        [self loadWithEvent:(EventModel *)model];
+    }
+    else if ([model isMemberOfClass:[StakeModel class]])
+    {
+        [self loadWithStake:(StakeModel *)model];
+    }
+}
+
 - (void)loadWithEvent:(EventModel *)event
 {
     

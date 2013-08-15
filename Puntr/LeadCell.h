@@ -12,8 +12,6 @@
 
 @interface LeadCell : UICollectionViewCell
 
-- (void)loadWithEvent:(EventModel *)event;
-
-- (void)loadWithStake:(StakeModel *)stake;
+- (void)loadWithModel:(NSObject *)model;
 
 @end
