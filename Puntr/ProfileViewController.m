@@ -12,6 +12,7 @@
 #import "ObjectManager.h"
 #import "UserModel.h"
 #import "NotificationManager.h"
+#import "SettingsViewController.h"
 #import "UIViewController+Puntr.h"
 
 @interface ProfileViewController ()
@@ -58,6 +59,13 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self addBalanceButton];
+    
+    UIButton *buttonSettings = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [buttonSettings setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
+    [buttonSettings setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
+    [buttonSettings setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
+    [buttonSettings addTarget:self action:@selector(settingsButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
     
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
@@ -187,6 +195,11 @@
     [super viewDidAppear:animated];
     [self loadProfile];
     [self updateBalance];
+}
+
+- (void)settingsButtonTouched
+{
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
 - (void)loadProfile

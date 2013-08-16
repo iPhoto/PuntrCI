@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "UIViewController+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -44,6 +45,8 @@
     CGFloat currentTop = 10;
     
     self.title = @"Настройки";
+    
+    [self addBalanceButton];
     
     UILabel *titleLabel;
     
@@ -139,6 +142,12 @@
     currentTop += 10;
     
     bkScrollView.contentSize = CGSizeMake(bkScrollView.frame.size.width, currentTop);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self updateBalance];
 }
 
 - (void)didReceiveMemoryWarning

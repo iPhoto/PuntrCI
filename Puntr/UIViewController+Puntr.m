@@ -15,7 +15,7 @@
 
 - (void)addBalanceButton
 {
-    UIButton *buttonBalance = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 31)];
+    UIButton *buttonBalance = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 30)];
     [buttonBalance setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
     //[self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
     [buttonBalance.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
