@@ -15,6 +15,7 @@
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSURL *banner;
 @property (nonatomic, strong, readonly) NSNumber *stakesCount;
+@property (nonatomic, strong, readonly) NSNumber *subscribersCount;
 @property (nonatomic, strong, readonly) NSDate *startTime;
 @property (nonatomic, strong, readonly) NSDate *endTime;
 @property (nonatomic, strong, readonly) NSNumber *subscribed;

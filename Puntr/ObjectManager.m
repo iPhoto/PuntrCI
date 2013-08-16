@@ -240,7 +240,7 @@
                                                                                                              statusCodes:statusCodeOK];
     
     // Tournament
-    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeyStartTime, KeyEndTime, KeySubscribed]];
+    [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeySubscribersCount, KeyStartTime, KeyEndTime, KeySubscribed]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
     RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping
