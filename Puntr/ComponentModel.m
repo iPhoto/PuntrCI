@@ -24,4 +24,15 @@
     return [parameters copy];
 }
 
+- (CriterionModel *)selectedCriterionObject
+{
+    for (CriterionModel *criterion in self.criteria) {
+        if ([criterion.tag isEqualToNumber:self.selectedCriterion])
+        {
+            return criterion;
+        }
+    }
+    return nil;
+}
+
 @end

@@ -17,4 +17,6 @@
 
 - (NSDictionary *)parameters;
 
+- (CriterionModel *)selectedCriterionObject;
+
 @end
