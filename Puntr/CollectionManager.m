@@ -7,6 +7,7 @@
 //
 
 #import "CollectionManager.h"
+#import "EventModel.h"
 #import "LeadCell.h"
 #import "ObjectManager.h"
 #import "PagingModel.h"
@@ -19,6 +20,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @interface CollectionManager ()
 
 @property (nonatomic) CollectionType collectionType;
+@property (nonatomic, strong) NSObject *modifierObject;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
@@ -30,19 +32,20 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
 {
-    return [[CollectionManager alloc] initWithType:collectionType];
+    return [[CollectionManager alloc] initWithType:collectionType modifierObject:(NSObject *)object];
 }
 
 #pragma mark - Initialization
 
-- (id)initWithType:(CollectionType)collectionType
+- (id)initWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
 {
     self = [super init];
     if (self)
     {
         _collectionType = collectionType;
+        _modifierObject = object;
         [self prepareCollectionView];
     }
     return self;
@@ -71,6 +74,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             [self loadMyStakes];
             break;
             
+        case CollectionTypeEventStakes:
+            [self loadStakes];
+            break;
+            
         default:
             break;
     }
@@ -84,6 +91,18 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         }
         failure:nil
     ];
+}
+
+- (void)loadStakes
+{
+    EventModel *event = (EventModel *)self.modifierObject;
+    [[ObjectManager sharedManager] stakesForEvent:event
+                                           paging:self.paging
+                                          success:^(NSArray *stakes)
+                                          {
+                                              [self combineWithData:stakes];
+                                          }
+                                          failure:nil];
 }
 
 - (void)combineWithData:(NSArray *)newData

@@ -10,14 +10,15 @@
 
 typedef NS_ENUM(NSInteger, CollectionType)
 {
-    CollectionTypeMyStakes
+    CollectionTypeMyStakes,
+    CollectionTypeEventStakes
 };
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType;
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object;
 
 #pragma mark - Configured CollectionView
 

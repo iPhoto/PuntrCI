@@ -6,18 +6,23 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "EventViewController.h"
-#import <QuartzCore/QuartzCore.h>
+#import "CollectionManager.h"
 #import "EventModel.h"
-#import "ObjectManager.h"
+#import "EventViewController.h"
 #import "NotificationManager.h"
-#import "StakeViewController.h"
+#import "ObjectManager.h"
 #import "ParticipantViewController.h"
+#import "StakeViewController.h"
 #import "UIViewController+Puntr.h"
+#import <QuartzCore/QuartzCore.h>
+
+static const CGFloat TNItemSpacing = 12.0f;
 
 @interface EventViewController ()
 
 @property (nonatomic, strong, readonly) EventModel *event;
+
+@property (nonatomic, strong) CollectionManager *collectionManager;
 
 @property (nonatomic, strong) UIImageView *imageViewDelimiter;
 
@@ -55,6 +60,13 @@
     [self addBalanceButton];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
+                                            );
     
     CGFloat screenWidth = 320.0f;
     CGFloat coverMargin = 8.0f;
@@ -132,7 +144,7 @@
     [self.view addSubview:self.buttonStake];
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Комментарии", @"Ставки"]];
-    self.segmentedControl.frame = CGRectMake(15.0f, coverMargin + participantsHeight * 2.0f + 25.0f, 290.0f, 31.0f);
+    self.segmentedControl.frame = CGRectMake(15.0f, coverMargin + participantsHeight * 2.0f + TNItemSpacing, 290.0f, 31.0f);
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor blackColor];
     [self.view addSubview:self.segmentedControl];
@@ -141,12 +153,23 @@
             self.segmentedControl.selectedSegmentIndex = 1;
         }
     );
+    
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventStakes modifierObject:self.event];
+    UICollectionView *collectionView = self.collectionManager.collectionView;
+    collectionView.frame = CGRectMake(
+                                      0.0f,
+                                      CGRectGetMaxY(self.segmentedControl.frame) + TNItemSpacing,
+                                      CGRectGetWidth(viewControllerFrame),
+                                      CGRectGetHeight(viewControllerFrame) - (CGRectGetMaxY(self.segmentedControl.frame) + TNItemSpacing)
+                                      );
+    [self.view addSubview:collectionView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self updateBalance];
+    [self.collectionManager reloadData];
 }
 
 - (void)stakeButtonTouched
