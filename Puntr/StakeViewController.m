@@ -340,7 +340,7 @@
     if ([self stakeIsComplete])
     {
         StakeModel *stake = [self generateStake];
-        [[ObjectManager sharedManager] setStake:stake success:^(NSNumber *tag)
+        [[ObjectManager sharedManager] setStake:stake success:^(StakeModel *stake)
             {
                 [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             }
@@ -353,17 +353,17 @@
 {
     if ([self selectedAmount] == 0)
     {
-        [NotificationManager showErrorMessage:@"Задайте сумму ставки"];
+        [NotificationManager showNotificationMessage:@"Задайте сумму ставки"];
         return NO;
     }
     if (!self.selectedLine)
     {
-        [NotificationManager showErrorMessage:@"Выберите линию ставки"];
+        [NotificationManager showNotificationMessage:@"Выберите линию ставки"];
         return NO;
     }
     if (!self.coefficient)
     {
-        [NotificationManager showErrorMessage:@"Выберите критерии ставки"];
+        [NotificationManager showNotificationMessage:@"Выберите критерии ставки"];
         return NO;
     }
     return YES;

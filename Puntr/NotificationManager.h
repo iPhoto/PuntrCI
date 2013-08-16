@@ -10,8 +10,17 @@
 
 @interface NotificationManager : NSObject
 
-+ (void)showErrorMessage:(NSString *)message;
+#pragma mark - Error
+
 + (void)showError:(NSError *)error;
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController;
+
+#pragma mark - Notification
+
++ (void)showNotificationMessage:(NSString *)message;
+
+#pragma mark - Success
+
++ (void)showSuccessMessage:(NSString *)message;
 
 @end

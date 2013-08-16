@@ -12,44 +12,11 @@
 
 @implementation NotificationManager
 
-
-+ (void)showErrorMessage:(NSString *)message
-{
-    if (message)
-    {
-        [self showErrorMessage:message forViewController:[self topController]];
-    }
-}
+#pragma mark - Error
 
 + (void)showError:(NSError *)error
 {
     [self showError:error forViewController:[self topController]];
-}
-
-+ (UIViewController *)topController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([topController isKindOfClass:[UITabBarController class]])
-    {
-        topController = [(UITabBarController *)topController selectedViewController];
-    }
-    if ([topController isKindOfClass:[UINavigationController class]])
-    {
-        topController = [(UINavigationController *)topController visibleViewController];
-    }
-    while (topController.presentedViewController)
-    {
-        topController = topController.presentedViewController;
-    }
-    return topController;
-}
-
-+ (void)showErrorMessage:(NSString *)message forViewController:(UIViewController *)viewController
-{
-    [TSMessage showNotificationInViewController:viewController
-                                      withTitle:@"Внимание"
-                                    withMessage:message
-                                       withType:TSMessageNotificationTypeWarning];
 }
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController
@@ -81,5 +48,64 @@
                                     withMessage:errorMessage
                                        withType:TSMessageNotificationTypeError];
 }
+
+#pragma mark - Notification
+
++ (void)showNotificationMessage:(NSString *)message
+{
+    if (message)
+    {
+        [self showNotificationMessage:message forViewController:[self topController]];
+    }
+}
+
++ (void)showNotificationMessage:(NSString *)message forViewController:(UIViewController *)viewController
+{
+    [TSMessage showNotificationInViewController:viewController
+                                      withTitle:@"Внимание"
+                                    withMessage:message
+                                       withType:TSMessageNotificationTypeWarning];
+}
+
+#pragma mark - Success
+
++ (void)showSuccessMessage:(NSString *)message
+{
+    [self showSuccessMessage:message forViewController:[self topController]];
+}
+
++ (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
+{
+    [TSMessage showNotificationInViewController:viewController
+                                      withTitle:@"Поздравляем!"
+                                    withMessage:message
+                                       withType:TSMessageNotificationTypeSuccess];
+}
+
+#pragma mark - Top Controller
+
++ (UIViewController *)topController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([topController isKindOfClass:[UITabBarController class]])
+    {
+        topController = [(UITabBarController *)topController selectedViewController];
+    }
+    if ([topController isKindOfClass:[UINavigationController class]])
+    {
+        topController = [(UINavigationController *)topController visibleViewController];
+    }
+    while (topController.presentedViewController)
+    {
+        topController = topController.presentedViewController;
+    }
+    return topController;
+}
+
+
+
+
+
+
 
 @end

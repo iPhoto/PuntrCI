@@ -208,13 +208,17 @@
     RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
     [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
     RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
-                                                                                            pathPattern:APIStakes
+                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
                                                                                                 keyPath:KeyStake
-                                                                                            statusCodes:statusCodeOK];
-    RKResponseDescriptor *stakeCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
-                                                                                                      pathPattern:APIStakes
-                                                                                                          keyPath:KeyStakes
-                                                                                                      statusCodes:statusCodeOK];
+                                                                                            statusCodes:statusCodeCreated];
+    RKResponseDescriptor *stakeEventsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
+                                                                                                                keyPath:KeyStakes
+                                                                                                            statusCodes:statusCodeOK];
+    RKResponseDescriptor *stakeUsersCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIStakes]
+                                                                                                               keyPath:KeyStakes
+                                                                                                           statusCodes:statusCodeOK];
     
     // Subscriber
     RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
@@ -274,8 +278,9 @@
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
-            stakeCollectionResponseDescriptor,
+            stakeEventsCollectionResponseDescriptor,
             stakeResponseDescriptor,
+            stakeUsersCollectionResponseDescriptor,
             subscriberCollectionResponseDescriptor,
             subscriptionCollectionResponseDescriptor,
             tournamentCollectionResponseDescriptor,
@@ -569,7 +574,7 @@
             failure:failure];
 }
 
-- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure
+- (void)setStake:(StakeModel *)stake success:(Stake)success failure:(EmptyFailure)failure
 {
     EventModel *event = stake.event;
     [stake prepareForTransmission];
@@ -578,7 +583,8 @@
           parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
-                 success(operation.locationHeader);
+                 [NotificationManager showSuccessMessage:@"Ура! Ставка сделана!"];
+                 success(mappingResult.firstObject);
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {

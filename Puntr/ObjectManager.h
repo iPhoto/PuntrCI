@@ -104,7 +104,7 @@ typedef void (^User)(UserModel *user);
                     success:(ObjectRequestSuccess)success
                     failure:(ObjectRequestFailure)failure;
 
-- (void)setStake:(StakeModel *)stake success:(Tag)success failure:(EmptyFailure)failure;
+- (void)setStake:(StakeModel *)stake success:(Stake)success failure:(EmptyFailure)failure;
 
 - (void)myStakesWithPaging:(PagingModel *)paging success:(Stakes)success failure:(EmptyFailure)failure;
 
