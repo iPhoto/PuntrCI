@@ -306,6 +306,13 @@
                                                                                               objectClass:[CredentialsModel class]
                                                                                               rootKeyPath:KeyCredentials];
     
+    // Facebook
+    RKObjectMapping *facebookSerialization = [RKObjectMapping requestMapping];
+    [facebookSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
+    RKRequestDescriptor *facebookRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:facebookSerialization
+                                                                                            objectClass:[FacebookModel class]
+                                                                                            rootKeyPath:KeyFacebook];
+    
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
     [stakeSerialization addPropertyMappingsFromArray:@[
@@ -317,6 +324,13 @@
                                                                                         objectClass:[StakeModel class]
                                                                                         rootKeyPath:nil];
     
+    // Twitter
+    RKObjectMapping *twitterSerialization = [RKObjectMapping requestMapping];
+    [twitterSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken, KeySecretToken]];
+    RKRequestDescriptor *twitterRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:twitterSerialization
+                                                                                          objectClass:[TwitterModel class]
+                                                                                          rootKeyPath:KeyTwitter];
+    
     // User
     RKObjectMapping *userSerialization = [RKObjectMapping requestMapping];
     [userSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
@@ -324,21 +338,31 @@
                                                                                        objectClass:[UserModel class]
                                                                                        rootKeyPath:nil];
     
+    // VKontakte
+    RKObjectMapping *vKontakteSerialization = [RKObjectMapping requestMapping];
+    [vKontakteSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
+    RKRequestDescriptor *vKontakteRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:vKontakteSerialization
+                                                                                            objectClass:[VKontakteModel class]
+                                                                                            rootKeyPath:KeyVKontakte];
+    
     [self addRequestDescriptorsFromArray:
         @[
             commentRequestDescriptor,
             credentialsRequestDescriptor,
+            facebookRequestDescriptor,
             stakeRequestDescriptor,
-            userRequestDescriptor
+            twitterRequestDescriptor,
+            userRequestDescriptor,
+            vKontakteRequestDescriptor
          ]
     ];
 }
 
 #pragma mark - Authorization
 
-- (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure
+- (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure
 {
-    [self postObject:credentials
+    [self postObject:access
                 path:APIAuthorization
           parameters:nil
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)

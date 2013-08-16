@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "AccessModel.h"
 #import <Foundation/Foundation.h>
 
-@interface CredentialsModel : NSObject
+@interface CredentialsModel : AccessModel
 
 @property (nonatomic, copy) NSString *login;
 @property (nonatomic, copy) NSString *password;

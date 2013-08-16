@@ -8,7 +8,7 @@
 
 #import "RKObjectManager.h"
 
-@class AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, RegistrationModel, StakeModel, UserModel;
+@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, RegistrationModel, StakeModel, UserModel;
 
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
@@ -40,7 +40,7 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Authorization
 
-- (void)logInWithCredentials:(CredentialsModel *)credentials success:(AuthorizationUser)success failure:(EmptyFailure)failure;
+- (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
 

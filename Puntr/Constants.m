@@ -40,6 +40,7 @@ NSString *const APIUsers = @"users";
 
 #pragma mark - Parameters
 
+NSString *const KeyAccessToken = @"accessToken";
 NSString *const KeyActivities = @"activities";
 NSString *const KeyAmount = @"amount";
 NSString *const KeyAuthorization = @"authorization";
@@ -63,6 +64,7 @@ NSString *const KeyEmail = @"email";
 NSString *const KeyEndTime = @"endTime";
 NSString *const KeyEvent = @"event";
 NSString *const KeyEvents = @"events";
+NSString *const KeyFacebook = @"facebook";
 NSString *const KeyFeed = @"feed";
 NSString *const KeyFilter = @"filter";
 NSString *const KeyFirstName = @"firstName";
@@ -92,6 +94,7 @@ NSString *const KeyPosition = @"position";
 NSString *const KeyRating = @"rating";
 NSString *const KeySearch = @"search";
 NSString *const KeySecret = @"secret";
+NSString *const KeySecretToken = @"secretToken";
 NSString *const KeySelectedCriterion = @"selectedCriterion";
 NSString *const KeySID = @"sid";
 NSString *const KeySlug = @"slug";
@@ -110,10 +113,12 @@ NSString *const KeyTitle = @"title";
 NSString *const KeyTopPosition = @"topPosition";
 NSString *const KeyTournament = @"tournament";
 NSString *const KeyTournaments = @"tournaments";
+NSString *const KeyTwitter = @"twitter";
 NSString *const KeyType = @"type";
 NSString *const KeyUser = @"user";
 NSString *const KeyUsername = @"username";
 NSString *const KeyValue = @"value";
+NSString *const KeyVKontakte = @"vKontakte";
 NSString *const KeyWinCount = @"winCount";
 
 @end

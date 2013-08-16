@@ -152,6 +152,10 @@
 		31B112AB176B5DDC00060EAB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* ProfileViewController.m */; };
 		31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B3E7441774996300AEFDF5 /* ErrorModel.m */; };
 		31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */; };
+		31CF777F17BE5926009B2FC6 /* FacebookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF777E17BE5925009B2FC6 /* FacebookModel.m */; };
+		31CF778217BE59B0009B2FC6 /* AccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778117BE59B0009B2FC6 /* AccessModel.m */; };
+		31CF778517BE5A55009B2FC6 /* VKontakteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778417BE5A54009B2FC6 /* VKontakteModel.m */; };
+		31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778717BE5A68009B2FC6 /* TwitterModel.m */; };
 		31D708D8178EC933004746E6 /* ButtonControlNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C6178EC933004746E6 /* ButtonControlNormal.png */; };
 		31D708D9178EC933004746E6 /* ButtonControlNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */; };
 		31D708DA178EC933004746E6 /* ButtonControlNormalNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */; };
@@ -471,6 +475,14 @@
 		31B3E7441774996300AEFDF5 /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
 		31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKRelationshipMapping+Convenience.h"; sourceTree = "<group>"; };
 		31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRelationshipMapping+Convenience.m"; sourceTree = "<group>"; };
+		31CF777D17BE5925009B2FC6 /* FacebookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookModel.h; sourceTree = "<group>"; };
+		31CF777E17BE5925009B2FC6 /* FacebookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookModel.m; sourceTree = "<group>"; };
+		31CF778017BE59B0009B2FC6 /* AccessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessModel.h; sourceTree = "<group>"; };
+		31CF778117BE59B0009B2FC6 /* AccessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessModel.m; sourceTree = "<group>"; };
+		31CF778317BE5A54009B2FC6 /* VKontakteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKontakteModel.h; sourceTree = "<group>"; };
+		31CF778417BE5A54009B2FC6 /* VKontakteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKontakteModel.m; sourceTree = "<group>"; };
+		31CF778617BE5A68009B2FC6 /* TwitterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterModel.h; sourceTree = "<group>"; };
+		31CF778717BE5A68009B2FC6 /* TwitterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterModel.m; sourceTree = "<group>"; };
 		31D708C6178EC933004746E6 /* ButtonControlNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormal.png; sourceTree = "<group>"; };
 		31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonControlNormal@2x.png"; sourceTree = "<group>"; };
 		31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormalNormal.png; sourceTree = "<group>"; };
@@ -1158,6 +1170,8 @@
 		31F47E1A1773078E0047ECCF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				31CF778017BE59B0009B2FC6 /* AccessModel.h */,
+				31CF778117BE59B0009B2FC6 /* AccessModel.m */,
 				0F40904F17B4F731001CC23F /* ActivityModel.h */,
 				0F40905017B4F731001CC23F /* ActivityModel.m */,
 				31F47E27177351FD0047ECCF /* AuthorizationModel.h */,
@@ -1180,6 +1194,8 @@
 				31B3E7441774996300AEFDF5 /* ErrorModel.m */,
 				31F47E1E17731A910047ECCF /* EventModel.h */,
 				31F47E1F17731A910047ECCF /* EventModel.m */,
+				31CF777D17BE5925009B2FC6 /* FacebookModel.h */,
+				31CF777E17BE5925009B2FC6 /* FacebookModel.m */,
 				0F40905217B4F8AE001CC23F /* FeedModel.h */,
 				0F40905317B4F8AE001CC23F /* FeedModel.m */,
 				315A60F917B287AA0010756F /* FilterModel.h */,
@@ -1209,8 +1225,12 @@
 				31EA773817BCBA5F0060DFCC /* SubscriptionModel.m */,
 				0F40905B17B500A6001CC23F /* TournamentModel.h */,
 				0F40905C17B500A7001CC23F /* TournamentModel.m */,
+				31CF778617BE5A68009B2FC6 /* TwitterModel.h */,
+				31CF778717BE5A68009B2FC6 /* TwitterModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
 				3127C037179851850056D78A /* UserModel.m */,
+				31CF778317BE5A54009B2FC6 /* VKontakteModel.h */,
+				31CF778417BE5A54009B2FC6 /* VKontakteModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1615,6 +1635,10 @@
 				31EA773917BCBA5F0060DFCC /* SubscriptionModel.m in Sources */,
 				31EA773C17BCD6A20060DFCC /* PasswordModel.m in Sources */,
 				31EA773F17BD16CD0060DFCC /* CollectionManager.m in Sources */,
+				31CF777F17BE5926009B2FC6 /* FacebookModel.m in Sources */,
+				31CF778217BE59B0009B2FC6 /* AccessModel.m in Sources */,
+				31CF778517BE5A55009B2FC6 /* VKontakteModel.m in Sources */,
+				31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

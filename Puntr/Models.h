@@ -11,6 +11,7 @@
 #ifndef Puntr_Models_h
 #define Puntr_Models_h
 
+#import "AccessModel.h"
 #import "ActivityModel.h"
 #import "AuthorizationModel.h"
 #import "CategoryModel.h"
@@ -21,6 +22,7 @@
 #import "CriterionModel.h"
 #import "ErrorModel.h"
 #import "EventModel.h"
+#import "FacebookModel.h"
 #import "FeedModel.h"
 #import "FilterModel.h"
 #import "GroupModel.h"
@@ -35,6 +37,8 @@
 #import "SubscriberModel.h"
 #import "SubscriptionModel.h"
 #import "TournamentModel.h"
+#import "TwitterModel.h"
 #import "UserModel.h"
+#import "VKontakteModel.h"
 
 #endif

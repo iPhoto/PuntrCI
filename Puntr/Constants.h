@@ -40,6 +40,7 @@ FOUNDATION_EXPORT NSString *const APIUsers;
 
 #pragma mark - Parameters
 
+FOUNDATION_EXPORT NSString *const KeyAccessToken;
 FOUNDATION_EXPORT NSString *const KeyActivities;
 FOUNDATION_EXPORT NSString *const KeyAmount;
 FOUNDATION_EXPORT NSString *const KeyAuthorization;
@@ -63,6 +64,7 @@ FOUNDATION_EXPORT NSString *const KeyEmail;
 FOUNDATION_EXPORT NSString *const KeyEndTime;
 FOUNDATION_EXPORT NSString *const KeyEvent;
 FOUNDATION_EXPORT NSString *const KeyEvents;
+FOUNDATION_EXPORT NSString *const KeyFacebook;
 FOUNDATION_EXPORT NSString *const KeyFeed;
 FOUNDATION_EXPORT NSString *const KeyFilter;
 FOUNDATION_EXPORT NSString *const KeyFirstName;
@@ -92,6 +94,7 @@ FOUNDATION_EXPORT NSString *const KeyPosition;
 FOUNDATION_EXPORT NSString *const KeyRating;
 FOUNDATION_EXPORT NSString *const KeySearch;
 FOUNDATION_EXPORT NSString *const KeySecret;
+FOUNDATION_EXPORT NSString *const KeySecretToken;
 FOUNDATION_EXPORT NSString *const KeySelectedCriterion;
 FOUNDATION_EXPORT NSString *const KeySID;
 FOUNDATION_EXPORT NSString *const KeySlug;
@@ -110,10 +113,12 @@ FOUNDATION_EXPORT NSString *const KeyTitle;
 FOUNDATION_EXPORT NSString *const KeyTopPosition;
 FOUNDATION_EXPORT NSString *const KeyTournament;
 FOUNDATION_EXPORT NSString *const KeyTournaments;
+FOUNDATION_EXPORT NSString *const KeyTwitter;
 FOUNDATION_EXPORT NSString *const KeyType;
 FOUNDATION_EXPORT NSString *const KeyUser;
 FOUNDATION_EXPORT NSString *const KeyUsername;
 FOUNDATION_EXPORT NSString *const KeyValue;
+FOUNDATION_EXPORT NSString *const KeyVKontakte;
 FOUNDATION_EXPORT NSString *const KeyWinCount;
 
 @end

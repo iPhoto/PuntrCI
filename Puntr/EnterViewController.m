@@ -343,7 +343,7 @@ typedef NS_ENUM(NSInteger, Direction)
     [self bufferData];
     if ([self dataIsValid])
     {
-        [[ObjectManager sharedManager] logInWithCredentials:self.credentials success:^(AuthorizationModel *authorization, UserModel *user)
+        [[ObjectManager sharedManager] logInWithAccess:self.credentials success:^(AuthorizationModel *authorization, UserModel *user)
             {
                 TabBarViewController *tabBar = [[TabBarViewController alloc] init];
                 [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
