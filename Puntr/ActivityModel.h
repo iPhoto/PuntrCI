@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, strong, readonly) NSDate *createdAt;
+@property (nonatomic, strong, readonly) NSString *type;
 @property (nonatomic, strong, readonly) StakeModel *stake;
 @property (nonatomic, strong, readonly) FeedModel *feed;
 

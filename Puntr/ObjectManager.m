@@ -76,7 +76,7 @@
     // Mapping
     
     // Activity
-    [activityMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt]];
+    [activityMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
     [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityFeedRelationship]];

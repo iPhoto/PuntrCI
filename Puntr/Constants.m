@@ -110,6 +110,7 @@ NSString *const KeyTitle = @"title";
 NSString *const KeyTopPosition = @"topPosition";
 NSString *const KeyTournament = @"tournament";
 NSString *const KeyTournaments = @"tournaments";
+NSString *const KeyType = @"type";
 NSString *const KeyUser = @"user";
 NSString *const KeyUsername = @"username";
 NSString *const KeyValue = @"value";

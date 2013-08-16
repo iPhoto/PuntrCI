@@ -110,6 +110,7 @@ FOUNDATION_EXPORT NSString *const KeyTitle;
 FOUNDATION_EXPORT NSString *const KeyTopPosition;
 FOUNDATION_EXPORT NSString *const KeyTournament;
 FOUNDATION_EXPORT NSString *const KeyTournaments;
+FOUNDATION_EXPORT NSString *const KeyType;
 FOUNDATION_EXPORT NSString *const KeyUser;
 FOUNDATION_EXPORT NSString *const KeyUsername;
 FOUNDATION_EXPORT NSString *const KeyValue;
