@@ -8,8 +8,11 @@
 
 #import "CollectionManager.h"
 #import "LeadCell.h"
+#import "ObjectManager.h"
+#import "PagingModel.h"
 
 static const CGFloat TNScreenWidth = 320.0f;
+static const CGFloat TNCellWidth = 306.0f;
 
 static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
@@ -19,6 +22,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
+@property (nonatomic, strong) PagingModel *paging;
 
 @end
 
@@ -56,12 +60,42 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     _collectionView.backgroundColor = [UIColor clearColor];
 }
 
-#pragma mark - Configured CollectionView
+#pragma mark - Data
 
-- (UICollectionView *)collectionView
+- (void)reloadData
 {
-    return self.collectionView;
+    self.collectionData = nil;
+    switch (self.collectionType)
+    {
+        case CollectionTypeMyStakes:
+            [self loadMyStakes];
+            break;
+            
+        default:
+            break;
+    }
 }
+
+- (void)loadMyStakes
+{
+    [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
+        {
+            [self combineWithData:stakes];
+        }
+        failure:nil
+    ];
+}
+
+- (void)combineWithData:(NSArray *)newData
+{
+    NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
+    [combinedData addObjectsFromArray:self.collectionData];
+    [combinedData addObjectsFromArray:newData];
+    self.collectionData = [combinedData copy];
+    
+    [self.collectionView reloadData];
+}
+
 
 #pragma mark - CollectionView DataSource
 
@@ -72,7 +106,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 0;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -86,7 +120,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeZero;
+    return CGSizeMake(TNCellWidth, 92.0f);
 }
 
 @end
