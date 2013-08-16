@@ -23,6 +23,7 @@
 		0F40906517BCDDCC001CC23F /* reg_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40906317BCDDCC001CC23F /* reg_avatar@2x.png */; };
 		0F40906817BE25C4001CC23F /* IconSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40906617BE2587001CC23F /* IconSettings.png */; };
 		0F40906917BE25C4001CC23F /* IconSettings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40906717BE25A4001CC23F /* IconSettings@2x.png */; };
+		0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */; };
 		0FA5FC8317AFC25000352827 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8117AFC22F00352827 /* Social.framework */; };
 		0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8417AFCC5600352827 /* Accounts.framework */; };
 		0FA5FC9A17B237C700352827 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5FC8A17B237C700352827 /* LICENSE */; };
@@ -296,6 +297,8 @@
 		0F40906317BCDDCC001CC23F /* reg_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_avatar@2x.png"; sourceTree = "<group>"; };
 		0F40906617BE2587001CC23F /* IconSettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconSettings.png; sourceTree = "<group>"; };
 		0F40906717BE25A4001CC23F /* IconSettings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconSettings@2x.png"; sourceTree = "<group>"; };
+		0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		0FA5FC8117AFC22F00352827 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		0FA5FC8417AFCC5600352827 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		0FA5FC8A17B237C700352827 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -1062,6 +1065,8 @@
 			children = (
 				31B112A0176B5CD000060EAB /* CatalogueViewController.h */,
 				31B112A1176B5CD000060EAB /* CatalogueViewController.m */,
+				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
+				0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */,
 				76335D4C17697C3F009F75E2 /* EnterViewController.h */,
 				76335D4D17697C3F009F75E2 /* EnterViewController.m */,
 				765FCDB7178D0CC100A58B81 /* EventViewController.h */,
@@ -1623,6 +1628,7 @@
 				31EA773917BCBA5F0060DFCC /* SubscriptionModel.m in Sources */,
 				31EA773C17BCD6A20060DFCC /* PasswordModel.m in Sources */,
 				31EA773F17BD16CD0060DFCC /* CollectionManager.m in Sources */,
+				0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

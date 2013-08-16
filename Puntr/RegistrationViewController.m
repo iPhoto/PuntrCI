@@ -88,6 +88,22 @@
     
     self.textFields = [NSArray array];
     
+    self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 19.0f, 188.0f, 38.0f)];//(18.0, 160.0f, 282.0f, 38.0f)
+    self.textFieldFirstName.placeholder = @"Имя...";
+    self.textFieldFirstName.returnKeyType = UIReturnKeyNext;
+    self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    self.textFieldFirstName.delegate = self;
+    self.textFields = [self.textFields arrayByAddingObject:self.textFieldFirstName];
+    [self.scrollView addSubview:self.textFieldFirstName];
+    
+    self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];//(18.0, 207.0f, 282.0f, 38.0f)
+    self.textFieldLastName.placeholder = @"Фамилия...";
+    self.textFieldLastName.returnKeyType = UIReturnKeyNext;
+    self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    self.textFieldLastName.delegate = self;
+    self.textFields = [self.textFields arrayByAddingObject:self.textFieldLastName];
+    [self.scrollView addSubview:self.textFieldLastName];
+    
     self.textFieldEmail = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];//(18.0f, 19.0f, 282.0f, 38.0f)
     self.textFieldEmail.placeholder = @"Email...";
     self.textFieldEmail.text = self.user.email;
@@ -110,27 +126,11 @@
     
     self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0, 207.0f, 282.0f, 38.0f)];//(18.0, 113.0f, 282.0f, 38.0f)
     self.textFieldUsername.placeholder = @"Никнейм...";
-    self.textFieldUsername.returnKeyType = UIReturnKeyNext;
+    self.textFieldUsername.returnKeyType = UIReturnKeyDone;
     self.textFieldUsername.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldUsername.delegate = self;
     self.textFields = [self.textFields arrayByAddingObject:self.textFieldUsername];
     [self.scrollView addSubview:self.textFieldUsername];
-    
-    self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 19.0f, 188.0f, 38.0f)];//(18.0, 160.0f, 282.0f, 38.0f)
-    self.textFieldFirstName.placeholder = @"Имя...";
-    self.textFieldFirstName.returnKeyType = UIReturnKeyNext;
-    self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    self.textFieldFirstName.delegate = self;
-    self.textFields = [self.textFields arrayByAddingObject:self.textFieldFirstName];
-    [self.scrollView addSubview:self.textFieldFirstName];
-    
-    self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];//(18.0, 207.0f, 282.0f, 38.0f)
-    self.textFieldLastName.placeholder = @"Фамилия...";
-    self.textFieldLastName.returnKeyType = UIReturnKeyDone;
-    self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    self.textFieldLastName.delegate = self;
-    self.textFields = [self.textFields arrayByAddingObject:self.textFieldLastName];
-    [self.scrollView addSubview:self.textFieldLastName];
     
     self.buttonPhoto = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.buttonPhoto.frame = CGRectMake(18.0f, 19.0f, 85.0f, 85.0f);
