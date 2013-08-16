@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, strong, readonly) NSNumber *stakesCount;
+@property (nonatomic, strong, readonly) NSNumber *subscribersCount;
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, strong, readonly) NSDate *startTime;
 @property (nonatomic, strong, readonly) NSDate *endTime;
