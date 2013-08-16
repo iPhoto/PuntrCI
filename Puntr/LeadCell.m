@@ -10,13 +10,15 @@
 #import "LeadCell.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
+#import <QuartzCore/QuartzCore.h>
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
+
+static const CGFloat TNGeneralMargin = 8.0f;
 
 @interface LeadCell ()
 
 @property (nonatomic) CGFloat usedHeight;
-@property (nonatomic, readonly) CGFloat generalMargin;
 @property (nonatomic) BOOL black;
 
 // Event
@@ -36,16 +38,6 @@
 @end
 
 @implementation LeadCell
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        _generalMargin = 8.0f;
-    }
-    return self;
-}
 
 #pragma mark - General Loading
 
@@ -77,6 +69,29 @@
            components:stake.components
           coefficient:stake.coefficient
                 final:YES];
+    [self finalizeCell];
+}
+
+#pragma mark - Reloading
+
+- (void)prepareForReuse
+{
+    self.usedHeight = 0.0f;
+    self.black = NO;
+    
+    // Event
+    [self.imageViewCategoryImage removeFromSuperview];
+    [self.labelCategoryTitle removeFromSuperview];
+    [self.labelPublicationTime removeFromSuperview];
+    [self.buttonEventStake removeFromSuperview];
+    [self.labelParticipants removeFromSuperview];
+    [self.imageViewDelimiterEvent removeFromSuperview];
+    
+    // Stake
+    [self.labelLine removeFromSuperview];
+    [self.labelComponents removeFromSuperview];
+    [self.labelCoefficient removeFromSuperview];
+    [self.labelCoefficientTitle removeFromSuperview];
 }
 
 #pragma mark - Lead Components
@@ -93,38 +108,43 @@
                   final:(BOOL)final
 {
     // Category
-    CGFloat stopLeft = self.generalMargin;
-    CGFloat stopTop = self.generalMargin;
+    CGFloat stopLeft = TNGeneralMargin;
+    CGFloat stopTop = TNGeneralMargin;
     
     CGSize categoryImageSize = CGSizeMake(12.0f, 12.0f);
     
     if (category.image)
     {
-        self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(stopLeft, self.usedHeight + self.generalMargin, categoryImageSize.width, categoryImageSize.height)];
+        self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(stopLeft, self.usedHeight + TNGeneralMargin, categoryImageSize.width, categoryImageSize.height)];
         
         [self.imageViewCategoryImage setImageWithURL:category.image];
         
         stopLeft = CGRectGetMaxX(self.imageViewCategoryImage.frame);
-        stopTop = self.generalMargin + CGRectGetHeight(self.imageViewCategoryImage.frame);
+        stopTop = TNGeneralMargin + CGRectGetHeight(self.imageViewCategoryImage.frame);
         
         [self addSubview:self.imageViewCategoryImage];
     }
     
     CGFloat labelWidth = 200.0f;
     
-    UIColor *colorText = [UIColor colorWithWhite:0.200 alpha:1.000];
+    UIColor *colorText = [UIColor whiteColor];
     
     UIFont *smallFont = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
     
     self.labelCategoryTitle = [[UILabel alloc] init];
-    self.labelCategoryTitle.frame = CGRectMake(stopLeft + self.generalMargin, self.usedHeight + self.generalMargin, labelWidth, categoryImageSize.height);
+    self.labelCategoryTitle.frame = CGRectMake(
+                                                   stopLeft == TNGeneralMargin ? stopLeft : stopLeft + TNGeneralMargin,
+                                                   self.usedHeight + TNGeneralMargin,
+                                                   labelWidth,
+                                                   categoryImageSize.height
+                                              );
     self.labelCategoryTitle.font = smallFont;
     self.labelCategoryTitle.backgroundColor = [UIColor clearColor];
     self.labelCategoryTitle.textColor = colorText;
     self.labelCategoryTitle.text = category.title;
     
-    stopTop = self.generalMargin + CGRectGetHeight(self.labelCategoryTitle.frame);
+    stopTop = TNGeneralMargin + CGRectGetHeight(self.labelCategoryTitle.frame);
     
     [self addSubview:self.labelCategoryTitle];
     
@@ -132,10 +152,16 @@
     if (time)
     {
         self.labelPublicationTime = [[UILabel alloc] init];
-        self.labelPublicationTime.frame = CGRectMake(stopLeft, self.usedHeight + self.generalMargin, CGRectGetWidth(self.frame) - stopLeft - self.generalMargin, categoryImageSize.height);
+        self.labelPublicationTime.frame = CGRectMake(
+                                                     stopLeft,
+                                                     self.usedHeight + TNGeneralMargin,
+                                                     CGRectGetWidth(self.frame) - stopLeft - TNGeneralMargin,
+                                                     categoryImageSize.height
+                                                    );
         self.labelPublicationTime.font = smallFont;
         self.labelPublicationTime.backgroundColor = [UIColor clearColor];
         self.labelPublicationTime.textColor = colorText;
+        self.labelPublicationTime.textAlignment = NSTextAlignmentRight;
         TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
         self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
         [self addSubview:self.labelPublicationTime];
@@ -146,13 +172,13 @@
         
         // Stake Button
         self.buttonEventStake = [SmallStakeButton buttonWithType:UIButtonTypeCustom];
-        self.buttonEventStake.frame = CGRectMake(CGRectGetWidth(self.frame) - self.generalMargin - buttonSize.width, self.usedHeight + self.generalMargin, buttonSize.width, buttonSize.height);
+        self.buttonEventStake.frame = CGRectMake(CGRectGetWidth(self.frame) - TNGeneralMargin - buttonSize.width, self.usedHeight + TNGeneralMargin, buttonSize.width, buttonSize.height);
         [self addSubview:self.buttonEventStake];
     }
     
     // Participants
     self.labelParticipants = [[UILabel alloc] init];
-    self.labelParticipants.frame = CGRectMake(self.generalMargin, stopTop + self.generalMargin, labelWidth, categoryImageSize.height);
+    self.labelParticipants.frame = CGRectMake(TNGeneralMargin, stopTop + TNGeneralMargin, labelWidth, categoryImageSize.height);
     self.labelParticipants.font = fontSmallBold;
     self.labelParticipants.backgroundColor = [UIColor clearColor];
     self.labelParticipants.textColor = colorText;
@@ -166,7 +192,7 @@
         }
         else
         {
-            participantsConsolidated = [NSString stringWithFormat:@"%@ — %@", participants, participant.title];
+            participantsConsolidated = [NSString stringWithFormat:@"%@ — %@", participantsConsolidated, participant.title];
         }
         counter++;
     }
@@ -176,7 +202,7 @@
     
     [self addSubview:self.labelParticipants];
     
-    self.usedHeight = stopTop + self.generalMargin;
+    self.usedHeight = stopTop + TNGeneralMargin;
     
     if (!final)
     {
@@ -189,7 +215,7 @@
             delimiterImage = [[UIImage imageNamed:@"delimiterBlack"] resizableImageWithCapInsets:UIEdgeInsetsZero];
         }
         
-        self.imageViewDelimiterEvent = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, stopTop + self.generalMargin, CGRectGetWidth(self.frame), delimiterHeight)];
+        self.imageViewDelimiterEvent = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, stopTop + TNGeneralMargin, CGRectGetWidth(self.frame), delimiterHeight)];
         self.imageViewDelimiterEvent.image = delimiterImage;
         [self addSubview:self.imageViewDelimiterEvent];
         
@@ -199,21 +225,57 @@
 
 - (void)displayLine:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient final:(BOOL)final
 {
+    // Constants
     CGFloat labelHeight = 12.0f;
-    
-    UIColor *colorText = [UIColor colorWithWhite:0.200 alpha:1.000];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
+    UIColor *colorText = [UIColor whiteColor];
     UIFont *fontSmall = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
-#pragma clang diagnostic pop
+    
+    // Line
     self.labelLine = [[UILabel alloc] init];
-    self.labelLine.frame = CGRectMake(self.generalMargin, self.usedHeight + self.generalMargin, CGRectGetWidth(self.frame), labelHeight);
+    self.labelLine.frame = CGRectMake(
+                                          TNGeneralMargin,
+                                          self.usedHeight + TNGeneralMargin,
+                                          CGRectGetWidth(self.frame) - TNGeneralMargin * 2.0f,
+                                          labelHeight
+                                     );
     self.labelLine.font = fontSmall;
     self.labelLine.backgroundColor = [UIColor clearColor];
     self.labelLine.textColor = colorText;
-    self.labelLine.text = [NSString stringWithFormat:@"%@:", [line.title uppercaseString]];
+    self.labelLine.text = [NSString stringWithFormat:@"%@:", [line.title capitalizedString]];
+    [self.labelLine sizeToFit];
     [self addSubview:self.labelLine];
+    
+    // Components
+    self.labelComponents = [[UILabel alloc] init];
+    self.labelComponents.frame = CGRectMake(
+                                                CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin,
+                                                self.usedHeight + TNGeneralMargin,
+                                                CGRectGetWidth(self.frame) - (CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin * 2.0f),
+                                                labelHeight
+                                           );
+    self.labelComponents.font = fontSmallBold;
+    self.labelComponents.backgroundColor = [UIColor clearColor];
+    self.labelComponents.textColor = colorText;
+    NSMutableString *componentsCombined = [[NSMutableString alloc] init];
+    for (ComponentModel *component in components)
+    {
+        [componentsCombined appendFormat:@"%@ ", component.selectedCriterionObject.title];
+    }
+    self.labelComponents.text = [componentsCombined copy];
+    [self.labelComponents sizeToFit];
+    [self addSubview:self.labelComponents];
+    
+    // Coefficient
+    
+}
+
+#pragma mark - Finilize
+
+- (void)finalizeCell
+{
+    self.layer.cornerRadius = 3.75f;
+    self.layer.masksToBounds = YES;
 }
 
 @end
