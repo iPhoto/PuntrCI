@@ -38,11 +38,8 @@
 - (void)configureMapping
 {
     // Status Codes
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
     NSIndexSet *statusCodeCreated = [NSIndexSet indexSetWithIndex:201];
     NSIndexSet *statusCodeOK = [NSIndexSet indexSetWithIndex:200];
-    NSIndexSet *statusCodeNoContent = [NSIndexSet indexSetWithIndex:204];
     NSIndexSet *statusCodeNotModified = [NSIndexSet indexSetWithIndex:304];
     NSIndexSet *statusCodeBadRequest = [NSIndexSet indexSetWithIndex:400];
     NSIndexSet *statusCodeUnauthorized = [NSIndexSet indexSetWithIndex:401];
@@ -52,7 +49,6 @@
     NSIndexSet *statusCodeUnprocessableEntity = [NSIndexSet indexSetWithIndex:422];
     NSIndexSet *statusCodeInternalServerError = [NSIndexSet indexSetWithIndex:500];
     NSIndexSet *statusCodeNotImplemented = [NSIndexSet indexSetWithIndex:501];
-#pragma clang diagnostic pop
     
     // Mapping Declaration
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[ActivityModel class]];
@@ -146,6 +142,7 @@
     [errorStatusCodes addIndexes:statusCodeUnauthorized];
     [errorStatusCodes addIndexes:statusCodeForbidden];
     [errorStatusCodes addIndexes:statusCodeNotFound];
+    [errorStatusCodes addIndexes:statusCodeConflict];
     [errorStatusCodes addIndexes:statusCodeUnprocessableEntity];
     [errorStatusCodes addIndexes:statusCodeInternalServerError];
     [errorStatusCodes addIndexes:statusCodeNotImplemented];
