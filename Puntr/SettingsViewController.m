@@ -36,7 +36,7 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    UIScrollView *bkScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    UIScrollView *bkScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 100)];
     [self.view addSubview:bkScrollView];
     
     
@@ -104,9 +104,19 @@
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, currentTop, 280, 80)];
     titleLabel.numberOfLines = 0;
     titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    titleLabel.text = @"Установите настройку конфиденциальности в \"Да\"б если хотите, чтоб ваши действия были невидимыми всем пользователям, кроме тех, на кого вы подписались. Если другой пользователь захочет подписаться на ваши действия, вы получите запрос";
+    titleLabel.text = @"Установите настройку конфиденциальности в \"Да\", если хотите, чтоб ваши действия были невидимыми всем пользователям, кроме тех, на кого вы подписались. Если другой пользователь захочет подписаться на ваши действия, вы получите запрос";
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = FONT_CONF_LABEL;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    [bkScrollView addSubview:titleLabel];
+    
+    currentTop += CGRectGetHeight(titleLabel.frame);
+    currentTop += 10;
+    
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, currentTop, 280, 35)];
+    titleLabel.text = @"Условия";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
     titleLabel.backgroundColor = [UIColor clearColor];
     [bkScrollView addSubview:titleLabel];
     
@@ -128,7 +138,7 @@
     currentTop += CGRectGetHeight(self.settingsTable3.frame);
     currentTop += 10;
     
-    bkScrollView.contentSize = CGSizeMake(bkScrollView.frame.size.width, currentTop + 200);
+    bkScrollView.contentSize = CGSizeMake(bkScrollView.frame.size.width, currentTop);
 }
 
 - (void)didReceiveMemoryWarning
