@@ -24,7 +24,8 @@
 
 @implementation SettingsTableViewCell
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     self.imageView.center = CGPointMake(20, self.imageView.center.y);
     self.textLabel.frame = CGRectMake(40, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
@@ -34,7 +35,7 @@
 
 // -----------------------------------------
 
-@interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, weak) UITableView *settingsTable1;
 
@@ -95,10 +96,12 @@
     NSDictionary *cellDictionary = self.settingsArray[indexPath.section][indexPath.row];
     
     NSString *reuseIdFileName = @"middle.png";
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         reuseIdFileName = @"top.png";
     }
-    if (indexPath.row == ((NSArray *)self.settingsArray[indexPath.section]).count - 1) {
+    if (indexPath.row == ((NSArray *)self.settingsArray[indexPath.section]).count - 1)
+    {
         reuseIdFileName = @"bottom.png";
     }
     
@@ -160,10 +163,18 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary *cellDictionary = self.settingsArray[indexPath.section][indexPath.row];
+    
+    if (cellDictionary[@"performSelector"])
+    {
+        NSString * methodName = cellDictionary[@"performSelector"];
+        SEL sel = NSSelectorFromString(methodName);
+        [self performSelectorOnMainThread:sel withObject:nil waitUntilDone:NO];
+    }
 }
-
 #pragma mark - Utils
 
 - (void)setupSettingsArray
@@ -179,8 +190,7 @@
                                    @{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
                                    @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"isAccessory": @(YES) },
                                    @{ @"pictureName": @"7.png", @"title": @"Конфиденциальность"},
-                                   @{ @"pictureName": @"8.png", @"title": @"Выйти"},
-                                   @{ @"type": @"sectionFooter", @"title": @"Условия"},
+                                   @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog"},
                                 ],
                                @[
                                    @{ @"pictureName": @"9.png", @"title": @"Оферта", @"isAccessory": @(YES) },
@@ -201,18 +211,22 @@
                                  ];
 }
 
-- (CGFloat)heightForHeader:(BOOL)isHeader inSection:(NSInteger)section {
+- (CGFloat)heightForHeader:(BOOL)isHeader inSection:(NSInteger)section
+{
     CGFloat retVal = UITableViewAutomaticDimension;
     
     NSDictionary *dic;
-    if (isHeader) {
+    if (isHeader)
+    {
         dic = self.sectionHeadersArray[section];
     }
-    else {
+    else
+    {
         dic = self.sectionFootersArray[section];
     }
     
-    if (dic[@"text"] && (![dic[@"text"] isEqualToString:@""])) {
+    if (dic[@"text"] && (![dic[@"text"] isEqualToString:@""]))
+    {
         NSString *header = dic[@"text"];
         CGSize headerSize = [header sizeWithFont:(UIFont *)dic[@"font"] constrainedToSize:CGSizeMake(self.settingsTable1.frame.size.width - (headerFooterSidePadding*2), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         retVal = headerFooterTopPadding + headerSize.height + 5;
@@ -220,18 +234,22 @@
     return retVal;
 }
 
-- (UIView *)viewForHeader:(BOOL)isHeader inSection:(NSInteger)section {
+- (UIView *)viewForHeader:(BOOL)isHeader inSection:(NSInteger)section
+{
     UIView *headerView = nil;
     
     NSDictionary *dic;
-    if (isHeader) {
+    if (isHeader)
+    {
         dic = self.sectionHeadersArray[section];
     }
-    else {
+    else
+    {
         dic = self.sectionFootersArray[section];
     }
     
-    if (dic[@"text"] && (![dic[@"text"] isEqualToString:@""])) {
+    if (dic[@"text"] && (![dic[@"text"] isEqualToString:@""]))
+    {
         NSString *header = dic[@"text"];
         CGSize headerSize = [header sizeWithFont:(UIFont *)dic[@"font"] constrainedToSize:CGSizeMake(self.settingsTable1.frame.size.width - (headerFooterSidePadding*2), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         
@@ -250,6 +268,30 @@
     return headerView;
 }
 
+
+
+#pragma mark - ActionSheet
+- (void)showExitDialog
+{
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Вы уверены?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Выйти"
+                                               destructiveButtonTitle:@"Отмена"
+                                                    otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1 == buttonIndex)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 @end
 
 
