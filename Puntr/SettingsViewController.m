@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "ObjectManager.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
@@ -28,8 +29,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.imageView.center = CGPointMake(20, self.imageView.center.y);
-    self.textLabel.frame = CGRectMake(40, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+    self.imageView.center = CGPointMake(20.0f, CGRectGetMidY(self.imageView.frame));
+    self.textLabel.frame = CGRectSetX(self.textLabel.frame, 40.0f);
 }
 
 @end
@@ -64,7 +65,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     CGFloat navigationBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
     
     CGRect tableFrame = self.view.bounds;
-    CGRectSetHeight(tableFrame, viewHeight - (tabBarHeight + navigationBarHeight));
+    tableFrame = CGRectSetHeight(tableFrame, viewHeight - (tabBarHeight + navigationBarHeight));
     
     self.tableViewSettings = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
     self.tableViewSettings.dataSource = self;
@@ -300,7 +301,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     if (1 == buttonIndex)
     {
-        [self.navigationController popViewControllerAnimated:YES];
+        [[ObjectManager sharedManager] logOutWithSuccess:^
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            failure:nil
+        ];
     }
 }
 
