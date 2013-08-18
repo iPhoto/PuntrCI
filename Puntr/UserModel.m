@@ -28,4 +28,16 @@
     return [self.avatar URLByAppendingPathComponent:sizeComponent];
 }
 
+- (BOOL)isEqualToUser:(UserModel *)user
+{
+    if ([self.tag isEqualToNumber:user.tag])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
 @end

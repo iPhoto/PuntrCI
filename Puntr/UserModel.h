@@ -29,5 +29,6 @@
 
 - (NSDictionary *)parameters;
 - (NSURL *)avatarWithSize:(CGSize)size;
+- (BOOL)isEqualToUser:(UserModel *)user;
 
 @end
