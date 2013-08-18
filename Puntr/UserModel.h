@@ -28,5 +28,6 @@
 @property (nonatomic, strong, readonly) NSNumber *lossCount;
 
 - (NSDictionary *)parameters;
+- (NSURL *)avatarWithSize:(CGSize)size;
 
 @end

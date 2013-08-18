@@ -22,4 +22,10 @@
     }
 }
 
+- (NSURL *)avatarWithSize:(CGSize)size
+{
+    NSString *sizeComponent = [NSString stringWithFormat:@"%ix%i", (NSInteger)size.width, (NSInteger)size.height];
+    return [self.avatar URLByAppendingPathComponent:sizeComponent];
+}
+
 @end
