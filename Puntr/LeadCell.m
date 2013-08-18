@@ -8,6 +8,7 @@
 
 #import "EventModel.h"
 #import "LeadCell.h"
+#import "ObjectManager.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
 #import <QuartzCore/QuartzCore.h>
@@ -17,10 +18,12 @@
 static const CGFloat TNGeneralMargin = 8.0f;
 static const CGFloat TNCellWidth = 306.0f;
 
+#define TNTextColor self.blackBackground ? [UIColor whiteColor] : [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f]
+
 @interface LeadCell ()
 
 @property (nonatomic) CGFloat usedHeight;
-@property (nonatomic) BOOL black;
+@property (nonatomic) BOOL blackBackground;
 
 // Event
 @property (nonatomic, strong) UIImageView *imageViewCategoryImage;
@@ -70,7 +73,15 @@ static const CGFloat TNCellWidth = 306.0f;
 
 - (void)loadWithStake:(StakeModel *)stake
 {
-    [self blackBackground];
+    if ([stake.user.tag isEqualToNumber:[[ObjectManager sharedManager] loginedUserTag]])
+    {
+        [self blackCell];
+    }
+    else
+    {
+        [self whiteCell];
+    }
+    
     [self displayCategory:stake.event.tournament.category
              participants:stake.event.participants
                      time:stake.createdAt
@@ -87,7 +98,7 @@ static const CGFloat TNCellWidth = 306.0f;
 - (void)prepareForReuse
 {
     self.usedHeight = 0.0f;
-    self.black = NO;
+    self.blackBackground = NO;
     
     // Event
     [self.imageViewCategoryImage removeFromSuperview];
@@ -106,10 +117,16 @@ static const CGFloat TNCellWidth = 306.0f;
 
 #pragma mark - Lead Components
 
-- (void)blackBackground
+- (void)whiteCell
+{
+    self.backgroundColor = [UIColor whiteColor];
+    self.blackBackground = NO;
+}
+
+- (void)blackCell
 {
     self.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
-    self.black = YES;
+    self.blackBackground = YES;
 }
 
 - (void)displayCategory:(CategoryModel *)category
@@ -137,8 +154,6 @@ static const CGFloat TNCellWidth = 306.0f;
     
     CGFloat labelWidth = 200.0f;
     
-    UIColor *colorText = [UIColor whiteColor];
-    
     UIFont *smallFont = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
     
@@ -151,7 +166,7 @@ static const CGFloat TNCellWidth = 306.0f;
                                               );
     self.labelCategoryTitle.font = smallFont;
     self.labelCategoryTitle.backgroundColor = [UIColor clearColor];
-    self.labelCategoryTitle.textColor = colorText;
+    self.labelCategoryTitle.textColor = TNTextColor;
     self.labelCategoryTitle.text = category.title;
     
     stopTop = TNGeneralMargin + CGRectGetHeight(self.labelCategoryTitle.frame);
@@ -170,7 +185,7 @@ static const CGFloat TNCellWidth = 306.0f;
                                                     );
         self.labelPublicationTime.font = smallFont;
         self.labelPublicationTime.backgroundColor = [UIColor clearColor];
-        self.labelPublicationTime.textColor = colorText;
+        self.labelPublicationTime.textColor = TNTextColor;
         self.labelPublicationTime.textAlignment = NSTextAlignmentRight;
         TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
         self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
@@ -191,7 +206,7 @@ static const CGFloat TNCellWidth = 306.0f;
     self.labelParticipants.frame = CGRectMake(TNGeneralMargin, stopTop + TNGeneralMargin, labelWidth, categoryImageSize.height);
     self.labelParticipants.font = fontSmallBold;
     self.labelParticipants.backgroundColor = [UIColor clearColor];
-    self.labelParticipants.textColor = colorText;
+    self.labelParticipants.textColor = TNTextColor;
     NSString *participantsConsolidated = @"";
     NSUInteger counter = 0;
     for (ParticipantModel *participant in participants)
@@ -219,7 +234,7 @@ static const CGFloat TNCellWidth = 306.0f;
         CGFloat delimiterHeight = 1.0f;
         UIImage *delimiterImage = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
         
-        if (self.black)
+        if (self.blackBackground)
         {
             delimiterHeight = 2.0f;
             delimiterImage = [[UIImage imageNamed:@"delimiterBlack"] resizableImageWithCapInsets:UIEdgeInsetsZero];
@@ -237,7 +252,6 @@ static const CGFloat TNCellWidth = 306.0f;
 {
     // Constants
     CGFloat labelHeight = 12.0f;
-    UIColor *colorText = [UIColor whiteColor];
     UIFont *fontSmall = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
     
@@ -251,7 +265,7 @@ static const CGFloat TNCellWidth = 306.0f;
                                      );
     self.labelLine.font = fontSmall;
     self.labelLine.backgroundColor = [UIColor clearColor];
-    self.labelLine.textColor = colorText;
+    self.labelLine.textColor = TNTextColor;
     self.labelLine.text = [NSString stringWithFormat:@"%@:", [line.title capitalizedString]];
     [self.labelLine sizeToFit];
     [self addSubview:self.labelLine];
@@ -266,7 +280,7 @@ static const CGFloat TNCellWidth = 306.0f;
                                            );
     self.labelComponents.font = fontSmallBold;
     self.labelComponents.backgroundColor = [UIColor clearColor];
-    self.labelComponents.textColor = colorText;
+    self.labelComponents.textColor = TNTextColor;
     NSMutableString *componentsCombined = [[NSMutableString alloc] init];
     for (ComponentModel *component in components)
     {
