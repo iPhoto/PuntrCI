@@ -778,6 +778,30 @@
     ];
 }
 
+- (void)activitiesForUser:(UserModel *)user
+                   paging:(PagingModel *)paging
+                  success:(Activities)success
+                  failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                 KeyAuthorization: self.authorization.parameters,
+                                 KeyPaging: paging ? paging.parameters : [NSNull null]
+                                 };
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIActivities]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *activities = mappingResult.array;
+                success(activities);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
 {
     [self getObject:nil
@@ -787,9 +811,9 @@
             failure:failure];
 }
 
-- (NSNumber *)loginedUserTag
+- (UserModel *)loginedUser
 {
-    return self.user.tag;
+    return self.user;
 }
 
 #pragma mark - Helpers

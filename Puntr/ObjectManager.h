@@ -137,8 +137,13 @@ typedef void (^User)(UserModel *user);
 
 - (void)newsWithPaging:(PagingModel *)paging success:(News)success failure:(EmptyFailure)failure;
 
+- (void)activitiesForUser:(UserModel *)user
+                   paging:(PagingModel *)paging
+                  success:(Activities)success
+                  failure:(EmptyFailure)failure;
+
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
-- (NSNumber *)loginedUserTag;
+- (UserModel *)loginedUser;
 
 @end
