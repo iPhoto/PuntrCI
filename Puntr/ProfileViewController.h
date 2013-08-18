@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserModel;
+
 @interface ProfileViewController : UIViewController
 
-- (id)initWithUserTag:(NSNumber *)userTag;
+- (id)initWithUser:(UserModel *)user;
 
 @end

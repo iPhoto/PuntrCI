@@ -6,16 +6,21 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "ProfileViewController.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
-#import <QuartzCore/QuartzCore.h>
-#import "ObjectManager.h"
-#import "UserModel.h"
+#import "CollectionManager.h"
 #import "NotificationManager.h"
+#import "ObjectManager.h"
+#import "ProfileViewController.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Puntr.h"
+#import "UserModel.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import <QuartzCore/QuartzCore.h>
+
+static const CGFloat TNItemSpacing = 12.0f;
 
 @interface ProfileViewController ()
+
+@property (nonatomic, strong) UserModel *user;
 
 @property (nonatomic, strong) UILabel *labelName;
 @property (nonatomic, strong) UILabel *labelRating;
@@ -34,16 +39,18 @@
 @property (nonatomic, strong) NSArray *stars;
 @property (nonatomic, strong) NSNumber *userTag;
 
+@property (nonatomic, strong) CollectionManager *collectionManager;
+
 @end
 
 @implementation ProfileViewController
 
-- (id)initWithUserTag:(NSNumber *)userTag
+- (id)initWithUser:(UserModel *)user
 {
     self = [super init];
     if (self)
     {
-        self.userTag = userTag;
+        _user = user;
     }
     return self;
 }
@@ -51,14 +58,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (self.userTag == nil)
+    if (!self.user)
     {
-        self.userTag = [[ObjectManager sharedManager] loginedUserTag];
+        self.user = [[ObjectManager sharedManager] loginedUser];
     }
     self.title = @"Профиль";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self addBalanceButton];
+    
+    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
+                                            );
     
     UIButton *buttonSettings = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [buttonSettings setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
@@ -81,8 +95,11 @@
         [[self.stars objectAtIndex:i] setFrame:CGRectMake(80 + 15 * i, 55, 14, 13)];
         [whiteView addSubview:[self.stars objectAtIndex:i]];
     }
+    [self showStars:self.user.rating.intValue];
+    
     self.labelName = [[UILabel alloc]initWithFrame:CGRectMake(78, 10, 225, 15)];
     [self.labelName setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
+    [self.labelName setText:self.user.firstName];
     [whiteView addSubview:self.labelName];
     
     self.labelRating = [[UILabel alloc]initWithFrame:CGRectMake(78, 35, 55, 15)];
@@ -92,6 +109,7 @@
     
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(133, 35, 175, 15)];
     [self.labelRatingNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
+    [self.labelRatingNumber setText:self.user.topPosition.stringValue];
     [whiteView addSubview:self.labelRatingNumber];
     [self.view addSubview:whiteView];
     
@@ -137,6 +155,7 @@
     self.labelFollowNumber.shadowOffset = CGSizeMake(0.0f, 1.5f);
     [self.labelFollowNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelFollowNumber setTextAlignment:NSTextAlignmentCenter];
+    [self.labelFollowNumber setText:self.user.subscriptionsCount.stringValue];
     [whiteView addSubview:self.labelFollowNumber];
     
     self.labelFollowerNumber = [[UILabel alloc]initWithFrame:CGRectMake(77, 88, 75, 15)];
@@ -153,6 +172,7 @@
     self.labelAwardNumber.shadowOffset = CGSizeMake(0.0f, 1.5f);
     [self.labelAwardNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelAwardNumber setTextAlignment:NSTextAlignmentCenter];
+    [self.labelAwardNumber setText:self.user.badgesCount.stringValue];
     [whiteView addSubview:self.labelAwardNumber];
     
     self.labelRatingNumber = [[UILabel alloc]initWithFrame:CGRectMake(227, 88, 75, 15)];
@@ -161,12 +181,14 @@
     self.labelRatingNumber.shadowOffset = CGSizeMake(0.0f, 1.5f);
     [self.labelRatingNumber setBackgroundColor:[UIColor clearColor]];
     [self.labelRatingNumber setTextAlignment:NSTextAlignmentCenter];
+    [self.labelRatingNumber setText:[NSString stringWithFormat:@"%@/%@", self.user.winCount.stringValue, self.user.lossCount.stringValue]];
     [whiteView addSubview:self.labelRatingNumber];
     
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
+    [self.imageViewAvatar setImageWithURL:self.user.avatar];
     [whiteView addSubview:self.imageViewAvatar];
     
-    if (self.userTag != [[ObjectManager sharedManager] loginedUserTag])
+    if (![self.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]])
     {
         self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 95, 40)];
         [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"]
@@ -188,6 +210,16 @@
     [self.labelActivity setTextColor:[UIColor whiteColor]];
     [self.labelActivity setText:@"Активность"];
     [self.view addSubview:self.labelActivity];
+    
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeActivities modifierObject:self.user];
+    UICollectionView *collectionView = self.collectionManager.collectionView;
+    collectionView.frame = CGRectMake(
+                                      0.0f,
+                                      CGRectGetMaxY(self.labelActivity.frame) + TNItemSpacing,
+                                      CGRectGetWidth(viewControllerFrame),
+                                      CGRectGetHeight(viewControllerFrame) - (CGRectGetMaxY(self.labelActivity.frame) + TNItemSpacing)
+                                      );
+    [self.view addSubview:collectionView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -195,6 +227,7 @@
     [super viewDidAppear:animated];
     [self loadProfile];
     [self updateBalance];
+    [self.collectionManager reloadData];
 }
 
 - (void)settingsButtonTouched
@@ -204,7 +237,7 @@
 
 - (void)loadProfile
 {
-    [[ObjectManager sharedManager] userWithTag:self.userTag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+    [[ObjectManager sharedManager] userWithTag:self.user.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
             UserModel *profile = (UserModel *)mappingResult.firstObject;
             NSLog(@"ProfileName: %@", profile.firstName);
@@ -221,22 +254,6 @@
         {
             [NotificationManager showError:error];
         }
-    ];
-}
-
-- (void)checkSubscriptions
-{
-    [[ObjectManager sharedManager] userSubscriptionsWithTag:[[ObjectManager sharedManager] loginedUserTag]
-                                                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-                                                    {
-                                                        NSLog(@"subscriptions: %@", mappingResult);
-                                                        
-                                                        NSLog(@"");
-                                                    }
-                                                    failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                                    {
-                                                        [NotificationManager showError:error];
-                                                    }
     ];
 }
 

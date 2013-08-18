@@ -69,12 +69,16 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     self.collectionData = nil;
     switch (self.collectionType)
     {
-        case CollectionTypeMyStakes:
-            [self loadMyStakes];
+        case CollectionTypeActivities:
+            [self loadActivities];
             break;
             
         case CollectionTypeEventStakes:
             [self loadStakes];
+            break;
+            
+        case CollectionTypeMyStakes:
+            [self loadMyStakes];
             break;
             
         default:
@@ -102,6 +106,19 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               [self combineWithData:stakes];
                                           }
                                           failure:nil];
+}
+
+- (void)loadActivities
+{
+    UserModel *user = (UserModel *)self.modifierObject;
+    [[ObjectManager sharedManager] activitiesForUser:user
+                                              paging:self.paging
+                                             success:^(NSArray *activities)
+                                             {
+                                                 [self combineWithData:activities];
+                                             }
+                                             failure:nil
+    ];
 }
 
 - (void)combineWithData:(NSArray *)newData
