@@ -738,23 +738,39 @@
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure
 {
-    [self postObject:user
-                path:APIUsers
-          parameters:nil
-             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-             {
-                 NSDictionary *response = mappingResult.dictionary;
-                 AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
-                 UserModel *user = (UserModel *)response[KeyUser];
-                 self.authorization = authorization;
-                 self.user = user;
-                 success(authorization, user);
-             }
-             failure:^(RKObjectRequestOperation *operation, NSError *error)
-             {
-                 [self reportWithFailure:failure error:error];
-             }
+    NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
+    user.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+                                                                 method:RKRequestMethodPOST
+                                                                   path:APIUsers
+                                                             parameters:nil
+        constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+        {
+            if (avatarData)
+            {
+                [formData appendPartWithFileData:avatarData
+                                            name:KeyAvatar
+                                        fileName:@"avatar.png"
+                                        mimeType:@"image/png"];
+            }
+        }
     ];
+    
+    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        {
+            NSDictionary *response = mappingResult.dictionary;
+            AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
+            UserModel *user = (UserModel *)response[KeyUser];
+            self.authorization = authorization;
+            self.user = user;
+            success(authorization, user);
+        }
+        failure:^(RKObjectRequestOperation *operation, NSError *error)
+        {
+            [self reportWithFailure:failure error:error];                                                                   
+        }
+    ];
+    [self enqueueObjectRequestOperation:operation];
 }
 
 - (void)newsWithPaging:(PagingModel *)paging success:(News)success failure:(EmptyFailure)failure
