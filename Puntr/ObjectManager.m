@@ -757,6 +757,27 @@
     ];
 }
 
+- (void)newsWithPaging:(PagingModel *)paging success:(News)success failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                 KeyAuthorization: self.authorization.parameters,
+                                 KeyPaging: paging ? paging.parameters : [NSNull null]
+                                 };
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APINews]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *news = mappingResult.array;
+                success(news);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
 {
     [self getObject:nil

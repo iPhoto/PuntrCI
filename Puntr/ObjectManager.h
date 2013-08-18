@@ -135,6 +135,8 @@ typedef void (^User)(UserModel *user);
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
+- (void)newsWithPaging:(PagingModel *)paging success:(News)success failure:(EmptyFailure)failure;
+
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 - (NSNumber *)loginedUserTag;
