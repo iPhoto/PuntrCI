@@ -278,7 +278,7 @@
                                                     cancelButtonTitle:@"Выйти"
                                                destructiveButtonTitle:@"Отмена"
                                                     otherButtonTitles:nil];
-    [actionSheet showInView:self.view];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
     
 }
 
