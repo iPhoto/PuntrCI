@@ -305,12 +305,13 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
         [[ObjectManager sharedManager] logOutWithSuccess:^
             {
                 EnterViewController *enterViewController = [[EnterViewController alloc] init];
+                UINavigationController *enterNavigationController = [[UINavigationController alloc] initWithRootViewController:enterViewController];
                 [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
                                   duration:0.3f
                                    options:UIViewAnimationOptionTransitionFlipFromRight
                                 animations:^
                                 {
-                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:enterViewController];
+                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:enterNavigationController];
                                 }
                                 completion:nil];
             }
