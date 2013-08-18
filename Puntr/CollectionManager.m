@@ -13,7 +13,6 @@
 #import "PagingModel.h"
 
 static const CGFloat TNScreenWidth = 320.0f;
-static const CGFloat TNCellWidth = 306.0f;
 
 static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
@@ -139,7 +138,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(TNCellWidth, 92.0f);
+    return [LeadCell sizeForModel:self.collectionData[indexPath.row]];
 }
 
 @end

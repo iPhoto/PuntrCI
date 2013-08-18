@@ -12,6 +12,8 @@
 
 @interface LeadCell : UICollectionViewCell
 
++ (CGSize)sizeForModel:(NSObject *)model;
+
 - (void)loadWithModel:(NSObject *)model;
 
 @end

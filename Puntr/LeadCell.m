@@ -15,6 +15,7 @@
 #import <UIImageView+AFNetworking.h>
 
 static const CGFloat TNGeneralMargin = 8.0f;
+static const CGFloat TNCellWidth = 306.0f;
 
 @interface LeadCell ()
 
@@ -38,6 +39,15 @@ static const CGFloat TNGeneralMargin = 8.0f;
 @end
 
 @implementation LeadCell
+
+#pragma mark - Height Calculation
+
++ (CGSize)sizeForModel:(NSObject *)model
+{
+    LeadCell *cell = [[self alloc] init];
+    [cell loadWithModel:model];
+    return CGSizeMake(TNCellWidth, cell.usedHeight + TNGeneralMargin);
+}
 
 #pragma mark - General Loading
 
@@ -265,6 +275,8 @@ static const CGFloat TNGeneralMargin = 8.0f;
     self.labelComponents.text = [componentsCombined copy];
     [self.labelComponents sizeToFit];
     [self addSubview:self.labelComponents];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelLine.frame);
     
     // Coefficient
     
