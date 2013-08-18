@@ -16,9 +16,13 @@
 #import <UIImageView+AFNetworking.h>
 
 static const CGFloat TNGeneralMargin = 8.0f;
+static const CGFloat TNTextHeight = 12.0f;
 static const CGFloat TNCellWidth = 306.0f;
 
-#define TNTextColor self.blackBackground ? [UIColor whiteColor] : [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f]
+#define TNColorText self.blackBackground ? [UIColor whiteColor] : [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f]
+
+#define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
+#define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
 
 @interface LeadCell ()
 
@@ -81,10 +85,9 @@ static const CGFloat TNCellWidth = 306.0f;
     {
         [self whiteCell];
     }
-    
+    [self displayTime:stake.createdAt];
     [self displayCategory:stake.event.tournament.category
              participants:stake.event.participants
-                     time:stake.createdAt
                     final:NO];
     [self displayLine:stake.line
            components:stake.components
@@ -129,10 +132,25 @@ static const CGFloat TNCellWidth = 306.0f;
     self.blackBackground = YES;
 }
 
-- (void)displayCategory:(CategoryModel *)category
-           participants:(NSArray *)participants
-                   time:(NSDate *)time
-                  final:(BOOL)final
+- (void)displayTime:(NSDate *)time
+{
+    self.labelPublicationTime = [[UILabel alloc] init];
+    self.labelPublicationTime.frame = CGRectMake(
+                                                 TNGeneralMargin,
+                                                 self.usedHeight + TNGeneralMargin,
+                                                 CGRectGetWidth(self.frame) - TNGeneralMargin * 2.0f,
+                                                 TNTextHeight
+                                                 );
+    self.labelPublicationTime.font = TNFontSmall;
+    self.labelPublicationTime.backgroundColor = [UIColor clearColor];
+    self.labelPublicationTime.textColor = TNColorText;
+    self.labelPublicationTime.textAlignment = NSTextAlignmentRight;
+    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
+    [self addSubview:self.labelPublicationTime];
+}
+
+- (void)displayCategory:(CategoryModel *)category participants:(NSArray *)participants final:(BOOL)final
 {
     // Category
     CGFloat stopLeft = TNGeneralMargin;
@@ -154,7 +172,6 @@ static const CGFloat TNCellWidth = 306.0f;
     
     CGFloat labelWidth = 200.0f;
     
-    UIFont *smallFont = [UIFont fontWithName:@"ArialMT" size:10.4f];
     UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
     
     self.labelCategoryTitle = [[UILabel alloc] init];
@@ -164,49 +181,21 @@ static const CGFloat TNCellWidth = 306.0f;
                                                    labelWidth,
                                                    categoryImageSize.height
                                               );
-    self.labelCategoryTitle.font = smallFont;
+    self.labelCategoryTitle.font = TNFontSmall;
     self.labelCategoryTitle.backgroundColor = [UIColor clearColor];
-    self.labelCategoryTitle.textColor = TNTextColor;
+    self.labelCategoryTitle.textColor = TNColorText;
     self.labelCategoryTitle.text = category.title;
     
     stopTop = TNGeneralMargin + CGRectGetHeight(self.labelCategoryTitle.frame);
     
     [self addSubview:self.labelCategoryTitle];
     
-    // Time
-    if (time)
-    {
-        self.labelPublicationTime = [[UILabel alloc] init];
-        self.labelPublicationTime.frame = CGRectMake(
-                                                     stopLeft,
-                                                     self.usedHeight + TNGeneralMargin,
-                                                     CGRectGetWidth(self.frame) - stopLeft - TNGeneralMargin,
-                                                     categoryImageSize.height
-                                                    );
-        self.labelPublicationTime.font = smallFont;
-        self.labelPublicationTime.backgroundColor = [UIColor clearColor];
-        self.labelPublicationTime.textColor = TNTextColor;
-        self.labelPublicationTime.textAlignment = NSTextAlignmentRight;
-        TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
-        self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
-        [self addSubview:self.labelPublicationTime];
-    }
-    else
-    {
-        CGSize buttonSize = CGSizeMake(62.0f, 31.0f);
-        
-        // Stake Button
-        self.buttonEventStake = [SmallStakeButton buttonWithType:UIButtonTypeCustom];
-        self.buttonEventStake.frame = CGRectMake(CGRectGetWidth(self.frame) - TNGeneralMargin - buttonSize.width, self.usedHeight + TNGeneralMargin, buttonSize.width, buttonSize.height);
-        [self addSubview:self.buttonEventStake];
-    }
-    
     // Participants
     self.labelParticipants = [[UILabel alloc] init];
     self.labelParticipants.frame = CGRectMake(TNGeneralMargin, stopTop + TNGeneralMargin, labelWidth, categoryImageSize.height);
     self.labelParticipants.font = fontSmallBold;
     self.labelParticipants.backgroundColor = [UIColor clearColor];
-    self.labelParticipants.textColor = TNTextColor;
+    self.labelParticipants.textColor = TNColorText;
     NSString *participantsConsolidated = @"";
     NSUInteger counter = 0;
     for (ParticipantModel *participant in participants)
@@ -248,24 +237,22 @@ static const CGFloat TNCellWidth = 306.0f;
     }
 }
 
-- (void)displayLine:(LineModel *)line components:(NSArray *)components coefficient:(CoefficientModel *)coefficient final:(BOOL)final
+- (void)displayLine:(LineModel *)line
+         components:(NSArray *)components
+        coefficient:(CoefficientModel *)coefficient
+              final:(BOOL)final
 {
-    // Constants
-    CGFloat labelHeight = 12.0f;
-    UIFont *fontSmall = [UIFont fontWithName:@"ArialMT" size:10.4f];
-    UIFont *fontSmallBold = [UIFont fontWithName:@"Arial-BoldMT" size:12.0f];
-    
     // Line
     self.labelLine = [[UILabel alloc] init];
     self.labelLine.frame = CGRectMake(
                                           TNGeneralMargin,
                                           self.usedHeight + TNGeneralMargin,
                                           CGRectGetWidth(self.frame) - TNGeneralMargin * 2.0f,
-                                          labelHeight
+                                          TNTextHeight
                                      );
-    self.labelLine.font = fontSmall;
+    self.labelLine.font = TNFontSmall;
     self.labelLine.backgroundColor = [UIColor clearColor];
-    self.labelLine.textColor = TNTextColor;
+    self.labelLine.textColor = TNColorText;
     self.labelLine.text = [NSString stringWithFormat:@"%@:", [line.title capitalizedString]];
     [self.labelLine sizeToFit];
     [self addSubview:self.labelLine];
@@ -276,11 +263,11 @@ static const CGFloat TNCellWidth = 306.0f;
                                                 CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin,
                                                 self.usedHeight + TNGeneralMargin,
                                                 CGRectGetWidth(self.frame) - (CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin * 2.0f),
-                                                labelHeight
+                                                TNTextHeight
                                            );
-    self.labelComponents.font = fontSmallBold;
+    self.labelComponents.font = TNFontSmallBold;
     self.labelComponents.backgroundColor = [UIColor clearColor];
-    self.labelComponents.textColor = TNTextColor;
+    self.labelComponents.textColor = TNColorText;
     NSMutableString *componentsCombined = [[NSMutableString alloc] init];
     for (ComponentModel *component in components)
     {
