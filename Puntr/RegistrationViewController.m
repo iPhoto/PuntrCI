@@ -292,51 +292,31 @@
 {
     if (!self.user.email || self.user.email.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите Email"];
         return NO;
     }
     
     if (!self.user.password || self.user.password.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите пароль"];
         return NO;
     }
     
     if (!self.user.username || self.user.username.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите никнейм" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите никнейм"];
         return NO;
     }
     
     if (!self.user.firstName || self.user.firstName.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите имя" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите имя"];
         return NO;
     }
     
     if (!self.user.lastName || self.user.lastName.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите фамилию" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите фамилию"];
         return NO;
     }
     

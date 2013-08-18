@@ -319,20 +319,12 @@ typedef NS_ENUM(NSInteger, Direction)
 {
     if (!self.credentials.login || self.credentials.login.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите Email или никнейм" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите Email или никнейм"];
         return NO;
     }
     if (!self.credentials.password || self.credentials.password.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите пароль"];
         return NO;
     }
     return YES;

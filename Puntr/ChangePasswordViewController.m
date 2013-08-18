@@ -7,6 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "NotificationManager.h"
 #import "PasswordModel.h"
 #import "TextField.h"
 #import <QuartzCore/QuartzCore.h>
@@ -103,12 +104,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)bufferData
 {
     self.passwordModel.password = self.textFieldOldPassword.text;
@@ -120,31 +115,19 @@
 {
     if (!self.passwordModel.password || self.passwordModel.password.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите пароль" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите пароль"];
         return NO;
     }
     
     if (!self.passwordModel.passwordNew || self.passwordModel.passwordNew.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите новый пароль" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите новый пароль"];
         return NO;
     }
     
     if (!self.passwordModel.passwordNewConfirmation || self.passwordModel.passwordNewConfirmation.length == 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Введите подтверждение нового пароля" message:@""
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [NotificationManager showNotificationMessage:@"Введите подтверждение нового пароля"];
         return NO;
     }
     
