@@ -340,7 +340,7 @@ typedef NS_ENUM(NSInteger, Direction)
                 TabBarViewController *tabBar = [[TabBarViewController alloc] init];
                 [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
                                   duration:0.3f
-                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                   options:UIViewAnimationOptionTransitionFlipFromRight
                                 animations:^
                                 {
                                     [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];

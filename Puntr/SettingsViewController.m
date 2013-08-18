@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "EnterViewController.h"
 #import "ObjectManager.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Puntr.h"
@@ -289,8 +290,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Вы уверены?"
                                                              delegate:self
-                                                    cancelButtonTitle:@"Выйти"
-                                               destructiveButtonTitle:@"Отмена"
+                                                    cancelButtonTitle:@"Отмена"
+                                               destructiveButtonTitle:@"Выйти"
                                                     otherButtonTitles:nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
@@ -299,11 +300,19 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (1 == buttonIndex)
+    if (0 == buttonIndex)
     {
         [[ObjectManager sharedManager] logOutWithSuccess:^
             {
-                [self.navigationController popViewControllerAnimated:YES];
+                EnterViewController *enterViewController = [[EnterViewController alloc] init];
+                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
+                                  duration:0.3f
+                                   options:UIViewAnimationOptionTransitionFlipFromRight
+                                animations:^
+                                {
+                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:enterViewController];
+                                }
+                                completion:nil];
             }
             failure:nil
         ];
