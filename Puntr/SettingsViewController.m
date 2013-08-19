@@ -7,6 +7,7 @@
 //
 
 #import "EnterViewController.h"
+#import "ChangePasswordViewController.h"
 #import "ObjectManager.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Puntr.h"
@@ -183,7 +184,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     self.settingsArray = @[
                              @[
                                  @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched" },
                                  @{ @"pictureName": @"3.png", @"title": @"Статистика", @"isAccessory": @(YES) },
                               ],
                              @[
@@ -282,6 +283,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
         [headerView addSubview:headerViewLabel];
     }
     return headerView;
+}
+#pragma mark - Actions
+
+- (void)changePasswordTouched
+{
+    [self.navigationController pushViewController:[[ChangePasswordViewController alloc] init] animated:YES];
 }
 
 #pragma mark - ActionSheet
