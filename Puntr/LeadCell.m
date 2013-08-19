@@ -9,6 +9,7 @@
 #import "ActivityModel.h"
 #import "EventModel.h"
 #import "LeadCell.h"
+#import "NewsModel.h"
 #import "ObjectManager.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
@@ -73,7 +74,6 @@ static const CGFloat TNAvatarSide = 56.0f;
     {
         self.delimiters = [NSMutableArray array];
     }
-    
     if ([model isMemberOfClass:[EventModel class]])
     {
         [self loadWithEvent:(EventModel *)model];
@@ -88,6 +88,10 @@ static const CGFloat TNAvatarSide = 56.0f;
     else if ([model isMemberOfClass:[ActivityModel class]])
     {
         [self loadWithActivity:(ActivityModel *)model];
+    }
+    else if ([model isMemberOfClass:[NewsModel class]])
+    {
+        [self loadWithNews:(NewsModel *)model];
     }
 }
 
@@ -105,6 +109,11 @@ static const CGFloat TNAvatarSide = 56.0f;
     }
 }
 
+- (void)loadWithComment:(CommentModel *)comment
+{
+    [self displayUser:comment.user message:comment.message final:YES];
+}
+
 - (void)loadWithEvent:(EventModel *)event
 {
     
@@ -113,6 +122,24 @@ static const CGFloat TNAvatarSide = 56.0f;
 - (void)loadWithFeed:(FeedModel *)feed
 {
     [self displayUser:feed.user message:feed.message final:YES];
+}
+
+- (void)loadWithNews:(NewsModel *)news
+{
+    [self blackCell];
+    [self displayTime:news.createdAt];
+    if (news.stake)
+    {
+        [self loadWithStake:news.stake];
+    }
+    else if (news.feed)
+    {
+        [self loadWithFeed:news.feed];
+    }
+    else if (news.comment)
+    {
+        [self loadWithComment:news.comment];
+    }
 }
 
 - (void)loadWithStake:(StakeModel *)stake
