@@ -43,6 +43,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     self = [super init];
     if (self)
     {
+        _paging = [[PagingModel alloc] init];
+        [_paging firstPage];
         _collectionType = collectionType;
         _modifierObject = object;
         [self prepareCollectionView];
@@ -79,6 +81,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             
         case CollectionTypeMyStakes:
             [self loadMyStakes];
+            break;
+            
+        case CollectionTypeNews:
+            [self loadNews];
             break;
             
         default:
@@ -118,6 +124,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                  [self combineWithData:activities];
                                              }
                                              failure:nil
+    ];
+}
+
+- (void)loadNews
+{
+    [[ObjectManager sharedManager] newsWithPaging:self.paging
+                                          success:^(NSArray *news)
+                                          {
+                                              [self combineWithData:news];
+                                          }
+                                          failure:nil
     ];
 }
 
