@@ -189,19 +189,31 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)fbButtonTouched
 {
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:nil];
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:^(AccessModel *accessModel)
+         {
+             [self loginWithSocialModel:accessModel];
+         }
+    ];
 }
 
 - (void)twButtonTouched
 {
     NSLog(@"tw touched");
     [SocialManager sharedManager].delegate = self;
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter success:nil];
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter success:^(AccessModel *accessModel)
+         {
+             [self loginWithSocialModel:accessModel];
+         }
+    ];
 }
 
 - (void)vkButtonTouched
 {
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:nil];
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:^(AccessModel *accessModel)
+         {
+             [self loginWithSocialModel:accessModel];
+         }
+    ];
 }
 
 - (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
@@ -349,6 +361,23 @@ typedef NS_ENUM(NSInteger, Direction)
             }
             failure:nil];
     }
+}
+
+- (void)loginWithSocialModel:(AccessModel *)socialModel
+{
+    [[ObjectManager sharedManager] logInWithAccess:socialModel success:^(AuthorizationModel *authorization, UserModel *user)
+     {
+         TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+         [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
+                           duration:0.3f
+                            options:UIViewAnimationOptionTransitionFlipFromRight
+                         animations:^
+          {
+              [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+          }
+                         completion:nil];
+     }
+                                           failure:nil];
 }
 
 - (void)resignAllResponders
