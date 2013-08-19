@@ -727,6 +727,35 @@
             failure:failure];
 }
 
+- (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
+    user.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+                                                                 method:RKRequestMethodPUT
+                                                                   path:APIUsers
+                                                             parameters:nil
+                                              constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+                                    {
+                                        if (avatarData)
+                                        {
+                                            [formData appendPartWithFileData:avatarData
+                                                                        name:KeyAvatar
+                                                                    fileName:@"avatar.png"
+                                                                    mimeType:@"image/png"];
+                                        }
+                                    }
+                                    ];
+    
+    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:success
+                                                                          failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                           {
+                                               [self reportWithFailure:failure error:error];                                                                   
+                                           }
+                                           ];
+    [self enqueueObjectRequestOperation:operation];
+}
+
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
 {
     [self getObject:nil

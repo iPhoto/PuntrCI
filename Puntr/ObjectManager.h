@@ -131,6 +131,8 @@ typedef void (^User)(UserModel *user);
 
 - (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
+- (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure;
