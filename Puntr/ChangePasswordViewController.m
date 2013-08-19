@@ -75,7 +75,6 @@
     self.textFieldConfirmPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];
     self.textFieldConfirmPassword.placeholder = @"Подтверждение...";
     self.textFieldConfirmPassword.secureTextEntry = YES;
-    self.textFieldConfirmPassword.keyboardType = UIKeyboardTypeEmailAddress;
     self.textFieldConfirmPassword.returnKeyType = UIReturnKeyDone;
     self.textFieldConfirmPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldConfirmPassword.delegate = self;
