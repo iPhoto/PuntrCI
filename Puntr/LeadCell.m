@@ -17,10 +17,13 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
-static const CGFloat TNGeneralMargin = 8.0f;
-static const CGFloat TNTextHeight = 12.0f;
-static const CGFloat TNCellWidth = 306.0f;
-static const CGFloat TNAvatarSide = 56.0f;
+static const CGFloat TNMarginGeneral = 8.0f;
+static const CGFloat TNHeightText = 12.0f;
+static const CGFloat TNWidthCell = 306.0f;
+static const CGFloat TNSideAvatar = 56.0f;
+static const CGFloat TNWidthButtonLarge = 94.0f;
+static const CGFloat TNWidthButtonSmall = 62.0f;
+static const CGFloat TNHeightButton = 31.0f;
 
 #define TNColorText self.blackBackground ? [UIColor whiteColor] : [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f]
 
@@ -50,6 +53,11 @@ static const CGFloat TNAvatarSide = 56.0f;
 @property (nonatomic, strong) UILabel *labelCoefficient;
 @property (nonatomic, strong) UILabel *labelCoefficientTitle;
 
+// Tournament
+@property (nonatomic, strong) UILabel *labelTournament;
+@property (nonatomic, strong) UIImageView *imageViewTournamentArrow;
+@property (nonatomic, strong) UIButton *buttonTournament;
+
 // Miscelanouos
 @property (nonatomic, strong) NSMutableArray *delimiters;
 
@@ -63,7 +71,7 @@ static const CGFloat TNAvatarSide = 56.0f;
 {
     LeadCell *cell = [[self alloc] init];
     [cell loadWithModel:model];
-    return CGSizeMake(TNCellWidth, cell.usedHeight + TNGeneralMargin);
+    return CGSizeMake(TNWidthCell, cell.usedHeight + TNMarginGeneral);
 }
 
 #pragma mark - General Loading
@@ -148,9 +156,9 @@ static const CGFloat TNAvatarSide = 56.0f;
     {
         [self displayUser:stake.user message:nil final:NO];
     }
-    [self displayCategory:stake.event.tournament.category
-             participants:stake.event.participants
-                    final:NO];
+    [self displayTournament:stake.event.tournament actionable:NO final:NO];
+    [self displayCategory:stake.event.tournament.category];
+    [self displayParticipants:stake.event.participants actionable:NO final:NO];
     [self displayLine:stake.line
            components:stake.components
           coefficient:stake.coefficient
@@ -181,6 +189,11 @@ static const CGFloat TNAvatarSide = 56.0f;
     [self.labelComponents removeFromSuperview];
     [self.labelCoefficient removeFromSuperview];
     [self.labelCoefficientTitle removeFromSuperview];
+    
+    // Tournament
+    [self.labelTournament removeFromSuperview];
+    [self.imageViewTournamentArrow removeFromSuperview];
+    [self.buttonTournament removeFromSuperview];
     
     // Miscelanouos
     for (UIImageView *imageView in self.delimiters)
@@ -219,10 +232,10 @@ static const CGFloat TNAvatarSide = 56.0f;
 {
     self.labelPublicationTime = [[UILabel alloc] init];
     self.labelPublicationTime.frame = CGRectMake(
-                                                 TNGeneralMargin,
-                                                 TNGeneralMargin,
-                                                 CGRectGetWidth(self.frame) - TNGeneralMargin * 2.0f,
-                                                 TNTextHeight
+                                                 TNMarginGeneral,
+                                                 TNMarginGeneral,
+                                                 CGRectGetWidth(self.frame) - TNMarginGeneral * 2.0f,
+                                                 TNHeightText
                                                  );
     self.labelPublicationTime.font = TNFontSmall;
     self.labelPublicationTime.backgroundColor = [UIColor clearColor];
@@ -238,31 +251,29 @@ static const CGFloat TNAvatarSide = 56.0f;
     CGFloat avatarWidth = 0.0f;
     
     // Avatar
-    
     if (user.avatar)
     {
         self.imageViewAvatar = [[UIImageView alloc] init];
         self.imageViewAvatar.frame = CGRectMake(
-                                                TNGeneralMargin,
-                                                self.usedHeight + TNGeneralMargin,
-                                                TNAvatarSide,
-                                                TNAvatarSide
+                                                TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNSideAvatar,
+                                                TNSideAvatar
                                                );
-        [self.imageViewAvatar setImageWithURL:[user avatarWithSize:CGSizeMake(TNAvatarSide, TNAvatarSide)]];
+        [self.imageViewAvatar setImageWithURL:[user avatarWithSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
         [self addSubview:self.imageViewAvatar];
         
-        avatarWidth = CGRectGetWidth(self.imageViewAvatar.frame) + TNGeneralMargin;
+        avatarWidth = CGRectGetWidth(self.imageViewAvatar.frame) + TNMarginGeneral;
         self.usedHeight = CGRectGetMaxY(self.imageViewAvatar.frame);
     }
     
     // Name
-    
     self.labelUserName = [[UILabel alloc] init];
-    CGFloat userNameHeight = user.avatar && !message ? TNAvatarSide : TNTextHeight;
+    CGFloat userNameHeight = user.avatar && !message ? TNSideAvatar : TNHeightText;
     self.labelUserName.frame = CGRectMake(
-                                          TNGeneralMargin + avatarWidth,
-                                          self.usedHeight + TNGeneralMargin,
-                                          TNCellWidth - TNGeneralMargin * 2.0f - avatarWidth,
+                                          TNMarginGeneral + avatarWidth,
+                                          self.usedHeight + TNMarginGeneral,
+                                          TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
                                           userNameHeight
                                          );
     self.labelUserName.font = TNFontSmallBold;
@@ -274,14 +285,13 @@ static const CGFloat TNAvatarSide = 56.0f;
     self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.imageViewAvatar.frame));
     
     // Message
-    
     if (message)
     {
         self.labelUserMessage = [[UILabel alloc] init];
         self.labelUserMessage.frame = CGRectMake(
-                                                 TNGeneralMargin + avatarWidth,
-                                                 CGRectGetMaxY(self.labelUserName.frame) + TNGeneralMargin,
-                                                 TNCellWidth - TNGeneralMargin * 2.0f - avatarWidth,
+                                                 TNMarginGeneral + avatarWidth,
+                                                 CGRectGetMaxY(self.labelUserName.frame) + TNMarginGeneral,
+                                                 TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
                                                  CGFLOAT_MAX
                                                  );
         self.labelUserMessage.font = TNFontSmall;
@@ -298,36 +308,33 @@ static const CGFloat TNAvatarSide = 56.0f;
     [self makeFinal:final];
 }
 
-- (void)displayCategory:(CategoryModel *)category participants:(NSArray *)participants final:(BOOL)final
+- (void)displayCategory:(CategoryModel *)category
 {
-    
     CGFloat categoryImageWidth = 0.0f;
     CGSize categoryImageSize = CGSizeMake(12.0f, 12.0f);
-    
-    // Category
     
     if (category.image)
     {
         self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(
-                                                                                    TNGeneralMargin,
-                                                                                    self.usedHeight + TNGeneralMargin,
+                                                                                    TNMarginGeneral,
+                                                                                    self.usedHeight + TNMarginGeneral,
                                                                                     categoryImageSize.width,
                                                                                     categoryImageSize.height
-                                                                                   )];
+                                                                                    )];
         
         [self.imageViewCategoryImage setImageWithURL:category.image];
         [self addSubview:self.imageViewCategoryImage];
         
-        categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame) + TNGeneralMargin;
+        categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame) + TNMarginGeneral;
     }
     
     self.labelCategoryTitle = [[UILabel alloc] init];
     self.labelCategoryTitle.frame = CGRectMake(
-                                                   TNGeneralMargin + categoryImageWidth,
-                                                   self.usedHeight + TNGeneralMargin,
-                                                   TNCellWidth - TNGeneralMargin * 2.0f - categoryImageWidth,
-                                                   TNTextHeight
-                                              );
+                                               TNMarginGeneral + categoryImageWidth,
+                                               self.usedHeight + TNMarginGeneral,
+                                               TNWidthCell - TNMarginGeneral * 2.0f - categoryImageWidth,
+                                               TNHeightText
+                                               );
     self.labelCategoryTitle.font = TNFontSmall;
     self.labelCategoryTitle.backgroundColor = [UIColor clearColor];
     self.labelCategoryTitle.textColor = TNColorText;
@@ -335,14 +342,73 @@ static const CGFloat TNAvatarSide = 56.0f;
     [self addSubview:self.labelCategoryTitle];
     
     self.usedHeight = CGRectGetMaxY(self.labelCategoryTitle.frame);
+}
+
+- (void)displayTournament:(TournamentModel *)tournament actionable:(BOOL)actionable final:(BOOL)final
+{
+    self.labelTournament = [[UILabel alloc] init];
+    CGFloat widthLabel = actionable ? TNWidthCell - TNMarginGeneral * 3.0f - TNWidthButtonLarge : TNWidthCell - TNMarginGeneral * 2.0f;
+    self.labelTournament.frame = CGRectMake(
+                                                TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                widthLabel,
+                                                TNHeightText
+                                           );
+    self.labelTournament.font = TNFontSmallBold;
+    self.labelTournament.backgroundColor = [UIColor clearColor];
+    self.labelTournament.textColor = TNColorText;
+    self.labelTournament.text = tournament.title;
+    [self addSubview:self.labelTournament];
     
+    self.usedHeight = CGRectGetMaxY(self.labelTournament.frame);
+    
+    if (actionable)
+    {
+        self.buttonTournament = [UIButton buttonWithType:UIButtonTypeCustom];
+        const CGFloat TNMarginButtonTournament = 4.0f;
+        self.buttonTournament.frame = CGRectMake(
+                                                     TNWidthCell - TNMarginGeneral - TNWidthButtonLarge,
+                                                     self.usedHeight + TNMarginButtonTournament - TNHeightButton,
+                                                     TNWidthButtonLarge,
+                                                     TNHeightButton
+                                                );
+        [self.buttonTournament setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)]
+                                         forState:UIControlStateNormal];
+        self.buttonTournament.adjustsImageWhenHighlighted = NO;
+        [self.buttonTournament setTitle:@"Подписаться" forState:UIControlStateNormal];
+        self.buttonTournament.titleLabel.font = TNFontSmallBold;
+        self.buttonTournament.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+        self.buttonTournament.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+        [self.buttonTournament addTarget:self action:@selector(touchedButtonTournamentSubscribe:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.buttonTournament];
+    }
+    else
+    {
+        self.imageViewTournamentArrow = [[UIImageView alloc] init];
+        CGFloat marginTime = self.labelPublicationTime ? [self.labelPublicationTime sizeThatFits:self.labelPublicationTime.frame.size].width + TNMarginGeneral : 0.0f;
+        const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
+        self.imageViewTournamentArrow.frame = CGRectMake(
+                                                             TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
+                                                             self.usedHeight - TNSizeTournamentArrow.height,
+                                                             TNSizeTournamentArrow.width,
+                                                             TNSizeTournamentArrow.height
+                                                        );
+        self.imageViewTournamentArrow.image = [UIImage imageNamed:@"IconArrow"];
+        [self addSubview:self.imageViewTournamentArrow];
+    }
+    
+    [self makeFinal:final];
+}
+
+- (void)displayParticipants:(NSArray *)participants actionable:(BOOL)actionable final:(BOOL)final
+{
     // Participants
     self.labelParticipants = [[UILabel alloc] init];
     self.labelParticipants.frame = CGRectMake(
-                                              TNGeneralMargin,
-                                              self.usedHeight + TNGeneralMargin,
-                                              TNCellWidth - TNGeneralMargin * 2.0f,
-                                              TNTextHeight
+                                              TNMarginGeneral,
+                                              self.usedHeight + TNMarginGeneral,
+                                              TNWidthCell - TNMarginGeneral * 2.0f,
+                                              TNHeightText
                                              );
     self.labelParticipants.font = TNFontSmallBold;
     self.labelParticipants.backgroundColor = [UIColor clearColor];
@@ -375,13 +441,12 @@ static const CGFloat TNAvatarSide = 56.0f;
               final:(BOOL)final
 {
     // Line
-    
     self.labelLine = [[UILabel alloc] init];
     self.labelLine.frame = CGRectMake(
-                                          TNGeneralMargin,
-                                          self.usedHeight + TNGeneralMargin,
-                                          TNCellWidth - TNGeneralMargin * 2.0f,
-                                          TNTextHeight
+                                          TNMarginGeneral,
+                                          self.usedHeight + TNMarginGeneral,
+                                          TNWidthCell - TNMarginGeneral * 2.0f,
+                                          TNHeightText
                                      );
     self.labelLine.font = TNFontSmall;
     self.labelLine.backgroundColor = [UIColor clearColor];
@@ -393,13 +458,12 @@ static const CGFloat TNAvatarSide = 56.0f;
     [self addSubview:self.labelLine];
     
     // Components
-    
     self.labelComponents = [[UILabel alloc] init];
     self.labelComponents.frame = CGRectMake(
-                                                CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin,
-                                                self.usedHeight + TNGeneralMargin,
-                                                TNCellWidth - (CGRectGetMaxX(self.labelLine.frame) + TNGeneralMargin * 3.0f),
-                                                TNTextHeight
+                                                CGRectGetMaxX(self.labelLine.frame) + TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthCell - (CGRectGetMaxX(self.labelLine.frame) + TNMarginGeneral * 3.0f),
+                                                TNHeightText
                                            );
     self.labelComponents.font = TNFontSmallBold;
     self.labelComponents.backgroundColor = [UIColor clearColor];
@@ -414,15 +478,14 @@ static const CGFloat TNAvatarSide = 56.0f;
     [self addSubview:self.labelComponents];
     
     // Coefficient
-    
     NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %.1f", coefficient.value.floatValue];
-    CGPoint coefficientOrigin = CGPointMake(TNGeneralMargin, CGRectGetMaxY(self.labelLine.frame) + TNGeneralMargin);
-    CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNCellWidth - TNGeneralMargin * 2.0f, TNTextHeight)];
-    if (coefficientSize.width <= TNCellWidth - CGRectGetMaxX(self.labelComponents.frame) - TNGeneralMargin * 2.0f)
+    CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLine.frame) + TNMarginGeneral);
+    CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
+    if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponents.frame) - TNMarginGeneral * 2.0f)
     {
         coefficientOrigin = CGPointMake(
-                                        CGRectGetMaxX(self.labelComponents.frame) + TNGeneralMargin,
-                                        self.usedHeight + TNGeneralMargin
+                                        CGRectGetMaxX(self.labelComponents.frame) + TNMarginGeneral,
+                                        self.usedHeight + TNMarginGeneral
                                        );
     }
     self.labelCoefficient = [[UILabel alloc] init];
@@ -465,8 +528,8 @@ static const CGFloat TNAvatarSide = 56.0f;
         
         UIImageView *delimiter = [[UIImageView alloc] initWithFrame:CGRectMake(
                                                                                0.0f,
-                                                                               self.usedHeight + TNGeneralMargin,
-                                                                               TNCellWidth,
+                                                                               self.usedHeight + TNMarginGeneral,
+                                                                               TNWidthCell,
                                                                                delimiterHeight
                                                                               )];
         delimiter.image = delimiterImage;
@@ -474,8 +537,15 @@ static const CGFloat TNAvatarSide = 56.0f;
         
         [self.delimiters addObject:delimiter];
         
-        self.usedHeight += TNGeneralMargin + delimiterHeight;
+        self.usedHeight += TNMarginGeneral + delimiterHeight;
     }
+}
+
+#pragma mark - Actions
+
+- (void)touchedButtonTournamentSubscribe:(UIButton *)button
+{
+    NSLog(@"Tournament Subscribe button touched");
 }
 
 @end
