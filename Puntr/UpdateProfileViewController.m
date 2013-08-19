@@ -45,7 +45,7 @@
     CGRect viewControllerFrame = CGRectMake(0.0f,
                                             0.0f,
                                             CGRectGetWidth(applicationFrame),
-                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds)
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
@@ -127,6 +127,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)buttonPhotoTouched{
+    UIActionSheet *actionSheet;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Выберите источник" delegate:self cancelButtonTitle:@"Отмена" destructiveButtonTitle:nil otherButtonTitles:@"Камера", @"Галерея", nil];
+        [actionSheet showInView:self.view];
+    } else {
+        [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
 }
 
 - (void)bufferData

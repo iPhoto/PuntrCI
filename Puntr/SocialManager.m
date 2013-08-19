@@ -9,14 +9,15 @@
 #import "SocialManager.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "FacebookModel.h"
 #import "OAuth+Additions.h"
 #import "TWAPIManager.h"
+#import "TwitterModel.h"
 #import "TWSignedRequest.h"
 #import "TwitterReverseOAuthResponse.h"
 #import "VKAccessToken.h"
+#import "VKontakteModel.h"
 #import "VKUser.h"
-
-static SocialManager *sharedManager = nil;
 
 @interface SocialManager ()
 
@@ -142,6 +143,14 @@ static SocialManager *sharedManager = nil;
                  
                  TwitterReverseOAuthResponse *twitterUserData = [TwitterReverseOAuthResponse oauthResponseForResponseData:responseData];
                  NSLog(@"tw user token: %@; token_secret: %@; name: %@; id: %@;", twitterUserData.oauth_token, twitterUserData.oauth_token_secret, twitterUserData.screen_name, twitterUserData.user_id);
+                 TwitterModel *twModel = [[TwitterModel alloc]init];
+                 twModel.tag = twitterUserData.user_id;
+                 twModel.accessToken = twitterUserData.oauth_token;
+                 twModel.secretToken = twitterUserData.oauth_token_secret;
+                 if(self.success)
+                 {
+                     self.success(twModel);
+                 }
              }
              else
              {
@@ -159,8 +168,14 @@ static SocialManager *sharedManager = nil;
 
 - (void)VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken
 {
-    NSLog(@"vk_user_id: %lu", (unsigned long)[VKUser currentUser].accessToken.userID);
-    NSLog(@"vk_user_token: %@", [VKUser currentUser].accessToken.token);
+    VKontakteModel *vkModel = [[VKontakteModel alloc]init];
+    vkModel.tag = [NSString stringWithFormat:@"%lu", (unsigned long)[VKUser currentUser].accessToken.userID];
+    vkModel.accessToken = [VKUser currentUser].accessToken.token;
+    if(self.success)
+    {
+        self.success(vkModel);
+    }
+
 }
 
 - (void)userFbData
@@ -177,7 +192,13 @@ static SocialManager *sharedManager = nil;
     [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
         {
             NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"dict: %@", fbDictionary);
+            FacebookModel *fbModel = [[FacebookModel alloc]init];
+            fbModel.tag = [fbDictionary objectForKey:@"id"];
+            fbModel.accessToken = [[self.facebookAccount credential] oauthToken];
+            if(self.success)
+            {
+                self.success(fbModel);
+            }
         }
     ];
 }
