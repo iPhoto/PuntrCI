@@ -32,23 +32,15 @@ static SocialManager *sharedManager = nil;
 
 @synthesize delegate;
 
-- (id)init
-{
-    self = [super init];
-    if (nil == sharedManager)
-    {
-        [SocialManager setSharedManager:self];
-    }
-    return self;
-}
-
-+ (void)setSharedManager:(SocialManager *)manager
-{
-    sharedManager = manager;
-}
-
 + (SocialManager *)sharedManager
 {
+    static SocialManager *sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+                  {
+                      sharedManager = [[self alloc] init];
+                  }
+                  );
     return sharedManager;
 }
 
