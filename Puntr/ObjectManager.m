@@ -733,8 +733,8 @@
     user.avatarData = nil;
     NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
                                                                  method:RKRequestMethodPUT
-                                                                   path:APIUsers
-                                                             parameters:nil
+                                                                   path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
+                                                             parameters:self.authorization.wrappedParameters
                                               constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                     {
                                         if (avatarData)
