@@ -7,8 +7,10 @@
 //
 
 #import "EnterViewController.h"
+#import "ChangePasswordViewController.h"
 #import "ObjectManager.h"
 #import "SettingsViewController.h"
+#import "UpdateProfileViewController.h"
 #import "UIViewController+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -182,8 +184,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     self.settingsArray = @[
                              @[
-                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched" },
+                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched" },
                                  @{ @"pictureName": @"3.png", @"title": @"Статистика", @"isAccessory": @(YES) },
                               ],
                              @[
@@ -283,7 +285,17 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     }
     return headerView;
 }
+#pragma mark - Actions
 
+- (void)changePasswordTouched
+{
+    [self.navigationController pushViewController:[[ChangePasswordViewController alloc] init] animated:YES];
+}
+
+- (void)profileUpdateTouched
+{
+    [self.navigationController pushViewController:[[UpdateProfileViewController alloc] init] animated:YES];
+}
 #pragma mark - ActionSheet
 
 - (void)showExitDialog
