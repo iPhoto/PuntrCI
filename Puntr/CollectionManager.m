@@ -69,6 +69,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)reloadData
 {
     self.collectionData = nil;
+    [self.paging firstPage];
     switch (self.collectionType)
     {
         case CollectionTypeActivities:
