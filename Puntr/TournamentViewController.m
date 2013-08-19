@@ -31,6 +31,13 @@
 
 @implementation TournamentViewController
 
+- (id)initWithTounament:(TournamentModel *)tournament {
+    if (self = [super init]) {
+        _tournament = tournament;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
