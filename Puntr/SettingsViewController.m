@@ -190,7 +190,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                               ],
                              @[
                                  @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
+                                 //@{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
                                  @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"isAccessory": @(YES) },
                                  @{ @"pictureName": @"7.png", @"title": @"Конфиденциальность" },
                                  @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
