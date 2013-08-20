@@ -9,13 +9,17 @@
 #import "TournamentCell.h"
 #import "PuntrUtilities.h"
 
-#define EDGE_SIZE   4.0f
+#define EDGE_SIZE   6.0f
 
 @interface TournamentCell ()
 
 @property (nonatomic, retain) TournamentModel *tournament;
 
 @property (nonatomic, retain) UIImageView *tournamentIcon;
+
+@property (nonatomic, retain) UIImageView *tournamentTopBackground;
+@property (nonatomic, retain) UIImageView *tournamentBannerImage;
+
 @property (nonatomic, retain) UILabel *tournamentNameLabel;
 @property (nonatomic, retain) UILabel *tournamentStartTimeLabel;
 @property (nonatomic, retain) UILabel *tournamentCreatedTimeLabel;
@@ -27,11 +31,20 @@
 - (void)loadWithTournament:(TournamentModel *)tournament
 {
     self.tournament = tournament;
+
+    self.tournamentTopBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top"]];
+    self.tournamentTopBackground.center = CGPointMake(self.frame.size.width / 2, self.tournamentTopBackground.frame.size.height / 2);
+    [self addSubview:self.tournamentTopBackground];
+    
+    self.tournamentBannerImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bottom"]];
+    self.tournamentBannerImage.center = CGPointMake(self.frame.size.width / 2,CGRectGetMaxY(self.tournamentTopBackground.frame) + (self.tournamentBannerImage.frame.size.height / 2));
+    [self addSubview:self.tournamentBannerImage];
+
     
     UIImage *iconImage = [UIImage imageNamed:@"IconLiga"];
     
     self.tournamentIcon = [[UIImageView alloc] initWithImage:iconImage];
-    self.tournamentIcon.center = CGPointMake(iconImage.size.width / 2 + EDGE_SIZE, self.frame.size.height / 2);
+    self.tournamentIcon.center = CGPointMake(iconImage.size.width / 2 + EDGE_SIZE + self.tournamentTopBackground.frame.origin.x, self.tournamentTopBackground.frame.size.height / 2);
     [self addSubview:self.tournamentIcon];
     
     NSDate *startDate = [NSDate date];
@@ -54,19 +67,24 @@
     minutes = [components minute];
     
     NSString *format = @"";
-    if (hours != INT32_MAX) {
+    NSString *timeStr = @"";
+    
+    if ((hours != INT32_MAX) && (hours > 0)) {
         format = [NSString stringWithFormat:@"%i ч.", hours];
     }
-    if (minutes != INT32_MAX) {
+    if ((minutes != INT32_MAX) && (minutes > 0)) {
         format = [format stringByAppendingFormat:@" %i м.", minutes];
     }
-
-    NSString *timeStr = [NSString stringWithFormat:@"Через %@ начнется", format];
     
+    if ([format isEqualToString:@""]) {
+        timeStr = @"Турнир уже идет!";
+    } else {
+        timeStr = [NSString stringWithFormat:@"Через %@ начнется", format];
+    }
     CGSize accesibleSize = CGSizeMake(self.frame.size.width - CGRectGetMaxX(self.tournamentIcon.frame), self.frame.size.height);
     CGSize textSize = [timeStr sizeWithFont:[UIFont fontWithName:@"Arial-BoldMT" size:13.0f] constrainedToSize:accesibleSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    self.tournamentStartTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.tournamentIcon.frame) + EDGE_SIZE, 2.0f, textSize.width, textSize.height)];
+    self.tournamentStartTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.tournamentIcon.frame) + EDGE_SIZE, 4.0f, textSize.width, textSize.height)];
     self.tournamentStartTimeLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:13.0f];
     self.tournamentStartTimeLabel.textColor = [UIColor whiteColor];
     self.tournamentStartTimeLabel.backgroundColor = [UIColor clearColor];
@@ -85,6 +103,11 @@
     self.tournamentNameLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     self.tournamentNameLabel.text = self.tournament.title;
     [self addSubview:self.tournamentNameLabel];
+}
+
+- (void)prepareForReuse {
+    self.tournamentNameLabel.text = nil;
+    self.tournamentStartTimeLabel.text = nil;
 }
 
 @end
