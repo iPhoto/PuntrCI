@@ -353,7 +353,7 @@
     
     // User
     RKObjectMapping *userSerialization = [RKObjectMapping requestMapping];
-    [userSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
+    [userSerialization addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
     RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userSerialization
                                                                                        objectClass:[UserModel class]
                                                                                        rootKeyPath:nil];
