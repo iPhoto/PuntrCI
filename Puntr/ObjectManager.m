@@ -38,8 +38,10 @@
 - (void)configureMapping
 {
     // Status Codes
-    NSIndexSet *statusCodeCreated = [NSIndexSet indexSetWithIndex:201];
+    
     NSIndexSet *statusCodeOK = [NSIndexSet indexSetWithIndex:200];
+    NSIndexSet *statusCodeCreated = [NSIndexSet indexSetWithIndex:201];
+    NSIndexSet *statusCodeNoContent = [NSIndexSet indexSetWithIndex:204];
     NSIndexSet *statusCodeNotModified = [NSIndexSet indexSetWithIndex:304];
     NSIndexSet *statusCodeBadRequest = [NSIndexSet indexSetWithIndex:400];
     NSIndexSet *statusCodeUnauthorized = [NSIndexSet indexSetWithIndex:401];
@@ -238,6 +240,10 @@
                                                                                                              pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                                  keyPath:KeySubscriptions
                                                                                                              statusCodes:statusCodeOK];
+    RKResponseDescriptor *subscriptionCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
+                                                                                                         pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
+                                                                                                             keyPath:nil
+                                                                                                         statusCodes:statusCodeNoContent];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeySubscribersCount, KeyStartTime, KeyEndTime, KeySubscribed]];
@@ -283,6 +289,7 @@
             stakeUsersCollectionResponseDescriptor,
             subscriberCollectionResponseDescriptor,
             subscriptionCollectionResponseDescriptor,
+            subscriptionCreateResponseDescriptor,
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
             userCreateResponseDescriptor,
@@ -312,6 +319,12 @@
     RKRequestDescriptor *facebookRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:facebookSerialization
                                                                                             objectClass:[FacebookModel class]
                                                                                             rootKeyPath:KeyFacebook];
+    // Participant
+    RKObjectMapping *participantSerialization = [RKObjectMapping requestMapping];
+    [participantSerialization addAttributeMappingsFromArray:@[KeyTag]];
+    RKRequestDescriptor *participantRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:participantSerialization
+                                                                                              objectClass:[ParticipantModel class]
+                                                                                              rootKeyPath:KeyParticipant];
     
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
@@ -350,6 +363,7 @@
             commentRequestDescriptor,
             credentialsRequestDescriptor,
             facebookRequestDescriptor,
+            participantRequestDescriptor,
             stakeRequestDescriptor,
             twitterRequestDescriptor,
             userRequestDescriptor,
@@ -650,7 +664,23 @@
     ];
 }
 
+#pragma mark - Subscriptions
 
+- (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self postObject:object
+                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
+          parameters:self.authorization.wrappedParameters
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 success();
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
+    ];
+}
 
 #pragma mark - Tournaments
 
@@ -733,8 +763,8 @@
     user.avatarData = nil;
     NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
                                                                  method:RKRequestMethodPUT
-                                                                   path:APIUsers
-                                                             parameters:nil
+                                                                   path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
+                                                             parameters:self.authorization.wrappedParameters
                                               constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                     {
                                         if (avatarData)

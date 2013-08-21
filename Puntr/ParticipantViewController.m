@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "NotificationManager.h"
+#import "ObjectManager.h"
 #import "ParticipantViewController.h"
 #import "ParticipantModel.h"
 #import <QuartzCore/QuartzCore.h>
@@ -76,9 +78,21 @@
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.buttonSubscribe addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:self.buttonSubscribe];
     
     [self.view addSubview:whiteView];
+}
+
+- (void)subscribe
+{
+    [[ObjectManager sharedManager] subscribeFor:self.participant
+                                        success:^
+                                        {
+                                            [NotificationManager showSuccessMessage:@"Вы успешно подписались на участника!"];
+                                        }
+                                        failure:nil
+     ];
 }
 
 - (void)viewDidAppear:(BOOL)animated

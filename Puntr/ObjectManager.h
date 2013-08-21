@@ -113,6 +113,10 @@ typedef void (^User)(UserModel *user);
                success:(Stakes)success
                failure:(EmptyFailure)failure;
 
+#pragma mark - Subscriptions
+
+- (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
 #pragma mark - Tournaments
 
 - (void)tournamentsForGroup:(NSString *)group
