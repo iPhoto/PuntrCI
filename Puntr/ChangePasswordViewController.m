@@ -8,6 +8,7 @@
 
 #import "ChangePasswordViewController.h"
 #import "NotificationManager.h"
+#import "ObjectManager.h"
 #import "PasswordModel.h"
 #import "TextField.h"
 #import <QuartzCore/QuartzCore.h>
@@ -138,7 +139,13 @@
     [self bufferData];
     if([self dataIsValid])
     {
-        
+        [[ObjectManager sharedManager] changePassord:self.passwordModel success:^
+            {
+                [NotificationManager showSuccessMessage:@"Пароль успешно изменен!"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            failure:nil
+        ];
     }
 }
 - (void)changePasswordButtonTouched

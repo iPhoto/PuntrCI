@@ -119,8 +119,12 @@
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
     RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
                                                                                               pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
-                                                                                                  keyPath:KeyActivities
+                                                                                                  keyPath:KeyComments
                                                                                               statusCodes:statusCodeOK];
+    RKResponseDescriptor *commentCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
+                                                                                                    pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
+                                                                                                        keyPath:nil
+                                                                                                    statusCodes:statusCodeNoContent];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
@@ -240,7 +244,7 @@
                                                                                                              pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                                  keyPath:KeySubscriptions
                                                                                                              statusCodes:statusCodeOK];
-    RKResponseDescriptor *subscriptionCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
+    RKResponseDescriptor *subscriptionCreateAndDeleteResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                              keyPath:nil
                                                                                                          statusCodes:statusCodeNoContent];
@@ -268,6 +272,14 @@
                                                                                                               pathPattern:APIAuthorization
                                                                                                                   keyPath:KeyUser
                                                                                                               statusCodes:statusCodeCreated];
+    RKResponseDescriptor *userUpdateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                 pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
+                                                                                                     keyPath:nil
+                                                                                                 statusCodes:statusCodeNoContent];
+    RKResponseDescriptor *userPassordResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, KeyPassword]
+                                                                                                      keyPath:nil
+                                                                                                  statusCodes:statusCodeNoContent];
     
     // Response Descriptors
     [self addResponseDescriptorsFromArray:
@@ -277,6 +289,7 @@
             authorizationUserCreateResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
+            commentCreateResponseDescriptor,
             commentResponseDescriptor,
             componentCollectionResponseDescriptor,
             errorResponseDescriptor,
@@ -289,11 +302,13 @@
             stakeUsersCollectionResponseDescriptor,
             subscriberCollectionResponseDescriptor,
             subscriptionCollectionResponseDescriptor,
-            subscriptionCreateResponseDescriptor,
+            subscriptionCreateAndDeleteResponseDescriptor,
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
             userCreateResponseDescriptor,
-            userResponseDescriptor
+            userPassordResponseDescriptor,
+            userResponseDescriptor,
+            userUpdateResponseDescriptor
          ]
     ];
     
@@ -326,6 +341,13 @@
                                                                                               objectClass:[ParticipantModel class]
                                                                                               rootKeyPath:KeyParticipant];
     
+    // Password
+    RKObjectMapping *passwordSerialization = [RKObjectMapping requestMapping];
+    [passwordSerialization addAttributeMappingsFromArray:@[KeyPassword, KeyPasswordNew, KeyPasswordNewConfirmation]];
+    RKRequestDescriptor *passwordRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:passwordSerialization
+                                                                                           objectClass:[PasswordModel class]
+                                                                                           rootKeyPath:nil];
+    
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
     [stakeSerialization addPropertyMappingsFromArray:@[
@@ -337,6 +359,13 @@
                                                                                         objectClass:[StakeModel class]
                                                                                         rootKeyPath:nil];
     
+    // Tournament
+    RKObjectMapping *tournamentSerialization = [RKObjectMapping requestMapping];
+    [tournamentSerialization addAttributeMappingsFromArray:@[KeyTag]];
+    RKRequestDescriptor *tournamentRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:tournamentSerialization
+                                                                                             objectClass:[TournamentModel class]
+                                                                                             rootKeyPath:KeyTournament];
+    
     // Twitter
     RKObjectMapping *twitterSerialization = [RKObjectMapping requestMapping];
     [twitterSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken, KeySecretToken]];
@@ -346,7 +375,7 @@
     
     // User
     RKObjectMapping *userSerialization = [RKObjectMapping requestMapping];
-    [userSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
+    [userSerialization addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
     RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userSerialization
                                                                                        objectClass:[UserModel class]
                                                                                        rootKeyPath:nil];
@@ -364,7 +393,9 @@
             credentialsRequestDescriptor,
             facebookRequestDescriptor,
             participantRequestDescriptor,
+            passwordRequestDescriptor,
             stakeRequestDescriptor,
+            tournamentRequestDescriptor,
             twitterRequestDescriptor,
             userRequestDescriptor,
             vKontakteRequestDescriptor
@@ -463,7 +494,10 @@
     [self postObject:comment
                 path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComments]
           parameters:self.authorization.wrappedParameters
-             success:success
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 success();
+             }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {
                  [self reportWithFailure:failure error:error];
@@ -682,6 +716,22 @@
     ];
 }
 
+- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self deleteObject:object
+                  path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
+            parameters:self.authorization.wrappedParameters
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+               {
+                   success();
+               }
+               failure:^(RKObjectRequestOperation *operation, NSError *error)
+               {
+                   [self reportWithFailure:failure error:error];
+               }
+    ];
+}
+
 #pragma mark - Tournaments
 
 - (void)tournamentssForGroup:(NSString *)group
@@ -760,30 +810,51 @@
 - (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
     NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
-    user.avatarData = nil;
-    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+    UserModel *requestUser = [user copy];
+    requestUser.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:requestUser
                                                                  method:RKRequestMethodPUT
                                                                    path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
                                                              parameters:self.authorization.wrappedParameters
                                               constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-                                    {
-                                        if (avatarData)
-                                        {
-                                            [formData appendPartWithFileData:avatarData
-                                                                        name:KeyAvatar
-                                                                    fileName:@"avatar.png"
-                                                                    mimeType:@"image/png"];
-                                        }
-                                    }
-                                    ];
+                                              {
+                                                  if (avatarData)
+                                                  {
+                                                      [formData appendPartWithFileData:avatarData
+                                                                                  name:KeyAvatar
+                                                                              fileName:@"avatar.png"
+                                                                              mimeType:@"image/png"];
+                                                  }
+                                              }
+                                   ];
     
-    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:success
+    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request
+                                                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                                          {
+                                                                              success();
+                                                                          }
                                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                           {
-                                               [self reportWithFailure:failure error:error];                                                                   
-                                           }
-                                           ];
+                                                                          {
+                                                                              [self reportWithFailure:failure error:error];
+                                                                          }
+                                          ];
     [self enqueueObjectRequestOperation:operation];
+}
+
+- (void)changePassord:(PasswordModel *)password success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self putObject:password
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, KeyPassword]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                success();
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
@@ -798,22 +869,23 @@
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure
 {
     NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
-    user.avatarData = nil;
-    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+    UserModel *requestUser = [user copy];
+    requestUser.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:requestUser
                                                                  method:RKRequestMethodPOST
                                                                    path:APIUsers
                                                              parameters:nil
-        constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-        {
-            if (avatarData)
-            {
-                [formData appendPartWithFileData:avatarData
-                                            name:KeyAvatar
-                                        fileName:@"avatar.png"
-                                        mimeType:@"image/png"];
-            }
-        }
-    ];
+                                              constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+                                              {
+                                                  if (avatarData)
+                                                  {
+                                                      [formData appendPartWithFileData:avatarData
+                                                                                  name:KeyAvatar
+                                                                              fileName:@"avatar.png"
+                                                                              mimeType:@"image/png"];
+                                                  }
+                                              }
+                                   ];
     
     RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
