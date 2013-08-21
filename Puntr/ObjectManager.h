@@ -117,6 +117,8 @@ typedef void (^User)(UserModel *user);
 
 - (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
+- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
 #pragma mark - Tournaments
 
 - (void)tournamentsForGroup:(NSString *)group

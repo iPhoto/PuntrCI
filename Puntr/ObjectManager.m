@@ -240,7 +240,7 @@
                                                                                                              pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                                  keyPath:KeySubscriptions
                                                                                                              statusCodes:statusCodeOK];
-    RKResponseDescriptor *subscriptionCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
+    RKResponseDescriptor *subscriptionCreateAndDeleteResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                              keyPath:nil
                                                                                                          statusCodes:statusCodeNoContent];
@@ -289,7 +289,7 @@
             stakeUsersCollectionResponseDescriptor,
             subscriberCollectionResponseDescriptor,
             subscriptionCollectionResponseDescriptor,
-            subscriptionCreateResponseDescriptor,
+            subscriptionCreateAndDeleteResponseDescriptor,
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
             userCreateResponseDescriptor,
@@ -679,6 +679,22 @@
              {
                  [self reportWithFailure:failure error:error];
              }
+    ];
+}
+
+- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self deleteObject:object
+                  path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
+            parameters:self.authorization.wrappedParameters
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+               {
+                   success();
+               }
+               failure:^(RKObjectRequestOperation *operation, NSError *error)
+               {
+                   [self reportWithFailure:failure error:error];
+               }
     ];
 }
 
