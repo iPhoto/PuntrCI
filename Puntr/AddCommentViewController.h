@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EventModel.h"
 
 @interface AddCommentViewController : UIViewController
+
+- (id)initWithEventTag:(EventModel *)event;
 
 @end

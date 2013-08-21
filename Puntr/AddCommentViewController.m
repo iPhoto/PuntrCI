@@ -8,7 +8,6 @@
 
 #import "AddCommentViewController.h"
 #import "CommentModel.h"
-#import "EventModel.h"
 #import "ObjectManager.h"
 #import <QuartzCore/QuartzCore.h>
 
