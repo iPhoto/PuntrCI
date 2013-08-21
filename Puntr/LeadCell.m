@@ -34,6 +34,7 @@ static const CGFloat TNHeightButton = 31.0f;
 
 @property (nonatomic) CGFloat usedHeight;
 @property (nonatomic) BOOL blackBackground;
+@property (nonatomic, strong) NSObject *model;
 
 // User
 @property (nonatomic, strong) UIImageView *imageViewAvatar;
@@ -78,6 +79,7 @@ static const CGFloat TNHeightButton = 31.0f;
 
 - (void)loadWithModel:(NSObject *)model
 {
+    self.model = model;
     if (!self.delimiters)
     {
         self.delimiters = [NSMutableArray array];
@@ -171,6 +173,7 @@ static const CGFloat TNHeightButton = 31.0f;
 {
     self.usedHeight = 0.0f;
     self.blackBackground = NO;
+    self.model = nil;
     
     // User
     [self.imageViewAvatar removeFromSuperview];
