@@ -810,11 +810,15 @@
                                               }
                                    ];
     
-    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:success
+    RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request
+                                                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                                                          {
+                                                                              success();
+                                                                          }
                                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                              {
-                                                  [self reportWithFailure:failure error:error];
-                                              }
+                                                                          {
+                                                                              [self reportWithFailure:failure error:error];
+                                                                          }
                                           ];
     [self enqueueObjectRequestOperation:operation];
 }
