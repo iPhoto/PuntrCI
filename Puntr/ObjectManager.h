@@ -8,7 +8,7 @@
 
 #import "RKObjectManager.h"
 
-@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, RegistrationModel, StakeModel, UserModel;
+@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, PasswordModel, RegistrationModel, StakeModel, UserModel;
 
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
@@ -138,6 +138,8 @@ typedef void (^User)(UserModel *user);
 - (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 - (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
+- (void)changePassord:(PasswordModel *)password success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 

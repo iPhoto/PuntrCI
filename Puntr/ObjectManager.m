@@ -276,6 +276,10 @@
                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
                                                                                                      keyPath:nil
                                                                                                  statusCodes:statusCodeNoContent];
+    RKResponseDescriptor *userPassordResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, KeyPassword]
+                                                                                                      keyPath:nil
+                                                                                                  statusCodes:statusCodeNoContent];
     
     // Response Descriptors
     [self addResponseDescriptorsFromArray:
@@ -302,6 +306,7 @@
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
             userCreateResponseDescriptor,
+            userPassordResponseDescriptor,
             userResponseDescriptor,
             userUpdateResponseDescriptor
          ]
@@ -335,6 +340,13 @@
     RKRequestDescriptor *participantRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:participantSerialization
                                                                                               objectClass:[ParticipantModel class]
                                                                                               rootKeyPath:KeyParticipant];
+    
+    // Password
+    RKObjectMapping *passwordSerialization = [RKObjectMapping requestMapping];
+    [passwordSerialization addAttributeMappingsFromArray:@[KeyPassword, KeyPasswordNew, KeyPasswordNewConfirmation]];
+    RKRequestDescriptor *passwordRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:passwordSerialization
+                                                                                           objectClass:[PasswordModel class]
+                                                                                           rootKeyPath:nil];
     
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
@@ -381,6 +393,7 @@
             credentialsRequestDescriptor,
             facebookRequestDescriptor,
             participantRequestDescriptor,
+            passwordRequestDescriptor,
             stakeRequestDescriptor,
             tournamentRequestDescriptor,
             twitterRequestDescriptor,
@@ -826,6 +839,22 @@
                                                                           }
                                           ];
     [self enqueueObjectRequestOperation:operation];
+}
+
+- (void)changePassord:(PasswordModel *)password success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self putObject:password
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, KeyPassword]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                success();
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
