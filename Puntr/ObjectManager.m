@@ -123,7 +123,7 @@
                                                                                               statusCodes:statusCodeOK];
     RKResponseDescriptor *commentCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
                                                                                                     pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
-                                                                                                        keyPath:KeyComments
+                                                                                                        keyPath:nil
                                                                                                     statusCodes:statusCodeNoContent];
     
     // Component
@@ -272,6 +272,10 @@
                                                                                                               pathPattern:APIAuthorization
                                                                                                                   keyPath:KeyUser
                                                                                                               statusCodes:statusCodeCreated];
+    RKResponseDescriptor *userUpdateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                 pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
+                                                                                                     keyPath:nil
+                                                                                                 statusCodes:statusCodeNoContent];
     
     // Response Descriptors
     [self addResponseDescriptorsFromArray:
@@ -298,7 +302,8 @@
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
             userCreateResponseDescriptor,
-            userResponseDescriptor
+            userResponseDescriptor,
+            userUpdateResponseDescriptor
          ]
     ];
     
