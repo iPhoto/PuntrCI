@@ -36,6 +36,11 @@
     }
 }
 
+- (NSDictionary *)wrappedParameters
+{
+    return @{KeyUser: self.parameters};
+}
+
 - (NSURL *)avatarWithSize:(CGSize)size
 {
     NSString *sizeComponent = [NSString stringWithFormat:@"%ix%i", (NSInteger)size.width, (NSInteger)size.height];

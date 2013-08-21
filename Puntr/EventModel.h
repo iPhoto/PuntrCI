@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "ParticipantModel.h"
 #import "LineModel.h"
+#import "Parametrization.h"
+#import "ParticipantModel.h"
 #import "TournamentModel.h"
+#import <Foundation/Foundation.h>
 
-@interface EventModel : NSObject
+@interface EventModel : NSObject <Parametrization>
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, strong, readonly) NSNumber *stakesCount;
@@ -25,5 +26,8 @@
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
 @property (nonatomic, strong, readonly) NSArray *participants;
 @property (nonatomic, strong, readonly) NSArray *lines;
+
+- (NSDictionary *)parameters;
+- (NSDictionary *)wrappedParameters;
 
 @end

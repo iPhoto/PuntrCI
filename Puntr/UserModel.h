@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parametrization.h"
 
-@interface UserModel : NSObject <NSCopying>
+@interface UserModel : NSObject <NSCopying, Parametrization>
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, copy) NSString *email;
@@ -28,6 +29,7 @@
 @property (nonatomic, strong, readonly) NSNumber *lossCount;
 
 - (NSDictionary *)parameters;
+- (NSDictionary *)wrappedParameters;
 - (NSURL *)avatarWithSize:(CGSize)size;
 - (BOOL)isEqualToUser:(UserModel *)user;
 
