@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TournamentModel.h"
 
 @interface TournamentViewController : UIViewController
+
+- (id)initWithTounament:(TournamentModel *)tournament;
 
 @end

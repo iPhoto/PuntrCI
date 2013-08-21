@@ -31,6 +31,36 @@
 
 @implementation TournamentViewController
 
+- (id)initWithTounament:(TournamentModel *)tournament {
+    if (self = [super init]) {
+        _tournament = tournament;
+        [self createInitialViews];
+    }
+    return self;
+}
+
+- (void)createInitialViews {
+    self.sectionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    self.tournamentImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    self.stagesCountImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    
+    self.sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.tournamentNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.tournamentStartTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.stagesCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    
+    self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
+    [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
+    self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+    self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+    self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                    forState:UIControlStateNormal];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,8 +77,6 @@
     backgroundCover.layer.cornerRadius = 3.75f;
     backgroundCover.layer.masksToBounds = YES;
     [self.view addSubview:backgroundCover];
-    
-    self.tournamentImageView = [[UIImageView alloc] init];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^
         {
@@ -70,16 +98,12 @@
     self.imageViewDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [backgroundCover addSubview:self.imageViewDelimiter];
     
-    self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonSubscribe.frame = CGRectMake(coverMargin * 2.0f, coverMargin + CGRectGetHeight(self.tournamentImageView.frame) + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
-    [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
-    self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
-    self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
-    self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
-                                    forState:UIControlStateNormal];
+    
     [backgroundCover addSubview:self.buttonSubscribe];
+    
+    
+    
 }
 
 @end

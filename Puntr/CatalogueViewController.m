@@ -18,6 +18,7 @@
 #import "SearchCell.h"
 #import "CategoriesCell.h"
 #import "EventViewController.h"
+#import "TournamentViewController.h"
 #import "UIViewController+Puntr.h"
 
 #define SECTION_SLUG_POPULAR        @"popular"
@@ -31,7 +32,7 @@ const CGSize eventItemSize = { 304.0f, 62.0f };
 const CGSize headerSize = { 304.0f, 40.0f };
 const CGSize searchSize = { 304.0f, 44.0f };
 const CGSize categoriesSize = { 320.0f, 35.0f };
-const CGSize tournamentsSize = { 320.0f, 35.0f };
+const CGSize tournamentsSize = { 320.0f, 85.0f };
 const CGSize buttonSize = { 304.0f, 48.0f };
 const UIEdgeInsets utilityInsets = { 0.0f, 0.0f, 8.0f, 0.0f };
 const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
@@ -311,6 +312,12 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
         EventModel *event = (EventModel *)cellObject;
         [self.navigationController pushViewController:[[EventViewController alloc] initWithEvent:event] animated:YES];
     }
+    if ([cellObject isMemberOfClass:[TournamentModel class]])
+    {
+        TournamentModel *tournament = (TournamentModel *)cellObject;
+        [self.navigationController pushViewController:[[TournamentViewController alloc] initWithTounament:tournament] animated:YES];
+    }
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
