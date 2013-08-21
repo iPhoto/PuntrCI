@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserModel : NSObject
+@interface UserModel : NSObject <NSCopying>
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, copy) NSString *email;
