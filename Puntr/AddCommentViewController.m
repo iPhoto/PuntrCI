@@ -7,6 +7,9 @@
 //
 
 #import "AddCommentViewController.h"
+#import "CommentModel.h"
+#import "EventModel.h"
+#import "ObjectManager.h"
 #import <QuartzCore/QuartzCore.h>
 
 static const CGFloat TNItemSpacing = 12.0f;
@@ -14,18 +17,18 @@ static const CGFloat TNItemSpacing = 12.0f;
 @interface AddCommentViewController ()
 
 @property (nonatomic, strong) UITextView *textView;
-@property (nonatomic, strong) NSNumber *eventTag;
+@property (nonatomic, strong) EventModel *event;
 
 @end
 
 @implementation AddCommentViewController
 
-- (id)initWithEventTag:(NSNumber *)eventTag
+- (id)initWithEventTag:(EventModel *)event
 {
     self = [super init];
     if (self)
     {
-        _eventTag = eventTag;
+        _event = event;
     }
     return self;
 }
@@ -85,7 +88,20 @@ static const CGFloat TNItemSpacing = 12.0f;
 
 - (void)sendButtonTouched
 {
-    
+    if(![self.textView.text isEqualToString:@""])
+    {
+        CommentModel *commentModel= [[CommentModel alloc] init];
+        commentModel.message = self.textView.text;
+        [[ObjectManager sharedManager] postComment:commentModel
+                                          forEvent:self.event
+                                           success:^(void)
+                                            {
+                                                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                            }
+                                           failure:nil
+        ];
+
+    }
 }
 
 @end
