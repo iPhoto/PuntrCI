@@ -49,6 +49,7 @@
 		0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC617B2387200352827 /* VKStorageItem.m */; };
 		0FA5FCD617B2387200352827 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC917B2387200352827 /* VKUser.m */; };
 		0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCD817B23ED800352827 /* SocialManager.m */; };
+		0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3109279F17B8E55E0030C3E4 /* GroupModel.m */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
@@ -357,6 +358,8 @@
 		0FA5FCC917B2387200352827 /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
 		0FA5FCD717B23ED800352827 /* SocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialManager.h; sourceTree = "<group>"; };
 		0FA5FCD817B23ED800352827 /* SocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialManager.m; sourceTree = "<group>"; };
+		0FAFC4E517C4B24B00735D0C /* AddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommentViewController.h; sourceTree = "<group>"; };
+		0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentViewController.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3109279E17B8E55E0030C3E4 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		3109279F17B8E55E0030C3E4 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
@@ -1090,6 +1093,8 @@
 		31F47E16177306CF0047ECCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0FAFC4E517C4B24B00735D0C /* AddCommentViewController.h */,
+				0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */,
 				31B112A0176B5CD000060EAB /* CatalogueViewController.h */,
 				31B112A1176B5CD000060EAB /* CatalogueViewController.m */,
 				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
@@ -1691,6 +1696,7 @@
 				31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */,
 				0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */,
 				0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */,
+				0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
