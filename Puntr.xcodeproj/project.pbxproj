@@ -387,6 +387,7 @@
 		3116A87117748728002BEC46 /* stake@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stake@2x.png"; sourceTree = "<group>"; };
 		3116A8741774899C002BEC46 /* leadDelimiter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leadDelimiter.png; sourceTree = "<group>"; };
 		3116A8751774899C002BEC46 /* leadDelimiter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leadDelimiter@2x.png"; sourceTree = "<group>"; };
+		312746A217C4FC7C00E6ADB9 /* Parametrization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parametrization.h; sourceTree = "<group>"; };
 		3127C036179851850056D78A /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		3127C037179851850056D78A /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		3127C039179853170056D78A /* LineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineModel.h; sourceTree = "<group>"; };
@@ -1153,6 +1154,7 @@
 				31AD161B1785CE78000D8F2C /* NotificationManager.m */,
 				31F47E1B177318090047ECCF /* ObjectManager.h */,
 				31F47E1C177318090047ECCF /* ObjectManager.m */,
+				312746A217C4FC7C00E6ADB9 /* Parametrization.h */,
 				D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */,
 				D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */,
 				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,

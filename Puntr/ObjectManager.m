@@ -716,11 +716,13 @@
     ];
 }
 
-- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)unsubscribeFrom:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
-    [self deleteObject:object
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:object.wrappedParameters];
+    [parameters setObject:self.authorization.parameters forKey:KeyAuthorization];
+    [self deleteObject:nil
                   path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
-            parameters:self.authorization.wrappedParameters
+            parameters:parameters
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                {
                    success();
