@@ -119,8 +119,12 @@
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
     RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
                                                                                               pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
-                                                                                                  keyPath:KeyActivities
+                                                                                                  keyPath:KeyComments
                                                                                               statusCodes:statusCodeOK];
+    RKResponseDescriptor *commentCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
+                                                                                                    pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
+                                                                                                        keyPath:KeyComments
+                                                                                                    statusCodes:statusCodeNoContent];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
@@ -277,6 +281,7 @@
             authorizationUserCreateResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
+            commentCreateResponseDescriptor,
             commentResponseDescriptor,
             componentCollectionResponseDescriptor,
             errorResponseDescriptor,
@@ -471,7 +476,10 @@
     [self postObject:comment
                 path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComments]
           parameters:self.authorization.wrappedParameters
-             success:success
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 success();
+             }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {
                  [self reportWithFailure:failure error:error];
