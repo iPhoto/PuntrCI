@@ -91,21 +91,7 @@
     {
         topController = [(UITabBarController *)topController selectedViewController];
     }
-    if ([topController isKindOfClass:[UINavigationController class]])
-    {
-        topController = [(UINavigationController *)topController visibleViewController];
-    }
-    while (topController.presentedViewController)
-    {
-        topController = topController.presentedViewController;
-    }
     return topController;
 }
-
-
-
-
-
-
 
 @end
