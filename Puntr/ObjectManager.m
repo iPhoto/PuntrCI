@@ -337,6 +337,13 @@
                                                                                         objectClass:[StakeModel class]
                                                                                         rootKeyPath:nil];
     
+    // Tournament
+    RKObjectMapping *tournamentSerialization = [RKObjectMapping requestMapping];
+    [tournamentSerialization addAttributeMappingsFromArray:@[KeyTag]];
+    RKRequestDescriptor *tournamentRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:tournamentSerialization
+                                                                                             objectClass:[TournamentModel class]
+                                                                                             rootKeyPath:KeyTournament];
+    
     // Twitter
     RKObjectMapping *twitterSerialization = [RKObjectMapping requestMapping];
     [twitterSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken, KeySecretToken]];
@@ -365,6 +372,7 @@
             facebookRequestDescriptor,
             participantRequestDescriptor,
             stakeRequestDescriptor,
+            tournamentRequestDescriptor,
             twitterRequestDescriptor,
             userRequestDescriptor,
             vKontakteRequestDescriptor
