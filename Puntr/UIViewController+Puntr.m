@@ -48,4 +48,16 @@
     ];
 }
 
+- (CGRect)frame
+{
+    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    return  CGRectMake(
+                          0.0f,
+                          0.0f,
+                          CGRectGetWidth(applicationFrame),
+                          CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
+                      );
+    
+}
+
 @end

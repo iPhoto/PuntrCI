@@ -12,5 +12,6 @@
 
 - (void)addBalanceButton;
 - (void)updateBalance;
+- (CGRect)frame;
 
 @end
