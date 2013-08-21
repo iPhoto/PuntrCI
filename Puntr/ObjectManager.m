@@ -784,29 +784,30 @@
 - (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
     NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
-    user.avatarData = nil;
-    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+    UserModel *requestUser = [user copy];
+    requestUser.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:requestUser
                                                                  method:RKRequestMethodPUT
                                                                    path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
                                                              parameters:self.authorization.wrappedParameters
                                               constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-                                    {
-                                        if (avatarData)
-                                        {
-                                            [formData appendPartWithFileData:avatarData
-                                                                        name:KeyAvatar
-                                                                    fileName:@"avatar.png"
-                                                                    mimeType:@"image/png"];
-                                        }
-                                    }
-                                    ];
+                                              {
+                                                  if (avatarData)
+                                                  {
+                                                      [formData appendPartWithFileData:avatarData
+                                                                                  name:KeyAvatar
+                                                                              fileName:@"avatar.png"
+                                                                              mimeType:@"image/png"];
+                                                  }
+                                              }
+                                   ];
     
     RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:success
                                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                           {
-                                               [self reportWithFailure:failure error:error];                                                                   
-                                           }
-                                           ];
+                                              {
+                                                  [self reportWithFailure:failure error:error];
+                                              }
+                                          ];
     [self enqueueObjectRequestOperation:operation];
 }
 
@@ -822,22 +823,23 @@
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure
 {
     NSData *avatarData = UIImagePNGRepresentation(user.avatarData);
-    user.avatarData = nil;
-    NSMutableURLRequest *request = [self multipartFormRequestWithObject:user
+    UserModel *requestUser = [user copy];
+    requestUser.avatarData = nil;
+    NSMutableURLRequest *request = [self multipartFormRequestWithObject:requestUser
                                                                  method:RKRequestMethodPOST
                                                                    path:APIUsers
                                                              parameters:nil
-        constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
-        {
-            if (avatarData)
-            {
-                [formData appendPartWithFileData:avatarData
-                                            name:KeyAvatar
-                                        fileName:@"avatar.png"
-                                        mimeType:@"image/png"];
-            }
-        }
-    ];
+                                              constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
+                                              {
+                                                  if (avatarData)
+                                                  {
+                                                      [formData appendPartWithFileData:avatarData
+                                                                                  name:KeyAvatar
+                                                                              fileName:@"avatar.png"
+                                                                              mimeType:@"image/png"];
+                                                  }
+                                              }
+                                   ];
     
     RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
