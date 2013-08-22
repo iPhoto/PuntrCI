@@ -328,6 +328,13 @@
                                                                                               objectClass:[CredentialsModel class]
                                                                                               rootKeyPath:KeyCredentials];
     
+    // Event
+    RKObjectMapping *eventSerialization = [RKObjectMapping requestMapping];
+    [eventSerialization addAttributeMappingsFromArray:@[KeyTag]];
+    RKRequestDescriptor *eventRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:eventSerialization
+                                                                                        objectClass:[EventModel class]
+                                                                                        rootKeyPath:KeyEvent];
+    
     // Facebook
     RKObjectMapping *facebookSerialization = [RKObjectMapping requestMapping];
     [facebookSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
@@ -391,6 +398,7 @@
         @[
             commentRequestDescriptor,
             credentialsRequestDescriptor,
+            eventRequestDescriptor,
             facebookRequestDescriptor,
             participantRequestDescriptor,
             passwordRequestDescriptor,
