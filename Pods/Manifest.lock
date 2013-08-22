@@ -1,7 +1,7 @@
 PODS:
   - ActionSheetPicker (0.0.2)
   - AFNetworking (1.3.1)
-  - FormatterKit (1.1.2):
+  - FormatterKit (1.2.1):
     - FormatterKit/AddressFormatter
     - FormatterKit/ArrayFormatter
     - FormatterKit/LocationFormatter
@@ -9,13 +9,13 @@ PODS:
     - FormatterKit/TimeIntervalFormatter
     - FormatterKit/UnitOfInformationFormatter
     - FormatterKit/URLRequestFormatter
-  - FormatterKit/AddressFormatter (1.1.2)
-  - FormatterKit/ArrayFormatter (1.1.2)
-  - FormatterKit/LocationFormatter (1.1.2)
-  - FormatterKit/OrdinalNumberFormatter (1.1.2)
-  - FormatterKit/TimeIntervalFormatter (1.1.2)
-  - FormatterKit/UnitOfInformationFormatter (1.1.2)
-  - FormatterKit/URLRequestFormatter (1.1.2)
+  - FormatterKit/AddressFormatter (1.2.1)
+  - FormatterKit/ArrayFormatter (1.2.1)
+  - FormatterKit/LocationFormatter (1.2.1)
+  - FormatterKit/OrdinalNumberFormatter (1.2.1)
+  - FormatterKit/TimeIntervalFormatter (1.2.1)
+  - FormatterKit/UnitOfInformationFormatter (1.2.1)
+  - FormatterKit/URLRequestFormatter (1.2.1)
   - Masonry (0.1.5)
   - RestKit (0.20.2):
     - RestKit/Core
@@ -41,17 +41,22 @@ PODS:
 DEPENDENCIES:
   - ActionSheetPicker
   - AFNetworking
-  - FormatterKit
+  - FormatterKit (from `https://github.com/Tulushev/FormatterKit.git`, commit `99c189627c`)
   - Masonry
   - RestKit
   - Reveal-iOS-SDK (~> 0.8.3)
   - TestFlightSDK (~> 2.0)
   - TSMessages
 
+EXTERNAL SOURCES:
+  FormatterKit:
+    :commit: 99c189627c
+    :git: https://github.com/Tulushev/FormatterKit.git
+
 SPEC CHECKSUMS:
   ActionSheetPicker: 16e212011d5c2e92b3e38609a58b93919b4056aa
   AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
-  FormatterKit: bb53f3de30773e6b06f91dee1f82b46f536278d7
+  FormatterKit: 43c6567e367a872196747fda0c26395c37bd7dd6
   Masonry: b9be654975191d03885c8bc9f1fdb045f87a6d7f
   RestKit: e511651e916245fa4becfb0e8f966a1fa021fcd4
   Reveal-iOS-SDK: 0d58ea01260eb109b924a09631d9cc8dd96e12c4

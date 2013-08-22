@@ -35,7 +35,7 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
         return NSHourCalendarUnit;
     } else if ([string isEqualToString:@"minute"]) {
         return NSMinuteCalendarUnit;
-    } if ([string isEqualToString:@"second"]) {
+    } else if ([string isEqualToString:@"second"]) {
         return NSSecondCalendarUnit;
     }
 
@@ -60,6 +60,8 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
 @synthesize usesAbbreviatedCalendarUnits = _usesAbbreviatedCalendarUnits;
 @synthesize usesApproximateQualifier = _usesApproximateQualifier;
 @synthesize usesIdiomaticDeicticExpressions = _usesIdiomaticDeicticExpressions;
+@synthesize numberOfSignificantUnits = _numberOfSignificantUnits;
+@synthesize leastSignificantUnit = _leastSignificantUnit;
 
 - (id)init {
     self = [super init];
@@ -74,10 +76,13 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
     self.presentDeicticExpression = NSLocalizedStringFromTable(@"just now", @"FormatterKit", @"Present Deictic Expression");
     self.futureDeicticExpression = NSLocalizedStringFromTable(@"from now", @"FormatterKit", @"Future Deictic Expression");
 
-    self.deicticExpressionFormat = NSLocalizedStringFromTable(@"%@ %@", @"FormatterKit", @"Deictic Expression Format (#{Time} #{Ago/From Now}");
+    self.deicticExpressionFormat = NSLocalizedStringWithDefaultValue(@"Deictic Expression Format String", @"FormatterKit", [NSBundle mainBundle], @"%@ %@", @"Deictic Expression Format (#{Time} #{Ago/From Now}");
     self.approximateQualifierFormat = NSLocalizedStringFromTable(@"about %@", @"FormatterKit", @"Approximate Qualifier Format");
 
     self.presentTimeIntervalMargin = 1;
+    
+    self.leastSignificantUnit = NSSecondCalendarUnit;
+    self.numberOfSignificantUnits = 1;
 
     return self;
 }
@@ -107,13 +112,22 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
 
     NSString *string = nil;
     BOOL isApproximate = NO;
+    NSUInteger numberOfUnits = 0;
     for (NSString *unitName in [NSArray arrayWithObjects:@"year", @"month", @"week", @"day", @"hour", @"minute", @"second", nil]) {
-        NSNumber *number = [NSNumber numberWithInteger:abs([[components valueForKey:unitName] integerValue])];
-        if ([number integerValue]) {
-            if (!string) {
-                string = [NSString stringWithFormat:@"%@ %@", number, [self localizedStringForNumber:[number integerValue] ofCalendarUnit:NSCalendarUnitFromString(unitName)]];
-            } else {
-                isApproximate = YES;
+        NSCalendarUnit unit = NSCalendarUnitFromString(unitName);
+        if (!string || self.leastSignificantUnit >= unit) {
+            NSNumber *number = [NSNumber numberWithInteger:abs([[components valueForKey:unitName] integerValue])];
+            if ([number integerValue]) {
+                NSString *suffix = [NSString stringWithFormat:@"%@ %@", number, [self localizedStringForNumber:[number integerValue] ofCalendarUnit:unit]];
+                if (!string) {
+                    string = suffix;
+                } else if (self.numberOfSignificantUnits == 0 || numberOfUnits < self.numberOfSignificantUnits) {
+                    string = [string stringByAppendingFormat:@" %@", suffix];
+                } else {
+                    isApproximate = YES;
+                }
+                
+                numberOfUnits++;
             }
         }
     }
@@ -121,7 +135,12 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
     if (string) {
         if (seconds > 0) {
             if ([self.pastDeicticExpression length]) {
-                string = [NSString stringWithFormat:self.deicticExpressionFormat, string, self.pastDeicticExpression];
+                NSString *languageCode = [self.locale objectForKey:NSLocaleLanguageCode];
+                if ([languageCode isEqualToString:@"es"]) {
+                    string = [NSString stringWithFormat:self.deicticExpressionFormat, self.pastDeicticExpression, string];
+                } else {
+                    string = [NSString stringWithFormat:self.deicticExpressionFormat, string, self.pastDeicticExpression];
+                }
             }
         } else {
             if ([self.futureDeicticExpression length]) {
@@ -187,6 +206,8 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
     NSString *languageCode = [self.locale objectForKey:NSLocaleLanguageCode];
     if ([languageCode isEqualToString:@"en"]) {
         return [self enRelativeDateStringForComponents:components];
+    } else if ([languageCode isEqualToString:@"es"]){
+        return [self esRelativeDateStringForComponents:components];
     } else if ([languageCode isEqualToString:@"nl"]){
         return [self nlRelativeDateStringForComponents:components];
     }
@@ -213,6 +234,30 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
         return @"next week";
     } else if ([components day] == 1 && [components year] == 0 && [components month] == 0 && [components week] == 0) {
         return @"tomorrow";
+    }
+
+    return nil;
+}
+
+- (NSString *)esRelativeDateStringForComponents:(NSDateComponents *)components {
+    if ([components year] == -1) {
+        return @"año pasado";
+    } else if ([components month] == -1 && [components year] == 0) {
+        return @"mes pasado";
+    } else if ([components week] == -1 && [components year] == 0 && [components month] == 0) {
+        return @"semana pasada";
+    } else if ([components day] == -1 && [components year] == 0 && [components month] == 0 && [components week] == 0) {
+        return @"ayer";
+    }
+
+    if ([components year] == 1) {
+        return @"próximo año";
+    } else if ([components month] == 1 && [components year] == 0) {
+        return @"próximo mes";
+    } else if ([components week] == 1 && [components year] == 0 && [components month] == 0) {
+        return @"próxima semana";
+    } else if ([components day] == 1 && [components year] == 0 && [components month] == 0 && [components week] == 0) {
+        return @"mañana";
     }
 
     return nil;
