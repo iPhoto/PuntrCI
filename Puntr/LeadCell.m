@@ -245,6 +245,7 @@ static const CGFloat TNHeightButton = 31.0f;
     self.labelPublicationTime.textColor = TNColorText;
     self.labelPublicationTime.textAlignment = NSTextAlignmentRight;
     TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
     self.labelPublicationTime.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
     [self addSubview:self.labelPublicationTime];
 }
