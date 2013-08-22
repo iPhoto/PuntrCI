@@ -51,6 +51,7 @@
 		0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCD817B23ED800352827 /* SocialManager.m */; };
 		0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */; };
 		0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */; };
+		0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3109279F17B8E55E0030C3E4 /* GroupModel.m */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
@@ -363,6 +364,8 @@
 		0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentViewController.m; sourceTree = "<group>"; };
 		0FAFC4E817C4E1FF00735D0C /* PrivacySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacySettingsViewController.h; sourceTree = "<group>"; };
 		0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsViewController.m; sourceTree = "<group>"; };
+		0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
+		0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3109279E17B8E55E0030C3E4 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		3109279F17B8E55E0030C3E4 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
@@ -1122,6 +1125,8 @@
 				ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */,
 				31D7B62A17958511000DCAF3 /* StakeViewController.h */,
 				31D7B62B17958511000DCAF3 /* StakeViewController.m */,
+				0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */,
+				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
 				D6B449BE17B66272000B9F5E /* TournamentViewController.h */,
 				D6B449BF17B66272000B9F5E /* TournamentViewController.m */,
 				0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */,
@@ -1703,6 +1708,7 @@
 				0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */,
 				0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */,
 				0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */,
+				0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

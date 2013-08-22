@@ -34,14 +34,16 @@
     CGFloat titlePadding = 10.0f;
     CGFloat resultPadding = 28.0f;
     
-    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(titlePadding, 0.0f, CGRectGetWidth(self.frame) / 2.0f - titlePadding, CGRectGetHeight(self.frame))];
+    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(titlePadding, 0.0f, CGRectGetWidth(self.frame) - (titlePadding + resultPadding), CGRectGetHeight(self.frame))];
     self.labelTitle.font = font;
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelTitle.textColor = textColor;
     self.labelTitle.text = title;
+    [self.labelTitle sizeToFit];
+    self.labelTitle.frame = CGRectSetHeight(self.labelTitle.frame, CGRectGetHeight(self.frame));
     [self addSubview:self.labelTitle];
     
-    self.labelResult = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame) / 2.0f, 0.0f, CGRectGetWidth(self.frame) / 2.0f - resultPadding, CGRectGetHeight(self.frame))];
+    self.labelResult = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.labelTitle.frame), 0.0f, CGRectGetWidth(self.frame) - (CGRectGetMaxX(self.labelTitle.frame) + resultPadding), CGRectGetHeight(self.frame))];
     self.labelResult.font = font;
     self.labelResult.backgroundColor = [UIColor clearColor];
     self.labelResult.textAlignment = NSTextAlignmentRight;

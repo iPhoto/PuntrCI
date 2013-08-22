@@ -10,6 +10,7 @@
 #import "ChangePasswordViewController.h"
 #import "ObjectManager.h"
 #import "SettingsViewController.h"
+#import "StatisticViewController.h"
 #import "UpdateProfileViewController.h"
 #import "UIViewController+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
@@ -186,7 +187,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                              @[
                                  @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched" },
                                  @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched" },
-                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched" },
                               ],
                              @[
                                  @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
@@ -295,6 +296,11 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)profileUpdateTouched
 {
     [self.navigationController pushViewController:[[UpdateProfileViewController alloc] init] animated:YES];
+}
+
+- (void)statisticTouched
+{
+    [self.navigationController pushViewController:[[StatisticViewController alloc] init] animated:YES];
 }
 #pragma mark - ActionSheet
 
