@@ -1,5 +1,5 @@
 //
-//  AddCommentViewController.h
+//  PrivacySettingsViewController.h
 //  Puntr
 //
 //  Created by Alexander Lebedev on 8/21/13.
@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EventModel.h"
 
-@interface AddCommentViewController : UIViewController
-
-- (id)initWithEventTag:(EventModel *)event;
+@interface PrivacySettingsViewController : UIViewController
 
 @end
