@@ -853,6 +853,21 @@
 			path = VKUser;
 			sourceTree = "<group>";
 		};
+		314D429B17C5DF860078E931 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				314E8DF017BB95D60046E1A1 /* CGGeometry+Convenience.h */,
+				314E8DF117BB95D70046E1A1 /* CGGeometry+Convenience.m */,
+				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
+				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
+				31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */,
+				31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */,
+				0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */,
+				0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		3180CF74178AE4B5001B2DD1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1088,8 +1103,6 @@
 				764C42621769CC0D00B7FBF2 /* NewsNavigationController.m */,
 				764C426A1769CCD400B7FBF2 /* ProfileNavigationController.h */,
 				764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */,
-				0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */,
-				0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -1147,8 +1160,7 @@
 				76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */,
 				31E3E7A01754E24900B09DAD /* AppDelegate.h */,
 				31E3E7A11754E24900B09DAD /* AppDelegate.m */,
-				314E8DF017BB95D60046E1A1 /* CGGeometry+Convenience.h */,
-				314E8DF117BB95D70046E1A1 /* CGGeometry+Convenience.m */,
+				314D429B17C5DF860078E931 /* Categories */,
 				31EA773D17BD16CC0060DFCC /* CollectionManager.h */,
 				31EA773E17BD16CD0060DFCC /* CollectionManager.m */,
 				31DDC095176B234F000E99F3 /* Constants.h */,
@@ -1162,10 +1174,6 @@
 				312746A217C4FC7C00E6ADB9 /* Parametrization.h */,
 				D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */,
 				D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */,
-				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
-				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
-				31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */,
-				31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */,
 				0FA5FCD717B23ED800352827 /* SocialManager.h */,
 				0FA5FCD817B23ED800352827 /* SocialManager.m */,
 			);
