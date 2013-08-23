@@ -11,6 +11,6 @@
 
 @interface AddCommentViewController : UIViewController
 
-- (id)initWithEventTag:(EventModel *)event;
+- (id)initWithEvent:(EventModel *)event;
 
 @end

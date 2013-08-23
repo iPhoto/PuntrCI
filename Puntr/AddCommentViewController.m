@@ -22,7 +22,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 
 @implementation AddCommentViewController
 
-- (id)initWithEventTag:(EventModel *)event
+- (id)initWithEvent:(EventModel *)event
 {
     self = [super init];
     if (self)
