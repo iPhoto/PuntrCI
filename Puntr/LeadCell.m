@@ -86,6 +86,7 @@ static const CGFloat TNHeightButton = 31.0f;
     }
     if ([model isMemberOfClass:[EventModel class]])
     {
+        [self whiteCell];
         [self loadWithEvent:(EventModel *)model];
     }
     else if ([model isMemberOfClass:[StakeModel class]])
@@ -126,7 +127,9 @@ static const CGFloat TNHeightButton = 31.0f;
 
 - (void)loadWithEvent:(EventModel *)event
 {
-    
+    [self displayTournament:event.tournament actionable:NO final:NO];
+    [self displayCategory:event.tournament.category];
+    [self displayParticipants:event.participants actionable:NO final:YES];
 }
 
 - (void)loadWithFeed:(FeedModel *)feed
@@ -149,6 +152,10 @@ static const CGFloat TNHeightButton = 31.0f;
     else if (news.comment)
     {
         [self loadWithComment:news.comment];
+    }
+    else if (news.event)
+    {
+        [self loadWithEvent:news.event];
     }
 }
 
