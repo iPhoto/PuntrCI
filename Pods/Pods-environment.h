@@ -72,6 +72,12 @@
 #define COCOAPODS_VERSION_MINOR_Masonry 1
 #define COCOAPODS_VERSION_PATCH_Masonry 5
 
+// PonyDebugger
+#define COCOAPODS_POD_AVAILABLE_PonyDebugger
+#define COCOAPODS_VERSION_MAJOR_PonyDebugger 0
+#define COCOAPODS_VERSION_MINOR_PonyDebugger 3
+#define COCOAPODS_VERSION_PATCH_PonyDebugger 0
+
 // RestKit
 #define COCOAPODS_POD_AVAILABLE_RestKit
 #define COCOAPODS_VERSION_MAJOR_RestKit 0
@@ -119,6 +125,12 @@
 #define COCOAPODS_VERSION_MAJOR_SOCKit 1
 #define COCOAPODS_VERSION_MINOR_SOCKit 1
 #define COCOAPODS_VERSION_PATCH_SOCKit 0
+
+// SocketRocket
+#define COCOAPODS_POD_AVAILABLE_SocketRocket
+#define COCOAPODS_VERSION_MAJOR_SocketRocket 0
+#define COCOAPODS_VERSION_MINOR_SocketRocket 3
+#define COCOAPODS_VERSION_PATCH_SocketRocket 1
 
 // TSMessages
 #define COCOAPODS_POD_AVAILABLE_TSMessages

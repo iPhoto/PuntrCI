@@ -8,3 +8,4 @@ pod 'FormatterKit', :git => 'https://github.com/Tulushev/FormatterKit.git', :com
 pod 'TSMessages'
 pod 'ActionSheetPicker'
 pod 'Masonry'
+pod 'PonyDebugger'
