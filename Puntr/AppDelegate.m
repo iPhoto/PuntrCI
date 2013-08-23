@@ -11,6 +11,7 @@
 #import "EnterViewController.h"
 #import "HTTPClient.h"
 #import "ObjectManager.h"
+#import <PonyDebugger/PonyDebugger.h>
 #import "SmallStakeButton.h"
 #import "SocialManager.h"
 #import "TabBarViewController.h"
@@ -26,14 +27,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef DEBUG
-    //  Log all HTTP traffic with request and response bodies
-    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
-#endif
     // Networking
     HTTPClient *client = [HTTPClient sharedClient];
     ObjectManager *objectManager = [[ObjectManager alloc] initWithHTTPClient:client];
     [objectManager configureMapping];
+    RKLogConfigureByName("*", RKLogLevelOff)
+    // Debug
+#ifdef DEBUG
+    PDDebugger *debugger = [PDDebugger defaultInstance];
+    [debugger autoConnect];
+    [debugger enableNetworkTrafficDebugging];
+    [debugger forwardAllNetworkTraffic];
+#endif
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
