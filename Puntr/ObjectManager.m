@@ -328,6 +328,13 @@
                                                                                               objectClass:[CredentialsModel class]
                                                                                               rootKeyPath:KeyCredentials];
     
+    // Event
+    RKObjectMapping *eventSerialization = [RKObjectMapping requestMapping];
+    [eventSerialization addAttributeMappingsFromArray:@[KeyTag]];
+    RKRequestDescriptor *eventRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:eventSerialization
+                                                                                        objectClass:[EventModel class]
+                                                                                        rootKeyPath:KeyEvent];
+    
     // Facebook
     RKObjectMapping *facebookSerialization = [RKObjectMapping requestMapping];
     [facebookSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
@@ -391,6 +398,7 @@
         @[
             commentRequestDescriptor,
             credentialsRequestDescriptor,
+            eventRequestDescriptor,
             facebookRequestDescriptor,
             participantRequestDescriptor,
             passwordRequestDescriptor,
@@ -716,11 +724,13 @@
     ];
 }
 
-- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)unsubscribeFrom:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
-    [self deleteObject:object
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:object.wrappedParameters];
+    [parameters setObject:self.authorization.parameters forKey:KeyAuthorization];
+    [self deleteObject:nil
                   path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
-            parameters:self.authorization.wrappedParameters
+            parameters:parameters
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                {
                    success();

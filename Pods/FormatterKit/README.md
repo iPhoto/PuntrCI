@@ -14,6 +14,26 @@ In short, use this library if you're manually formatting any of the following (w
 
 > FormatterKit, along with [TransformerKit](https://github.com/mattt/TransformerKit) & [InflectorKit](https://github.com/mattt/InflectorKit) provide well-designed APIs for manipulating user-facing content.
 
+## Localizations
+
+FormatterKit comes fully internationalized, with `.strings` files for the following locales:
+
+- Danish (`da`)
+- Dutch (`nl`)
+- English (`en`)
+- German (`de`)
+- Greek (`el`)
+- French (`fr`)
+- Indonesian (`id`)
+- Italian (`it`)
+- Norwegian Bokmål (`nb`)
+- Norwegian Nynorsk (`nn`)
+- Portuguese (Brazilian) (`pt_BR`)
+- Spanish (`es`)
+- Swedish (`sv`)
+
+If you'd like to contribute an additional localization, feel free to [open a new pull request](https://github.com/mattt/FormatterKit/pulls).
+
 ## Demo
 
 Build and run the `FormatterKit Example` project in Xcode to see an inventory of the available `FormatterKit` components.
@@ -25,19 +45,19 @@ Build and run the `FormatterKit Example` project in Xcode to see an inventory of
 Address formats vary greatly across different regions. `TTTAddressFormatter` ties into the [Address Book frameworks](http://developer.apple.com/library/ios/#documentation/AddressBookUI/Reference/AddressBookUI_Framework/_index.html) to help your users find their place in the world.
 
 For example, addresses in the United States take the form:
-    
+
     Street Address
     City State ZIP
     Country
- 
+
 Whereas addresses in Japan follow a different convention:
- 
+
     Postal Code
     Prefecture Municipality
     Street Address
     Country
 
-> Requires the `AddressBook` and `AddressBookUI` frameworks are included, with `#import` statements in `Prefix.pch`.  
+> Requires the `AddressBook` and `AddressBookUI` frameworks are included, with `#import` statements in `Prefix.pch`.
 > Only available on iOS.
 
 ### Example Usage
@@ -94,9 +114,11 @@ NSLog(@"%@", [locationFormatter stringFromDistanceAndBearingFromLocation:pittsbu
 
 #### Speed in Imperial Units with Bearing in Degrees
 
+``` objective-c
 [locationFormatter setBearingStyle:TTTBearingNumericStyle];
 NSLog(@"%@ at %@", [locationFormatter stringFromSpeed:25],[locationFormatter stringFromBearingFromLocation:pittsburgh toLocation:austin]);
 // "25 mph at 310°"
+```
 
 #### Coordinates
 

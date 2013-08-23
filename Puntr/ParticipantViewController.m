@@ -14,6 +14,9 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIViewController+Puntr.h"
 
+static const CGFloat TNSpacingItemSmall = 8.0f;
+static const CGFloat TNSpacingItem = 12.0f;
+
 @interface ParticipantViewController ()
 
 @property (nonatomic, strong) UILabel *labelFollowers;
@@ -46,7 +49,7 @@
     
     [self addBalanceButton];
     
-    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 76)];
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(TNSpacingItemSmall, TNSpacingItemSmall, CGRectGetWidth(self.frame) - TNSpacingItemSmall * 2.0f, 76)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
     whiteView.layer.cornerRadius = 3.75;
     whiteView.layer.masksToBounds = YES;
@@ -71,15 +74,22 @@
     [whiteView addSubview:self.imageViewLogo];
     [self.imageViewLogo setImageWithURL:self.participant.logo];
     
-    self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 95, 40)];
-    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
-    [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
+    const CGFloat TNHeightButtonSubscribe = 31.0f;
+    const CGFloat TNWidthButtonSubscribe = 94.0f;
+    
+    self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(
+                                                                      CGRectGetWidth(whiteView.frame) - TNSpacingItemSmall - TNWidthButtonSubscribe,
+                                                                      CGRectGetMaxY(self.labelFollowers.frame) - TNHeightButtonSubscribe,
+                                                                      TNWidthButtonSubscribe,
+                                                                      TNHeightButtonSubscribe
+                                                                      )];
+    
     [self.buttonSubscribe.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
-    [self.buttonSubscribe addTarget:self action:@selector(subscribe) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:self.buttonSubscribe];
+    [self updateToSubscribed:self.participant.subscribed.boolValue];
     
     [self.view addSubview:whiteView];
 }
@@ -89,10 +99,36 @@
     [[ObjectManager sharedManager] subscribeFor:self.participant
                                         success:^
                                         {
-                                            [NotificationManager showSuccessMessage:@"Вы успешно подписались на участника!"];
+                                            [self updateToSubscribed:YES];
+                                            [NotificationManager showSuccessMessage:@"Вы подписались на участника!"];
                                         }
                                         failure:nil
      ];
+}
+
+- (void)unsubscribe
+{
+    [[ObjectManager sharedManager] unsubscribeFrom:self.participant
+                                           success:^
+                                           {
+                                               [self updateToSubscribed:NO];
+                                               [NotificationManager showSuccessMessage:@"Вы отписались от участника!"];
+                                           }
+                                           failure:nil];
+}
+
+- (void)updateToSubscribed:(BOOL)subscribed
+{
+    SEL subscribeMethod = subscribed ? @selector(unsubscribe) : @selector(subscribe);
+    SEL previuosMethod = subscribed ? @selector(subscribe) : @selector(unsubscribe);
+    NSString *subscribeTitle = subscribed ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeImage = subscribed ? @"ButtonRed" : @"ButtonBar";
+    CGFloat subscribeImageInset = subscribed ? 5.0f : 7.0f;
+    
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:subscribeImage] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, subscribeImageInset, 0.0f, subscribeImageInset)] forState:UIControlStateNormal];
+    [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
+    [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidAppear:(BOOL)animated

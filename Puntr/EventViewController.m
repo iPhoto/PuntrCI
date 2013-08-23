@@ -124,7 +124,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonSubscribe.frame = CGRectMake(coverMargin * 2.0f, coverMargin + participantSize.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
     self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
-    [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -132,6 +131,7 @@ static const CGFloat TNItemSpacing = 12.0f;
                                               resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
                                     forState:UIControlStateNormal];
     [self.view addSubview:self.buttonSubscribe];
+    [self updateToSubscribed:self.event.subscribed.boolValue];
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, coverMargin + participantSize.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
@@ -199,6 +199,42 @@ static const CGFloat TNItemSpacing = 12.0f;
         i = 1;
     }
     [self.navigationController pushViewController:[[ParticipantViewController alloc] initWithParticipant:self.event.participants[i]] animated:YES];
+}
+
+#pragma mark - Subscription
+
+- (void)subscribe
+{
+    [[ObjectManager sharedManager] subscribeFor:self.event
+                                        success:^
+     {
+         [self updateToSubscribed:YES];
+         [NotificationManager showSuccessMessage:@"Вы подписались на событие!"];
+     }
+                                        failure:nil
+     ];
+}
+
+- (void)unsubscribe
+{
+    [[ObjectManager sharedManager] unsubscribeFrom:self.event
+                                           success:^
+     {
+         [self updateToSubscribed:NO];
+         [NotificationManager showSuccessMessage:@"Вы отписались от событие!"];
+     }
+                                           failure:nil];
+}
+
+- (void)updateToSubscribed:(BOOL)subscribed
+{
+    SEL subscribeMethod = subscribed ? @selector(unsubscribe) : @selector(subscribe);
+    SEL previuosMethod = subscribed ? @selector(subscribe) : @selector(unsubscribe);
+    NSString *subscribeTitle = subscribed ? @"Отписаться" : @"Подписаться";
+    
+    [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
+    [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

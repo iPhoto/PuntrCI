@@ -10,4 +10,20 @@
 
 @implementation TournamentModel
 
+- (NSDictionary *)parameters
+{
+    if (self.tag)
+    {
+        return @{ KeyTag: self.tag };
+    }
+    else
+    {
+        return @{};
+    }
+}
+
+- (NSDictionary *)wrappedParameters
+{
+    return @{KeyTournament: self.parameters};
+}
 @end

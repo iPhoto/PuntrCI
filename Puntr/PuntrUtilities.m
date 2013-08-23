@@ -7,20 +7,15 @@
 //
 
 #import "PuntrUtilities.h"
+#import <FormatterKit/TTTTimeIntervalFormatter.h>
 
 @implementation PuntrUtilities
 
 + (NSString *)formattedDate:(NSDate *)date
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    
-    NSString *resString = [formatter stringFromDate:date];
-    resString = [NSString stringWithFormat:@"Через %@.", resString];
-    
-    return resString;
+    TTTTimeIntervalFormatter *formatter = [[TTTTimeIntervalFormatter alloc] init];
+    formatter.usesAbbreviatedCalendarUnits = YES;
+    return [formatter stringForTimeIntervalFromDate:[NSDate date] toDate:date];
 }
 
 @end

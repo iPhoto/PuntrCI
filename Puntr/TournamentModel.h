@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "CategoryModel.h"
+#import "Parametrization.h"
 
-@interface TournamentModel : NSObject
+@interface TournamentModel : NSObject <Parametrization>
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, strong, readonly) NSString *title;
@@ -20,5 +21,7 @@
 @property (nonatomic, strong, readonly) NSDate *endTime;
 @property (nonatomic, strong, readonly) NSNumber *subscribed;
 @property (nonatomic, strong, readonly) CategoryModel *category;
+
+- (NSDictionary *)wrappedParameters;
 
 @end

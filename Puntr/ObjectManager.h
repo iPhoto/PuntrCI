@@ -7,6 +7,7 @@
 //
 
 #import "RKObjectManager.h"
+#import "Parametrization.h"
 
 @class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, PasswordModel, RegistrationModel, StakeModel, UserModel;
 
@@ -117,7 +118,7 @@ typedef void (^User)(UserModel *user);
 
 - (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
-- (void)unsubscribeFrom:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
+- (void)unsubscribeFrom:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 #pragma mark - Tournaments
 
