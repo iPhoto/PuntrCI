@@ -58,9 +58,10 @@ static const CGFloat TNItemSpacing = 12.0f;
     
     self.title = @"Событие";
     
-    [self addBalanceButton];
-    
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    
+    UIBarButtonItem *buttonComment = [[UIBarButtonItem alloc] initWithTitle:@"Коммент." style:UIBarButtonItemStyleBordered target:self action:@selector(rightNavButtonTouched)];
+    self.navigationItem.rightBarButtonItem = buttonComment;
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f,
@@ -69,8 +70,6 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
     
-    [(UIButton *)self.navigationItem.rightBarButtonItem.customView addTarget:self action:@selector(rightNavButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-
     CGFloat screenWidth = 320.0f;
     CGFloat coverMargin = 8.0f;
     CGFloat participantsHeight = 70.0f;
@@ -171,7 +170,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateBalance];
+    //[self updateBalance];
     [self.collectionManager reloadData];
 }
 
