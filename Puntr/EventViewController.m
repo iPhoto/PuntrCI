@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "AddCommentViewController.h"
 #import "CollectionManager.h"
 #import "EventModel.h"
 #import "EventViewController.h"
@@ -68,6 +69,8 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
     
+    [(UIButton *)self.navigationItem.rightBarButtonItem.customView addTarget:self action:@selector(rightNavButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+
     CGFloat screenWidth = 320.0f;
     CGFloat coverMargin = 8.0f;
     CGFloat participantsHeight = 70.0f;
@@ -170,6 +173,12 @@ static const CGFloat TNItemSpacing = 12.0f;
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
+}
+
+- (void)rightNavButtonTouched
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AddCommentViewController alloc] initWithEvent:self.event]] animated:YES completion:nil
+    ];
 }
 
 - (void)stakeButtonTouched
