@@ -195,7 +195,9 @@
     RKRelationshipMapping *newsStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *newsCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
     RKRelationshipMapping *newsFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
-    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsFeedRelationship]];
+    RKRelationshipMapping *newsEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *newsTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
+    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsFeedRelationship, newsEventRelationship, newsTournamentRelationship]];
     RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews] keyPath:KeyNews statusCodes:statusCodeOK];
     
     // Parameter
