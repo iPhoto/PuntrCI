@@ -247,6 +247,7 @@ static const CGFloat TNHeightButton = 31.0f;
     {
         [imageView removeFromSuperview];
     }
+    [self.delimiters removeAllObjects];
 }
 
 #pragma mark - Lead Components
@@ -502,7 +503,7 @@ static const CGFloat TNHeightButton = 31.0f;
     else
     {
         self.imageViewTournamentArrow = [[UIImageView alloc] init];
-        CGFloat marginTime = self.labelTimePublication ? [self.labelTimePublication sizeThatFits:self.labelTimePublication.frame.size].width + TNMarginGeneral : 0.0f;
+        CGFloat marginTime = self.labelTimePublication && self.delimiters.count == 0 ? [self.labelTimePublication sizeThatFits:self.labelTimePublication.frame.size].width + TNMarginGeneral : 0.0f;
         const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
         self.imageViewTournamentArrow.frame = CGRectMake(
                                                              TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
