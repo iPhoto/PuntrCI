@@ -272,6 +272,9 @@
 		ACA2647C17BD87AD006DE0FD /* settingsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647A17BD87AD006DE0FD /* settingsBackground.png */; };
 		ACA2647D17BD87AD006DE0FD /* settingsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647B17BD87AD006DE0FD /* settingsBackground@2x.png */; };
 		ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */; };
+		D6AA9AA417CBE4890003E1A9 /* AwardsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */; };
+		D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */; };
+		D6AA9AAA17CBF0CF0003E1A9 /* AwardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */; };
 		D6B1956617B7D9F300D1B352 /* IconLiga@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */; };
 		D6B1956717B7D9F300D1B352 /* IconLiga.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956517B7D9E400D1B352 /* IconLiga.png */; };
 		D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */; };
@@ -658,6 +661,12 @@
 		ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardsCollectionViewController.h; sourceTree = "<group>"; };
+		D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardsCollectionViewController.m; sourceTree = "<group>"; };
+		D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardViewController.h; sourceTree = "<group>"; };
+		D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardViewController.m; sourceTree = "<group>"; };
+		D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardCell.h; sourceTree = "<group>"; };
+		D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardCell.m; sourceTree = "<group>"; };
 		D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconLiga@2x.png"; sourceTree = "<group>"; };
 		D6B1956517B7D9E400D1B352 /* IconLiga.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLiga.png; sourceTree = "<group>"; };
 		D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuntrUtilities.h; sourceTree = "<group>"; };
@@ -1142,6 +1151,10 @@
 				0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */,
 				31B112A9176B5DDC00060EAB /* ProfileViewController.h */,
 				31B112AA176B5DDC00060EAB /* ProfileViewController.m */,
+				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
+				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
+				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
+				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
 				3195D390176A26F5005E4856 /* RegistrationViewController.h */,
 				3195D391176A26F5005E4856 /* RegistrationViewController.m */,
 				ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */,
@@ -1199,6 +1212,8 @@
 			children = (
 				31EF4AE41799941800F27702 /* AmountView.h */,
 				31EF4AE51799941800F27702 /* AmountView.m */,
+				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
+				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
 				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
 				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
@@ -1697,7 +1712,9 @@
 				0FA5FCCF17B2387200352827 /* VKConnector.m in Sources */,
 				0FA5FCD017B2387200352827 /* VKHTTPBody.m in Sources */,
 				0FA5FCD117B2387200352827 /* VKRequest.m in Sources */,
+				D6AA9AAA17CBF0CF0003E1A9 /* AwardCell.m in Sources */,
 				0FA5FCD217B2387200352827 /* VKStorage.m in Sources */,
+				D6AA9AA417CBE4890003E1A9 /* AwardsCollectionViewController.m in Sources */,
 				0FA5FCD317B2387200352827 /* VKAccessToken.m in Sources */,
 				0FA5FCD417B2387200352827 /* VKCachedData.m in Sources */,
 				0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */,
@@ -1737,6 +1754,7 @@
 				0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */,
 				0FAFC4F617CB8B2500735D0C /* PrivacySettingsModel.m in Sources */,
 				0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */,
+				D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
