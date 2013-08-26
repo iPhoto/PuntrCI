@@ -63,6 +63,10 @@ static const CGFloat TNHeightButton = 31.0f;
 @property (nonatomic, strong) UILabel *labelComponents;
 @property (nonatomic, strong) UILabel *labelCoefficient;
 @property (nonatomic, strong) UILabel *labelCoefficientTitle;
+@property (nonatomic, strong) UIView *viewStatusBackground;
+@property (nonatomic, strong) UILabel *labelStakeStatus;
+@property (nonatomic, strong) UILabel *labelStakeMoney;
+@property (nonatomic, strong) UIImageView *imageViewMoney;
 
 // Tournament
 @property (nonatomic, strong) UILabel *labelTournament;
@@ -154,6 +158,7 @@ static const CGFloat TNHeightButton = 31.0f;
     [self displayTime:news.createdAt];
     if (news.stake)
     {
+        [news.stake setType:news.type];
         [self loadWithStake:news.stake];
     }
     else if (news.feed)
@@ -172,17 +177,30 @@ static const CGFloat TNHeightButton = 31.0f;
 
 - (void)loadWithStake:(StakeModel *)stake
 {
-    if (![stake.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]])
+    BOOL loginedUser = [stake.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
+    if (!loginedUser)
     {
         [self displayUser:stake.user message:nil final:NO];
     }
     [self displayTournament:stake.event.tournament actionable:NO final:NO];
     [self displayCategory:stake.event.tournament.category];
     [self displayParticipants:stake.event.participants actionable:NO final:NO];
-    [self displayLine:stake.line
-           components:stake.components
-          coefficient:stake.coefficient
-                final:YES];
+    if (loginedUser)
+    {
+        
+        [self displayStakeStatus:stake.status
+                           money:stake.money
+                     coefficient:stake.coefficient
+                           final:YES];
+    }
+    else
+    {
+        [self displayLine:stake.line
+               components:stake.components
+              coefficient:stake.coefficient
+                    final:YES];
+    }
+
 }
 
 #pragma mark - Reloading
@@ -214,6 +232,10 @@ static const CGFloat TNHeightButton = 31.0f;
     [self.labelComponents removeFromSuperview];
     [self.labelCoefficient removeFromSuperview];
     [self.labelCoefficientTitle removeFromSuperview];
+    [self.viewStatusBackground removeFromSuperview];
+    [self.labelStakeStatus removeFromSuperview];
+    [self.labelStakeMoney removeFromSuperview];
+    [self.imageViewMoney removeFromSuperview];
     
     // Tournament
     [self.labelTournament removeFromSuperview];
@@ -564,7 +586,10 @@ static const CGFloat TNHeightButton = 31.0f;
     [self addSubview:self.labelComponents];
     
     // Coefficient
-    NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %.1f", coefficient.value.floatValue];
+    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+    NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %@", [twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
     CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLine.frame) + TNMarginGeneral);
     CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
     if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponents.frame) - TNMarginGeneral * 2.0f)
@@ -585,6 +610,93 @@ static const CGFloat TNHeightButton = 31.0f;
     [self addSubview:self.labelCoefficient];
     
     self.usedHeight = CGRectGetMaxY(self.labelCoefficient.frame);
+    
+    [self makeFinal:final];
+}
+
+- (void)displayStakeStatus:(NSString *)stakeStatus
+                     money:(MoneyModel *)money
+               coefficient:(CoefficientModel *)coefficient
+                     final:(BOOL)final
+{
+    NSString *stakeStatusLabel = nil;
+    NSString *stakeMoney = nil;
+    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+    CGSize sizeMoney = CGSizeMake(10.0, 10.0f);
+    self.imageViewMoney = [[UIImageView alloc] initWithFrame:CGRectMake(
+                                                                        TNWidthCell - TNMarginGeneral - sizeMoney.width,
+                                                                        self.usedHeight + TNMarginGeneral,
+                                                                        sizeMoney.width,
+                                                                        sizeMoney.height
+                                                                        )];
+    if ([stakeStatus isEqualToString:@"won"])
+    {
+        stakeStatusLabel = @"Ваша ставка выиграла!";
+        stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
+        self.viewStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
+                                                                                0.0f,
+                                                                                self.usedHeight,
+                                                                                TNWidthCell,
+                                                                                TNHeightText + TNMarginGeneral * 2.0f
+                                                                            )];
+        self.viewStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f];
+        [self addSubview:self.viewStatusBackground];
+        
+        self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
+        
+        self.labelStakeStatus = [UILabel labelSmallBold:YES black:self.blackBackground];
+    }
+    else if ([stakeStatus isEqualToString:@"loss"] || [stakeStatus isEqualToString:@"lost"])
+    {
+        stakeStatusLabel = @"Ваша ставка проиграла!";
+        stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
+        self.viewStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
+                                                                                0.0f,
+                                                                                self.usedHeight,
+                                                                                TNWidthCell,
+                                                                                TNHeightText + TNMarginGeneral * 2.0f
+                                                                            )];
+        self.viewStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.20f blue:0.00f alpha:1.00f];
+        [self addSubview:self.viewStatusBackground];
+        
+        self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
+        
+        self.labelStakeStatus = [UILabel labelSmallBold:YES black:self.blackBackground];
+    }
+    else if ([stakeStatus isEqualToString:@"create"] || !stakeStatus)
+    {
+        stakeStatusLabel = @"Ваша ставка";
+        stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:money.amount]];
+        
+        self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavkaGrey"];
+        
+        self.labelStakeStatus = [UILabel labelSmallBold:NO black:self.blackBackground];
+    }
+    [self addSubview:self.imageViewMoney];
+    
+    self.labelStakeMoney = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelStakeMoney.frame = CGRectMake(
+                                                TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthCell - TNMarginGeneral * 2.5f - sizeMoney.width,
+                                                TNHeightText
+                                           );
+    self.labelStakeMoney.text = stakeMoney;
+    self.labelStakeMoney.textAlignment = NSTextAlignmentRight;
+    [self addSubview:self.labelStakeMoney];
+    
+    self.labelStakeStatus.frame = CGRectMake(
+                                                TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthCell - TNMarginGeneral * 2.0f,
+                                                TNHeightText
+                                            );
+    self.labelStakeStatus.text = stakeStatusLabel;
+    [self addSubview:self.labelStakeStatus];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelStakeStatus.frame);
     
     [self makeFinal:final];
 }

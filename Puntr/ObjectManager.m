@@ -191,7 +191,7 @@
                                                                                             statusCodes:statusCodeOK];
 
     // News
-    [newsMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt]];
+    [newsMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *newsStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *newsCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
     RKRelationshipMapping *newsFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];

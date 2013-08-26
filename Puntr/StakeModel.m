@@ -10,6 +10,7 @@
 
 @interface StakeModel ()
 
+@property (nonatomic, copy) NSString *status;
 @property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong) LineModel *line;
 @property (nonatomic, strong) NSArray *components;
@@ -70,6 +71,11 @@
         [parameters setObject:[components copy] forKey:KeyComponents];
     }
     return [parameters copy];
+}
+
+- (void)setType:(NSString *)type
+{
+    self.status = type;
 }
 
 @end

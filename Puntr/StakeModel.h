@@ -42,4 +42,6 @@
 
 - (NSDictionary *)parameters;
 
+- (void)setType:(NSString *)type;
+
 @end
