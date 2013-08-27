@@ -69,6 +69,7 @@
     RKObjectMapping *newsMapping = [RKObjectMapping mappingForClass:[NewsModel class]];
     RKObjectMapping *parameterMapping = [RKObjectMapping mappingForClass:[ParameterModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
+    RKObjectMapping *privacyMapping = [RKObjectMapping mappingForClass:[PrivacySettingsModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
@@ -206,6 +207,13 @@
     // Participant
     [participantMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount, KeySubscribed]];
     
+    // Privacy
+    [privacyMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
+    RKResponseDescriptor *privacyCollectionResponseDescription = [RKResponseDescriptor responseDescriptorWithMapping:privacyMapping
+                                                                                                         pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIPrivacy]
+                                                                                                             keyPath:KeyPrivacy
+                                                                                                         statusCodes:statusCodeOK];
+    
     // Stake
     [stakeMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyStatus]];
     RKRelationshipMapping *stakeUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
@@ -299,6 +307,7 @@
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
+            privacyCollectionResponseDescription,
             stakeEventsCollectionResponseDescriptor,
             stakeResponseDescriptor,
             stakeUsersCollectionResponseDescriptor,
