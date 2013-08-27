@@ -11,7 +11,6 @@
 @interface UserModel ()
 
 @property (nonatomic, strong) NSNumber *tag;
-@property (nonatomic, strong) NSNumber *subscribed;
 @property (nonatomic, strong) NSNumber *topPosition;
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) NSNumber *subscriptionsCount;
