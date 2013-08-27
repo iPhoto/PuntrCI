@@ -744,6 +744,30 @@
     ];
 }
 
+- (void)subscriptionsForUser:(UserModel *)user
+                      paging:(PagingModel *)paging
+                     success:(Subscriptions)success
+                     failure:(EmptyFailure)failure
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
+    if (paging) {
+        [parameters setObject:paging.parameters forKey:KeyPaging];
+    }
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APISubscriptions]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *subscriptions = mappingResult.dictionary[KeySubscriptions];
+                return success(subscriptions);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 #pragma mark - Tournaments
 
 - (void)tournamentssForGroup:(NSString *)group
@@ -793,17 +817,6 @@
     [self getObject:nil
                path:APITournaments
          parameters:parameters
-            success:success
-            failure:failure];
-}
-
-#pragma mark - Subscriptions
-
-- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
-{
-    [self getObject:nil
-               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, userTag.stringValue, APISubscriptions]
-         parameters:self.authorization.wrappedParameters
             success:success
             failure:failure];
 }

@@ -120,6 +120,11 @@ typedef void (^User)(UserModel *user);
 
 - (void)unsubscribeFrom:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
+- (void)subscriptionsForUser:(UserModel *)user
+                      paging:(PagingModel *)paging
+                     success:(Subscriptions)success
+                     failure:(EmptyFailure)failure;
+
 #pragma mark - Tournaments
 
 - (void)tournamentsForGroup:(NSString *)group
@@ -129,10 +134,6 @@ typedef void (^User)(UserModel *user);
                        page:(NSNumber *)page
                     success:(ObjectRequestSuccess)success
                     failure:(ObjectRequestFailure)failure;
-
-#pragma mark - Subscriptions
-
-- (void)userSubscriptionsWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
 
 #pragma mark - User
 
