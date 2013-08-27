@@ -162,6 +162,10 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self loadWithStake:activity.stake];
     }
+    else if (activity.comment)
+    {
+        [self loadWithComment:activity.comment];
+    }
     else if (activity.feed)
     {
         [self loadWithFeed:activity.feed];
