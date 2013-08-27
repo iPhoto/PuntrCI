@@ -9,7 +9,7 @@
 #import "RKObjectManager.h"
 #import "Parametrization.h"
 
-@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, PasswordModel, PrivacySettingsModel, RegistrationModel, StakeModel, UserModel;
+@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, PasswordModel, PrivacySettingsModel, PushSettingsModel, RegistrationModel, StakeModel, UserModel;
 
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
@@ -163,6 +163,8 @@ typedef void (^User)(UserModel *user);
 - (void)setPrivacy:(PrivacySettingsModel *)privacy success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 - (void)pushWithSuccess:(Push)success failure:(EmptyFailure)failure;
+
+- (void)setPush:(PushSettingsModel *)push success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 - (UserModel *)loginedUser;
 

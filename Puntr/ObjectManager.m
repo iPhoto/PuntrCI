@@ -1067,6 +1067,22 @@
     ];
 }
 
+- (void)setPush:(PushSettingsModel *)push success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self putObject:push
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIPush]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                success();
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (UserModel *)loginedUser
 {
     return self.user;
