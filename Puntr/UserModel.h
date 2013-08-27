@@ -30,7 +30,7 @@
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;
-- (NSURL *)avatarWithSize:(CGSize)size;
+
 - (BOOL)isEqualToUser:(UserModel *)user;
 
 @end
