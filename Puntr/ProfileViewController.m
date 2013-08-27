@@ -14,6 +14,8 @@
 #import "SubscriptionsViewController.h"
 #import "UIViewController+Puntr.h"
 #import "UserModel.h"
+#import "AwardsCollectionViewController.h"
+
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -81,11 +83,21 @@ static const CGFloat TNItemSpacing = 12.0f;
     [buttonSettings setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
     [buttonSettings setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
     [buttonSettings addTarget:self action:@selector(settingsButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
+
+    UIButton *buttonAward = [[UIButton alloc] initWithFrame:CGRectMake(35, 0, 30, 30)];
+    [buttonAward setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
+    [buttonAward setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
+    [buttonAward setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
+    [buttonAward addTarget:self action:@selector(awardButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     
-    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(8, 8, 305, 128)];
+    UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
+    UIBarButtonItem *awardItem = [[UIBarButtonItem alloc] initWithCustomView:buttonAward];
+    
+    self.navigationItem.leftBarButtonItems = @[awardItem, settingsItem];
+    
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
-    UIView *greyView = [[UIView alloc]initWithFrame:CGRectMake(0, 78, 305, 58)];
+    UIView *greyView = [[UIView alloc] initWithFrame:CGRectMake(0, 78, 305, 58)];
     [greyView setBackgroundColor:[UIColor colorWithWhite:0.902 alpha:1]];
     [whiteView addSubview:greyView];
     whiteView.layer.cornerRadius = 3.75;
@@ -245,6 +257,11 @@ static const CGFloat TNItemSpacing = 12.0f;
 - (void)settingsButtonTouched
 {
     [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+}
+
+- (void)awardButtonTouched
+{
+    [self.navigationController pushViewController:[[AwardsCollectionViewController alloc] init] animated:YES];
 }
 
 - (void)loadProfile

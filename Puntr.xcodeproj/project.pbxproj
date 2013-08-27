@@ -52,6 +52,9 @@
 		0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */; };
 		0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */; };
 		0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */; };
+		0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EF17CB874900735D0C /* DynamicSelectionModel.m */; };
+		0FAFC4F617CB8B2500735D0C /* PrivacySettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */; };
+		0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3109279F17B8E55E0030C3E4 /* GroupModel.m */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
@@ -274,6 +277,9 @@
 		ACA2647C17BD87AD006DE0FD /* settingsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647A17BD87AD006DE0FD /* settingsBackground.png */; };
 		ACA2647D17BD87AD006DE0FD /* settingsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647B17BD87AD006DE0FD /* settingsBackground@2x.png */; };
 		ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */; };
+		D6AA9AA417CBE4890003E1A9 /* AwardsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */; };
+		D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */; };
+		D6AA9AAA17CBF0CF0003E1A9 /* AwardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */; };
 		D6B1956617B7D9F300D1B352 /* IconLiga@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */; };
 		D6B1956717B7D9F300D1B352 /* IconLiga.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956517B7D9E400D1B352 /* IconLiga.png */; };
 		D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */; };
@@ -371,6 +377,12 @@
 		0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsViewController.m; sourceTree = "<group>"; };
 		0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
 		0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
+		0FAFC4EE17CB874900735D0C /* DynamicSelectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicSelectionModel.h; sourceTree = "<group>"; };
+		0FAFC4EF17CB874900735D0C /* DynamicSelectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicSelectionModel.m; sourceTree = "<group>"; };
+		0FAFC4F417CB8B2500735D0C /* PrivacySettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacySettingsModel.h; sourceTree = "<group>"; };
+		0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsModel.m; sourceTree = "<group>"; };
+		0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingsModel.h; sourceTree = "<group>"; };
+		0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingsModel.m; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3109279E17B8E55E0030C3E4 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		3109279F17B8E55E0030C3E4 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
@@ -660,6 +672,12 @@
 		ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardsCollectionViewController.h; sourceTree = "<group>"; };
+		D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardsCollectionViewController.m; sourceTree = "<group>"; };
+		D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardViewController.h; sourceTree = "<group>"; };
+		D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardViewController.m; sourceTree = "<group>"; };
+		D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardCell.h; sourceTree = "<group>"; };
+		D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardCell.m; sourceTree = "<group>"; };
 		D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconLiga@2x.png"; sourceTree = "<group>"; };
 		D6B1956517B7D9E400D1B352 /* IconLiga.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLiga.png; sourceTree = "<group>"; };
 		D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuntrUtilities.h; sourceTree = "<group>"; };
@@ -1148,6 +1166,10 @@
 				0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */,
 				31B112A9176B5DDC00060EAB /* ProfileViewController.h */,
 				31B112AA176B5DDC00060EAB /* ProfileViewController.m */,
+				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
+				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
+				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
+				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
 				3195D390176A26F5005E4856 /* RegistrationViewController.h */,
 				3195D391176A26F5005E4856 /* RegistrationViewController.m */,
 				ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */,
@@ -1207,6 +1229,8 @@
 			children = (
 				31EF4AE41799941800F27702 /* AmountView.h */,
 				31EF4AE51799941800F27702 /* AmountView.m */,
+				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
+				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
 				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
 				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
@@ -1260,6 +1284,8 @@
 				318D475817B8E0F400A64C6A /* CredentialsModel.m */,
 				3127C03F179856AE0056D78A /* CriterionModel.h */,
 				3127C040179856AE0056D78A /* CriterionModel.m */,
+				0FAFC4EE17CB874900735D0C /* DynamicSelectionModel.h */,
+				0FAFC4EF17CB874900735D0C /* DynamicSelectionModel.m */,
 				31B3E7431774996300AEFDF5 /* ErrorModel.h */,
 				31B3E7441774996300AEFDF5 /* ErrorModel.m */,
 				31F47E1E17731A910047ECCF /* EventModel.h */,
@@ -1287,6 +1313,10 @@
 				31F47E25177325C50047ECCF /* ParticipantModel.m */,
 				31EA773A17BCD6A10060DFCC /* PasswordModel.h */,
 				31EA773B17BCD6A20060DFCC /* PasswordModel.m */,
+				0FAFC4F417CB8B2500735D0C /* PrivacySettingsModel.h */,
+				0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */,
+				0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */,
+				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
@@ -1703,7 +1733,9 @@
 				0FA5FCCF17B2387200352827 /* VKConnector.m in Sources */,
 				0FA5FCD017B2387200352827 /* VKHTTPBody.m in Sources */,
 				0FA5FCD117B2387200352827 /* VKRequest.m in Sources */,
+				D6AA9AAA17CBF0CF0003E1A9 /* AwardCell.m in Sources */,
 				0FA5FCD217B2387200352827 /* VKStorage.m in Sources */,
+				D6AA9AA417CBE4890003E1A9 /* AwardsCollectionViewController.m in Sources */,
 				0FA5FCD317B2387200352827 /* VKAccessToken.m in Sources */,
 				0FA5FCD417B2387200352827 /* VKCachedData.m in Sources */,
 				0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */,
@@ -1740,6 +1772,10 @@
 				0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */,
 				0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */,
 				0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */,
+				0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */,
+				0FAFC4F617CB8B2500735D0C /* PrivacySettingsModel.m in Sources */,
+				0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */,
+				D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */,
 				31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
