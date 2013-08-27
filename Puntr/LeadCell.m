@@ -12,6 +12,7 @@
 #import "NewsModel.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
+#import "DynamicSelectionModel.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
 #import "SubscriptionModel.h"
@@ -26,6 +27,8 @@ static const CGFloat TNSideAvatar = 28.0f;
 static const CGFloat TNWidthButtonLarge = 94.0f;
 static const CGFloat TNWidthButtonSmall = 62.0f;
 static const CGFloat TNHeightButton = 31.0f;
+static const CGFloat TNWidthSwitch = 78.0f;
+static const CGFloat TNHeightSwitch = 27.0f;
 
 #define TNColorText 
 
@@ -64,6 +67,11 @@ static const CGFloat TNHeightButton = 31.0f;
 // Participant
 @property (nonatomic, strong) NSMutableArray *participantLogos;
 @property (nonatomic, strong) NSMutableArray *participantTitles;
+
+// Privacy and Puash
+@property (nonatomic, strong) UILabel *labelDynamicSelectionTitle;
+@property (nonatomic, strong) UILabel *labelDynamicSelectionDescription;
+@property (nonatomic, strong) UISwitch *switchDynamicSelection;
 
 // Stake
 @property (nonatomic, strong) UILabel *labelLine;
@@ -137,6 +145,10 @@ static const CGFloat TNHeightButton = 31.0f;
     else if ([model isMemberOfClass:[SubscriptionModel class]])
     {
         [self loadWithSubscription:(SubscriptionModel *)model];
+    }
+    else if ([model isMemberOfClass:[DynamicSelectionModel class]])
+    {
+        [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
     }
 }
 
@@ -234,6 +246,15 @@ static const CGFloat TNHeightButton = 31.0f;
     }
 }
 
+- (void)loadWithDynamicSelection:(DynamicSelectionModel *)dynamicSelection
+{
+    [self blackCell];
+    if(dynamicSelection.slug)
+    {
+        [self displayDynamicSelection:dynamicSelection];
+    }
+}
+
 #pragma mark - Reloading
 
 - (void)prepareForReuse
@@ -284,6 +305,11 @@ static const CGFloat TNHeightButton = 31.0f;
     [self.labelTournament removeFromSuperview];
     [self.imageViewTournamentArrow removeFromSuperview];
     [self.buttonTournament removeFromSuperview];
+    
+    //DynamicSelection
+    [self.labelDynamicSelectionTitle removeFromSuperview];
+    [self.labelDynamicSelectionDescription removeFromSuperview];
+    [self.switchDynamicSelection removeFromSuperview];
     
     // Miscelanouos
     for (UIImageView *imageView in self.delimiters)
@@ -507,6 +533,45 @@ static const CGFloat TNHeightButton = 31.0f;
     [self addSubview:self.labelCategoryTitle];
     
     self.usedHeight = CGRectGetMaxY(self.labelCategoryTitle.frame);
+}
+
+- (void)displayDynamicSelection:(DynamicSelectionModel *)dynamicSelection
+{
+    self.switchDynamicSelection = [[UISwitch alloc] initWithFrame:CGRectMake(
+                                                                             TNWidthCell - TNMarginGeneral - TNWidthSwitch,
+                                                                             TNMarginGeneral,
+                                                                             TNWidthSwitch,
+                                                                             TNHeightSwitch
+                                                                            )];
+    [self.switchDynamicSelection setOn:dynamicSelection.status.boolValue animated:NO];
+    [self.switchDynamicSelection addTarget:self action:@selector(touchedSwitchDynamicSelection) forControlEvents:UIControlEventValueChanged];
+    [self addSubview:self.switchDynamicSelection];
+    
+    self.labelDynamicSelectionTitle = [UILabel labelSmallBold:YES black:NO];
+    self.labelDynamicSelectionTitle.frame = CGRectMake(
+                                                       TNMarginGeneral,
+                                                       TNMarginGeneral,
+                                                       TNWidthCell - TNMarginGeneral - CGRectGetMinX(self.switchDynamicSelection.frame),
+                                                       TNHeightText
+                                                      );
+    self.labelDynamicSelectionTitle.text = dynamicSelection.title;
+    [self addSubview:self.labelDynamicSelectionTitle];
+    
+    self.labelDynamicSelectionDescription = [UILabel labelSmallBold:YES black:NO];
+    CGSize descriptionSize = [dynamicSelection.description sizeWithFont:self.labelDynamicSelectionDescription.font forWidth:TNWidthCell - TNMarginGeneral * 2.0f lineBreakMode:NSLineBreakByWordWrapping];
+    self.labelDynamicSelectionDescription.frame = CGRectMake(
+                                                             TNMarginGeneral,
+                                                             CGRectGetMaxY(self.switchDynamicSelection.frame) + TNMarginGeneral,
+                                                             descriptionSize.width,
+                                                             descriptionSize.height
+                                                            );
+    [self.labelDynamicSelectionDescription setNumberOfLines:0];
+    [self.labelDynamicSelectionDescription setLineBreakMode:NSLineBreakByWordWrapping];
+    self.labelDynamicSelectionDescription.text = dynamicSelection.description;
+    [self addSubview:self.labelDynamicSelectionDescription];
+    
+    [self makeFinal:YES];
+    
 }
 
 - (void)displayTournament:(TournamentModel *)tournament actionable:(BOOL)actionable final:(BOOL)final
@@ -838,6 +903,11 @@ static const CGFloat TNHeightButton = 31.0f;
 - (void)touchedButtonTournamentSubscribe:(UIButton *)button
 {
     NSLog(@"Tournament Subscribe button touched");
+}
+
+- (void)touchedSwitchDynamicSelection
+{
+    NSLog(@"switch touched");
 }
 
 - (void)subscribe
