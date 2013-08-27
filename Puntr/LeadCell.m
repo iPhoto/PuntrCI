@@ -500,11 +500,11 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         self.labelUserMessage = [UILabel labelSmallBold:NO black:self.blackBackground];
         self.labelUserMessage.frame = CGRectMake(
-                                                 TNMarginGeneral + avatarWidth,
-                                                 CGRectGetMaxY(self.labelUserName.frame) + TNMarginGeneral,
-                                                 TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
-                                                 CGFLOAT_MAX
-                                                 );
+                                                    TNMarginGeneral + avatarWidth,
+                                                    CGRectGetMaxY(self.labelUserName.frame) + TNMarginGeneral,
+                                                    TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
+                                                    TNHeightText
+                                                );
         self.labelUserMessage.numberOfLines = 0;
         self.labelUserMessage.text = message;
         [self.labelUserMessage sizeToFit];
