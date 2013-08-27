@@ -165,6 +165,7 @@
 		31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* MyStakesViewController.m */; };
 		31B112AB176B5DDC00060EAB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* ProfileViewController.m */; };
 		31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B3E7441774996300AEFDF5 /* ErrorModel.m */; };
+		31C16A0517CCA4DE0014C32E /* NSURL+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C16A0417CCA4DE0014C32E /* NSURL+Puntr.m */; };
 		31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */; };
 		31CF777F17BE5926009B2FC6 /* FacebookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF777E17BE5925009B2FC6 /* FacebookModel.m */; };
 		31CF778217BE59B0009B2FC6 /* AccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778117BE59B0009B2FC6 /* AccessModel.m */; };
@@ -520,6 +521,8 @@
 		31B112AA176B5DDC00060EAB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		31B3E7431774996300AEFDF5 /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
 		31B3E7441774996300AEFDF5 /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
+		31C16A0317CCA4DE0014C32E /* NSURL+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Puntr.h"; sourceTree = "<group>"; };
+		31C16A0417CCA4DE0014C32E /* NSURL+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Puntr.m"; sourceTree = "<group>"; };
 		31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKRelationshipMapping+Convenience.h"; sourceTree = "<group>"; };
 		31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKRelationshipMapping+Convenience.m"; sourceTree = "<group>"; };
 		31CF777D17BE5925009B2FC6 /* FacebookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookModel.h; sourceTree = "<group>"; };
@@ -890,6 +893,8 @@
 			children = (
 				314E8DF017BB95D60046E1A1 /* CGGeometry+Convenience.h */,
 				314E8DF117BB95D70046E1A1 /* CGGeometry+Convenience.m */,
+				31C16A0317CCA4DE0014C32E /* NSURL+Puntr.h */,
+				31C16A0417CCA4DE0014C32E /* NSURL+Puntr.m */,
 				7629C8A117B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.h */,
 				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
 				31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */,
@@ -1777,6 +1782,7 @@
 				0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */,
 				D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */,
 				31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */,
+				31C16A0517CCA4DE0014C32E /* NSURL+Puntr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
