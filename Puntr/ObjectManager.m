@@ -1000,6 +1000,23 @@
             failure:failure];
 }
 
+- (void)privacyWithSuccess:(Privacy)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIPrivacy]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *privacy = mappingResult.dictionary[KeyPrivacy];
+                success(privacy);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (UserModel *)loginedUser
 {
     return self.user;

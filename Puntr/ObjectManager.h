@@ -27,6 +27,7 @@ typedef void (^Events)(NSArray *events);
 typedef void (^Groups)(NSArray *groups);
 typedef void (^Money)(MoneyModel *money);
 typedef void (^News)(NSArray *news);
+typedef void (^Privacy)(NSArray *privacy);
 typedef void (^Stake)(StakeModel *stake);
 typedef void (^Stakes)(NSArray *stakes);
 typedef void (^Subscribers)(NSArray *subscribers);
@@ -155,6 +156,8 @@ typedef void (^User)(UserModel *user);
                   failure:(EmptyFailure)failure;
 
 - (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+
+- (void)privacyWithSuccess:(Privacy)success failure:(EmptyFailure)failure;
 
 - (UserModel *)loginedUser;
 
