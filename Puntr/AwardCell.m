@@ -8,6 +8,16 @@
 
 #import "AwardCell.h"
 
+@interface AwardCell  ()
+
+@property (nonatomic, retain) UIImageView *awardImageView;
+@property (nonatomic, retain) UILabel *awardPointsCount;
+@property (nonatomic, retain) UILabel *awardTitle;
+
+@property (nonatomic, retain) UIButton *shareAward;
+
+@end
+
 @implementation AwardCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -19,13 +29,5 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

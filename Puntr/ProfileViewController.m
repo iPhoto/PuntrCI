@@ -38,10 +38,15 @@ static const CGFloat TNItemSpacing = 12.0f;
 @property (nonatomic, strong) UILabel *labelStatsNumber;
 @property (nonatomic, strong) UILabel *labelActivity;
 @property (nonatomic, strong) UIImageView *imageViewAvatar;
+
+@property (nonatomic, strong) UIButton *buttonSubscriptions;
+@property (nonatomic, strong) UIButton *buttonFollower;
+@property (nonatomic, strong) UIButton *buttonAwards;
+@property (nonatomic, strong) UIButton *buttonStats;
 @property (nonatomic, strong) UIButton *buttonSubscribe;
+
 @property (nonatomic, strong) NSArray *stars;
 @property (nonatomic, strong) NSNumber *userTag;
-@property (nonatomic, strong) UIButton *buttonSubscriptions;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -84,16 +89,9 @@ static const CGFloat TNItemSpacing = 12.0f;
     [buttonSettings setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
     [buttonSettings addTarget:self action:@selector(settingsButtonTouched) forControlEvents:UIControlEventTouchUpInside];
 
-    UIButton *buttonAward = [[UIButton alloc] initWithFrame:CGRectMake(35, 0, 30, 30)];
-    [buttonAward setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
-    [buttonAward setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
-    [buttonAward setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
-    [buttonAward addTarget:self action:@selector(awardButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
-    UIBarButtonItem *awardItem = [[UIBarButtonItem alloc] initWithCustomView:buttonAward];
     
-    self.navigationItem.leftBarButtonItems = @[awardItem, settingsItem];
+    self.navigationItem.leftBarButtonItem = settingsItem;
     
     UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
@@ -155,6 +153,17 @@ static const CGFloat TNItemSpacing = 12.0f;
     [whiteView addSubview:self.labelFollower];
     [self.labelFollower setText:@"Подписчиков"];
     
+    self.buttonFollower = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonFollower.frame = CGRectMake(
+                                            CGRectGetMaxX(self.buttonSubscriptions.frame),
+                                            CGRectGetMinY(greyView.frame),
+                                            CGRectGetWidth(greyView.frame) / 4.0f,
+                                            CGRectGetHeight(whiteView.frame) - CGRectGetMinX(greyView.frame)
+                                           );
+    [self.buttonFollower addTarget:self action:@selector(followers) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:self.buttonFollower];
+    
+    
     self.labelAward = [[UILabel alloc]initWithFrame:CGRectMake(152, 105, 75, 15)];
     [self.labelAward setFont:[UIFont fontWithName:@"ArialMT" size:11.0f]];
     self.labelAward.shadowColor = [UIColor whiteColor];
@@ -163,6 +172,16 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.labelAward setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelAward];
     [self.labelAward setText:@"Наград"];
+    
+    self.buttonAwards = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonAwards.frame = CGRectMake(
+                                           CGRectGetMaxX(self.buttonFollower.frame),
+                                           CGRectGetMinY(greyView.frame),
+                                           CGRectGetWidth(greyView.frame) / 4.0f,
+                                           CGRectGetHeight(whiteView.frame) - CGRectGetMinX(greyView.frame)
+                                           );
+    [self.buttonAwards addTarget:self action:@selector(awardButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:self.buttonAwards];
     
     self.labelRating = [[UILabel alloc]initWithFrame:CGRectMake(227, 105, 75, 15)];
     [self.labelRating setFont:[UIFont fontWithName:@"ArialMT" size:11.0f]];
@@ -173,6 +192,16 @@ static const CGFloat TNItemSpacing = 12.0f;
     [whiteView addSubview:self.labelRating];
     [self.labelRating setText:@"Побед/Пораж"];
     
+    self.buttonStats = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonStats.frame = CGRectMake(
+                                         CGRectGetMaxX(self.buttonAwards.frame),
+                                         CGRectGetMinY(greyView.frame),
+                                         CGRectGetWidth(greyView.frame) / 4.0f,
+                                         CGRectGetHeight(whiteView.frame) - CGRectGetMinX(greyView.frame)
+                                         );
+    [self.buttonStats addTarget:self action:@selector(awardButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:self.buttonStats];
+
     self.labelFollowNumber = [[UILabel alloc]initWithFrame:CGRectMake(2, 88, 75, 15)];
     [self.labelFollowNumber setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0f]];
     self.labelFollowNumber.shadowColor = [UIColor whiteColor];
@@ -307,5 +336,11 @@ static const CGFloat TNItemSpacing = 12.0f;
 {
     [self.navigationController pushViewController:[[SubscriptionsViewController alloc] initWithUser:self.user] animated:YES];
 }
+
+- (void)followers
+{
+    [self.navigationController pushViewController:[[SubscriptionsViewController alloc] initWithUser:self.user] animated:YES];
+}
+
 
 @end
