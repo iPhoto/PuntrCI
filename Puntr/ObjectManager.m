@@ -366,6 +366,13 @@
                                                                                            objectClass:[PasswordModel class]
                                                                                            rootKeyPath:nil];
     
+    // Privacy
+    RKObjectMapping *privacySerialization = [RKObjectMapping requestMapping];
+    [privacySerialization addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
+    RKRequestDescriptor *privacyRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:privacySerialization
+                                                                                          objectClass:[PrivacySettingsModel class]
+                                                                                          rootKeyPath:nil];
+    
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
     [stakeSerialization addPropertyMappingsFromArray:@[
@@ -413,6 +420,7 @@
             facebookRequestDescriptor,
             participantRequestDescriptor,
             passwordRequestDescriptor,
+            privacyRequestDescriptor,
             stakeRequestDescriptor,
             tournamentRequestDescriptor,
             twitterRequestDescriptor,
