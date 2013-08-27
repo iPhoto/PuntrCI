@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypeActivities,
     CollectionTypeEventStakes,
     CollectionTypeMyStakes,
-    CollectionTypeNews
+    CollectionTypeNews,
+    CollectionTypeSubscriptions
 };
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>

@@ -87,6 +87,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         case CollectionTypeNews:
             [self loadNews];
             break;
+        
+        case CollectionTypeSubscriptions:
+            [self loadSubscriptions];
+            break;
             
         default:
             break;
@@ -136,6 +140,19 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               [self combineWithData:news];
                                           }
                                           failure:nil
+    ];
+}
+
+- (void)loadSubscriptions
+{
+    UserModel *user = (UserModel *)self.modifierObject;
+    [[ObjectManager sharedManager] subscriptionsForUser:user
+                                                 paging:self.paging
+                                                success:^(NSArray *subscriptions)
+                                                {
+                                                    [self combineWithData:subscriptions];
+                                                }
+                                                failure:nil
     ];
 }
 
