@@ -382,6 +382,13 @@
                                                                                           objectClass:[PrivacySettingsModel class]
                                                                                           rootKeyPath:nil];
     
+    // Push
+    RKObjectMapping *pushSerialization = [RKObjectMapping requestMapping];
+    [pushSerialization addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
+    RKRequestDescriptor *pushRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:pushSerialization
+                                                                                          objectClass:[PushSettingsModel class]
+                                                                                          rootKeyPath:nil];
+    
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
     [stakeSerialization addPropertyMappingsFromArray:@[
@@ -430,6 +437,7 @@
             participantRequestDescriptor,
             passwordRequestDescriptor,
             privacyRequestDescriptor,
+            pushRequestDescriptor,
             stakeRequestDescriptor,
             tournamentRequestDescriptor,
             twitterRequestDescriptor,
