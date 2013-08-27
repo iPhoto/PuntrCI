@@ -434,7 +434,7 @@ static const CGFloat TNHeightButton = 31.0f;
                                                    TNSideAvatar,
                                                    TNSideAvatar
                                                );
-        [self.imageViewAvatar setImageWithURL:[user avatarWithSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
+        [self.imageViewAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
         [self addSubview:self.imageViewAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewAvatar.frame) + TNMarginGeneral;
