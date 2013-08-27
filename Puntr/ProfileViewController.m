@@ -11,6 +11,7 @@
 #import "ObjectManager.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
+#import "SubscriptionsViewController.h"
 #import "UIViewController+Puntr.h"
 #import "UserModel.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -38,6 +39,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 @property (nonatomic, strong) UIButton *buttonSubscribe;
 @property (nonatomic, strong) NSArray *stars;
 @property (nonatomic, strong) NSNumber *userTag;
+@property (nonatomic, strong) UIButton *buttonSubscriptions;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -121,6 +123,16 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.labelFollow setTextAlignment:NSTextAlignmentCenter];
     [whiteView addSubview:self.labelFollow];
     [self.labelFollow setText:@"Подписок"];
+    
+    self.buttonSubscriptions = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonSubscriptions.frame = CGRectMake(
+                                                   0.0f,
+                                                   CGRectGetMinY(greyView.frame),
+                                                   CGRectGetWidth(greyView.frame) / 4.0f,
+                                                   CGRectGetHeight(whiteView.frame) - CGRectGetMinX(greyView.frame)
+                                               );
+    [self.buttonSubscriptions addTarget:self action:@selector(subscriptions) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:self.buttonSubscriptions];
     
     self.labelFollower = [[UILabel alloc]initWithFrame:CGRectMake(77, 105, 75, 15)];
     [self.labelFollower setFont:[UIFont fontWithName:@"ArialMT" size:11.0f]];
@@ -272,6 +284,11 @@ static const CGFloat TNItemSpacing = 12.0f;
     {
         [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarUnselected.png"]];
     }
+}
+
+- (void)subscriptions
+{
+    [self.navigationController pushViewController:[[SubscriptionsViewController alloc] initWithUser:self.user] animated:YES];
 }
 
 @end
