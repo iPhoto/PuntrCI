@@ -22,12 +22,14 @@
 static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNHeightText = 12.0f;
 static const CGFloat TNWidthCell = 306.0f;
-static const CGFloat TNSideAvatar = 28.0f;
+static const CGFloat TNSideImage = 28.0f;
+static const CGFloat TNSideImageSmall = 12.0f;
+static const CGFloat TNSideImageLarge = 60.0f;
 static const CGFloat TNWidthButtonLarge = 94.0f;
 static const CGFloat TNWidthButtonSmall = 62.0f;
 static const CGFloat TNHeightButton = 31.0f;
 
-#define TNColorText 
+#define TNColorText
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
@@ -431,10 +433,10 @@ static const CGFloat TNHeightButton = 31.0f;
         self.imageViewAvatar.frame = CGRectMake(
                                                    TNMarginGeneral,
                                                    self.usedHeight + TNMarginGeneral,
-                                                   TNSideAvatar,
-                                                   TNSideAvatar
+                                                   TNSideImage,
+                                                   TNSideImage
                                                );
-        [self.imageViewAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
+        [self.imageViewAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
         [self addSubview:self.imageViewAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewAvatar.frame) + TNMarginGeneral;
@@ -443,7 +445,7 @@ static const CGFloat TNHeightButton = 31.0f;
     
     // Name
     self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
-    CGFloat userNameHeight = user.avatar && !message ? TNSideAvatar : TNHeightText;
+    CGFloat userNameHeight = user.avatar && !message ? TNSideImage : TNHeightText;
     self.labelUserName.frame = CGRectMake(
                                           TNMarginGeneral + avatarWidth,
                                           self.usedHeight + TNMarginGeneral,
@@ -484,12 +486,11 @@ static const CGFloat TNHeightButton = 31.0f;
     if (category.image)
     {
         self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(
-                                                                                    TNMarginGeneral,
-                                                                                    self.usedHeight + TNMarginGeneral,
-                                                                                    categoryImageSize.width,
-                                                                                    categoryImageSize.height
-                                                                                    )];
-        
+                                                                                       TNMarginGeneral,
+                                                                                       self.usedHeight + TNMarginGeneral,
+                                                                                       categoryImageSize.width,
+                                                                                       categoryImageSize.height
+                                                                                   )];
         [self.imageViewCategoryImage setImageWithURL:[category.image URLByAppendingSize:categoryImageSize]];
         [self addSubview:self.imageViewCategoryImage];
         
@@ -570,13 +571,13 @@ static const CGFloat TNHeightButton = 31.0f;
         imageViewParticipantLogo.frame = CGRectMake(
                                                        TNMarginGeneral,
                                                        self.usedHeight + TNMarginGeneral,
-                                                       TNSideAvatar,
-                                                       TNSideAvatar
+                                                       TNSideImage,
+                                                       TNSideImage
                                                    );
-        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
+        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
         [self.participantLogos addObject:imageViewParticipantLogo];
         [self addSubview:imageViewParticipantLogo];
-        marginImage = TNSideAvatar + TNMarginGeneral;
+        marginImage = TNSideImage + TNMarginGeneral;
     }
     
     UILabel *labelParticipantTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
@@ -584,7 +585,7 @@ static const CGFloat TNHeightButton = 31.0f;
                                                 TNMarginGeneral + marginImage,
                                                 self.usedHeight + TNMarginGeneral,
                                                 TNWidthCell - (TNMarginGeneral + marginImage) - (TNMarginGeneral + CGRectGetWidth(self.buttonSubscribe.frame)),
-                                                TNSideAvatar
+                                                TNSideImage
                                             );
     labelParticipantTitle.text = participant.title;
     [self.participantTitles addObject:labelParticipantTitle];
@@ -598,31 +599,126 @@ static const CGFloat TNHeightButton = 31.0f;
 - (void)displayParticipants:(NSArray *)participants actionable:(BOOL)actionable final:(BOOL)final
 {
     // Participants
-    self.labelParticipants = [UILabel labelSmallBold:YES black:self.blackBackground];
-    self.labelParticipants.frame = CGRectMake(
-                                              TNMarginGeneral,
-                                              self.usedHeight + TNMarginGeneral,
-                                              TNWidthCell - TNMarginGeneral * 2.0f,
-                                              TNHeightText
-                                             );
-    NSString *participantsConsolidated = @"";
-    NSUInteger counter = 0;
+    NSUInteger participantsMAX = NSUIntegerMax;
+    NSUInteger participantIndex = 0;
     for (ParticipantModel *participant in participants)
     {
-        if (counter == 0)
+        if (participantIndex < participantsMAX)
         {
-            participantsConsolidated = participant.title;
+            // Element Frames
+            CGRect frameTitlePrevious = participantIndex == 0 ? CGRectZero : [self.participantTitles[participantIndex - 1] frame];
+            
+            CGRect frameButtonStake = self.buttonEventStake ? self.buttonEventStake.frame : CGRectZero;
+            
+            CGRect frameButtonSubscribe = self.buttonSubscribe ? self.buttonSubscribe.frame : CGRectZero;
+            
+            CGPoint originLogo = CGPointZero;
+            CGSize sizeLogo = CGSizeZero;
+            CGRect frameLogo = CGRectZero;
+            
+            CGPoint originTitle = CGPointZero;
+            CGSize sizeTitle = CGSizeZero;
+            CGRect frameTitle = CGRectZero;
+            
+            // Avaliable Width
+            CGFloat margins = TNMarginGeneral * 2.0f;
+            if (CGRectGetWidth(frameButtonStake) != 0 || CGRectGetWidth(frameButtonSubscribe) != 0)
+            {
+                margins += TNMarginGeneral;
+            }
+            CGFloat widthPreviouslyTaken = CGRectGetMaxX(frameTitlePrevious);
+            CGFloat widthButton = 0.0f;
+            if (CGRectGetWidth(frameButtonStake) != 0)
+            {
+                widthButton = CGRectGetWidth(frameButtonStake);
+            }
+            else if (CGRectGetWidth(frameButtonSubscribe) != 0)
+            {
+                widthButton = CGRectGetWidth(frameButtonSubscribe);
+            }
+            CGFloat widthAvaliable = TNWidthCell - widthPreviouslyTaken - margins - widthButton;
+            
+            // Needed Width
+            CGFloat widthLogoNeeded = participant.logo ? TNSideImageSmall : 0.0f;
+            NSUInteger participantIndexNext = participantIndex + 1;
+            BOOL lastParticipant = participantIndexNext >= participantsMAX || participantIndexNext >= participants.count;
+            NSString *stringTitleParticipant = lastParticipant ? participant.title : [NSString stringWithFormat:@"%@  —", participant.title];
+            CGSize sizeTitleMax = CGSizeMake(TNWidthCell + 2.0f * TNMarginGeneral, TNHeightText);
+            CGSize sizeTitleNeeded = [stringTitleParticipant sizeWithFont:TNFontSmallBold constrainedToSize:sizeTitleMax];
+            CGFloat widthTitleNeeded = sizeTitleNeeded.width;
+            CGFloat widthNeeded = widthLogoNeeded + TNMarginGeneral + widthTitleNeeded;
+            
+            // Used Height
+            CGFloat heightUsed = self.usedHeight;
+            if (CGRectGetHeight(frameTitlePrevious) != 0)
+            {
+                heightUsed = CGRectGetMaxY(frameTitlePrevious);
+            }
+            CGFloat yStart = heightUsed + TNMarginGeneral;
+            if (CGRectGetHeight(frameTitlePrevious) != 0)
+            {
+                yStart = CGRectGetMinY(frameTitlePrevious);
+            }
+            
+            if (widthAvaliable < widthNeeded)
+            {
+                if (participant.logo)
+                {
+                    originLogo = CGPointMake(TNMarginGeneral, heightUsed + TNMarginGeneral);
+                    sizeLogo = CGSizeMake(TNSideImageSmall, TNSideImageSmall);
+                    frameLogo = CGRectMake(originLogo.x, originLogo.y, sizeLogo.width, sizeLogo.height);
+                    
+                    originTitle = CGPointMake(CGRectGetMaxX(frameLogo) + TNMarginGeneral, heightUsed + TNMarginGeneral);
+                    sizeTitle = CGSizeMake(widthTitleNeeded, TNHeightText);
+                    frameTitle = CGRectMake(originTitle.x, originTitle.y, sizeTitle.width, sizeTitle.height);
+                }
+                else
+                {
+                    originTitle = CGPointMake(TNMarginGeneral, heightUsed + TNMarginGeneral);
+                    sizeTitle = CGSizeMake(widthTitleNeeded, TNHeightText);
+                    frameTitle = CGRectMake(originTitle.x, originTitle.y, sizeTitle.width, sizeTitle.height);
+                }
+            }
+            else
+            {
+                if (participant.logo)
+                {
+                    originLogo = CGPointMake(widthPreviouslyTaken + TNMarginGeneral, yStart);
+                    sizeLogo = CGSizeMake(TNSideImageSmall, TNSideImageSmall);
+                    frameLogo = CGRectMake(originLogo.x, originLogo.y, sizeLogo.width, sizeLogo.height);
+                    
+                    originTitle = CGPointMake(CGRectGetMaxX(frameLogo) + TNMarginGeneral, yStart);
+                    sizeTitle = CGSizeMake(widthTitleNeeded, TNHeightText);
+                    frameTitle = CGRectMake(originTitle.x, originTitle.y, sizeTitle.width, sizeTitle.height);
+                }
+                else
+                {
+                    originTitle = CGPointMake(widthPreviouslyTaken + TNMarginGeneral, yStart);
+                    sizeTitle = CGSizeMake(widthTitleNeeded, TNHeightText);
+                    frameTitle = CGRectMake(originTitle.x, originTitle.y, sizeTitle.width, sizeTitle.height);
+                }
+            }
+            
+            if (participant.logo)
+            {
+                UIImageView *imageViewParticipantLogo = [[UIImageView alloc] init];
+                imageViewParticipantLogo.frame = frameLogo;
+                [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:sizeLogo]];
+                [self.participantLogos addObject:imageViewParticipantLogo];
+                [self addSubview:imageViewParticipantLogo];
+            }
+            
+            UILabel *labelParticipantTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
+            labelParticipantTitle.frame = frameTitle;
+            labelParticipantTitle.text = stringTitleParticipant;
+            [self.participantTitles addObject:labelParticipantTitle];
+            [self addSubview:labelParticipantTitle];
         }
-        else
-        {
-            participantsConsolidated = [NSString stringWithFormat:@"%@ — %@", participantsConsolidated, participant.title];
-        }
-        counter++;
+        
+        participantIndex++;
     }
-    self.labelParticipants.text = participantsConsolidated;
-    [self addSubview:self.labelParticipants];
     
-    self.usedHeight = CGRectGetMaxY(self.labelParticipants.frame);
+    self.usedHeight = CGRectGetMaxY([self.participantTitles.lastObject frame]);
     
     [self makeFinal:final];
 }
