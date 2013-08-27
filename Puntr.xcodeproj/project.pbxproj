@@ -167,6 +167,7 @@
 		31CF778217BE59B0009B2FC6 /* AccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778117BE59B0009B2FC6 /* AccessModel.m */; };
 		31CF778517BE5A55009B2FC6 /* VKontakteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778417BE5A54009B2FC6 /* VKontakteModel.m */; };
 		31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CF778717BE5A68009B2FC6 /* TwitterModel.m */; };
+		31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */; };
 		31D708D8178EC933004746E6 /* ButtonControlNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C6178EC933004746E6 /* ButtonControlNormal.png */; };
 		31D708D9178EC933004746E6 /* ButtonControlNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */; };
 		31D708DA178EC933004746E6 /* ButtonControlNormalNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */; };
@@ -517,6 +518,8 @@
 		31CF778417BE5A54009B2FC6 /* VKontakteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKontakteModel.m; sourceTree = "<group>"; };
 		31CF778617BE5A68009B2FC6 /* TwitterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterModel.h; sourceTree = "<group>"; };
 		31CF778717BE5A68009B2FC6 /* TwitterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterModel.m; sourceTree = "<group>"; };
+		31D2A39B17CC8C81005D683E /* SubscriptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsViewController.h; sourceTree = "<group>"; };
+		31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsViewController.m; sourceTree = "<group>"; };
 		31D708C6178EC933004746E6 /* ButtonControlNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormal.png; sourceTree = "<group>"; };
 		31D708C7178EC933004746E6 /* ButtonControlNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonControlNormal@2x.png"; sourceTree = "<group>"; };
 		31D708C8178EC933004746E6 /* ButtonControlNormalNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonControlNormalNormal.png; sourceTree = "<group>"; };
@@ -1153,6 +1156,8 @@
 				31D7B62B17958511000DCAF3 /* StakeViewController.m */,
 				0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */,
 				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
+				31D2A39B17CC8C81005D683E /* SubscriptionsViewController.h */,
+				31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */,
 				D6B449BE17B66272000B9F5E /* TournamentViewController.h */,
 				D6B449BF17B66272000B9F5E /* TournamentViewController.m */,
 				0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */,
@@ -1735,6 +1740,7 @@
 				0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */,
 				0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */,
 				0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */,
+				31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
