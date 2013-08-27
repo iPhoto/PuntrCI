@@ -19,7 +19,7 @@
 @property (nonatomic, strong, readonly) NSNumber *subscribersCount;
 @property (nonatomic, strong, readonly) NSDate *startTime;
 @property (nonatomic, strong, readonly) NSDate *endTime;
-@property (nonatomic, strong, readonly) NSNumber *subscribed;
+@property (nonatomic, strong) NSNumber *subscribed;
 @property (nonatomic, strong, readonly) CategoryModel *category;
 
 - (NSDictionary *)wrappedParameters;
