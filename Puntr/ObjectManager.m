@@ -82,8 +82,9 @@
     // Activity
     [activityMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
+    RKRelationshipMapping *activityCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
     RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
-    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityFeedRelationship]];
+    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityCommentRelationship, activityFeedRelationship]];
     RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping
                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities]
                                                                                                    keyPath:KeyActivities
