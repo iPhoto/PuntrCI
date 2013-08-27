@@ -10,9 +10,11 @@
 #import "EventModel.h"
 #import "LeadCell.h"
 #import "NewsModel.h"
+#import "NotificationManager.h"
 #import "ObjectManager.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
+#import "SubscriptionModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
@@ -20,7 +22,7 @@
 static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNHeightText = 12.0f;
 static const CGFloat TNWidthCell = 306.0f;
-static const CGFloat TNSideAvatar = 56.0f;
+static const CGFloat TNSideAvatar = 28.0f;
 static const CGFloat TNWidthButtonLarge = 94.0f;
 static const CGFloat TNWidthButtonSmall = 62.0f;
 static const CGFloat TNHeightButton = 31.0f;
@@ -41,6 +43,7 @@ static const CGFloat TNHeightButton = 31.0f;
 @property (nonatomic) CGFloat usedHeight;
 @property (nonatomic) BOOL blackBackground;
 @property (nonatomic, strong) NSObject *model;
+@property (nonatomic, strong) NSObject *modelActive;
 
 // User
 @property (nonatomic, strong) UIImageView *imageViewAvatar;
@@ -58,6 +61,10 @@ static const CGFloat TNHeightButton = 31.0f;
 @property (nonatomic, strong) SmallStakeButton *buttonEventStake;
 @property (nonatomic, strong) UILabel *labelParticipants;
 
+// Participant
+@property (nonatomic, strong) NSMutableArray *participantLogos;
+@property (nonatomic, strong) NSMutableArray *participantTitles;
+
 // Stake
 @property (nonatomic, strong) UILabel *labelLine;
 @property (nonatomic, strong) UILabel *labelComponents;
@@ -74,6 +81,7 @@ static const CGFloat TNHeightButton = 31.0f;
 @property (nonatomic, strong) UIButton *buttonTournament;
 
 // Miscelanouos
+@property (nonatomic, strong) UIButton *buttonSubscribe;
 @property (nonatomic, strong) NSMutableArray *delimiters;
 
 @end
@@ -98,6 +106,14 @@ static const CGFloat TNHeightButton = 31.0f;
     {
         self.delimiters = [NSMutableArray array];
     }
+    if (!self.participantLogos)
+    {
+        self.participantLogos = [NSMutableArray array];
+    }
+    if (!self.participantTitles)
+    {
+        self.participantTitles = [NSMutableArray array];
+    }
     if ([model isMemberOfClass:[EventModel class]])
     {
         [self whiteCell];
@@ -117,6 +133,10 @@ static const CGFloat TNHeightButton = 31.0f;
     else if ([model isMemberOfClass:[NewsModel class]])
     {
         [self loadWithNews:(NewsModel *)model];
+    }
+    else if ([model isMemberOfClass:[SubscriptionModel class]])
+    {
+        [self loadWithSubscription:(SubscriptionModel *)model];
     }
 }
 
@@ -203,6 +223,17 @@ static const CGFloat TNHeightButton = 31.0f;
 
 }
 
+- (void)loadWithSubscription:(SubscriptionModel *)subscription
+{
+    [self blackCell];
+    if (subscription.participant)
+    {
+        self.modelActive = subscription.participant;
+        [self displaySubscribedForObject:subscription.participant];
+        [self displayParticipant:subscription.participant final:YES];
+    }
+}
+
 #pragma mark - Reloading
 
 - (void)prepareForReuse
@@ -210,6 +241,7 @@ static const CGFloat TNHeightButton = 31.0f;
     self.usedHeight = 0.0f;
     self.blackBackground = NO;
     self.model = nil;
+    self.modelActive = nil;
     
     // User
     [self.imageViewAvatar removeFromSuperview];
@@ -226,6 +258,17 @@ static const CGFloat TNHeightButton = 31.0f;
     [self.labelStakesCount removeFromSuperview];
     [self.buttonEventStake removeFromSuperview];
     [self.labelParticipants removeFromSuperview];
+    
+    // Participant
+    for (UIImageView *logo in self.participantLogos) {
+        [logo removeFromSuperview];
+    }
+    [self.participantLogos removeAllObjects];
+    
+    for (UILabel *title in self.participantTitles) {
+        [title removeFromSuperview];
+    }
+    [self.participantTitles removeAllObjects];
     
     // Stake
     [self.labelLine removeFromSuperview];
@@ -248,6 +291,7 @@ static const CGFloat TNHeightButton = 31.0f;
         [imageView removeFromSuperview];
     }
     [self.delimiters removeAllObjects];
+    [self.buttonSubscribe removeFromSuperview];
 }
 
 #pragma mark - Lead Components
@@ -518,6 +562,39 @@ static const CGFloat TNHeightButton = 31.0f;
     [self makeFinal:final];
 }
 
+- (void)displayParticipant:(ParticipantModel *)participant final:(BOOL)final
+{
+    CGFloat marginImage = 0.0f;
+    if (participant.logo) {
+        UIImageView *imageViewParticipantLogo = [[UIImageView alloc] init];
+        imageViewParticipantLogo.frame = CGRectMake(
+                                                       TNMarginGeneral,
+                                                       self.usedHeight + TNMarginGeneral,
+                                                       TNSideAvatar,
+                                                       TNSideAvatar
+                                                   );
+        [imageViewParticipantLogo setImageWithURL:participant.logo];
+        [self.participantLogos addObject:imageViewParticipantLogo];
+        [self addSubview:imageViewParticipantLogo];
+        marginImage = TNSideAvatar + TNMarginGeneral;
+    }
+    
+    UILabel *labelParticipantTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
+    labelParticipantTitle.frame = CGRectMake(
+                                                TNMarginGeneral + marginImage,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthCell - (TNMarginGeneral + marginImage) - (TNMarginGeneral + CGRectGetWidth(self.buttonSubscribe.frame)),
+                                                TNSideAvatar
+                                            );
+    labelParticipantTitle.text = participant.title;
+    [self.participantTitles addObject:labelParticipantTitle];
+    [self addSubview:labelParticipantTitle];
+    
+    self.usedHeight = CGRectGetMaxY(labelParticipantTitle.frame);
+    
+    [self makeFinal:final];
+}
+
 - (void)displayParticipants:(NSArray *)participants actionable:(BOOL)actionable final:(BOOL)final
 {
     // Participants
@@ -702,6 +779,25 @@ static const CGFloat TNHeightButton = 31.0f;
     [self makeFinal:final];
 }
 
+- (void)displaySubscribedForObject:(NSObject *)object
+{
+    self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(
+                                                                      TNWidthCell - TNMarginGeneral - TNWidthButtonLarge,
+                                                                      self.usedHeight + TNMarginGeneral,
+                                                                      TNWidthButtonLarge,
+                                                                      TNHeightButton
+                                                                     )];
+    [self.buttonSubscribe.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
+    self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
+    self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
+    [self addSubview:self.buttonSubscribe];
+    if ([object respondsToSelector:@selector(subscribed)])
+    {
+        [self updateToSubscribed:[object performSelector:@selector(subscribed)]];
+    }
+}
+
 #pragma mark - Finilize
 
 - (void)makeFinal:(BOOL)final
@@ -742,6 +838,46 @@ static const CGFloat TNHeightButton = 31.0f;
 - (void)touchedButtonTournamentSubscribe:(UIButton *)button
 {
     NSLog(@"Tournament Subscribe button touched");
+}
+
+- (void)subscribe
+{
+    [[ObjectManager sharedManager] subscribeFor:self.modelActive
+                                        success:^
+                                        {
+                                            [self updateToSubscribed:@YES];
+                                            [self.modelActive performSelector:@selector(setSubscribed:) withObject:@YES];
+                                            [NotificationManager showSuccessMessage:@"Вы успешно подписались!"];
+                                        }
+                                        failure:nil
+    ];
+}
+
+- (void)unsubscribe
+{
+    [[ObjectManager sharedManager] unsubscribeFrom:(id <Parametrization>)self.modelActive
+                                           success:^
+                                           {
+                                               [self updateToSubscribed:@NO];
+                                               [self.modelActive performSelector:@selector(setSubscribed:) withObject:@NO];
+                                               [NotificationManager showSuccessMessage:@"Вы успешно отписались!"];
+                                           }
+                                           failure:nil
+    ];
+}
+
+- (void)updateToSubscribed:(NSNumber *)subscribed
+{
+    SEL subscribeMethod = subscribed.boolValue ? @selector(unsubscribe) : @selector(subscribe);
+    SEL previuosMethod = subscribed.boolValue ? @selector(subscribe) : @selector(unsubscribe);
+    NSString *subscribeTitle = subscribed.boolValue ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeImage = subscribed.boolValue ? @"ButtonRed" : @"ButtonBar";
+    CGFloat subscribeImageInset = subscribed.boolValue ? 5.0f : 7.0f;
+    
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:subscribeImage] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, subscribeImageInset, 0.0f, subscribeImageInset)] forState:UIControlStateNormal];
+    [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
+    [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end
