@@ -18,4 +18,5 @@
 #define MAS_SHORTHAND
     #import "Masonry.h"
     #import "CGGeometry+Convenience.h"
+    #import "NSURL+Puntr.h"
 #endif
