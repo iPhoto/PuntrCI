@@ -231,8 +231,16 @@ static const CGFloat TNHeightButton = 31.0f;
     if (subscription.participant)
     {
         self.modelActive = subscription.participant;
-        [self displaySubscribedForObject:subscription.participant];
+        [self displaySubscribedForObject:self.modelActive];
         [self displayParticipant:subscription.participant final:YES];
+    }
+    else if (subscription.event)
+    {
+        self.modelActive = subscription.event;
+        [self displaySubscribedForObject:self.modelActive];
+        [self displayCategory:subscription.event.tournament.category];
+        [self displayParticipants:subscription.event.participants actionable:NO final:NO];
+        [self displayEventStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
     }
 }
 
