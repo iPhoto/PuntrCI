@@ -573,7 +573,7 @@ static const CGFloat TNHeightButton = 31.0f;
                                                        TNSideAvatar,
                                                        TNSideAvatar
                                                    );
-        [imageViewParticipantLogo setImageWithURL:participant.logo];
+        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideAvatar, TNSideAvatar)]];
         [self.participantLogos addObject:imageViewParticipantLogo];
         [self addSubview:imageViewParticipantLogo];
         marginImage = TNSideAvatar + TNMarginGeneral;
