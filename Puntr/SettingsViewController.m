@@ -9,6 +9,7 @@
 #import "EnterViewController.h"
 #import "ChangePasswordViewController.h"
 #import "ObjectManager.h"
+#import "PrivacySettingsViewController.h"
 #import "SettingsViewController.h"
 #import "StatisticViewController.h"
 #import "UpdateProfileViewController.h"
@@ -192,8 +193,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                              @[
                                  @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
                                  //@{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"7.png", @"title": @"Конфиденциальность" },
+                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched"},
+                                 @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched" },
                                  @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
                               ],
                              @[
@@ -301,6 +302,16 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)statisticTouched
 {
     [self.navigationController pushViewController:[[StatisticViewController alloc] init] animated:YES];
+}
+
+- (void)privacyTouched
+{
+    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPrivacy] animated:YES];
+}
+
+- (void)pushTouched
+{
+    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPush] animated:YES];
 }
 #pragma mark - ActionSheet
 

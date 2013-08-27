@@ -13,6 +13,8 @@
 #import "NotificationManager.h"
 #import "ObjectManager.h"
 #import "DynamicSelectionModel.h"
+#import "PrivacySettingsModel.h"
+#import "PushSettingsModel.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
 #import "SubscriptionModel.h"
@@ -148,7 +150,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self loadWithSubscription:(SubscriptionModel *)model];
     }
-    else if ([model isMemberOfClass:[DynamicSelectionModel class]])
+    else if ([model isMemberOfClass:[PushSettingsModel class]] || [model isMemberOfClass:[PrivacySettingsModel class]])
     {
         [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
     }
@@ -556,17 +558,17 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self.switchDynamicSelection addTarget:self action:@selector(touchedSwitchDynamicSelection) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.switchDynamicSelection];
     
-    self.labelDynamicSelectionTitle = [UILabel labelSmallBold:YES black:NO];
+    self.labelDynamicSelectionTitle = [UILabel labelSmallBold:YES black:YES];
     self.labelDynamicSelectionTitle.frame = CGRectMake(
                                                        TNMarginGeneral,
                                                        TNMarginGeneral,
-                                                       TNWidthCell - TNMarginGeneral - CGRectGetMinX(self.switchDynamicSelection.frame),
+                                                       CGRectGetMinX(self.switchDynamicSelection.frame) - TNMarginGeneral,
                                                        TNHeightText
                                                       );
     self.labelDynamicSelectionTitle.text = dynamicSelection.title;
     [self addSubview:self.labelDynamicSelectionTitle];
     
-    self.labelDynamicSelectionDescription = [UILabel labelSmallBold:YES black:NO];
+    self.labelDynamicSelectionDescription = [UILabel labelSmallBold:NO black:YES];
     CGSize descriptionSize = [dynamicSelection.description sizeWithFont:self.labelDynamicSelectionDescription.font forWidth:TNWidthCell - TNMarginGeneral * 2.0f lineBreakMode:NSLineBreakByWordWrapping];
     self.labelDynamicSelectionDescription.frame = CGRectMake(
                                                              TNMarginGeneral,
@@ -574,10 +576,14 @@ static const CGFloat TNHeightSwitch = 27.0f;
                                                              descriptionSize.width,
                                                              descriptionSize.height
                                                             );
+    
+    self.labelDynamicSelectionDescription.text = dynamicSelection.description;
     [self.labelDynamicSelectionDescription setNumberOfLines:0];
     [self.labelDynamicSelectionDescription setLineBreakMode:NSLineBreakByWordWrapping];
-    self.labelDynamicSelectionDescription.text = dynamicSelection.description;
+    [self.labelDynamicSelectionDescription sizeToFit];
     [self addSubview:self.labelDynamicSelectionDescription];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelDynamicSelectionDescription.frame);
     
     [self makeFinal:YES];
     
@@ -1012,6 +1018,33 @@ static const CGFloat TNHeightSwitch = 27.0f;
 - (void)touchedSwitchDynamicSelection
 {
     NSLog(@"switch touched");
+    //[(DynamicSelectionModel *)self.modelActive status] = [NSNumber numberWithBool:self.switchDynamicSelection.on];
+    
+    if([self.model isKindOfClass:[PrivacySettingsModel class]])
+    {
+        PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.modelActive;
+        privacyModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
+        [[ObjectManager sharedManager] setPrivacy:privacyModel
+                                          success:^
+                                          {
+                                              [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                          }
+                                          failure:nil
+        ];
+
+    }
+    else if ([self.model isKindOfClass:[PushSettingsModel class]])
+    {
+        PushSettingsModel *pushModel = (PushSettingsModel *)self.modelActive;
+        pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
+        [[ObjectManager sharedManager] setPush:pushModel
+                                       success:^
+                                       {
+                                           [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                       }
+                                       failure:nil
+        ];
+    }
 }
 
 - (void)subscribe

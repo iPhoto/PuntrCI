@@ -92,6 +92,14 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             [self loadSubscriptions];
             break;
             
+        case CollectionTypePrivacySettings:
+            [self loadPrivacySettings];
+            break;
+            
+        case CollectionTypePushSettinds:
+            [self loadPushSettings];
+            break;
+            
         default:
             break;
     }
@@ -140,6 +148,26 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               [self combineWithData:news];
                                           }
                                           failure:nil
+    ];
+}
+
+- (void)loadPrivacySettings
+{
+    [[ObjectManager sharedManager] privacyWithSuccess:^(NSArray *privacy)
+                                              {
+                                                  [self combineWithData:privacy];
+                                              }
+                                              failure:nil
+    ];
+}
+
+- (void)loadPushSettings
+{
+    [[ObjectManager sharedManager] pushWithSuccess:^(NSArray *push)
+                                           {
+                                               [self combineWithData:push];
+                                           }
+                                           failure:nil
     ];
 }
 

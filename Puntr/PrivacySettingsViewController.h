@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, DynamicSelction)
+{
+    DynamicSelctionPrivacy,
+    DynamicSelctionPush
+};
+
 @interface PrivacySettingsViewController : UIViewController
+
+- (id)initWithDynamicSelection:(DynamicSelction) dynamicSelection;
 
 @end
