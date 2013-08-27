@@ -490,7 +490,7 @@ static const CGFloat TNHeightButton = 31.0f;
                                                                                     categoryImageSize.height
                                                                                     )];
         
-        [self.imageViewCategoryImage setImageWithURL:category.image];
+        [self.imageViewCategoryImage setImageWithURL:[category.image URLByAppendingSize:categoryImageSize]];
         [self addSubview:self.imageViewCategoryImage];
         
         categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame) + TNMarginGeneral;
