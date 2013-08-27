@@ -70,6 +70,7 @@
     RKObjectMapping *parameterMapping = [RKObjectMapping mappingForClass:[ParameterModel class]];
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *privacyMapping = [RKObjectMapping mappingForClass:[PrivacySettingsModel class]];
+    RKObjectMapping *pushMapping = [RKObjectMapping mappingForClass:[PushSettingsModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
@@ -209,9 +210,16 @@
     
     // Privacy
     [privacyMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
-    RKResponseDescriptor *privacyCollectionResponseDescription = [RKResponseDescriptor responseDescriptorWithMapping:privacyMapping
+    RKResponseDescriptor *privacyCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:privacyMapping
                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIPrivacy]
                                                                                                              keyPath:KeyPrivacy
+                                                                                                         statusCodes:statusCodeOK];
+    
+    // Push
+    [pushMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
+    RKResponseDescriptor *pushCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:pushMapping
+                                                                                                         pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIPush]
+                                                                                                             keyPath:KeyPush
                                                                                                          statusCodes:statusCodeOK];
     
     // Stake
@@ -307,7 +315,8 @@
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
-            privacyCollectionResponseDescription,
+            privacyCollectionResponseDescriptor,
+            pushCollectionResponseDescriptor,
             stakeEventsCollectionResponseDescriptor,
             stakeResponseDescriptor,
             stakeUsersCollectionResponseDescriptor,
