@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CommentModel.h"
-#import "FeedModel.h"
 #import "StakeModel.h"
 
 @interface ActivityModel : NSObject
@@ -18,6 +17,5 @@
 @property (nonatomic, strong, readonly) NSString *type;
 @property (nonatomic, strong, readonly) StakeModel *stake;
 @property (nonatomic, strong, readonly) CommentModel *comment;
-@property (nonatomic, strong, readonly) FeedModel *feed;
 
 @end
