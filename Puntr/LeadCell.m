@@ -1021,15 +1021,12 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 - (void)touchedSwitchDynamicSelection
 {
-    NSLog(@"switch touched");
-    //[(DynamicSelectionModel *)self.modelActive status] = [NSNumber numberWithBool:self.switchDynamicSelection.on];
-    
     if([self.model isKindOfClass:[PrivacySettingsModel class]])
     {
         PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.modelActive;
         privacyModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPrivacy:privacyModel
-                                          success:^
+                                          success:^(NSArray *privacy)
                                           {
                                               [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
                                           }
@@ -1042,9 +1039,9 @@ static const CGFloat TNHeightSwitch = 27.0f;
         PushSettingsModel *pushModel = (PushSettingsModel *)self.modelActive;
         pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPush:pushModel
-                                       success:^
+                                       success:^(NSArray *push)
                                        {
-                                           [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                            [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
                                        }
                                        failure:nil
         ];

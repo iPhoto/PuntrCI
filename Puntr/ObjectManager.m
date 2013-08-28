@@ -1035,14 +1035,15 @@
     ];
 }
 
-- (void)setPrivacy:(PrivacySettingsModel *)privacy success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)setPrivacy:(PrivacySettingsModel *)privacy success:(Privacy)success failure:(EmptyFailure)failure
 {
     [self putObject:privacy
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIPrivacy]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
-                success();
+                NSArray *privacy = mappingResult.dictionary[KeyPrivacy];
+                success(privacy);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
@@ -1068,14 +1069,15 @@
     ];
 }
 
-- (void)setPush:(PushSettingsModel *)push success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)setPush:(PushSettingsModel *)push success:(Push)success failure:(EmptyFailure)failure
 {
     [self putObject:push
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIPush]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
-                success();
+                NSArray *push = mappingResult.dictionary[KeyPush];
+                success(push);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {

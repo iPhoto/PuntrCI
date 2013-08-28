@@ -160,11 +160,11 @@ typedef void (^User)(UserModel *user);
 
 - (void)privacyWithSuccess:(Privacy)success failure:(EmptyFailure)failure;
 
-- (void)setPrivacy:(PrivacySettingsModel *)privacy success:(EmptySuccess)success failure:(EmptyFailure)failure;
+- (void)setPrivacy:(PrivacySettingsModel *)privacy success:(Privacy)success failure:(EmptyFailure)failure;
 
 - (void)pushWithSuccess:(Push)success failure:(EmptyFailure)failure;
 
-- (void)setPush:(PushSettingsModel *)push success:(EmptySuccess)success failure:(EmptyFailure)failure;
+- (void)setPush:(PushSettingsModel *)push success:(Push)success failure:(EmptyFailure)failure;
 
 - (UserModel *)loginedUser;
 
