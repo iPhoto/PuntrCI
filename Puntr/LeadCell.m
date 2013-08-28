@@ -17,6 +17,7 @@
 #import "PushSettingsModel.h"
 #import "SmallStakeButton.h"
 #import "StakeModel.h"
+#import "StakeViewController.h"
 #import "SubscriptionModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import <TTTTimeIntervalFormatter.h>
@@ -182,6 +183,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
 - (void)loadWithEvent:(EventModel *)event
 {
     [self displayTournament:event.tournament actionable:NO final:NO];
+    [self displayStakeForEvent:event];
     [self displayCategory:event.tournament.category];
     [self displayParticipants:event.participants actionable:NO final:NO];
     [self displayEventStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
@@ -958,6 +960,26 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self makeFinal:final];
 }
 
+- (void)displayStakeForEvent:(EventModel *)event
+{
+    self.buttonEventStake = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonEventStake.frame = CGRectMake(
+                                                TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthButtonSmall,
+                                                TNHeightButton
+                                            );
+    [self.buttonEventStake.titleLabel setFont:TNFontSmallBold];
+    self.buttonEventStake.titleLabel.shadowColor = [UIColor colorWithRed:0.25f green:0.46f blue:0.04f alpha:1.00f];
+    self.buttonEventStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
+                                     forState:UIControlStateNormal];
+    [self.buttonEventStake setTitle:@"Ставить" forState:UIControlStateNormal];
+    [self.buttonEventStake addTarget:self action:@selector(openStake) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.buttonEventStake];
+}
+
 - (void)displaySubscribedForObject:(NSObject *)object
 {
     self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(
@@ -966,7 +988,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
                                                                       TNWidthButtonLarge,
                                                                       TNHeightButton
                                                                      )];
-    [self.buttonSubscribe.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
+    [self.buttonSubscribe.titleLabel setFont:TNFontSmallBold];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
@@ -1017,6 +1039,11 @@ static const CGFloat TNHeightSwitch = 27.0f;
 - (void)touchedButtonTournamentSubscribe:(UIButton *)button
 {
     NSLog(@"Tournament Subscribe button touched");
+}
+
+- (void)openStake
+{
+    NSLog(@"Stake Button Touched");
 }
 
 - (void)touchedSwitchDynamicSelection
