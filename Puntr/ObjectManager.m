@@ -62,7 +62,6 @@
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
-    RKObjectMapping *feedMapping = [RKObjectMapping mappingForClass:[FeedModel class]];
     RKObjectMapping *groupMapping = [RKObjectMapping mappingForClass:[GroupModel class]];
     RKObjectMapping *lineMapping = [RKObjectMapping mappingForClass:[LineModel class]];
     RKObjectMapping *moneyMapping = [RKObjectMapping mappingForClass:[MoneyModel class]];
@@ -83,8 +82,7 @@
     [activityMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *activityCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
-    RKRelationshipMapping *activityFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
-    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityCommentRelationship, activityFeedRelationship]];
+    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityCommentRelationship]];
     RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping
                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities]
                                                                                                    keyPath:KeyActivities
@@ -171,11 +169,6 @@
                                                                                                           keyPath:KeyEvents
                                                                                                       statusCodes:statusCodeOK];
     
-    // Feed
-    [feedMapping addAttributeMappingsFromArray:@[KeyMessage]];
-    RKRelationshipMapping *feedUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
-    [feedMapping addPropertyMapping:feedUserRelationship];
-    
     // Group
     [groupMapping addAttributeMappingsFromArray:@[KeyTitle, KeyImage, KeySlug]];
     RKResponseDescriptor *groupCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:groupMapping
@@ -197,10 +190,9 @@
     [newsMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *newsStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *newsCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
-    RKRelationshipMapping *newsFeedRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyFeed mapping:feedMapping];
     RKRelationshipMapping *newsEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     RKRelationshipMapping *newsTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
-    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsFeedRelationship, newsEventRelationship, newsTournamentRelationship]];
+    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsEventRelationship, newsTournamentRelationship]];
     RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews] keyPath:KeyNews statusCodes:statusCodeOK];
     
     // Parameter
