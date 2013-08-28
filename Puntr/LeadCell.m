@@ -6,19 +6,13 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "ActivityModel.h"
-#import "EventModel.h"
 #import "LeadCell.h"
-#import "NewsModel.h"
+#import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "DynamicSelectionModel.h"
-#import "PrivacySettingsModel.h"
-#import "PushSettingsModel.h"
 #import "SmallStakeButton.h"
-#import "StakeModel.h"
 #import "StakeViewController.h"
-#import "SubscriptionModel.h"
+#import "UILabel+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
@@ -39,12 +33,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
-
-@interface UILabel (Convenience)
-
-+ (UILabel *)labelSmallBold:(BOOL)bold black:(BOOL)black;
-
-@end
 
 @interface LeadCell ()
 
@@ -1122,19 +1110,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
         topController = [(UITabBarController *)topController selectedViewController];
     }
     return topController;
-}
-
-@end
-
-@implementation UILabel (Convenience)
-
-+ (UILabel *)labelSmallBold:(BOOL)bold black:(BOOL)black
-{
-    UILabel *label = [[UILabel alloc] init];
-    label.font = bold ? TNFontSmallBold : TNFontSmall;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = black ? [UIColor whiteColor] : [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
-    return label;
 }
 
 @end
