@@ -8,7 +8,7 @@
 
 #import "CollectionManager.h"
 #import "EventModel.h"
-#import "LeadCell.h"
+//#import "LeadCell.h"
 #import "ObjectManager.h"
 #import "PagingModel.h"
 
@@ -211,6 +211,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     LeadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TNLeadCellReuseIdentifier forIndexPath:indexPath];
     [cell loadWithModel:self.collectionData[indexPath.row]];
+    cell.delegate = self;
     return cell;
 }
 
@@ -219,6 +220,13 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return [LeadCell sizeForModel:self.collectionData[indexPath.row]];
+}
+
+#pragma mark - LeadCell Delegate
+
+- (void)reloadDataLeadCell:(LeadCell *)sender
+{
+    [self reloadData];
 }
 
 @end

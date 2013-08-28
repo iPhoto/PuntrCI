@@ -101,6 +101,8 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 @implementation LeadCell
 
+@synthesize delegate;
+
 #pragma mark - Height Calculation
 
 + (CGSize)sizeForModel:(NSObject *)model
@@ -1049,6 +1051,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
                                           success:^(NSArray *privacy)
                                           {
                                               [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                              [self.delegate reloadDataLeadCell:self];
                                           }
                                           failure:nil
         ];
@@ -1061,7 +1064,8 @@ static const CGFloat TNHeightSwitch = 27.0f;
         [[ObjectManager sharedManager] setPush:pushModel
                                        success:^(NSArray *push)
                                        {
-                                            [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                           [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                           [self.delegate reloadDataLeadCell:self];
                                        }
                                        failure:nil
         ];
