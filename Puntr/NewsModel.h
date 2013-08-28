@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CommentModel.h"
-#import "FeedModel.h"
 #import "StakeModel.h"
 
 @interface NewsModel : NSObject
@@ -18,7 +17,6 @@
 @property (nonatomic, strong, readonly) NSString *type;
 @property (nonatomic, strong, readonly) StakeModel *stake;
 @property (nonatomic, strong, readonly) CommentModel *comment;
-@property (nonatomic, strong, readonly) FeedModel *feed;
 @property (nonatomic, strong, readonly) EventModel *event;
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
 
