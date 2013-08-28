@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class ActivityModel, EventModel, NewsModel, StakeModel;
+@class LeadCell, ActivityModel, EventModel, NewsModel, StakeModel;
+
+@protocol LeadCellDelegate
+
+- (void)reloadDataLeadCell:(LeadCell *)sender;
+
+@end
 
 @interface LeadCell : UICollectionViewCell
+
+@property (nonatomic, weak) id <LeadCellDelegate> delegate;
 
 + (CGSize)sizeForModel:(NSObject *)model;
 

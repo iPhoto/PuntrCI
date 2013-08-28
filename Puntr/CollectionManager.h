@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LeadCell.h"
 
 typedef NS_ENUM(NSInteger, CollectionType)
 {
@@ -19,7 +20,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypePushSettinds
 };
 
-@interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
+@interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
 
 #pragma mark - Convenience
 
