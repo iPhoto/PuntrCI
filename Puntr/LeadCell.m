@@ -10,7 +10,6 @@
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "SmallStakeButton.h"
 #import "StakeViewController.h"
 #import "UILabel+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
@@ -54,7 +53,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
 @property (nonatomic, strong) UIImageView *imageViewLive;
 @property (nonatomic, strong) UIImageView *imageViewStakers;
 @property (nonatomic, strong) UILabel *labelStakesCount;
-@property (nonatomic, strong) SmallStakeButton *buttonEventStake;
+@property (nonatomic, strong) UIButton *buttonEventStake;
 @property (nonatomic, strong) UILabel *labelParticipants;
 
 // Participant
