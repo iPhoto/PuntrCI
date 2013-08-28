@@ -59,6 +59,7 @@
 
 - (void)applyStylesheet
 {
+    // NavigationBar
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navigationBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsZero] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.180 alpha:1.000]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -67,36 +68,35 @@
                           UITextAttributeTextShadowColor: [UIColor blackColor],
                          UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, -1.5f)]
      }];
-    
+    // TextField
     [[TextField appearance] setFont:[UIFont fontWithName:@"Arial-BoldMT" size:17.0f]];
     [[TextField appearance] setTextColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
     [[TextField appearance] setBackground:[[UIImage imageNamed:@"textField"] resizableImageWithCapInsets:UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f)]];
     [[TextField appearance] setVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [[TextField appearance] setClearButtonMode:UITextFieldViewModeWhileEditing];
-    
+    // TabBar
     [[UITabBar appearance] setBackgroundImage:[[UIImage imageNamed:@"tabBarBackground"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"tabBarSelected"]];
     [[UITabBar appearance] setShadowImage:[[UIImage imageNamed:@"tabBarShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
-    
+    // SegmentedControl
     [[UISegmentedControl appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonControlNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UISegmentedControl appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonControlSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    
     [[UISegmentedControl appearance] setDividerImage:[UIImage imageNamed:@"ButtonControlNormalNormal"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UISegmentedControl appearance] setDividerImage:[UIImage imageNamed:@"ButtonControlNormalSelected"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [[UISegmentedControl appearance] setDividerImage:[UIImage imageNamed:@"ButtonControlSelectedNormal"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
+    // BarButtonItem
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"ButtonBarBack"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 14.0f, 0.0f, 6.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
+    // Toolbar
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    
     // Small Stake Button
      [[SmallStakeButton appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
                                               forState:UIControlStateNormal];
      [[SmallStakeButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
      [[SmallStakeButton appearance] setTitleShadowColor:[UIColor colorWithWhite:0.000 alpha:0.200] forState:UIControlStateNormal];
      [[UILabel appearanceWhenContainedIn:[SmallStakeButton class], nil] setShadowOffset:CGSizeMake(0.0f, -1.5f)];
-     
+     // Switch
+    [[UISwitch appearance] setOnTintColor:[UIColor colorWithRed:0.202 green:0.638 blue:0.073 alpha:1.000]];
 }
 
 #pragma mark - Application Delegate
