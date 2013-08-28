@@ -12,7 +12,7 @@
 
 #pragma mark - Services
 
-NSString *const TestFlightApplicationToken = @"bbd518f9-ee98-45ca-8c53-8d587728e087";
+NSString *const TestFlightApplicationToken = @"2c845bc8-dd2e-4c7b-b8de-6a2b62c72ca7";
 
 #pragma mark - API
 
