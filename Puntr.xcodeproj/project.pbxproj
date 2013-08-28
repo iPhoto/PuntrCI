@@ -93,6 +93,7 @@
 		3153A7A017CB73A3009FB6B4 /* IconMoneyStavkaGrey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3153A79C17CB73A3009FB6B4 /* IconMoneyStavkaGrey@2x.png */; };
 		315A60FB17B287AA0010756F /* FilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FA17B287AA0010756F /* FilterModel.m */; };
 		315A60FE17B2898C0010756F /* PagingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FD17B2898C0010756F /* PagingModel.m */; };
+		3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */; };
 		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
 		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
 		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
@@ -431,6 +432,8 @@
 		315A60FA17B287AA0010756F /* FilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterModel.m; sourceTree = "<group>"; };
 		315A60FC17B2898C0010756F /* PagingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingModel.h; sourceTree = "<group>"; };
 		315A60FD17B2898C0010756F /* PagingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingModel.m; sourceTree = "<group>"; };
+		3164F99517CE4C3500AB0673 /* UILabel+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Puntr.h"; sourceTree = "<group>"; };
+		3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Puntr.m"; sourceTree = "<group>"; };
 		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -896,6 +899,8 @@
 				7629C8A217B3E470002DAEC3 /* RKObjectRequestOperation+HeaderFields.m */,
 				31C1858117BA3489003049D0 /* RKRelationshipMapping+Convenience.h */,
 				31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */,
+				3164F99517CE4C3500AB0673 /* UILabel+Puntr.h */,
+				3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */,
 				0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */,
 				0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */,
 			);
@@ -1777,6 +1782,7 @@
 				D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */,
 				31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */,
 				31C16A0517CCA4DE0014C32E /* NSURL+Puntr.m in Sources */,
+				3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
