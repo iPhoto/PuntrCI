@@ -169,10 +169,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self loadWithComment:activity.comment];
     }
-    else if (activity.feed)
-    {
-        [self loadWithFeed:activity.feed];
-    }
 }
 
 - (void)loadWithComment:(CommentModel *)comment
@@ -193,11 +189,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self displayEventStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
 }
 
-- (void)loadWithFeed:(FeedModel *)feed
-{
-    [self displayUser:feed.user message:feed.message final:YES];
-}
-
 - (void)loadWithNews:(NewsModel *)news
 {
     [self blackCell];
@@ -206,10 +197,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [news.stake setType:news.type];
         [self loadWithStake:news.stake];
-    }
-    else if (news.feed)
-    {
-        [self loadWithFeed:news.feed];
     }
     else if (news.comment)
     {
