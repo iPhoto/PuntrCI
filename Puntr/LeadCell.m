@@ -182,8 +182,12 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 - (void)loadWithEvent:(EventModel *)event
 {
+    self.modelActive = event;
     [self displayTournament:event.tournament actionable:NO final:NO];
-    [self displayStakeForEvent:event];
+    if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
+    {
+        [self displayStake];
+    }
     [self displayCategory:event.tournament.category];
     [self displayParticipants:event.participants actionable:NO final:NO];
     [self displayEventStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
@@ -960,7 +964,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self makeFinal:final];
 }
 
-- (void)displayStakeForEvent:(EventModel *)event
+- (void)displayStake
 {
     self.buttonEventStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonEventStake.frame = CGRectMake(
@@ -1043,7 +1047,9 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 - (void)openStake
 {
-    NSLog(@"Stake Button Touched");
+    StakeViewController *stakeViewController = [[StakeViewController alloc] initWithEvent:(EventModel *)self.modelActive];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stakeViewController];
+    [[self topController] presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)touchedSwitchDynamicSelection
@@ -1113,6 +1119,18 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
     [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
     [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - Top Controller
+
+- (UIViewController *)topController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([topController isKindOfClass:[UITabBarController class]])
+    {
+        topController = [(UITabBarController *)topController selectedViewController];
+    }
+    return topController;
 }
 
 @end
