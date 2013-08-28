@@ -110,6 +110,7 @@ NSString *const KeyStatus = @"status";
 NSString *const KeySubscribed = @"subscribed";
 NSString *const KeySubscribers = @"subscribers";
 NSString *const KeySubscribersCount = @"subscribersCount";
+NSString *const KeySubscription = @"subscription";
 NSString *const KeySubscriptions = @"subscriptions";
 NSString *const KeySubscriptionsCount = @"subscriptionsCount";
 NSString *const KeyTag = @"tag";

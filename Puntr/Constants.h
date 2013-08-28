@@ -110,6 +110,7 @@ FOUNDATION_EXPORT NSString *const KeyStatus;
 FOUNDATION_EXPORT NSString *const KeySubscribed;
 FOUNDATION_EXPORT NSString *const KeySubscribers;
 FOUNDATION_EXPORT NSString *const KeySubscribersCount;
+FOUNDATION_EXPORT NSString *const KeySubscription;
 FOUNDATION_EXPORT NSString *const KeySubscriptions;
 FOUNDATION_EXPORT NSString *const KeySubscriptionsCount;
 FOUNDATION_EXPORT NSString *const KeyTag;
