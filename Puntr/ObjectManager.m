@@ -199,11 +199,22 @@
 
     // News
     [newsMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
+    RKRelationshipMapping *newsSubscriptionRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySubscription mapping:subscriptionMapping];
     RKRelationshipMapping *newsStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *newsCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
     RKRelationshipMapping *newsEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *newsParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipant mapping:participantMapping];
     RKRelationshipMapping *newsTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
-    [newsMapping addPropertyMappingsFromArray:@[newsStakeRelationship, newsCommentRelationship, newsEventRelationship, newsTournamentRelationship]];
+    RKRelationshipMapping *newsUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    [newsMapping addPropertyMappingsFromArray:@[
+                                                   newsSubscriptionRelationship,
+                                                   newsStakeRelationship,
+                                                   newsCommentRelationship,
+                                                   newsEventRelationship,
+                                                   newsParticipantRelationship,
+                                                   newsTournamentRelationship,
+                                                   newsUserRelationship
+                                               ]];
     RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews] keyPath:KeyNews statusCodes:statusCodeOK];
     
     // Parameter
