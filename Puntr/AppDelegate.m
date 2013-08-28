@@ -12,7 +12,6 @@
 #import "HTTPClient.h"
 #import "ObjectManager.h"
 #import <PonyDebugger/PonyDebugger.h>
-#import "SmallStakeButton.h"
 #import "SocialManager.h"
 #import "TabBarViewController.h"
 #import "TextField.h"
@@ -89,12 +88,6 @@
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     // Toolbar
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    // Small Stake Button
-     [[SmallStakeButton appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
-                                              forState:UIControlStateNormal];
-     [[SmallStakeButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-     [[SmallStakeButton appearance] setTitleShadowColor:[UIColor colorWithWhite:0.000 alpha:0.200] forState:UIControlStateNormal];
-     [[UILabel appearanceWhenContainedIn:[SmallStakeButton class], nil] setShadowOffset:CGSizeMake(0.0f, -1.5f)];
      // Switch
     [[UISwitch appearance] setOnTintColor:[UIColor colorWithRed:0.202 green:0.638 blue:0.073 alpha:1.000]];
 }
