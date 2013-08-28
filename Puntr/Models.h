@@ -24,7 +24,6 @@
 #import "ErrorModel.h"
 #import "EventModel.h"
 #import "FacebookModel.h"
-#import "FeedModel.h"
 #import "FilterModel.h"
 #import "GroupModel.h"
 #import "LineModel.h"
