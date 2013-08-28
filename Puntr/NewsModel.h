@@ -6,18 +6,12 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "ActivityModel.h"
+#import "SubscriptionModel.h"
 #import <Foundation/Foundation.h>
-#import "CommentModel.h"
-#import "StakeModel.h"
 
-@interface NewsModel : NSObject
+@interface NewsModel : ActivityModel
 
-@property (nonatomic, strong, readonly) NSNumber *tag;
-@property (nonatomic, strong, readonly) NSDate *createdAt;
-@property (nonatomic, strong, readonly) NSString *type;
-@property (nonatomic, strong, readonly) StakeModel *stake;
-@property (nonatomic, strong, readonly) CommentModel *comment;
-@property (nonatomic, strong, readonly) EventModel *event;
-@property (nonatomic, strong, readonly) TournamentModel *tournament;
+@property (nonatomic, strong, readonly) SubscriptionModel *subscription;
 
 @end
