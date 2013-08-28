@@ -24,6 +24,7 @@ FOUNDATION_EXPORT NSString *const DevelopmentAPIHost;
 
 FOUNDATION_EXPORT NSString *const APIActivities;
 FOUNDATION_EXPORT NSString *const APIAuthorization;
+FOUNDATION_EXPORT NSString *const APIAwards;
 FOUNDATION_EXPORT NSString *const APIBalance;
 FOUNDATION_EXPORT NSString *const APICategories;
 FOUNDATION_EXPORT NSString *const APICoefficient;
@@ -47,6 +48,7 @@ FOUNDATION_EXPORT NSString *const KeyActivities;
 FOUNDATION_EXPORT NSString *const KeyAmount;
 FOUNDATION_EXPORT NSString *const KeyAuthorization;
 FOUNDATION_EXPORT NSString *const KeyAvatar;
+FOUNDATION_EXPORT NSString *const KeyBadge;
 FOUNDATION_EXPORT NSString *const KeyBadgesCount;
 FOUNDATION_EXPORT NSString *const KeyBalance;
 FOUNDATION_EXPORT NSString *const KeyBanner;

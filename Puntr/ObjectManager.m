@@ -817,6 +817,33 @@
     ];
 }
 
+#pragma mark - Awards
+
+- (void)awardsForUser:(UserModel *)user
+               paging:(PagingModel *)paging
+              success:(Awards)success
+              failure:(EmptyFailure)failure
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
+    if (paging) {
+        [parameters setObject:paging.parameters forKey:KeyPaging];
+    }
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIAwards]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         NSArray *awards = mappingResult.dictionary[KeyBadge];
+         return success(awards);
+     }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self reportWithFailure:failure error:error];
+     }
+     ];
+}
+
+
 #pragma mark - Tournaments
 
 - (void)tournamentssForGroup:(NSString *)group

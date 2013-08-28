@@ -7,12 +7,16 @@
 //
 
 #import "AwardsCollectionViewController.h"
+#import "AwardModel.h"
 #import "AwardCell.h"
 #import "AwardViewController.h"
+
+#import "CollectionManager.h"
 
 @interface AwardsCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *collectionData;
+@property (nonatomic, strong) CollectionManager *collectionManager;
 
 @end
 
@@ -39,7 +43,27 @@
     [self.collectionView registerClass:[AwardCell class] forCellWithReuseIdentifier:@"AwardCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     
-    self.collectionData = [NSArray new];
+    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect viewControllerFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            CGRectGetWidth(applicationFrame),
+                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
+                                            );
+    
+    
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeAwards modifierObject:nil];
+    UICollectionView *collectionView = self.collectionManager.collectionView;
+    collectionView.frame = CGRectMake(
+                                      0.0f,
+                                      12.0f,
+                                      CGRectGetWidth(viewControllerFrame),
+                                      CGRectGetHeight(viewControllerFrame)
+                                      );
+    [self.view addSubview:collectionView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.collectionManager reloadData];
 }
 
 - (void)didReceiveMemoryWarning

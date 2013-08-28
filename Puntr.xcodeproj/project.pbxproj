@@ -285,6 +285,7 @@
 		D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */; };
 		D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B449BC17B658EE000B9F5E /* TournamentCell.m */; };
 		D6B449C017B66272000B9F5E /* TournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B449BF17B66272000B9F5E /* TournamentViewController.m */; };
+		D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -686,6 +687,8 @@
 		D6B449BC17B658EE000B9F5E /* TournamentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentCell.m; sourceTree = "<group>"; };
 		D6B449BE17B66272000B9F5E /* TournamentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentViewController.h; sourceTree = "<group>"; };
 		D6B449BF17B66272000B9F5E /* TournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentViewController.m; sourceTree = "<group>"; };
+		D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardModel.h; sourceTree = "<group>"; };
+		D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1292,6 +1295,8 @@
 				31B3E7441774996300AEFDF5 /* ErrorModel.m */,
 				31F47E1E17731A910047ECCF /* EventModel.h */,
 				31F47E1F17731A910047ECCF /* EventModel.m */,
+				D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */,
+				D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */,
 				31CF777D17BE5925009B2FC6 /* FacebookModel.h */,
 				31CF777E17BE5925009B2FC6 /* FacebookModel.m */,
 				315A60F917B287AA0010756F /* FilterModel.h */,
@@ -1697,6 +1702,7 @@
 				31F47E29177351FF0047ECCF /* AuthorizationModel.m in Sources */,
 				31F47E32177357550047ECCF /* CollectionModel.m in Sources */,
 				31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */,
+				D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */,
 				31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */,
 				31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */,
 				3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */,

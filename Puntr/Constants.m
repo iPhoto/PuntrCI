@@ -24,6 +24,7 @@ NSString *const DevelopmentAPIHost = @"puntr.dev.2nova.com/v1";
 
 NSString *const APIActivities = @"activities";
 NSString *const APIAuthorization = @"authorization";
+NSString *const APIAwards = @"awards";
 NSString *const APIBalance = @"balance";
 NSString *const APICategories = @"categories";
 NSString *const APICoefficient = @"coefficient";
@@ -47,6 +48,7 @@ NSString *const KeyActivities = @"activities";
 NSString *const KeyAmount = @"amount";
 NSString *const KeyAuthorization = @"authorization";
 NSString *const KeyAvatar = @"avatar";
+NSString *const KeyBadge = @"badge";
 NSString *const KeyBadgesCount = @"badgesCount";
 NSString *const KeyBalance = @"balance";
 NSString *const KeyBanner = @"banner";

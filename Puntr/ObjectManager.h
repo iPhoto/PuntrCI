@@ -19,6 +19,7 @@ typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSErro
 
 typedef void (^Activities)(NSArray *activities);
 typedef void (^AuthorizationUser)(AuthorizationModel *authorization, UserModel *user);
+typedef void (^Awards)(NSArray *awards);
 typedef void (^Categories)(NSArray *categories);
 typedef void (^Coefficient)(CoefficientModel *coefficient);
 typedef void (^Comments)(NSArray *comments);
@@ -126,6 +127,13 @@ typedef void (^User)(UserModel *user);
                       paging:(PagingModel *)paging
                      success:(Subscriptions)success
                      failure:(EmptyFailure)failure;
+
+#pragma mark - Awards
+
+- (void)awardsForUser:(UserModel *)user
+               paging:(PagingModel *)paging
+              success:(Subscriptions)success
+              failure:(EmptyFailure)failure;
 
 #pragma mark - Tournaments
 

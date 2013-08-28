@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class LeadCell, ActivityModel, EventModel, NewsModel, StakeModel;
+@class LeadCell, ActivityModel, EventModel, NewsModel, StakeModel, AwardModel;
 
 @protocol LeadCellDelegate
 

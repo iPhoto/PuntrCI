@@ -19,6 +19,7 @@
 static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNHeightText = 12.0f;
 static const CGFloat TNWidthCell = 306.0f;
+static const CGFloat TNSideBadge = 296.0f;
 static const CGFloat TNSideImage = 28.0f;
 static const CGFloat TNSideImageSmall = 12.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
@@ -36,6 +37,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
 @interface LeadCell ()
 
 @property (nonatomic) CGFloat usedHeight;
+@property (nonatomic) CGFloat usedWidth;
 @property (nonatomic) BOOL blackBackground;
 @property (nonatomic, strong) NSObject *model;
 @property (nonatomic, strong) NSObject *modelActive;
@@ -84,6 +86,13 @@ static const CGFloat TNHeightSwitch = 27.0f;
 @property (nonatomic, strong) UIButton *buttonSubscribe;
 @property (nonatomic, strong) NSMutableArray *delimiters;
 
+// Award
+@property (nonatomic, retain) UIImageView *awardImageView;
+@property (nonatomic, retain) UILabel *awardPointsCount;
+@property (nonatomic, retain) UILabel *awardTitle;
+@property (nonatomic, retain) UIButton *shareAward;
+
+
 @end
 
 @implementation LeadCell
@@ -95,8 +104,9 @@ static const CGFloat TNHeightSwitch = 27.0f;
 + (CGSize)sizeForModel:(NSObject *)model
 {
     LeadCell *cell = [[self alloc] init];
+    cell.usedWidth = TNWidthCell;
     [cell loadWithModel:model];
-    return CGSizeMake(TNWidthCell, cell.usedHeight + TNMarginGeneral);
+    return CGSizeMake(cell.usedWidth, cell.usedHeight + TNMarginGeneral);
 }
 
 #pragma mark - General Loading
@@ -131,6 +141,10 @@ static const CGFloat TNHeightSwitch = 27.0f;
     else if ([model isMemberOfClass:[ActivityModel class]])
     {
         [self loadWithActivity:(ActivityModel *)model];
+    }
+    else if ([model isMemberOfClass:[AwardModel class]])
+    {
+        [self loadWithAward:(AwardModel *)model];
     }
     else if ([model isMemberOfClass:[NewsModel class]])
     {
@@ -170,6 +184,13 @@ static const CGFloat TNHeightSwitch = 27.0f;
         subscription.event = activity.event;
         [self loadWithSubscription:subscription];
     }
+}
+
+- (void)loadWithAward:(AwardModel *)award
+{
+    [self blackCell];
+    self.usedHeight = TNSideBadge;
+    self.usedWidth = TNSideBadge;
 }
 
 - (void)loadWithComment:(CommentModel *)comment
@@ -342,6 +363,12 @@ static const CGFloat TNHeightSwitch = 27.0f;
 {
     self.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     self.blackBackground = YES;
+}
+
+- (void)displayAward:(AwardModel *)award
+{
+
+    
 }
 
 - (void)displayBackgroundForStake:(StakeModel *)stake

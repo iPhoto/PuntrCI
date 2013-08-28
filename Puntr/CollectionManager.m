@@ -75,7 +75,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         case CollectionTypeActivities:
             [self loadActivities];
             break;
-            
+
+        case CollectionTypeAwards:
+            [self loadAwards];
+            break;
+
         case CollectionTypeEventStakes:
             [self loadStakes];
             break;
@@ -182,6 +186,19 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 }
                                                 failure:nil
     ];
+}
+
+- (void)loadAwards
+{
+    UserModel *user = (UserModel *)self.modifierObject;
+    [[ObjectManager sharedManager] awardsForUser:user
+                                          paging:self.paging
+                                         success:^(NSArray *awards)
+                                         {
+                                            [self combineWithData:awards];
+                                         }
+                                         failure:nil
+     ];
 }
 
 - (void)combineWithData:(NSArray *)newData

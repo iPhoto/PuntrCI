@@ -14,6 +14,7 @@
 #import "AccessModel.h"
 #import "ActivityModel.h"
 #import "AuthorizationModel.h"
+#import "AwardModel.h"
 #import "CategoryModel.h"
 #import "CoefficientModel.h"
 #import "CommentModel.h"
