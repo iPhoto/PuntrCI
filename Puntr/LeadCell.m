@@ -164,6 +164,12 @@ static const CGFloat TNHeightSwitch = 27.0f;
         subscription.participant = activity.participant;
         [self loadWithSubscription:subscription];
     }
+    else if (activity.event)
+    {
+        SubscriptionModel *subscription = [[SubscriptionModel alloc] init];
+        subscription.event = activity.event;
+        [self loadWithSubscription:subscription];
+    }
 }
 
 - (void)loadWithComment:(CommentModel *)comment
