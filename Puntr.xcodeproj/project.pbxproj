@@ -212,7 +212,6 @@
 		31EA773C17BCD6A20060DFCC /* PasswordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773B17BCD6A20060DFCC /* PasswordModel.m */; };
 		31EA773F17BD16CD0060DFCC /* CollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773E17BD16CD0060DFCC /* CollectionManager.m */; };
 		31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082A17B509D0003FEFA7 /* LeadCell.m */; };
-		31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */; };
 		31ED083117B522B8003FEFA7 /* ButtonGreenSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */; };
 		31ED083217B522B8003FEFA7 /* ButtonGreenSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083017B522B8003FEFA7 /* ButtonGreenSmall@2x.png */; };
 		31ED083517B53580003FEFA7 /* delimiterBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083317B53580003FEFA7 /* delimiterBlack.png */; };
@@ -588,8 +587,6 @@
 		31EA773E17BD16CD0060DFCC /* CollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionManager.m; sourceTree = "<group>"; };
 		31ED082917B509D0003FEFA7 /* LeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCell.h; sourceTree = "<group>"; };
 		31ED082A17B509D0003FEFA7 /* LeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadCell.m; sourceTree = "<group>"; };
-		31ED082C17B521C0003FEFA7 /* SmallStakeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallStakeButton.h; sourceTree = "<group>"; };
-		31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallStakeButton.m; sourceTree = "<group>"; };
 		31ED082F17B522B8003FEFA7 /* ButtonGreenSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGreenSmall.png; sourceTree = "<group>"; };
 		31ED083017B522B8003FEFA7 /* ButtonGreenSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonGreenSmall@2x.png"; sourceTree = "<group>"; };
 		31ED083317B53580003FEFA7 /* delimiterBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delimiterBlack.png; sourceTree = "<group>"; };
@@ -1256,8 +1253,6 @@
 				0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */,
 				3180CF6A178ABAF4001B2DD1 /* SearchCell.h */,
 				3180CF6B178ABAF4001B2DD1 /* SearchCell.m */,
-				31ED082C17B521C0003FEFA7 /* SmallStakeButton.h */,
-				31ED082D17B521C0003FEFA7 /* SmallStakeButton.m */,
 				31EF4AE117995BFC00F27702 /* StakeElementView.h */,
 				31EF4AE217995BFC00F27702 /* StakeElementView.m */,
 				3194031E1771C221009F0DBE /* TextField.h */,
@@ -1755,7 +1750,6 @@
 				0F40905D17B500A7001CC23F /* TournamentModel.m in Sources */,
 				31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */,
 				ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */,
-				31ED082E17B521C1003FEFA7 /* SmallStakeButton.m in Sources */,
 				D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */,
 				D6B449C017B66272000B9F5E /* TournamentViewController.m in Sources */,
 				D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */,
