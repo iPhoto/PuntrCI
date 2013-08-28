@@ -82,7 +82,18 @@
     [activityMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyType]];
     RKRelationshipMapping *activityStakeRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStake mapping:stakeMapping];
     RKRelationshipMapping *activityCommentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComment mapping:commentMapping];
-    [activityMapping addPropertyMappingsFromArray:@[activityStakeRelationship, activityCommentRelationship]];
+    RKRelationshipMapping *activityEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *activityParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipant mapping:participantMapping];
+    RKRelationshipMapping *activityTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
+    RKRelationshipMapping *activityUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
+    [activityMapping addPropertyMappingsFromArray:@[
+                                                       activityStakeRelationship,
+                                                       activityCommentRelationship,
+                                                       activityEventRelationship,
+                                                       activityParticipantRelationship,
+                                                       activityTournamentRelationship,
+                                                       activityUserRelationship
+                                                   ]];
     RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping
                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities]
                                                                                                    keyPath:KeyActivities
