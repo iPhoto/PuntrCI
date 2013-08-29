@@ -7,14 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class LeadCell, ActivityModel, EventModel, NewsModel, StakeModel, AwardModel;
-
-@protocol LeadCellDelegate
-
-- (void)reloadDataLeadCell:(LeadCell *)sender;
-
-@end
+#import "LeadCellDelegate.h"
 
 @interface LeadCell : UICollectionViewCell
 

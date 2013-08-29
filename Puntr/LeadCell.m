@@ -1077,7 +1077,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
                                           success:^(NSArray *privacy)
                                           {
                                               [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
-                                              [self.delegate reloadDataLeadCell:self];
+                                              [self.delegate reloadData];
                                           }
                                           failure:nil
         ];
@@ -1091,7 +1091,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
                                        success:^(NSArray *push)
                                        {
                                            [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
-                                           [self.delegate reloadDataLeadCell:self];
+                                           [self.delegate reloadData];
                                        }
                                        failure:nil
         ];

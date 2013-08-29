@@ -239,11 +239,4 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     return [LeadCell sizeForModel:self.collectionData[indexPath.row]];
 }
 
-#pragma mark - LeadCell Delegate
-
-- (void)reloadDataLeadCell:(LeadCell *)sender
-{
-    [self reloadData];
-}
-
 @end
