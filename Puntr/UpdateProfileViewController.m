@@ -123,17 +123,11 @@
     [self.view addSubview:self.buttonSaveData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)buttonPhotoTouched{
     UIActionSheet *actionSheet;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Выберите источник" delegate:self cancelButtonTitle:@"Отмена" destructiveButtonTitle:nil otherButtonTitles:@"Камера", @"Галерея", nil];
-        [actionSheet showInView:self.view];
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
     } else {
         [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
