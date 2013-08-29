@@ -16,20 +16,18 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
-static const CGFloat TNMarginGeneral = 8.0f;
+static const CGFloat TNHeightButton = 31.0f;
+static const CGFloat TNHeightSwitch = 27.0f;
 static const CGFloat TNHeightText = 12.0f;
-static const CGFloat TNWidthCell = 306.0f;
+static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNSideBadge = 296.0f;
 static const CGFloat TNSideImage = 28.0f;
-static const CGFloat TNSideImageSmall = 12.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
+static const CGFloat TNSideImageSmall = 12.0f;
 static const CGFloat TNWidthButtonLarge = 94.0f;
 static const CGFloat TNWidthButtonSmall = 62.0f;
-static const CGFloat TNHeightButton = 31.0f;
+static const CGFloat TNWidthCell = 306.0f;
 static const CGFloat TNWidthSwitch = 78.0f;
-static const CGFloat TNHeightSwitch = 27.0f;
-
-#define TNColorText
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
@@ -40,66 +38,174 @@ static const CGFloat TNHeightSwitch = 27.0f;
 @property (nonatomic) CGFloat usedWidth;
 @property (nonatomic) BOOL blackBackground;
 @property (nonatomic, strong) NSObject *model;
-@property (nonatomic, strong) NSObject *modelActive;
+@property (nonatomic, strong) NSObject *submodel;
 
-// User
-@property (nonatomic, strong) UIImageView *imageViewAvatar;
-@property (nonatomic, strong) UILabel *labelUserName;
-@property (nonatomic, strong) UILabel *labelUserMessage;
+// Activity
+@property (nonatomic, strong) UILabel *labelActivityCreatedAt;
+
+// Award
+@property (nonatomic, retain) UIImageView *imageViewAward;
+@property (nonatomic, retain) UILabel *labelAwardPointsCount;
+@property (nonatomic, retain) UILabel *labelAwardTitle;
+@property (nonatomic, retain) UIButton *buttonAwardShare;
+
+// Category
+@property (nonatomic, strong) UILabel *labelCategoryTitle;
+@property (nonatomic, strong) UIImageView *imageViewCategoryImage;
+
+// Coefficient
+@property (nonatomic, strong) UILabel *labelCoefficientValue;
+
+// Comment
+@property (nonatomic, strong) UILabel *labelCommentMessage;
+
+// Component
+@property (nonatomic, strong) UILabel *labelComponentCombined;
 
 // Event
-@property (nonatomic, strong) UIImageView *imageViewCategoryImage;
-@property (nonatomic, strong) UILabel *labelCategoryTitle;
-@property (nonatomic, strong) UILabel *labelTimePublication;
-@property (nonatomic, strong) UILabel *labelTimeEvent;
-@property (nonatomic, strong) UIImageView *imageViewLive;
-@property (nonatomic, strong) UIImageView *imageViewStakers;
-@property (nonatomic, strong) UILabel *labelStakesCount;
+@property (nonatomic, strong) UILabel *labelEventStartEndTime;
+@property (nonatomic, strong) UIImageView *imageViewEventLive;
+@property (nonatomic, strong) UIImageView *imageViewEventStakesCount;
+@property (nonatomic, strong) UILabel *labelEventStakesCount;
 @property (nonatomic, strong) UIButton *buttonEventStake;
-@property (nonatomic, strong) UILabel *labelParticipants;
+
+// Line
+@property (nonatomic, strong) UILabel *labelLineTitle;
+
+// Money
+@property (nonatomic, strong) UILabel *labelMoneyAmount;
+@property (nonatomic, strong) UIImageView *imageViewMoney;
 
 // Participant
 @property (nonatomic, strong) NSMutableArray *participantLogos;
 @property (nonatomic, strong) NSMutableArray *participantTitles;
 
-// Privacy and Puash
+// Privacy and Push
 @property (nonatomic, strong) UILabel *labelDynamicSelectionTitle;
 @property (nonatomic, strong) UILabel *labelDynamicSelectionDescription;
 @property (nonatomic, strong) UISwitch *switchDynamicSelection;
 
 // Stake
-@property (nonatomic, strong) UILabel *labelLine;
-@property (nonatomic, strong) UILabel *labelComponents;
-@property (nonatomic, strong) UILabel *labelCoefficient;
-@property (nonatomic, strong) UILabel *labelCoefficientTitle;
-@property (nonatomic, strong) UIView *viewStatusBackground;
+@property (nonatomic, strong) UIView *viewStakeStatusBackground;
 @property (nonatomic, strong) UILabel *labelStakeStatus;
-@property (nonatomic, strong) UILabel *labelStakeMoney;
-@property (nonatomic, strong) UIImageView *imageViewMoney;
+
+// Subscription
+@property (nonatomic, strong) UIButton *buttonSubscribe;
 
 // Tournament
-@property (nonatomic, strong) UILabel *labelTournament;
+@property (nonatomic, strong) UILabel *labelTournamentTitle;
 @property (nonatomic, strong) UIImageView *imageViewTournamentArrow;
 @property (nonatomic, strong) UIButton *buttonTournament;
 
-// Miscelanouos
-@property (nonatomic, strong) UIButton *buttonSubscribe;
+// User
+@property (nonatomic, strong) UILabel *labelUserName;
+@property (nonatomic, strong) UIImageView *imageViewUserAvatar;
+
 @property (nonatomic, strong) NSMutableArray *delimiters;
-
-// Award
-@property (nonatomic, retain) UIImageView *awardImageView;
-@property (nonatomic, retain) UILabel *awardPointsCount;
-@property (nonatomic, retain) UILabel *awardTitle;
-@property (nonatomic, retain) UIButton *shareAward;
-
 
 @end
 
 @implementation LeadCell
 
-@synthesize delegate;
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _delimiters = [NSMutableArray array];
+        _participantLogos = [NSMutableArray array];
+        _participantTitles = [NSMutableArray array];
+    }
+    return self;
+}
 
-#pragma mark - Height Calculation
+#pragma mark - Reloading
+
+- (void)prepareForReuse
+{
+    self.usedHeight = 0.0f;
+    self.usedWidth = 0.0f;
+    self.blackBackground = NO;
+    self.model = nil;
+    self.submodel = nil;
+    
+    // Activity
+    [self remove:self.labelActivityCreatedAt];
+    
+    // Award
+    [self remove:self.imageViewAward];
+    [self remove:self.labelAwardPointsCount];
+    [self remove:self.labelAwardTitle];
+    [self remove:self.buttonAwardShare];
+    
+    // Category
+    [self remove:self.labelCategoryTitle];
+    [self remove:self.imageViewCategoryImage];
+    
+    // Coefficient
+    [self remove:self.labelCoefficientValue];
+    
+    // Comment
+    [self remove:self.labelCommentMessage];
+    
+    // Component
+    [self remove:self.labelComponentCombined];
+    
+    // Event
+    [self remove:self.labelEventStartEndTime];
+    [self remove:self.imageViewEventLive];
+    [self remove:self.imageViewEventStakesCount];
+    [self remove:self.labelEventStakesCount];
+    [self remove:self.buttonEventStake];
+    
+    // Line
+    [self remove:self.labelLineTitle];
+    
+    // Money
+    [self remove:self.labelMoneyAmount];
+    [self remove:self.imageViewMoney];
+    
+    // Participant
+    for (UIImageView *logo in self.participantLogos) {
+        [logo removeFromSuperview];
+    }
+    [self.participantLogos removeAllObjects];
+    
+    for (UILabel *title in self.participantTitles) {
+        [title removeFromSuperview];
+    }
+    [self.participantTitles removeAllObjects];
+    
+    // Privacy and Push
+    [self remove:self.labelDynamicSelectionTitle];
+    [self remove:self.labelDynamicSelectionDescription];
+    [self remove:self.switchDynamicSelection];
+    
+    // Stake
+    [self remove:self.viewStakeStatusBackground];
+    [self remove:self.labelStakeStatus];
+    
+    // Subscription
+    [self remove:self.buttonSubscribe];
+    
+    // Tournament
+    [self remove:self.labelTournamentTitle];
+    [self remove:self.imageViewTournamentArrow];
+    [self remove:self.buttonTournament];
+    
+    // User
+    [self remove:self.labelUserName];
+    [self remove:self.imageViewUserAvatar];
+    
+    // Miscelanouos
+    for (UIImageView *imageView in self.delimiters)
+    {
+        [imageView removeFromSuperview];
+    }
+    [self.delimiters removeAllObjects];
+    
+}
+
+#pragma mark - Size Calculation
 
 + (CGSize)sizeForModel:(NSObject *)model
 {
@@ -114,31 +220,8 @@ static const CGFloat TNHeightSwitch = 27.0f;
 - (void)loadWithModel:(NSObject *)model
 {
     self.model = model;
-    if (!self.delimiters)
-    {
-        self.delimiters = [NSMutableArray array];
-    }
-    if (!self.participantLogos)
-    {
-        self.participantLogos = [NSMutableArray array];
-    }
-    if (!self.participantTitles)
-    {
-        self.participantTitles = [NSMutableArray array];
-    }
-    if ([model isMemberOfClass:[EventModel class]])
-    {
-        [self whiteCell];
-        [self loadWithEvent:(EventModel *)model];
-    }
-    else if ([model isMemberOfClass:[StakeModel class]])
-    {
-        StakeModel *stake = (StakeModel *)model;
-        [self displayBackgroundForStake:stake];
-        [self displayTime:stake.createdAt];
-        [self loadWithStake:stake];
-    }
-    else if ([model isMemberOfClass:[ActivityModel class]])
+    
+    if ([model isMemberOfClass:[ActivityModel class]])
     {
         [self loadWithActivity:(ActivityModel *)model];
     }
@@ -146,24 +229,39 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self loadWithAward:(AwardModel *)model];
     }
+    else if ([model isMemberOfClass:[EventModel class]])
+    {
+        [self whiteCell];
+        [self loadWithEvent:(EventModel *)model];
+    }
     else if ([model isMemberOfClass:[NewsModel class]])
     {
         [self loadWithNews:(NewsModel *)model];
-    }
-    else if ([model isMemberOfClass:[SubscriptionModel class]])
-    {
-        [self loadWithSubscription:(SubscriptionModel *)model];
     }
     else if ([model isMemberOfClass:[PushSettingsModel class]] || [model isMemberOfClass:[PrivacySettingsModel class]])
     {
         [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
     }
+    else if ([model isMemberOfClass:[StakeModel class]])
+    {
+        StakeModel *stake = (StakeModel *)model;
+        [self displayBackgroundForStake:stake];
+        [self displayTopRightTime:stake.createdAt];
+        [self loadWithStake:stake];
+    }
+    else if ([model isMemberOfClass:[SubscriptionModel class]])
+    {
+        [self loadWithSubscription:(SubscriptionModel *)model];
+    }
+    
 }
+
+#pragma mark -
 
 - (void)loadWithActivity:(ActivityModel *)activity
 {
     [self blackCell];
-    [self displayTime:activity.createdAt];
+    [self displayTopRightTime:activity.createdAt];
     if (activity.stake)
     {
         [self loadWithStake:activity.stake];
@@ -198,23 +296,32 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self displayUser:comment.user message:comment.message final:YES];
 }
 
+- (void)loadWithDynamicSelection:(DynamicSelectionModel *)dynamicSelection
+{
+    [self blackCell];
+    if(dynamicSelection.slug)
+    {
+        [self displayDynamicSelection:dynamicSelection];
+    }
+}
+
 - (void)loadWithEvent:(EventModel *)event
 {
-    self.modelActive = event;
-    [self displayTournament:event.tournament actionable:NO final:NO];
+    self.submodel = event;
+    [self displayTournament:event.tournament arrow:YES final:NO];
     if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
     {
-        [self displayStake];
+        [self displayStakeButton];
     }
     [self displayCategory:event.tournament.category];
-    [self displayParticipants:event.participants actionable:NO final:NO];
+    [self displayParticipants:event.participants final:NO];
     [self displayEventStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
 }
 
 - (void)loadWithNews:(NewsModel *)news
 {
     [self blackCell];
-    [self displayTime:news.createdAt];
+    [self displayTopRightTime:news.createdAt];
     if (news.stake)
     {
         [news.stake setType:news.type];
@@ -237,9 +344,9 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self displayUser:stake.user message:nil final:NO];
     }
-    [self displayTournament:stake.event.tournament actionable:NO final:NO];
+    [self displayTournament:stake.event.tournament arrow:YES final:NO];
     [self displayCategory:stake.event.tournament.category];
-    [self displayParticipants:stake.event.participants actionable:NO final:NO];
+    [self displayParticipants:stake.event.participants final:NO];
     if (loginedUser)
     {
         
@@ -263,101 +370,21 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self blackCell];
     if (subscription.participant)
     {
-        self.modelActive = subscription.participant;
-        [self displaySubscribedForObject:self.modelActive];
+        self.submodel = subscription.participant;
+        [self displaySubscribedForObject:self.submodel];
         [self displayParticipant:subscription.participant final:YES];
     }
     else if (subscription.event)
     {
-        self.modelActive = subscription.event;
-        [self displaySubscribedForObject:self.modelActive];
+        self.submodel = subscription.event;
+        [self displaySubscribedForObject:self.submodel];
         [self displayCategory:subscription.event.tournament.category];
-        [self displayParticipants:subscription.event.participants actionable:NO final:NO];
+        [self displayParticipants:subscription.event.participants final:NO];
         [self displayEventStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
     }
 }
 
-- (void)loadWithDynamicSelection:(DynamicSelectionModel *)dynamicSelection
-{
-    [self blackCell];
-    if(dynamicSelection.slug)
-    {
-        [self displayDynamicSelection:dynamicSelection];
-    }
-}
-
-#pragma mark - Reloading
-
-- (void)prepareForReuse
-{
-    self.usedHeight = 0.0f;
-    self.blackBackground = NO;
-    self.model = nil;
-    self.modelActive = nil;
-    
-    // User
-    [self.imageViewAvatar removeFromSuperview];
-    [self.labelUserName removeFromSuperview];
-    [self.labelUserMessage removeFromSuperview];
-    
-    // Event
-    [self.imageViewCategoryImage removeFromSuperview];
-    [self.labelCategoryTitle removeFromSuperview];
-    [self.labelTimePublication removeFromSuperview];
-    [self.labelTimeEvent removeFromSuperview];
-    [self.imageViewLive removeFromSuperview];
-    [self.imageViewStakers removeFromSuperview];
-    [self.labelStakesCount removeFromSuperview];
-    [self.buttonEventStake removeFromSuperview];
-    [self.labelParticipants removeFromSuperview];
-    
-    // Participant
-    for (UIImageView *logo in self.participantLogos) {
-        [logo removeFromSuperview];
-    }
-    [self.participantLogos removeAllObjects];
-    
-    for (UILabel *title in self.participantTitles) {
-        [title removeFromSuperview];
-    }
-    [self.participantTitles removeAllObjects];
-    
-    // Stake
-    [self.labelLine removeFromSuperview];
-    [self.labelComponents removeFromSuperview];
-    [self.labelCoefficient removeFromSuperview];
-    [self.labelCoefficientTitle removeFromSuperview];
-    [self.viewStatusBackground removeFromSuperview];
-    [self.labelStakeStatus removeFromSuperview];
-    [self.labelStakeMoney removeFromSuperview];
-    [self.imageViewMoney removeFromSuperview];
-    
-    // Tournament
-    [self.labelTournament removeFromSuperview];
-    [self.imageViewTournamentArrow removeFromSuperview];
-    [self.buttonTournament removeFromSuperview];
-    
-    //DynamicSelection
-    [self.labelDynamicSelectionTitle removeFromSuperview];
-    [self.labelDynamicSelectionDescription removeFromSuperview];
-    [self.switchDynamicSelection removeFromSuperview];
-    
-    // Miscelanouos
-    for (UIImageView *imageView in self.delimiters)
-    {
-        [imageView removeFromSuperview];
-    }
-    [self.delimiters removeAllObjects];
-    [self.buttonSubscribe removeFromSuperview];
-}
-
 #pragma mark - Lead Components
-
-- (void)whiteCell
-{
-    self.backgroundColor = [UIColor whiteColor];
-    self.blackBackground = NO;
-}
 
 - (void)blackCell
 {
@@ -383,162 +410,6 @@ static const CGFloat TNHeightSwitch = 27.0f;
     }
 }
 
-- (void)displayTime:(NSDate *)time
-{
-    self.labelTimePublication = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelTimePublication.frame = CGRectMake(
-                                                    TNMarginGeneral,
-                                                    TNMarginGeneral,
-                                                    CGRectGetWidth(self.frame) - TNMarginGeneral * 2.0f,
-                                                    TNHeightText
-                                                );
-    self.labelTimePublication.textAlignment = NSTextAlignmentRight;
-    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
-    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
-    self.labelTimePublication.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
-    [self addSubview:self.labelTimePublication];
-}
-
-- (void)displayEventStartTime:(NSDate *)startTime
-                      endTime:(NSDate *)endTime
-                  stakesCount:(NSNumber *)stakesCount
-                        final:(BOOL)final
-{
-    self.labelTimeEvent = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelTimeEvent.frame = CGRectMake(
-                                              TNMarginGeneral,
-                                              self.usedHeight + TNMarginGeneral,
-                                              TNWidthCell - TNMarginGeneral * 2.0f,
-                                              TNHeightText
-                                          );
-    NSString *timeString = nil;
-    NSString * const liveString = @"Уже идет!";
-    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
-    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
-    // Event will begin later
-    if ([startTime isEqualToDate:[startTime laterDate:[NSDate date]]])
-    {
-        timeString = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:startTime];
-    }
-    // Event is Live
-    else if ([startTime isEqualToDate:[startTime earlierDate:[NSDate date]]] && ([endTime isEqualToDate:[endTime laterDate:[NSDate date]]] || !endTime))
-    {
-        timeString = liveString;
-    }
-    // Event is completed
-    else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
-    {
-        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
-    }
-    self.labelTimeEvent.text = timeString;
-    [self addSubview:self.labelTimeEvent];
-    
-    if ([self.labelTimeEvent.text isEqualToString:liveString])
-    {
-        CGSize sizeLive = CGSizeMake(26.0f, 12.0f);
-        CGSize liveSize = [liveString sizeWithFont:TNFontSmall constrainedToSize:self.labelTimeEvent.frame.size];
-        self.imageViewLive = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconLive"]];
-        self.imageViewLive.frame = CGRectMake(
-                                                 TNMarginGeneral + liveSize.width + TNMarginGeneral,
-                                                 self.usedHeight + TNMarginGeneral,
-                                                 sizeLive.width,
-                                                 sizeLive.height
-                                             );
-        [self addSubview:self.imageViewLive];
-    }
-    
-    CGSize sizeSubscribers = CGSizeMake(10.0f, 9.0f);
-    CGFloat marginSubscribers = 0.0f;
-    self.imageViewStakers = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconUser"]];
-    self.imageViewStakers.frame = CGRectMake(
-                                                    TNWidthCell - TNMarginGeneral - sizeSubscribers.width,
-                                                    self.usedHeight + TNMarginGeneral + marginSubscribers,
-                                                    sizeSubscribers.width,
-                                                    sizeSubscribers.height
-                                                );
-    [self addSubview:self.imageViewStakers];
-    
-    self.labelStakesCount = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelStakesCount.frame = CGRectMake(
-                                                TNMarginGeneral,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
-                                                TNHeightText
-                                            );
-    NSString *stakesCountString = nil;
-    if ([stakesCount isEqualToNumber:@0])
-    {
-        stakesCountString = @"Поставьте первым!";
-    }
-    else
-    {
-        stakesCountString = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
-    }
-    self.labelStakesCount.text = stakesCountString;
-    self.labelStakesCount.textAlignment = NSTextAlignmentRight;
-    [self addSubview:self.labelStakesCount];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelStakesCount.frame);
-    
-    [self makeFinal:final];
-}
-
-- (void)displayUser:(UserModel *)user message:(NSString *)message final:(BOOL)final
-{
-    CGFloat avatarWidth = 0.0f;
-    
-    // Avatar
-    if (user.avatar)
-    {
-        self.imageViewAvatar = [[UIImageView alloc] init];
-        self.imageViewAvatar.frame = CGRectMake(
-                                                   TNMarginGeneral,
-                                                   self.usedHeight + TNMarginGeneral,
-                                                   TNSideImage,
-                                                   TNSideImage
-                                               );
-        [self.imageViewAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
-        [self addSubview:self.imageViewAvatar];
-        
-        avatarWidth = CGRectGetWidth(self.imageViewAvatar.frame) + TNMarginGeneral;
-        self.usedHeight = CGRectGetMaxY(self.imageViewAvatar.frame);
-    }
-    
-    // Name
-    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
-    CGFloat userNameHeight = user.avatar && !message ? TNSideImage : TNHeightText;
-    self.labelUserName.frame = CGRectMake(
-                                          TNMarginGeneral + avatarWidth,
-                                          self.usedHeight + TNMarginGeneral,
-                                          TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
-                                          userNameHeight
-                                         );
-    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    [self addSubview:self.labelUserName];
-    
-    self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.imageViewAvatar.frame));
-    
-    // Message
-    if (message)
-    {
-        self.labelUserMessage = [UILabel labelSmallBold:NO black:self.blackBackground];
-        self.labelUserMessage.frame = CGRectMake(
-                                                    TNMarginGeneral + avatarWidth,
-                                                    CGRectGetMaxY(self.labelUserName.frame) + TNMarginGeneral,
-                                                    TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
-                                                    TNHeightText
-                                                );
-        self.labelUserMessage.numberOfLines = 0;
-        self.labelUserMessage.text = message;
-        [self.labelUserMessage sizeToFit];
-        [self addSubview:self.labelUserMessage];
-        
-        self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.labelUserMessage.frame));
-    }
-    
-    [self makeFinal:final];
-}
-
 - (void)displayCategory:(CategoryModel *)category
 {
     CGFloat categoryImageWidth = 0.0f;
@@ -555,7 +426,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
         [self.imageViewCategoryImage setImageWithURL:[category.image URLByAppendingSize:categoryImageSize]];
         [self addSubview:self.imageViewCategoryImage];
         
-        categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame) + TNMarginGeneral;
+        categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame);
     }
     
     self.labelCategoryTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
@@ -614,55 +485,151 @@ static const CGFloat TNHeightSwitch = 27.0f;
     
 }
 
-- (void)displayTournament:(TournamentModel *)tournament actionable:(BOOL)actionable final:(BOOL)final
+- (void)displayEventStartTime:(NSDate *)startTime
+                      endTime:(NSDate *)endTime
+                  stakesCount:(NSNumber *)stakesCount
+                        final:(BOOL)final
 {
-    self.labelTournament = [UILabel labelSmallBold:YES black:self.blackBackground];
-    CGFloat widthLabel = actionable ? TNWidthCell - TNMarginGeneral * 3.0f - TNWidthButtonLarge : TNWidthCell - TNMarginGeneral * 2.0f;
-    self.labelTournament.frame = CGRectMake(
-                                                TNMarginGeneral,
-                                                self.usedHeight + TNMarginGeneral,
-                                                widthLabel,
-                                                TNHeightText
-                                           );
-    self.labelTournament.text = tournament.title;
-    [self addSubview:self.labelTournament];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelTournament.frame);
-    
-    if (actionable)
+    self.labelEventStartEndTime = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelEventStartEndTime.frame = CGRectMake(
+                                                   TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral,
+                                                   TNWidthCell - TNMarginGeneral * 2.0f,
+                                                   TNHeightText
+                                                   );
+    NSString *timeString = nil;
+    NSString * const liveString = @"Уже идет!";
+    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
+    // Event will begin later
+    if ([startTime isEqualToDate:[startTime laterDate:[NSDate date]]])
     {
-        self.buttonTournament = [UIButton buttonWithType:UIButtonTypeCustom];
-        const CGFloat TNMarginButtonTournament = 4.0f;
-        self.buttonTournament.frame = CGRectMake(
-                                                     TNWidthCell - TNMarginGeneral - TNWidthButtonLarge,
-                                                     self.usedHeight + TNMarginButtonTournament - TNHeightButton,
-                                                     TNWidthButtonLarge,
-                                                     TNHeightButton
-                                                );
-        [self.buttonTournament setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)]
-                                         forState:UIControlStateNormal];
-        self.buttonTournament.adjustsImageWhenHighlighted = NO;
-        [self.buttonTournament setTitle:@"Подписаться" forState:UIControlStateNormal];
-        self.buttonTournament.titleLabel.font = TNFontSmallBold;
-        self.buttonTournament.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
-        self.buttonTournament.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-        [self.buttonTournament addTarget:self action:@selector(touchedButtonTournamentSubscribe:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.buttonTournament];
+        timeString = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:startTime];
+    }
+    // Event is Live
+    else if ([startTime isEqualToDate:[startTime earlierDate:[NSDate date]]] && ([endTime isEqualToDate:[endTime laterDate:[NSDate date]]] || !endTime))
+    {
+        timeString = liveString;
+    }
+    // Event is completed
+    else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
+    {
+        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
+    }
+    self.labelEventStartEndTime.text = timeString;
+    [self addSubview:self.labelEventStartEndTime];
+    
+    if ([self.labelEventStartEndTime.text isEqualToString:liveString])
+    {
+        CGSize sizeLive = CGSizeMake(26.0f, 12.0f);
+        CGSize liveSize = [liveString sizeWithFont:TNFontSmall constrainedToSize:self.labelEventStartEndTime.frame.size];
+        self.imageViewEventLive = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconLive"]];
+        self.imageViewEventLive.frame = CGRectMake(
+                                                   TNMarginGeneral + liveSize.width + TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral,
+                                                   sizeLive.width,
+                                                   sizeLive.height
+                                                   );
+        [self addSubview:self.imageViewEventLive];
+    }
+    
+    CGSize sizeSubscribers = CGSizeMake(10.0f, 9.0f);
+    CGFloat marginSubscribers = 0.0f;
+    self.imageViewEventStakesCount = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconUser"]];
+    self.imageViewEventStakesCount.frame = CGRectMake(
+                                                      TNWidthCell - TNMarginGeneral - sizeSubscribers.width,
+                                                      self.usedHeight + TNMarginGeneral + marginSubscribers,
+                                                      sizeSubscribers.width,
+                                                      sizeSubscribers.height
+                                                      );
+    [self addSubview:self.imageViewEventStakesCount];
+    
+    self.labelEventStakesCount = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelEventStakesCount.frame = CGRectMake(
+                                                  TNMarginGeneral,
+                                                  self.usedHeight + TNMarginGeneral,
+                                                  TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
+                                                  TNHeightText
+                                                  );
+    NSString *stakesCountString = nil;
+    if ([stakesCount isEqualToNumber:@0])
+    {
+        stakesCountString = @"Поставьте первым!";
     }
     else
     {
-        self.imageViewTournamentArrow = [[UIImageView alloc] init];
-        CGFloat marginTime = self.labelTimePublication && self.delimiters.count == 0 ? [self.labelTimePublication sizeThatFits:self.labelTimePublication.frame.size].width + TNMarginGeneral : 0.0f;
-        const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
-        self.imageViewTournamentArrow.frame = CGRectMake(
-                                                             TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
-                                                             self.usedHeight - TNSizeTournamentArrow.height,
-                                                             TNSizeTournamentArrow.width,
-                                                             TNSizeTournamentArrow.height
-                                                        );
-        self.imageViewTournamentArrow.image = [UIImage imageNamed:@"IconArrow"];
-        [self addSubview:self.imageViewTournamentArrow];
+        stakesCountString = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
     }
+    self.labelEventStakesCount.text = stakesCountString;
+    self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
+    [self addSubview:self.labelEventStakesCount];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelEventStakesCount.frame);
+    
+    [self makeFinal:final];
+}
+
+- (void)displayLine:(LineModel *)line
+         components:(NSArray *)components
+        coefficient:(CoefficientModel *)coefficient
+              final:(BOOL)final
+{
+    // Line
+    self.labelLineTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelLineTitle.frame = CGRectMake(
+                                          TNMarginGeneral,
+                                          self.usedHeight + TNMarginGeneral,
+                                          TNWidthCell - TNMarginGeneral * 2.0f,
+                                          TNHeightText
+                                     );
+    NSString *capitalisedLine = [[line.title lowercaseString] stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                                      withString:[[line.title  substringToIndex:1] capitalizedString]];
+    self.labelLineTitle.text = [NSString stringWithFormat:@"%@:", capitalisedLine];
+    [self.labelLineTitle sizeToFit];
+    [self addSubview:self.labelLineTitle];
+    
+    // Components
+    self.labelComponentCombined = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelComponentCombined.frame = CGRectMake(
+                                                CGRectGetMaxX(self.labelLineTitle.frame) + TNMarginGeneral,
+                                                self.usedHeight + TNMarginGeneral,
+                                                TNWidthCell - (CGRectGetMaxX(self.labelLineTitle.frame) + TNMarginGeneral * 3.0f),
+                                                TNHeightText
+                                           );
+    NSMutableString *componentsCombined = [[NSMutableString alloc] init];
+    for (ComponentModel *component in components)
+    {
+        [componentsCombined appendFormat:@"%@ ", component.selectedCriterionObject.title];
+    }
+    self.labelComponentCombined.text = [componentsCombined copy];
+    [self.labelComponentCombined sizeToFit];
+    [self addSubview:self.labelComponentCombined];
+    
+    // Coefficient
+    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+    NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %@", [twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
+    CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLineTitle.frame) + TNMarginGeneral);
+    CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
+    if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponentCombined.frame) - TNMarginGeneral * 2.0f)
+    {
+        coefficientOrigin = CGPointMake(
+                                        CGRectGetMaxX(self.labelComponentCombined.frame) + TNMarginGeneral,
+                                        self.usedHeight + TNMarginGeneral
+                                       );
+    }
+    self.labelCoefficientValue = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelCoefficientValue.frame = CGRectMake(
+                                             coefficientOrigin.x,
+                                             coefficientOrigin.y,
+                                             coefficientSize.width,
+                                             coefficientSize.height
+                                            );
+    self.labelCoefficientValue.text = coefficientString;
+    [self addSubview:self.labelCoefficientValue];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelCoefficientValue.frame);
     
     [self makeFinal:final];
 }
@@ -673,11 +640,11 @@ static const CGFloat TNHeightSwitch = 27.0f;
     if (participant.logo) {
         UIImageView *imageViewParticipantLogo = [[UIImageView alloc] init];
         imageViewParticipantLogo.frame = CGRectMake(
-                                                       TNMarginGeneral,
-                                                       self.usedHeight + TNMarginGeneral,
-                                                       TNSideImage,
-                                                       TNSideImage
-                                                   );
+                                                    TNMarginGeneral,
+                                                    self.usedHeight + TNMarginGeneral,
+                                                    TNSideImage,
+                                                    TNSideImage
+                                                    );
         [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
         [self.participantLogos addObject:imageViewParticipantLogo];
         [self addSubview:imageViewParticipantLogo];
@@ -686,11 +653,11 @@ static const CGFloat TNHeightSwitch = 27.0f;
     
     UILabel *labelParticipantTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
     labelParticipantTitle.frame = CGRectMake(
-                                                TNMarginGeneral + marginImage,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthCell - (TNMarginGeneral + marginImage) - (TNMarginGeneral + CGRectGetWidth(self.buttonSubscribe.frame)),
-                                                TNSideImage
-                                            );
+                                             TNMarginGeneral + marginImage,
+                                             self.usedHeight + TNMarginGeneral,
+                                             TNWidthCell - (TNMarginGeneral + marginImage) - (TNMarginGeneral + CGRectGetWidth(self.buttonSubscribe.frame)),
+                                             TNSideImage
+                                             );
     labelParticipantTitle.text = participant.title;
     [self.participantTitles addObject:labelParticipantTitle];
     [self addSubview:labelParticipantTitle];
@@ -700,7 +667,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self makeFinal:final];
 }
 
-- (void)displayParticipants:(NSArray *)participants actionable:(BOOL)actionable final:(BOOL)final
+- (void)displayParticipants:(NSArray *)participants final:(BOOL)final
 {
     // Participants
     NSUInteger participantsMAX = NSUIntegerMax;
@@ -827,69 +794,24 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self makeFinal:final];
 }
 
-- (void)displayLine:(LineModel *)line
-         components:(NSArray *)components
-        coefficient:(CoefficientModel *)coefficient
-              final:(BOOL)final
+- (void)displayStakeButton
 {
-    // Line
-    self.labelLine = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelLine.frame = CGRectMake(
-                                          TNMarginGeneral,
-                                          self.usedHeight + TNMarginGeneral,
-                                          TNWidthCell - TNMarginGeneral * 2.0f,
-                                          TNHeightText
-                                     );
-    NSString *capitalisedLine = [[line.title lowercaseString] stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                                                      withString:[[line.title  substringToIndex:1] capitalizedString]];
-    self.labelLine.text = [NSString stringWithFormat:@"%@:", capitalisedLine];
-    [self.labelLine sizeToFit];
-    [self addSubview:self.labelLine];
-    
-    // Components
-    self.labelComponents = [UILabel labelSmallBold:YES black:self.blackBackground];
-    self.labelComponents.frame = CGRectMake(
-                                                CGRectGetMaxX(self.labelLine.frame) + TNMarginGeneral,
+    self.buttonEventStake = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonEventStake.frame = CGRectMake(
+                                                TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
                                                 self.usedHeight + TNMarginGeneral,
-                                                TNWidthCell - (CGRectGetMaxX(self.labelLine.frame) + TNMarginGeneral * 3.0f),
-                                                TNHeightText
-                                           );
-    NSMutableString *componentsCombined = [[NSMutableString alloc] init];
-    for (ComponentModel *component in components)
-    {
-        [componentsCombined appendFormat:@"%@ ", component.selectedCriterionObject.title];
-    }
-    self.labelComponents.text = [componentsCombined copy];
-    [self.labelComponents sizeToFit];
-    [self addSubview:self.labelComponents];
-    
-    // Coefficient
-    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
-    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
-    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-    NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %@", [twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
-    CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLine.frame) + TNMarginGeneral);
-    CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
-    if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponents.frame) - TNMarginGeneral * 2.0f)
-    {
-        coefficientOrigin = CGPointMake(
-                                        CGRectGetMaxX(self.labelComponents.frame) + TNMarginGeneral,
-                                        self.usedHeight + TNMarginGeneral
-                                       );
-    }
-    self.labelCoefficient = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelCoefficient.frame = CGRectMake(
-                                             coefficientOrigin.x,
-                                             coefficientOrigin.y,
-                                             coefficientSize.width,
-                                             coefficientSize.height
+                                                TNWidthButtonSmall,
+                                                TNHeightButton
                                             );
-    self.labelCoefficient.text = coefficientString;
-    [self addSubview:self.labelCoefficient];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelCoefficient.frame);
-    
-    [self makeFinal:final];
+    [self.buttonEventStake.titleLabel setFont:TNFontSmallBold];
+    self.buttonEventStake.titleLabel.shadowColor = [UIColor colorWithRed:0.25f green:0.46f blue:0.04f alpha:1.00f];
+    self.buttonEventStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
+                                     forState:UIControlStateNormal];
+    [self.buttonEventStake setTitle:@"Ставить" forState:UIControlStateNormal];
+    [self.buttonEventStake addTarget:self action:@selector(openStake) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.buttonEventStake];
 }
 
 - (void)displayStakeStatus:(NSString *)stakeStatus
@@ -913,14 +835,14 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         stakeStatusLabel = @"Ваша ставка выиграла!";
         stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
-        self.viewStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
-                                                                                0.0f,
-                                                                                self.usedHeight,
-                                                                                TNWidthCell,
-                                                                                TNHeightText + TNMarginGeneral * 2.0f
-                                                                            )];
-        self.viewStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f];
-        [self addSubview:self.viewStatusBackground];
+        self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
+                                                                                  0.0f,
+                                                                                  self.usedHeight,
+                                                                                  TNWidthCell,
+                                                                                  TNHeightText + TNMarginGeneral * 2.0f
+                                                                                  )];
+        self.viewStakeStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f];
+        [self addSubview:self.viewStakeStatusBackground];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
         
@@ -930,14 +852,14 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         stakeStatusLabel = @"Ваша ставка проиграла!";
         stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
-        self.viewStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
-                                                                                0.0f,
-                                                                                self.usedHeight,
-                                                                                TNWidthCell,
-                                                                                TNHeightText + TNMarginGeneral * 2.0f
-                                                                            )];
-        self.viewStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.20f blue:0.00f alpha:1.00f];
-        [self addSubview:self.viewStatusBackground];
+        self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
+                                                                                  0.0f,
+                                                                                  self.usedHeight,
+                                                                                  TNWidthCell,
+                                                                                  TNHeightText + TNMarginGeneral * 2.0f
+                                                                                  )];
+        self.viewStakeStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.20f blue:0.00f alpha:1.00f];
+        [self addSubview:self.viewStakeStatusBackground];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
         
@@ -954,49 +876,29 @@ static const CGFloat TNHeightSwitch = 27.0f;
     }
     [self addSubview:self.imageViewMoney];
     
-    self.labelStakeMoney = [UILabel labelSmallBold:YES black:self.blackBackground];
-    self.labelStakeMoney.frame = CGRectMake(
-                                                TNMarginGeneral,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthCell - TNMarginGeneral * 2.5f - sizeMoney.width,
-                                                TNHeightText
-                                           );
-    self.labelStakeMoney.text = stakeMoney;
-    self.labelStakeMoney.textAlignment = NSTextAlignmentRight;
-    [self addSubview:self.labelStakeMoney];
+    self.labelMoneyAmount = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelMoneyAmount.frame = CGRectMake(
+                                             TNMarginGeneral,
+                                             self.usedHeight + TNMarginGeneral,
+                                             TNWidthCell - TNMarginGeneral * 2.5f - sizeMoney.width,
+                                             TNHeightText
+                                             );
+    self.labelMoneyAmount.text = stakeMoney;
+    self.labelMoneyAmount.textAlignment = NSTextAlignmentRight;
+    [self addSubview:self.labelMoneyAmount];
     
     self.labelStakeStatus.frame = CGRectMake(
-                                                TNMarginGeneral,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthCell - TNMarginGeneral * 2.0f,
-                                                TNHeightText
-                                            );
+                                             TNMarginGeneral,
+                                             self.usedHeight + TNMarginGeneral,
+                                             TNWidthCell - TNMarginGeneral * 2.0f,
+                                             TNHeightText
+                                             );
     self.labelStakeStatus.text = stakeStatusLabel;
     [self addSubview:self.labelStakeStatus];
     
     self.usedHeight = CGRectGetMaxY(self.labelStakeStatus.frame);
     
     [self makeFinal:final];
-}
-
-- (void)displayStake
-{
-    self.buttonEventStake = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonEventStake.frame = CGRectMake(
-                                                TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthButtonSmall,
-                                                TNHeightButton
-                                            );
-    [self.buttonEventStake.titleLabel setFont:TNFontSmallBold];
-    self.buttonEventStake.titleLabel.shadowColor = [UIColor colorWithRed:0.25f green:0.46f blue:0.04f alpha:1.00f];
-    self.buttonEventStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
-    [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
-                                     forState:UIControlStateNormal];
-    [self.buttonEventStake setTitle:@"Ставить" forState:UIControlStateNormal];
-    [self.buttonEventStake addTarget:self action:@selector(openStake) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.buttonEventStake];
 }
 
 - (void)displaySubscribedForObject:(NSObject *)object
@@ -1016,6 +918,116 @@ static const CGFloat TNHeightSwitch = 27.0f;
     {
         [self updateToSubscribed:[object performSelector:@selector(subscribed)]];
     }
+}
+
+- (void)displayTopRightTime:(NSDate *)time
+{
+    self.labelActivityCreatedAt = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelActivityCreatedAt.frame = CGRectMake(
+                                                   TNMarginGeneral,
+                                                   TNMarginGeneral,
+                                                   CGRectGetWidth(self.frame) - TNMarginGeneral * 2.0f,
+                                                   TNHeightText
+                                                   );
+    self.labelActivityCreatedAt.textAlignment = NSTextAlignmentRight;
+    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
+    self.labelActivityCreatedAt.text = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:time];
+    [self addSubview:self.labelActivityCreatedAt];
+}
+
+- (void)displayTournament:(TournamentModel *)tournament arrow:(BOOL)arrow final:(BOOL)final
+{
+    self.labelTournamentTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
+    CGFloat widthLabel = arrow ? TNWidthCell - TNMarginGeneral * 2.0f : TNWidthCell - TNMarginGeneral * 3.0f - TNWidthButtonLarge;
+    self.labelTournamentTitle.frame = CGRectMake(
+                                                 TNMarginGeneral,
+                                                 self.usedHeight + TNMarginGeneral,
+                                                 widthLabel,
+                                                 TNHeightText
+                                                 );
+    self.labelTournamentTitle.text = tournament.title;
+    [self addSubview:self.labelTournamentTitle];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelTournamentTitle.frame);
+    
+    if (arrow)
+    {
+        self.imageViewTournamentArrow = [[UIImageView alloc] init];
+        CGFloat marginTime = self.labelActivityCreatedAt && self.delimiters.count == 0 ? [self.labelActivityCreatedAt sizeThatFits:self.labelActivityCreatedAt.frame.size].width + TNMarginGeneral : 0.0f;
+        const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
+        self.imageViewTournamentArrow.frame = CGRectMake(
+                                                         TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
+                                                         self.usedHeight - TNSizeTournamentArrow.height,
+                                                         TNSizeTournamentArrow.width,
+                                                         TNSizeTournamentArrow.height
+                                                         );
+        self.imageViewTournamentArrow.image = [UIImage imageNamed:@"IconArrow"];
+        [self addSubview:self.imageViewTournamentArrow];
+    }
+    
+    [self makeFinal:final];
+}
+
+- (void)displayUser:(UserModel *)user message:(NSString *)message final:(BOOL)final
+{
+    CGFloat avatarWidth = 0.0f;
+    
+    // Avatar
+    if (user.avatar)
+    {
+        self.imageViewUserAvatar = [[UIImageView alloc] init];
+        self.imageViewUserAvatar.frame = CGRectMake(
+                                                    TNMarginGeneral,
+                                                    self.usedHeight + TNMarginGeneral,
+                                                    TNSideImage,
+                                                    TNSideImage
+                                                    );
+        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+        [self addSubview:self.imageViewUserAvatar];
+        
+        avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
+    }
+    
+    // Name
+    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    CGFloat userNameHeight = user.avatar && !message ? TNSideImage : TNHeightText;
+    self.labelUserName.frame = CGRectMake(
+                                          TNMarginGeneral + avatarWidth,
+                                          self.usedHeight + TNMarginGeneral,
+                                          TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
+                                          userNameHeight
+                                          );
+    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    [self addSubview:self.labelUserName];
+    
+    self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.imageViewUserAvatar.frame));
+    
+    // Message
+    if (message)
+    {
+        self.labelCommentMessage = [UILabel labelSmallBold:NO black:self.blackBackground];
+        self.labelCommentMessage.frame = CGRectMake(
+                                                    TNMarginGeneral + avatarWidth,
+                                                    CGRectGetMaxY(self.labelUserName.frame) + TNMarginGeneral,
+                                                    TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
+                                                    TNHeightText
+                                                    );
+        self.labelCommentMessage.numberOfLines = 0;
+        self.labelCommentMessage.text = message;
+        [self.labelCommentMessage sizeToFit];
+        [self addSubview:self.labelCommentMessage];
+        
+        self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.labelCommentMessage.frame));
+    }
+    
+    [self makeFinal:final];
+}
+
+- (void)whiteCell
+{
+    self.backgroundColor = [UIColor whiteColor];
+    self.blackBackground = NO;
 }
 
 #pragma mark - Finilize
@@ -1055,23 +1067,31 @@ static const CGFloat TNHeightSwitch = 27.0f;
 
 #pragma mark - Actions
 
-- (void)touchedButtonTournamentSubscribe:(UIButton *)button
-{
-    NSLog(@"Tournament Subscribe button touched");
-}
-
 - (void)openStake
 {
-    StakeViewController *stakeViewController = [[StakeViewController alloc] initWithEvent:(EventModel *)self.modelActive];
+    StakeViewController *stakeViewController = [[StakeViewController alloc] initWithEvent:(EventModel *)self.submodel];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stakeViewController];
     [[self topController] presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)subscribe
+{
+    [[ObjectManager sharedManager] subscribeFor:self.submodel
+                                        success:^
+     {
+         [self updateToSubscribed:@YES];
+         [self.submodel performSelector:@selector(setSubscribed:) withObject:@YES];
+         [NotificationManager showSuccessMessage:@"Вы успешно подписались!"];
+     }
+                                        failure:nil
+     ];
 }
 
 - (void)touchedSwitchDynamicSelection
 {
     if([self.model isKindOfClass:[PrivacySettingsModel class]])
     {
-        PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.modelActive;
+        PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.submodel;
         privacyModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPrivacy:privacyModel
                                           success:^(NSArray *privacy)
@@ -1085,7 +1105,7 @@ static const CGFloat TNHeightSwitch = 27.0f;
     }
     else if ([self.model isKindOfClass:[PushSettingsModel class]])
     {
-        PushSettingsModel *pushModel = (PushSettingsModel *)self.modelActive;
+        PushSettingsModel *pushModel = (PushSettingsModel *)self.submodel;
         pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPush:pushModel
                                        success:^(NSArray *push)
@@ -1098,26 +1118,13 @@ static const CGFloat TNHeightSwitch = 27.0f;
     }
 }
 
-- (void)subscribe
-{
-    [[ObjectManager sharedManager] subscribeFor:self.modelActive
-                                        success:^
-                                        {
-                                            [self updateToSubscribed:@YES];
-                                            [self.modelActive performSelector:@selector(setSubscribed:) withObject:@YES];
-                                            [NotificationManager showSuccessMessage:@"Вы успешно подписались!"];
-                                        }
-                                        failure:nil
-    ];
-}
-
 - (void)unsubscribe
 {
-    [[ObjectManager sharedManager] unsubscribeFrom:(id <Parametrization>)self.modelActive
+    [[ObjectManager sharedManager] unsubscribeFrom:(id <Parametrization>)self.submodel
                                            success:^
                                            {
                                                [self updateToSubscribed:@NO];
-                                               [self.modelActive performSelector:@selector(setSubscribed:) withObject:@NO];
+                                               [self.submodel performSelector:@selector(setSubscribed:) withObject:@NO];
                                                [NotificationManager showSuccessMessage:@"Вы успешно отписались!"];
                                            }
                                            failure:nil
@@ -1138,7 +1145,15 @@ static const CGFloat TNHeightSwitch = 27.0f;
     [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark - Top Controller
+
+
+#pragma mark - Utility
+
+- (void)remove:(UIView *)view
+{
+    [view removeFromSuperview];
+    view = nil;
+}
 
 - (UIViewController *)topController
 {
