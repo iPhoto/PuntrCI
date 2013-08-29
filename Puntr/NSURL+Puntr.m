@@ -12,7 +12,8 @@
 
 - (NSURL *)URLByAppendingSize:(CGSize)size
 {
-    NSString *sizeComponent = [NSString stringWithFormat:@"%ix%i", (NSInteger)size.width, (NSInteger)size.height];
+    CGFloat scale = [UIScreen mainScreen].scale;
+    NSString *sizeComponent = [NSString stringWithFormat:@"%ix%i", (NSInteger)(size.width * scale), (NSInteger)(size.height * scale)];
     return [self URLByAppendingPathComponent:sizeComponent];
 }
 
