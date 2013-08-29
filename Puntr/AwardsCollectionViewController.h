@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AwardsCollectionViewController : UICollectionViewController
+@class UserModel;
+
+@interface AwardsCollectionViewController : UIViewController
+
+- (id)initWithUser:(UserModel *)user;
 
 @end

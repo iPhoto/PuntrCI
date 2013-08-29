@@ -288,11 +288,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
-- (void)awardButtonTouched
-{
-    [self.navigationController pushViewController:[[AwardsCollectionViewController alloc] init] animated:YES];
-}
-
 - (void)loadProfile
 {
     [[ObjectManager sharedManager] userWithTag:self.user.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
@@ -341,6 +336,12 @@ static const CGFloat TNItemSpacing = 12.0f;
 {
     [self.navigationController pushViewController:[[SubscriptionsViewController alloc] initWithUser:self.user] animated:YES];
 }
+
+- (void)awardButtonTouched
+{
+    [self.navigationController pushViewController:[[AwardsCollectionViewController alloc] init] animated:YES];
+}
+
 
 
 @end

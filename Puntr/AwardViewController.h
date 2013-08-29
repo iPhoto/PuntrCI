@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AwardModel.h"
 
 @interface AwardViewController : UIViewController
+
+- (id)initWithAward:(AwardModel *)award;
 
 @end
