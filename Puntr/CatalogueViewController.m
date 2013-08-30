@@ -7,17 +7,17 @@
 //
 
 #import "CatalogueViewController.h"
+#import "CategoriesCell.h"
+#import "EventModel.h"
+#import "EventViewController.h"
+#import "FilterViewController.h"
+#import "GroupModel.h"
 #import "HeaderCell.h"
 #import "LeadCell.h"
 #import "LoadButtonCell.h"
-#import "TournamentCell.h"
-#import "GroupModel.h"
-#import "ObjectManager.h"
-#import "EventModel.h"
 #import "NotificationManager.h"
+#import "ObjectManager.h"
 #import "SearchCell.h"
-#import "CategoriesCell.h"
-#import "EventViewController.h"
 #import "TournamentViewController.h"
 #import "UIViewController+Puntr.h"
 
@@ -76,11 +76,19 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     
     [self addBalanceButton];
     
+    UIButton *buttonFilter = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [buttonFilter setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
+    [buttonFilter setImage:[UIImage imageNamed:@"IconFilter"] forState:UIControlStateNormal];
+    [buttonFilter setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
+    [buttonFilter addTarget:self action:@selector(touchedButtonFilter) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonFilter];
+    self.navigationItem.leftBarButtonItem = settingsItem;
+    
     [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     [self.collectionView registerClass:[LoadButtonCell class] forCellWithReuseIdentifier:@"CatalogueLoadButton"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
-    [self.collectionView registerClass:[TournamentCell class] forCellWithReuseIdentifier:@"CatalogueTournamentCell"];
+    [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueTournamentCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.currentPage = 0;
     self.currentCategoryTag = @0;
@@ -216,9 +224,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     else if ([cellObject isMemberOfClass:[TournamentModel class]])
     {
         TournamentModel *tournament = (TournamentModel *)cellObject;
-        TournamentCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueTournamentCell" forIndexPath:indexPath];
-        cell.frame = cell.bounds;
-        [cell loadWithTournament:tournament];
+        LeadCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueTournamentCell" forIndexPath:indexPath];
+        [cell loadWithModel:tournament];
         return cell;
     }
     else
@@ -275,7 +282,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     }
     else if ([cellObject isMemberOfClass:[TournamentModel class]])
     {
-        return tournamentsSize;
+        return [LeadCell sizeForModel:(TournamentModel *)cellObject];;
     }
     else
     {
@@ -332,6 +339,12 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
 {
     self.currentPage++;
     [self updateSections];
+}
+
+- (void)touchedButtonFilter
+{
+    FilterViewController *filterViewController = [FilterViewController new];
+    [self.navigationController pushViewController:filterViewController animated:YES];
 }
 
 - (void)updateSections

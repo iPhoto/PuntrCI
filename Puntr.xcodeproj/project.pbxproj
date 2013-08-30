@@ -195,6 +195,8 @@
 		31D7B62C17958511000DCAF3 /* StakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7B62B17958511000DCAF3 /* StakeViewController.m */; };
 		31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F151179EA81A00C8AC17 /* ComponentPicker.m */; };
 		31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F154179EBFFF00C8AC17 /* LinePicker.m */; };
+		31DC0F3417D0F47F0085BB8C /* IconFilter.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DC0F3217D0F47F0085BB8C /* IconFilter.png */; };
+		31DC0F3517D0F47F0085BB8C /* IconFilter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DC0F3317D0F47F0085BB8C /* IconFilter@2x.png */; };
 		31DDC097176B234F000E99F3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DDC096176B234F000E99F3 /* Constants.m */; };
 		31E3E7921754E24800B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7941754E24800B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
@@ -577,6 +579,8 @@
 		31D9F151179EA81A00C8AC17 /* ComponentPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComponentPicker.m; sourceTree = "<group>"; };
 		31D9F153179EBFFF00C8AC17 /* LinePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePicker.h; sourceTree = "<group>"; };
 		31D9F154179EBFFF00C8AC17 /* LinePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinePicker.m; sourceTree = "<group>"; };
+		31DC0F3217D0F47F0085BB8C /* IconFilter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFilter.png; sourceTree = "<group>"; };
+		31DC0F3317D0F47F0085BB8C /* IconFilter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFilter@2x.png"; sourceTree = "<group>"; };
 		31DDC095176B234F000E99F3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		31DDC096176B234F000E99F3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		31E3E78E1754E24800B09DAD /* Puntr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puntr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1003,6 +1007,8 @@
 				31752120176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png */,
 				310A9D05178EEECB006D9C8A /* IconArrow.png */,
 				310A9D06178EEECB006D9C8A /* IconArrow@2x.png */,
+				31DC0F3217D0F47F0085BB8C /* IconFilter.png */,
+				31DC0F3317D0F47F0085BB8C /* IconFilter@2x.png */,
 				D6B1956517B7D9E400D1B352 /* IconLiga.png */,
 				D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */,
 				310A9D07178EEECB006D9C8A /* IconLive.png */,
@@ -1686,6 +1692,8 @@
 				3153A7A017CB73A3009FB6B4 /* IconMoneyStavkaGrey@2x.png in Resources */,
 				0FAFC4FB17D09FF200735D0C /* puntrIcon@2x.png in Resources */,
 				0FAFC4FD17D09FFA00735D0C /* puntrIcon.png in Resources */,
+				31DC0F3417D0F47F0085BB8C /* IconFilter.png in Resources */,
+				31DC0F3517D0F47F0085BB8C /* IconFilter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
