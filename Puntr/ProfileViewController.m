@@ -23,6 +23,7 @@
 
 
 static const CGFloat TNItemSpacing = 12.0f;
+static const CGFloat TNSideImageLarge = 60.0f;
 
 @interface ProfileViewController ()
 
@@ -240,7 +241,7 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.labelRatingNumber setText:[NSString stringWithFormat:@"%@/%@", self.user.winCount.stringValue, self.user.lossCount.stringValue]];
     [whiteView addSubview:self.labelRatingNumber];
     
-    self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, 60, 60)];
+    self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, TNSideImageLarge, TNSideImageLarge)];
     [self.imageViewAvatar setImageWithURL:self.user.avatar];
     [whiteView addSubview:self.imageViewAvatar];
     
@@ -299,7 +300,7 @@ static const CGFloat TNItemSpacing = 12.0f;
         {
             UserModel *profile = (UserModel *)mappingResult.firstObject;
             NSLog(@"ProfileName: %@", profile.firstName);
-            [self.imageViewAvatar setImageWithURL:profile.avatar];
+            [self.imageViewAvatar setImageWithURL:[profile.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
             [self showStars:profile.rating.intValue];
             [self.labelName setText:profile.firstName];
             [self.labelRatingNumber setText:profile.topPosition.stringValue];
