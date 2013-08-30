@@ -255,7 +255,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithSubscription:(SubscriptionModel *)model];
     }
-    
+    else if ([model isMemberOfClass:[TournamentModel class]])
+    {
+        [self loadWithTournament:(TournamentModel *)model];
+    }
 }
 
 #pragma mark -
@@ -321,7 +324,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     [self displayCategory:event.tournament.category];
     [self displayParticipants:event.participants final:NO];
-    [self displayEventStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
+    [self displayStartTime:event.startTime endTime:event.endTime stakesCount:event.stakesCount final:YES];
 }
 
 - (void)loadWithNews:(NewsModel *)news
@@ -386,8 +389,19 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displaySubscribedForObject:self.submodel];
         [self displayCategory:subscription.event.tournament.category];
         [self displayParticipants:subscription.event.participants final:NO];
-        [self displayEventStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
+        [self displayStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
     }
+}
+
+- (void)loadWithTournament:(TournamentModel *)tournament
+{
+    [self whiteCell];
+    if (tournament.banner) {
+        [self displayBanner:tournament.banner];
+    }
+    [self displayCategory:tournament.category];
+    [self displayTournament:tournament arrow:NO final:NO];
+    [self displayStartTime:tournament.startTime endTime:tournament.endTime stakesCount:tournament.stakesCount final:YES];
 }
 
 #pragma mark - Lead Components
@@ -510,90 +524,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     [self makeFinal:YES];
     
-}
-
-- (void)displayEventStartTime:(NSDate *)startTime
-                      endTime:(NSDate *)endTime
-                  stakesCount:(NSNumber *)stakesCount
-                        final:(BOOL)final
-{
-    self.labelEventStartEndTime = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelEventStartEndTime.frame = CGRectMake(
-                                                   TNMarginGeneral,
-                                                   self.usedHeight + TNMarginGeneral,
-                                                   TNWidthCell - TNMarginGeneral * 2.0f,
-                                                   TNHeightText
-                                                   );
-    NSString *timeString = nil;
-    NSString * const liveString = @"Уже идет!";
-    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
-    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
-    // Event will begin later
-    if ([startTime isEqualToDate:[startTime laterDate:[NSDate date]]])
-    {
-        timeString = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:startTime];
-    }
-    // Event is Live
-    else if ([startTime isEqualToDate:[startTime earlierDate:[NSDate date]]] && ([endTime isEqualToDate:[endTime laterDate:[NSDate date]]] || !endTime))
-    {
-        timeString = liveString;
-    }
-    // Event is completed
-    else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
-    {
-        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
-    }
-    self.labelEventStartEndTime.text = timeString;
-    [self addSubview:self.labelEventStartEndTime];
-    
-    if ([self.labelEventStartEndTime.text isEqualToString:liveString])
-    {
-        CGSize sizeLive = CGSizeMake(26.0f, 12.0f);
-        CGSize liveSize = [liveString sizeWithFont:TNFontSmall constrainedToSize:self.labelEventStartEndTime.frame.size];
-        self.imageViewEventLive = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconLive"]];
-        self.imageViewEventLive.frame = CGRectMake(
-                                                   TNMarginGeneral + liveSize.width + TNMarginGeneral,
-                                                   self.usedHeight + TNMarginGeneral,
-                                                   sizeLive.width,
-                                                   sizeLive.height
-                                                   );
-        [self addSubview:self.imageViewEventLive];
-    }
-    
-    CGSize sizeSubscribers = CGSizeMake(10.0f, 9.0f);
-    CGFloat marginSubscribers = 0.0f;
-    self.imageViewEventStakesCount = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconUser"]];
-    self.imageViewEventStakesCount.frame = CGRectMake(
-                                                      TNWidthCell - TNMarginGeneral - sizeSubscribers.width,
-                                                      self.usedHeight + TNMarginGeneral + marginSubscribers,
-                                                      sizeSubscribers.width,
-                                                      sizeSubscribers.height
-                                                      );
-    [self addSubview:self.imageViewEventStakesCount];
-    
-    self.labelEventStakesCount = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelEventStakesCount.frame = CGRectMake(
-                                                  TNMarginGeneral,
-                                                  self.usedHeight + TNMarginGeneral,
-                                                  TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
-                                                  TNHeightText
-                                                  );
-    NSString *stakesCountString = nil;
-    if ([stakesCount isEqualToNumber:@0])
-    {
-        stakesCountString = @"Поставьте первым!";
-    }
-    else
-    {
-        stakesCountString = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
-    }
-    self.labelEventStakesCount.text = stakesCountString;
-    self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
-    [self addSubview:self.labelEventStakesCount];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelEventStakesCount.frame);
-    
-    [self makeFinal:final];
 }
 
 - (void)displayLine:(LineModel *)line
@@ -924,6 +854,90 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelStakeStatus];
     
     self.usedHeight = CGRectGetMaxY(self.labelStakeStatus.frame);
+    
+    [self makeFinal:final];
+}
+
+- (void)displayStartTime:(NSDate *)startTime
+                 endTime:(NSDate *)endTime
+             stakesCount:(NSNumber *)stakesCount
+                   final:(BOOL)final
+{
+    self.labelEventStartEndTime = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelEventStartEndTime.frame = CGRectMake(
+                                                   TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral,
+                                                   TNWidthCell - TNMarginGeneral * 2.0f,
+                                                   TNHeightText
+                                                   );
+    NSString *timeString = nil;
+    NSString * const liveString = @"Уже идет!";
+    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
+    // Event will begin later
+    if ([startTime isEqualToDate:[startTime laterDate:[NSDate date]]])
+    {
+        timeString = [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:startTime];
+    }
+    // Event is Live
+    else if ([startTime isEqualToDate:[startTime earlierDate:[NSDate date]]] && ([endTime isEqualToDate:[endTime laterDate:[NSDate date]]] || !endTime))
+    {
+        timeString = liveString;
+    }
+    // Event is completed
+    else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
+    {
+        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
+    }
+    self.labelEventStartEndTime.text = timeString;
+    [self addSubview:self.labelEventStartEndTime];
+    
+    if ([self.labelEventStartEndTime.text isEqualToString:liveString])
+    {
+        CGSize sizeLive = CGSizeMake(26.0f, 12.0f);
+        CGSize liveSize = [liveString sizeWithFont:TNFontSmall constrainedToSize:self.labelEventStartEndTime.frame.size];
+        self.imageViewEventLive = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconLive"]];
+        self.imageViewEventLive.frame = CGRectMake(
+                                                   TNMarginGeneral + liveSize.width + TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral,
+                                                   sizeLive.width,
+                                                   sizeLive.height
+                                                   );
+        [self addSubview:self.imageViewEventLive];
+    }
+    
+    CGSize sizeSubscribers = CGSizeMake(10.0f, 9.0f);
+    CGFloat marginSubscribers = 0.0f;
+    self.imageViewEventStakesCount = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconUser"]];
+    self.imageViewEventStakesCount.frame = CGRectMake(
+                                                      TNWidthCell - TNMarginGeneral - sizeSubscribers.width,
+                                                      self.usedHeight + TNMarginGeneral + marginSubscribers,
+                                                      sizeSubscribers.width,
+                                                      sizeSubscribers.height
+                                                      );
+    [self addSubview:self.imageViewEventStakesCount];
+    
+    self.labelEventStakesCount = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelEventStakesCount.frame = CGRectMake(
+                                                  TNMarginGeneral,
+                                                  self.usedHeight + TNMarginGeneral,
+                                                  TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
+                                                  TNHeightText
+                                                  );
+    NSString *stakesCountString = nil;
+    if ([stakesCount isEqualToNumber:@0])
+    {
+        stakesCountString = @"Поставьте первым!";
+    }
+    else
+    {
+        stakesCountString = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
+    }
+    self.labelEventStakesCount.text = stakesCountString;
+    self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
+    [self addSubview:self.labelEventStakesCount];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelEventStakesCount.frame);
     
     [self makeFinal:final];
 }
