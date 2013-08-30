@@ -21,18 +21,23 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 
 
+
 #pragma mark - TableViewCell
 
 @interface TNTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id someObject;
+@property (nonatomic) BOOL isChecked;
 
 - (void)loadWithCategory:(CategoryModel *)category;
 
 @end
 
 
-@implementation TNTableViewCell
+@implementation TNTableViewCell {
+    UIImageView *_checkedImageView;
+    UIImageView *_uncheckedImageView;
+}
 
 - (id)init
 {
@@ -44,8 +49,21 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        _checkedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked.png"]];
+        _uncheckedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"unchecked.png"]];
     }
     return self;
+}
+
+- (void)setIsChecked:(BOOL)isChecked
+{
+    _isChecked = isChecked;
+    if (_isChecked) {
+        self.accessoryView = _checkedImageView;
+    }
+    else {
+        self.accessoryView = _uncheckedImageView;
+    }
 }
 
 - (void)layoutSubviews
@@ -73,11 +91,12 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[category.image URLByAppendingSize:CGSizeMake(TNSideCategoryImage, TNSideCategoryImage)]];
         
-        [self.imageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        UIImageView *tmpImageView = [UIImageView new];
+        [tmpImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                if (weakSelf && weakSelf.someObject) {
                    if (weakSelf.someObject == category) {
                        weakSelf.imageView.image = image;
-                       [weakSelf layoutSubviews];
+                       [weakSelf setNeedsLayout];
                    }
                }
            } failure:nil];
@@ -86,9 +105,6 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     
     if (category.title)
     {
-        self.backgroundColor = [UIColor clearColor];
-        self.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        self.textLabel.textColor = [UIColor grayColor];
         self.textLabel.text = category.title;
     }
 }
@@ -102,6 +118,7 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, weak) UITableView *filtersTableView;
+@property (nonatomic, strong) NSMutableDictionary *unCheckedTags;
 
 @end
 
@@ -113,7 +130,6 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -142,6 +158,11 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     self.filtersTableView.scrollEnabled = YES;
     [self.view addSubview:self.filtersTableView];
     
+    self.unCheckedTags = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:FFCategoriesKey]];
+    if (!self.unCheckedTags) {
+        self.unCheckedTags = [NSMutableDictionary new];
+    }
+    
     [self requestData];
 }
 
@@ -158,6 +179,22 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
      } failure:nil];
 }
 
+- (BOOL)isCheckedCategory:(CategoryModel *)category
+{
+    BOOL retVal = YES;
+    NSString *key = [category.tag stringValue];
+    if (self.unCheckedTags[key]) {
+        retVal = NO;
+    }
+    return retVal;
+}
+
+- (void)saveUncheckedStates
+{
+    [[NSUserDefaults standardUserDefaults] setObject:self.unCheckedTags forKey:FFCategoriesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 #pragma mark - UITableViewDataSource
 
@@ -168,14 +205,14 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *reuseIdFileName = @"middle.png";
+    NSString *reuseIdFileName = @"middle_area.png";
     if (indexPath.row == 0)
     {
-        reuseIdFileName = @"top.png";
+        reuseIdFileName = @"top_area.png";
     }
     if (indexPath.row == self.categories.count - 1)
     {
-        reuseIdFileName = @"bottom.png";
+        reuseIdFileName = @"bottom_area.png";
     }
     
     TNTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdFileName];
@@ -183,10 +220,14 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     {
         cell = [[TNTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdFileName];
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:reuseIdFileName]];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.textLabel.textColor = [UIColor grayColor];
     }
     
     CategoryModel *category = self.categories[indexPath.row];
     [cell loadWithCategory:category];
+    cell.isChecked = [self isCheckedCategory:category];
     
     return cell;
 }
@@ -237,6 +278,24 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     return headerView;
 }
 
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    TNTableViewCell *cell = (TNTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.isChecked = !cell.isChecked;
+    CategoryModel *category = cell.someObject;
+    NSString *key = [category.tag stringValue];
+    if (cell.isChecked) {
+        [self.unCheckedTags removeObjectForKey:key];
+    }
+    else {
+        self.unCheckedTags[key] = @(YES);
+    }
+    [self saveUncheckedStates];
+}
 
 
 @end
