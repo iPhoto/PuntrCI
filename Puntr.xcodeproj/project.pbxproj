@@ -54,6 +54,8 @@
 		0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EF17CB874900735D0C /* DynamicSelectionModel.m */; };
 		0FAFC4F617CB8B2500735D0C /* PrivacySettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */; };
 		0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */; };
+		0FAFC4FB17D09FF200735D0C /* puntrIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */; };
+		0FAFC4FD17D09FFA00735D0C /* puntrIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */; };
 		2A99F5F1908B4A989407376F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB61E77802DE4F2BAA561855 /* libPods.a */; };
 		310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3109279F17B8E55E0030C3E4 /* GroupModel.m */; };
 		310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 310A9CF9178EEECB006D9C8A /* BarDown.png */; };
@@ -395,6 +397,8 @@
 		0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsModel.m; sourceTree = "<group>"; };
 		0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingsModel.h; sourceTree = "<group>"; };
 		0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingsModel.m; sourceTree = "<group>"; };
+		0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "puntrIcon@2x.png"; sourceTree = "<group>"; };
+		0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = puntrIcon.png; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3108C19417CF41DC002E2018 /* LeadCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCellDelegate.h; sourceTree = "<group>"; };
 		3109279E17B8E55E0030C3E4 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
@@ -1078,6 +1082,8 @@
 		31E3E7851754E24800B09DAD = {
 			isa = PBXGroup;
 			children = (
+				0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */,
+				0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */,
 				31E3E7971754E24800B09DAD /* Puntr */,
 				31E3E7981754E24800B09DAD /* Supporting Files */,
 				31E3E7B51754E24900B09DAD /* PuntrTests */,
@@ -1678,6 +1684,8 @@
 				3153A79E17CB73A3009FB6B4 /* IconMoneyStavka@2x.png in Resources */,
 				3153A79F17CB73A3009FB6B4 /* IconMoneyStavkaGrey.png in Resources */,
 				3153A7A017CB73A3009FB6B4 /* IconMoneyStavkaGrey@2x.png in Resources */,
+				0FAFC4FB17D09FF200735D0C /* puntrIcon@2x.png in Resources */,
+				0FAFC4FD17D09FFA00735D0C /* puntrIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
