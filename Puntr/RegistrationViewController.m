@@ -229,7 +229,7 @@
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect viewFrame = self.scrollView.frame;
     
-    viewFrame = CGRectResize(viewFrame, 0.0f, -keyboardSize.height);
+    viewFrame = CGRectSetHeight(viewFrame, CGRectGetHeight(viewFrame) - keyboardSize.height);
     
     [UIView animateWithDuration:[self keyboardAnimationDurationForNotification:notification] animations:^
         {
@@ -263,7 +263,7 @@
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect viewFrame = self.scrollView.frame;
     
-    viewFrame = CGRectResize(viewFrame, 0.0f, keyboardSize.height);
+    viewFrame = CGRectSetHeight(viewFrame, CGRectGetHeight(viewFrame) + keyboardSize.height);
     
     [UIView animateWithDuration:0.3f animations:^
         {
