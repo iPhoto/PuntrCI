@@ -23,7 +23,7 @@
     buttonBalance.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [buttonBalance.titleLabel setTextColor:[UIColor whiteColor]];
     [buttonBalance.titleLabel setTextAlignment:NSTextAlignmentRight];
-    //[buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
+    [buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
     [buttonBalance setImage:[UIImage imageNamed:@"IconMoney"] forState:UIControlStateNormal];
     //CGRectGetWidth(buttonBalance.frame)
     [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 21.0, 0.0, 0.0)];
@@ -35,7 +35,23 @@
     [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
             MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
-            [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitle:money.amount.stringValue
+            int ballance = money.amount.intValue;
+            NSString *stringBallance;
+            if(ballance > 999999)
+            {
+                ballance = ballance/1000000;
+                stringBallance = [NSString stringWithFormat:@"%im", ballance];
+            }
+            else if(ballance > 9999)
+            {
+                ballance = ballance/1000;
+                stringBallance = [NSString stringWithFormat:@"%ik", ballance];
+            }
+            else
+            {
+                stringBallance = [NSString stringWithFormat:@"%i", ballance];
+            }
+            [(UIButton *)self.navigationItem.rightBarButtonItem.customView setTitle:stringBallance
                                                                            forState:UIControlStateNormal];
             //CGRectGetWidth([(UIButton *)self.navigationItem.rightBarButtonItem.customView titleLabel].frame);
             CGSize maxLabelSize = [@"0000" sizeWithFont:[(UIButton *)self.navigationItem.rightBarButtonItem.customView titleLabel].font];
