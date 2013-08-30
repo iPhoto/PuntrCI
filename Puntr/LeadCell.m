@@ -31,6 +31,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
+#define TNRemove(property) [property removeFromSuperview]; property = nil;
 
 @interface LeadCell ()
 
@@ -129,40 +130,40 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.submodel = nil;
     
     // Activity
-    [self remove:self.labelActivityCreatedAt];
+    TNRemove(self.labelActivityCreatedAt)
     
     // Award
-    [self remove:self.imageViewAward];
-    [self remove:self.labelAwardPointsCount];
-    [self remove:self.labelAwardTitle];
-    [self remove:self.buttonAwardShare];
+    TNRemove(self.imageViewAward)
+    TNRemove(self.labelAwardPointsCount)
+    TNRemove(self.labelAwardTitle)
+    TNRemove(self.buttonAwardShare)
     
     // Category
-    [self remove:self.labelCategoryTitle];
-    [self remove:self.imageViewCategoryImage];
+    TNRemove(self.labelCategoryTitle)
+    TNRemove(self.imageViewCategoryImage)
     
     // Coefficient
-    [self remove:self.labelCoefficientValue];
+    TNRemove(self.labelCoefficientValue)
     
     // Comment
-    [self remove:self.labelCommentMessage];
+    TNRemove(self.labelCommentMessage)
     
     // Component
-    [self remove:self.labelComponentCombined];
+    TNRemove(self.labelComponentCombined)
     
     // Event
-    [self remove:self.labelEventStartEndTime];
-    [self remove:self.imageViewEventLive];
-    [self remove:self.imageViewEventStakesCount];
-    [self remove:self.labelEventStakesCount];
-    [self remove:self.buttonEventStake];
+    TNRemove(self.labelEventStartEndTime)
+    TNRemove(self.imageViewEventLive)
+    TNRemove(self.imageViewEventStakesCount)
+    TNRemove(self.labelEventStakesCount)
+    TNRemove(self.buttonEventStake)
     
     // Line
-    [self remove:self.labelLineTitle];
+    TNRemove(self.labelLineTitle)
     
     // Money
-    [self remove:self.labelMoneyAmount];
-    [self remove:self.imageViewMoney];
+    TNRemove(self.labelMoneyAmount)
+    TNRemove(self.imageViewMoney)
     
     // Participant
     for (UIImageView *logo in self.participantLogos) {
@@ -176,25 +177,24 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.participantTitles removeAllObjects];
     
     // Privacy and Push
-    [self remove:self.labelDynamicSelectionTitle];
-    [self remove:self.labelDynamicSelectionDescription];
-    [self remove:self.switchDynamicSelection];
+    TNRemove(self.labelDynamicSelectionTitle)
+    TNRemove(self.labelDynamicSelectionDescription)
+    TNRemove(self.switchDynamicSelection)
     
     // Stake
-    [self remove:self.viewStakeStatusBackground];
-    [self remove:self.labelStakeStatus];
+    TNRemove(self.viewStakeStatusBackground)
+    TNRemove(self.labelStakeStatus)
     
     // Subscription
-    [self remove:self.buttonSubscribe];
+    TNRemove(self.buttonSubscribe)
     
     // Tournament
-    [self remove:self.labelTournamentTitle];
-    [self remove:self.imageViewTournamentArrow];
-    [self remove:self.buttonTournament];
+    TNRemove(self.labelTournamentTitle)
+    TNRemove(self.imageViewTournamentArrow)
     
     // User
-    [self remove:self.labelUserName];
-    [self remove:self.imageViewUserAvatar];
+    TNRemove(self.labelUserName)
+    TNRemove(self.imageViewUserAvatar)
     
     // Miscelanouos
     for (UIImageView *imageView in self.delimiters)
@@ -1154,12 +1154,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 
 #pragma mark - Utility
-
-- (void)remove:(UIView *)view
-{
-    [view removeFromSuperview];
-    view = nil;
-}
 
 - (UIViewController *)topController
 {
