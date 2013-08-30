@@ -54,6 +54,7 @@
     
     // Mapping Declaration
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[ActivityModel class]];
+    RKObjectMapping *awardMapping = [RKObjectMapping mappingForClass:[AwardModel class]];
     RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
     RKObjectMapping *categoryMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
@@ -109,6 +110,11 @@
                                                                                                               pathPattern:APIUsers
                                                                                                                   keyPath:KeyAuthorization
                                                                                                               statusCodes:statusCodeCreated];
+    
+    // Award
+    [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage]];
+    RKResponseDescriptor *awardCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:awardMapping
+                                                                                                      pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIAwards] keyPath:KeyAwards statusCodes:statusCodeOK];
     
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
@@ -320,6 +326,7 @@
             activityResponseDescriptor,
             authorizationResponseDescriptor,
             authorizationUserCreateResponseDescriptor,
+            awardCollectionResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
             commentCreateResponseDescriptor,
@@ -833,7 +840,7 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
      {
-         NSArray *awards = mappingResult.dictionary[KeyBadge];
+         NSArray *awards = mappingResult.dictionary[KeyAwards];
          return success(awards);
      }
             failure:^(RKObjectRequestOperation *operation, NSError *error)

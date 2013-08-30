@@ -289,6 +289,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self blackCell];
     self.usedHeight = TNSideBadge;
     self.usedWidth = TNSideBadge;
+    [self displayAward:award];
 }
 
 - (void)loadWithComment:(CommentModel *)comment
@@ -394,7 +395,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
+    CGSize awardImageSize = CGSizeMake(132.0f, 132.0f);
 
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(8.0f, 8.0f, 132.0f, 132.0f)];
+//    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
+    [self.imageViewAward setImageWithURL:award.image ];
+    [self addSubview:self.imageViewAward];
     
 }
 

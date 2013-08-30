@@ -10,8 +10,8 @@
 
 @interface AwardModel : NSObject
 
-@property (nonatomic, strong, readonly) NSString *title;
-@property (nonatomic, strong, readonly) NSString *description;
-@property (nonatomic, copy, readonly) NSURL *image;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, copy) NSURL *image;
 
 @end

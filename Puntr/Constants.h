@@ -48,7 +48,7 @@ FOUNDATION_EXPORT NSString *const KeyActivities;
 FOUNDATION_EXPORT NSString *const KeyAmount;
 FOUNDATION_EXPORT NSString *const KeyAuthorization;
 FOUNDATION_EXPORT NSString *const KeyAvatar;
-FOUNDATION_EXPORT NSString *const KeyBadge;
+FOUNDATION_EXPORT NSString *const KeyAwards;
 FOUNDATION_EXPORT NSString *const KeyBadgesCount;
 FOUNDATION_EXPORT NSString *const KeyBalance;
 FOUNDATION_EXPORT NSString *const KeyBanner;

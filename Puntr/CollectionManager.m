@@ -7,8 +7,11 @@
 //
 
 #import "CollectionManager.h"
-#import "EventModel.h"
+//#import "EventModel.h"
 //#import "LeadCell.h"
+
+#import "Models.h"
+
 #import "ObjectManager.h"
 #import "PagingModel.h"
 
@@ -190,15 +193,37 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadAwards
 {
-    UserModel *user = (UserModel *)self.modifierObject;
-    [[ObjectManager sharedManager] awardsForUser:user
-                                          paging:self.paging
-                                         success:^(NSArray *awards)
-                                         {
-                                            [self combineWithData:awards];
-                                         }
-                                         failure:nil
-     ];
+    
+    AwardModel *award = [[AwardModel alloc] init];
+    award.title = @"award1";
+    award.description = @"blah blah balah";
+    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
+
+    AwardModel *award1 = [[AwardModel alloc] init];
+    award.title = @"award2";
+    award.description = @"award2 description";
+    award.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
+
+    AwardModel *award2 = [[AwardModel alloc] init];
+    award.title = @"award3";
+    award.description = @"award3 description";
+    award.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
+    
+//    [NSDictionary dictionaryWithObjectsAndKeys:, @"title", @"blah blah balah", @"description", @"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig", @"image", nil];
+//    NSDictionary *award1 = [NSDictionary dictionaryWithObjectsAndKeys:@"award2", @"title", @"award2 description", @"description", @"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg", @"image", nil];
+//    NSDictionary *award2 = [NSDictionary dictionaryWithObjectsAndKeys:@"award3", @"title", @"award3 description", @"description", @"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg", @"image", nil];
+    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
+    [self combineWithData:awards];
+    
+//    UserModel *user = (UserModel *)self.modifierObject;
+//    [[ObjectManager sharedManager] awardsForUser:user
+//                                          paging:self.paging
+//                                         success:^(NSArray *awards)
+//                                         {
+//                                            [self combineWithData:awards];
+//                                         }
+//                                         failure:nil
+//     ];
 }
 
 - (void)combineWithData:(NSArray *)newData
