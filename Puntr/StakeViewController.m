@@ -252,7 +252,6 @@
     
     self.buttonBet = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonBet.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, buttonHeight);
-    self.buttonBet.adjustsImageWhenHighlighted = NO;
     [self.buttonBet setTitle:@"Пари" forState:UIControlStateNormal];
     self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
@@ -263,7 +262,6 @@
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    self.buttonStake.adjustsImageWhenHighlighted = NO;
     [self.buttonStake setTitle:@"Ставить" forState:UIControlStateNormal];
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

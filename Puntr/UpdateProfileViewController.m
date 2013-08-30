@@ -113,7 +113,6 @@
     
     self.buttonSaveData = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonSaveData.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    self.buttonSaveData.adjustsImageWhenHighlighted = NO;
     [self.buttonSaveData setTitle:@"Сохранить" forState:UIControlStateNormal];
     self.buttonSaveData.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSaveData.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

@@ -159,7 +159,6 @@
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    self.buttonRegistration.adjustsImageWhenHighlighted = NO;
     [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

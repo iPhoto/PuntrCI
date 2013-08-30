@@ -50,7 +50,6 @@
     self.stagesCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     
     self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
     [self.buttonSubscribe setTitle:@"Подписаться" forState:UIControlStateNormal];
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

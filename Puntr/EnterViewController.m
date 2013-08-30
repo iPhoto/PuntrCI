@@ -121,7 +121,6 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(13.0f, 215.0f, 142.0f, 40.0f);
-    self.buttonRegistration.adjustsImageWhenHighlighted = NO;
     [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
@@ -132,7 +131,6 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.buttonEnter = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonEnter.frame = CGRectMake(13.0f + 142.0f + 9.0f, 215.0f, 142.0f, 40.0f);
-    self.buttonEnter.adjustsImageWhenHighlighted = NO;
     [self.buttonEnter setTitle:@"Вход" forState:UIControlStateNormal];
     self.buttonEnter.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonEnter.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

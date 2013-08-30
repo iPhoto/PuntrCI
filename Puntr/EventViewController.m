@@ -122,7 +122,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     
     self.buttonSubscribe = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonSubscribe.frame = CGRectMake(coverMargin * 2.0f, coverMargin + participantSize.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    self.buttonSubscribe.adjustsImageWhenHighlighted = NO;
     self.buttonSubscribe.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSubscribe.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -134,7 +133,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, coverMargin + participantSize.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    self.buttonStake.adjustsImageWhenHighlighted = NO;
     [self.buttonStake setTitle:@"Ставить" forState:UIControlStateNormal];
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];

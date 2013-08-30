@@ -65,7 +65,6 @@
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(237.0f, 5.0f, 63.0f, 31.0f);
-    self.buttonStake.adjustsImageWhenHighlighted = NO;
     [self.buttonStake setBackgroundImage:[UIImage imageNamed:@"stake"] forState:UIControlStateNormal];
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.buttonStake];

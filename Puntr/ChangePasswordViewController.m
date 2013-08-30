@@ -93,7 +93,6 @@
     
     self.buttonChangePassword = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonChangePassword.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    self.buttonChangePassword.adjustsImageWhenHighlighted = NO;
     [self.buttonChangePassword setTitle:@"Сменить пароль" forState:UIControlStateNormal];
     self.buttonChangePassword.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonChangePassword.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
