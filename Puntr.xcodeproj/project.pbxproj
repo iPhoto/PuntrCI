@@ -399,8 +399,8 @@
 		0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsModel.m; sourceTree = "<group>"; };
 		0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingsModel.h; sourceTree = "<group>"; };
 		0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingsModel.m; sourceTree = "<group>"; };
-		0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "puntrIcon@2x.png"; sourceTree = "<group>"; };
-		0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = puntrIcon.png; sourceTree = "<group>"; };
+		0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "puntrIcon@2x.png"; path = "../puntrIcon@2x.png"; sourceTree = "<group>"; };
+		0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = puntrIcon.png; path = ../puntrIcon.png; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		3108C19417CF41DC002E2018 /* LeadCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCellDelegate.h; sourceTree = "<group>"; };
 		3109279E17B8E55E0030C3E4 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
@@ -946,8 +946,6 @@
 		3180CF74178AE4B5001B2DD1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				AC34681D17D00F710077418B /* Filters */,
-				ACA2645117BD79FD006DE0FD /* Settings Icons */,
 				31EF4AEF1799AB1C00F27702 /* area.png */,
 				31EF4AF01799AB1C00F27702 /* area@2x.png */,
 				310A9CF9178EEECB006D9C8A /* BarDown.png */,
@@ -1005,6 +1003,7 @@
 				3175212C176F18DE007CCD82 /* enterServicies@2x.png */,
 				3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */,
 				31752120176F0D7C007CCD82 /* enterTextFieldsBackground@2x.png */,
+				AC34681D17D00F710077418B /* Filters */,
 				310A9D05178EEECB006D9C8A /* IconArrow.png */,
 				310A9D06178EEECB006D9C8A /* IconArrow@2x.png */,
 				31DC0F3217D0F47F0085BB8C /* IconFilter.png */,
@@ -1037,6 +1036,8 @@
 				31752132176F335F007CCD82 /* logoTitle@2x.png */,
 				31752117176F04CB007CCD82 /* navigationBarBackground.png */,
 				31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */,
+				0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */,
+				0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */,
 				0F40906217BCDDCC001CC23F /* reg_avatar.png */,
 				0F40906317BCDDCC001CC23F /* reg_avatar@2x.png */,
 				3194035A17723467009F0DBE /* sectionEditorsChoice.png */,
@@ -1049,6 +1050,7 @@
 				3194036117723467009F0DBE /* sectionPopular@2x.png */,
 				3194036217723467009F0DBE /* sectionTournaments.png */,
 				3194036317723467009F0DBE /* sectionTournaments@2x.png */,
+				ACA2645117BD79FD006DE0FD /* Settings Icons */,
 				ACA2647A17BD87AD006DE0FD /* settingsBackground.png */,
 				ACA2647B17BD87AD006DE0FD /* settingsBackground@2x.png */,
 				3116A87017748728002BEC46 /* stake.png */,
@@ -1088,8 +1090,6 @@
 		31E3E7851754E24800B09DAD = {
 			isa = PBXGroup;
 			children = (
-				0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */,
-				0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */,
 				31E3E7971754E24800B09DAD /* Puntr */,
 				31E3E7981754E24800B09DAD /* Supporting Files */,
 				31E3E7B51754E24900B09DAD /* PuntrTests */,
