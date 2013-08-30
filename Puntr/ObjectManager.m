@@ -96,6 +96,7 @@
                                                        activityUserRelationship
                                                    ]];
     RKResponseDescriptor *activityResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:activityMapping
+                                                                                                    method:RKRequestMethodGET
                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIActivities]
                                                                                                    keyPath:KeyActivities
                                                                                                statusCodes:statusCodeOK];
@@ -103,10 +104,12 @@
     // Authorization
     [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret]];
     RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
+                                                                                                         method:RKRequestMethodPOST
                                                                                                     pathPattern:APIAuthorization
                                                                                                         keyPath:KeyAuthorization
                                                                                                     statusCodes:statusCodeCreated];
     RKResponseDescriptor *authorizationUserCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
+                                                                                                                   method:RKRequestMethodPOST
                                                                                                               pathPattern:APIUsers
                                                                                                                   keyPath:KeyAuthorization
                                                                                                               statusCodes:statusCodeCreated];
@@ -114,11 +117,15 @@
     // Award
     [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage]];
     RKResponseDescriptor *awardCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:awardMapping
-                                                                                                      pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIAwards] keyPath:KeyAwards statusCodes:statusCodeOK];
+                                                                                                           method:RKRequestMethodGET
+                                                                                                      pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIAwards]
+                                                                                                          keyPath:KeyAwards
+                                                                                                      statusCodes:statusCodeOK];
     
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
     RKResponseDescriptor *categoryCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoryMapping
+                                                                                                              method:RKRequestMethodGET
                                                                                                          pathPattern:APICategories
                                                                                                              keyPath:KeyCategories
                                                                                                          statusCodes:statusCodeOK];
@@ -126,6 +133,7 @@
     // Coefficient
     [coefficientMapping addAttributeMappingsFromArray:@[KeyValue]];
     RKResponseDescriptor *coefficientResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:coefficientMapping
+                                                                                                       method:RKRequestMethodGET
                                                                                                   pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APICoefficient]
                                                                                                       keyPath:KeyCoefficient
                                                                                                   statusCodes:statusCodeOK];
@@ -136,10 +144,12 @@
     RKRelationshipMapping *commentEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     [commentMapping addPropertyMappingsFromArray:@[commentUserRelationship, commentEventRelationship]];
     RKResponseDescriptor *commentResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
+                                                                                                   method:RKRequestMethodGET
                                                                                               pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
                                                                                                   keyPath:KeyComments
                                                                                               statusCodes:statusCodeOK];
     RKResponseDescriptor *commentCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:commentMapping
+                                                                                                         method:RKRequestMethodPOST
                                                                                                     pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
                                                                                                         keyPath:nil
                                                                                                     statusCodes:statusCodeNoContent];
@@ -149,6 +159,7 @@
     RKRelationshipMapping *componentCriterionRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCriteria mapping:criterionMapping];
     [componentMapping addPropertyMapping:componentCriterionRelationship];
     RKResponseDescriptor *componentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:componentMapping
+                                                                                                               method:RKRequestMethodGET
                                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents]
                                                                                                               keyPath:KeyComponents
                                                                                                           statusCodes:statusCodeOK];
@@ -171,6 +182,7 @@
     [errorStatusCodes addIndexes:statusCodeInternalServerError];
     [errorStatusCodes addIndexes:statusCodeNotImplemented];
     RKResponseDescriptor *errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
+                                                                                                 method:RKRequestMethodAny
                                                                                             pathPattern:nil
                                                                                                 keyPath:nil
                                                                                             statusCodes:errorStatusCodes];
@@ -182,6 +194,7 @@
     RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLines mapping:lineMapping];
     [eventMapping addPropertyMappingsFromArray:@[eventTournamentRelationship, eventParticipantRelationship, eventLineRelationship]];
     RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
+                                                                                                           method:RKRequestMethodGET
                                                                                                     pathPattern:APIEvents
                                                                                                           keyPath:KeyEvents
                                                                                                       statusCodes:statusCodeOK];
@@ -189,6 +202,7 @@
     // Group
     [groupMapping addAttributeMappingsFromArray:@[KeyTitle, KeyImage, KeySlug]];
     RKResponseDescriptor *groupCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:groupMapping
+                                                                                                           method:RKRequestMethodGET
                                                                                                       pathPattern:APIGroups
                                                                                                           keyPath:KeyGroups
                                                                                                       statusCodes:statusCodeOK];
@@ -199,6 +213,7 @@
     // Money
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
     RKResponseDescriptor *moneyResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:moneyMapping
+                                                                                                 method:RKRequestMethodGET
                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBalance]
                                                                                                 keyPath:KeyBalance
                                                                                             statusCodes:statusCodeOK];
@@ -221,7 +236,11 @@
                                                    newsTournamentRelationship,
                                                    newsUserRelationship
                                                ]];
-    RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews] keyPath:KeyNews statusCodes:statusCodeOK];
+    RKResponseDescriptor *newsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:newsMapping
+                                                                                                          method:RKRequestMethodGET
+                                                                                                     pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APINews]
+                                                                                                         keyPath:KeyNews
+                                                                                                     statusCodes:statusCodeOK];
     
     // Parameter
     [parameterMapping addAttributeMappingsFromArray:@[KeyKey, KeyDescription]];
@@ -232,6 +251,7 @@
     // Privacy
     [privacyMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
     RKResponseDescriptor *privacyCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:privacyMapping
+                                                                                                             method:RKRequestMethodGET | RKRequestMethodPUT
                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIPrivacy]
                                                                                                              keyPath:KeyPrivacy
                                                                                                          statusCodes:statusCodeOK];
@@ -239,6 +259,7 @@
     // Push
     [pushMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
     RKResponseDescriptor *pushCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:pushMapping
+                                                                                                          method:RKRequestMethodGET | RKRequestMethodPUT
                                                                                                          pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIPush]
                                                                                                              keyPath:KeyPush
                                                                                                          statusCodes:statusCodeOK];
@@ -253,14 +274,17 @@
     RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
     [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
     RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                 method:RKRequestMethodGET
                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
                                                                                                 keyPath:KeyStake
                                                                                             statusCodes:statusCodeCreated];
     RKResponseDescriptor *stakeEventsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                                 method:RKRequestMethodGET
                                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
                                                                                                                 keyPath:KeyStakes
                                                                                                             statusCodes:statusCodeOK];
     RKResponseDescriptor *stakeUsersCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                                method:RKRequestMethodGET
                                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIStakes]
                                                                                                                keyPath:KeyStakes
                                                                                                            statusCodes:statusCodeOK];
@@ -269,6 +293,7 @@
     RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriberMapping addPropertyMapping:subscriberUserRelationship];
     RKResponseDescriptor *subscriberCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriberMapping
+                                                                                                                method:RKRequestMethodGET
                                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscribers]
                                                                                                                keyPath:KeySubscribers
                                                                                                            statusCodes:statusCodeOK];
@@ -280,19 +305,22 @@
     RKRelationshipMapping *subscriptionUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriptionMapping addPropertyMappingsFromArray:@[subscriptionEventRelationship, subscriptionParticipantRelationship, subscriptionTournamentRelationship, subscriptionUserRelationship]];
     RKResponseDescriptor *subscriptionCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
+                                                                                                                  method:RKRequestMethodGET
                                                                                                              pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                                  keyPath:KeySubscriptions
                                                                                                              statusCodes:statusCodeOK];
     RKResponseDescriptor *subscriptionCreateAndDeleteResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:subscriptionMapping
-                                                                                                         pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
-                                                                                                             keyPath:nil
-                                                                                                         statusCodes:statusCodeNoContent];
+                                                                                                                       method:RKRequestMethodPOST | RKRequestMethodDELETE
+                                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
+                                                                                                                      keyPath:nil
+                                                                                                                  statusCodes:statusCodeNoContent];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeySubscribersCount, KeyStartTime, KeyEndTime, KeySubscribed]];
     RKRelationshipMapping *tournamentCategoryRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCategory mapping:categoryMapping];
     [tournamentMapping addPropertyMapping:tournamentCategoryRelationship];
     RKResponseDescriptor *tournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tournamentMapping
+                                                                                                                method:RKRequestMethodGET
                                                                                                            pathPattern:APITournaments
                                                                                                                keyPath:KeyTournaments
                                                                                                            statusCodes:statusCodeOK];
@@ -300,22 +328,27 @@
     // User
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeySubscribed, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
     RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                method:RKRequestMethodGET
                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
                                                                                                keyPath:KeyUser
                                                                                            statusCodes:statusCodeOK];
     RKResponseDescriptor *userCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                      method:RKRequestMethodPOST
                                                                                                  pathPattern:APIUsers
                                                                                                      keyPath:KeyUser
                                                                                                  statusCodes:statusCodeCreated];
     RKResponseDescriptor *userAuthorizationCreateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                                   method:RKRequestMethodPOST
                                                                                                               pathPattern:APIAuthorization
                                                                                                                   keyPath:KeyUser
                                                                                                               statusCodes:statusCodeCreated];
     RKResponseDescriptor *userUpdateResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                      method:RKRequestMethodPUT
                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
                                                                                                      keyPath:nil
                                                                                                  statusCodes:statusCodeNoContent];
     RKResponseDescriptor *userPassordResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                       method:RKRequestMethodPUT
                                                                                                   pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, KeyPassword]
                                                                                                       keyPath:nil
                                                                                                   statusCodes:statusCodeNoContent];
@@ -361,55 +394,63 @@
     [commentSerialization addAttributeMappingsFromArray:@[KeyMessage]];
     RKRequestDescriptor *commentRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:commentSerialization
                                                                                           objectClass:[CommentModel class]
-                                                                                          rootKeyPath:nil];
+                                                                                          rootKeyPath:nil
+                                                                                               method:RKRequestMethodPOST];
     
     // Credentials
     RKObjectMapping *credentialsSerialization = [RKObjectMapping requestMapping];
     [credentialsSerialization addAttributeMappingsFromArray:@[KeyLogin, KeyPassword]];
     RKRequestDescriptor *credentialsRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:credentialsSerialization
                                                                                               objectClass:[CredentialsModel class]
-                                                                                              rootKeyPath:KeyCredentials];
+                                                                                              rootKeyPath:KeyCredentials
+                                                                                                   method:RKRequestMethodPOST];
     
     // Event
     RKObjectMapping *eventSerialization = [RKObjectMapping requestMapping];
     [eventSerialization addAttributeMappingsFromArray:@[KeyTag]];
     RKRequestDescriptor *eventRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:eventSerialization
                                                                                         objectClass:[EventModel class]
-                                                                                        rootKeyPath:KeyEvent];
+                                                                                        rootKeyPath:KeyEvent
+                                                                                             method:RKRequestMethodPOST];
     
     // Facebook
     RKObjectMapping *facebookSerialization = [RKObjectMapping requestMapping];
     [facebookSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
     RKRequestDescriptor *facebookRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:facebookSerialization
                                                                                             objectClass:[FacebookModel class]
-                                                                                            rootKeyPath:KeyFacebook];
+                                                                                            rootKeyPath:KeyFacebook
+                                                                                                method:RKRequestMethodPOST];
     // Participant
     RKObjectMapping *participantSerialization = [RKObjectMapping requestMapping];
     [participantSerialization addAttributeMappingsFromArray:@[KeyTag]];
     RKRequestDescriptor *participantRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:participantSerialization
                                                                                               objectClass:[ParticipantModel class]
-                                                                                              rootKeyPath:KeyParticipant];
+                                                                                              rootKeyPath:KeyParticipant
+                                                                                                   method:RKRequestMethodPOST];
     
     // Password
     RKObjectMapping *passwordSerialization = [RKObjectMapping requestMapping];
     [passwordSerialization addAttributeMappingsFromArray:@[KeyPassword, KeyPasswordNew, KeyPasswordNewConfirmation]];
     RKRequestDescriptor *passwordRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:passwordSerialization
                                                                                            objectClass:[PasswordModel class]
-                                                                                           rootKeyPath:nil];
+                                                                                           rootKeyPath:nil
+                                                                                                method:RKRequestMethodPUT];
     
     // Privacy
     RKObjectMapping *privacySerialization = [RKObjectMapping requestMapping];
     [privacySerialization addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
     RKRequestDescriptor *privacyRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:privacySerialization
                                                                                           objectClass:[PrivacySettingsModel class]
-                                                                                          rootKeyPath:nil];
+                                                                                          rootKeyPath:nil
+                                                                                               method:RKRequestMethodPUT];
     
     // Push
     RKObjectMapping *pushSerialization = [RKObjectMapping requestMapping];
     [pushSerialization addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
     RKRequestDescriptor *pushRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:pushSerialization
                                                                                           objectClass:[PushSettingsModel class]
-                                                                                          rootKeyPath:nil];
+                                                                                          rootKeyPath:nil
+                                                                                            method:RKRequestMethodPUT];
     
     // Stake
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
@@ -420,35 +461,32 @@
      [stakeMoneyRelationship copy]]];
     RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[stakeMapping inverseMapping]
                                                                                         objectClass:[StakeModel class]
-                                                                                        rootKeyPath:nil];
-    
-    // Tournament
-    RKObjectMapping *tournamentSerialization = [RKObjectMapping requestMapping];
-    [tournamentSerialization addAttributeMappingsFromArray:@[KeyTag]];
-    RKRequestDescriptor *tournamentRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:tournamentSerialization
-                                                                                             objectClass:[TournamentModel class]
-                                                                                             rootKeyPath:KeyTournament];
+                                                                                        rootKeyPath:nil
+                                                                                             method:RKRequestMethodPOST];
     
     // Twitter
     RKObjectMapping *twitterSerialization = [RKObjectMapping requestMapping];
     [twitterSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken, KeySecretToken]];
     RKRequestDescriptor *twitterRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:twitterSerialization
                                                                                           objectClass:[TwitterModel class]
-                                                                                          rootKeyPath:KeyTwitter];
+                                                                                          rootKeyPath:KeyTwitter
+                                                                                               method:RKRequestMethodPOST];
     
     // User
     RKObjectMapping *userSerialization = [RKObjectMapping requestMapping];
-    [userSerialization addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
+    [userSerialization addAttributeMappingsFromArray:@[KeyEmail, KeyPassword, KeyFirstName, KeyLastName, KeyUsername]];
     RKRequestDescriptor *userRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:userSerialization
                                                                                        objectClass:[UserModel class]
-                                                                                       rootKeyPath:nil];
+                                                                                       rootKeyPath:nil
+                                                                                            method:RKRequestMethodPOST | RKRequestMethodPUT];
     
     // VKontakte
     RKObjectMapping *vKontakteSerialization = [RKObjectMapping requestMapping];
     [vKontakteSerialization addAttributeMappingsFromArray:@[KeyTag, KeyAccessToken]];
     RKRequestDescriptor *vKontakteRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:vKontakteSerialization
                                                                                             objectClass:[VKontakteModel class]
-                                                                                            rootKeyPath:KeyVKontakte];
+                                                                                            rootKeyPath:KeyVKontakte
+                                                                                                 method:RKRequestMethodPOST];
     
     [self addRequestDescriptorsFromArray:
         @[
@@ -461,7 +499,6 @@
             privacyRequestDescriptor,
             pushRequestDescriptor,
             stakeRequestDescriptor,
-            tournamentRequestDescriptor,
             twitterRequestDescriptor,
             userRequestDescriptor,
             vKontakteRequestDescriptor
