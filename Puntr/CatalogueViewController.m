@@ -8,7 +8,7 @@
 
 #import "CatalogueViewController.h"
 #import "HeaderCell.h"
-#import "EventCell.h"
+#import "LeadCell.h"
 #import "LoadButtonCell.h"
 #import "TournamentCell.h"
 #import "GroupModel.h"
@@ -76,7 +76,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     
     [self addBalanceButton];
     
-    [self.collectionView registerClass:[EventCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
+    [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
     [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     [self.collectionView registerClass:[LoadButtonCell class] forCellWithReuseIdentifier:@"CatalogueLoadButton"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
@@ -190,10 +190,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     else if ([cellObject isMemberOfClass:[EventModel class]])
     {
         EventModel *event = (EventModel *)cellObject;
-        EventCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueEventCell" forIndexPath:indexPath];
-        cell.frame = cell.bounds;
-        [cell loadWithEvent:event];
-        [cell.buttonStake addTarget:self action:@selector(buttonStakeTouched) forControlEvents:UIControlEventTouchUpInside];
+        LeadCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueEventCell" forIndexPath:indexPath];
+        [cell loadWithModel:event];
         return cell;
     }
     else if ([cellObject isMemberOfClass:[SearchCell class]])
@@ -265,7 +263,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     }
     else if ([cellObject isMemberOfClass:[EventModel class]])
     {
-        return eventItemSize;
+        return [LeadCell sizeForModel:(EventModel *)cellObject];
     }
     else if ([cellObject isMemberOfClass:[SearchCell class]])
     {
