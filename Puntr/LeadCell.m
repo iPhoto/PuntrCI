@@ -102,6 +102,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelUserName;
 @property (nonatomic, strong) UIImageView *imageViewUserAvatar;
 
+@property (nonatomic, strong) UIImageView *imageViewBanner;
 @property (nonatomic, strong) NSMutableArray *delimiters;
 
 @end
@@ -197,6 +198,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewUserAvatar)
     
     // Miscelanouos
+    TNRemove(self.imageViewBanner)
     for (UIImageView *imageView in self.delimiters)
     {
         [imageView removeFromSuperview];
@@ -309,6 +311,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadWithEvent:(EventModel *)event
 {
     self.submodel = event;
+    if (event.banner) {
+        [self displayBanner:event.banner];
+    }
     [self displayTournament:event.tournament arrow:YES final:NO];
     if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
     {
@@ -414,6 +419,22 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self whiteCell];
     }
+}
+
+- (void)displayBanner:(NSURL *)banner
+{
+    CGSize sizeBanner = CGSizeMake(TNWidthCell, TNSideImageLarge);
+    self.imageViewBanner = [[UIImageView alloc] init];
+    self.imageViewBanner.frame = CGRectMake(
+                                               0.0f,
+                                               self.usedHeight,
+                                               sizeBanner.width,
+                                               sizeBanner.height
+                                           );
+    [self.imageViewBanner setImageWithURL:[banner URLByAppendingSize:sizeBanner]];
+    [self addSubview:self.imageViewBanner];
+    
+    self.usedHeight = CGRectGetMaxY(self.imageViewBanner.frame);
 }
 
 - (void)displayCategory:(CategoryModel *)category
