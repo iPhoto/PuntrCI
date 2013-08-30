@@ -23,7 +23,7 @@
     buttonBalance.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [buttonBalance.titleLabel setTextColor:[UIColor whiteColor]];
     [buttonBalance.titleLabel setTextAlignment:NSTextAlignmentRight];
-    [buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
+    //[buttonBalance.titleLabel setBackgroundColor:[UIColor redColor]];
     [buttonBalance setImage:[UIImage imageNamed:@"IconMoney"] forState:UIControlStateNormal];
     //CGRectGetWidth(buttonBalance.frame)
     [buttonBalance setImageEdgeInsets:UIEdgeInsetsMake(0.0, CGRectGetWidth(buttonBalance.frame) - 21.0, 0.0, 0.0)];
