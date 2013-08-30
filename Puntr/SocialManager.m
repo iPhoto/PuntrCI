@@ -163,7 +163,7 @@
 - (void)loginVk
 {
     [[VKConnector sharedInstance] setDelegate:self];
-    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:nil];
+    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:@[@"offline"]];
 }
 
 - (void)VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken

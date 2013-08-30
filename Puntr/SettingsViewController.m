@@ -209,11 +209,11 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                                    @{ @"text": @"Условия", @"font": TNFontHeader },
                                 ];
     
-    self.sectionFootersArray = @[
+    /*self.sectionFootersArray = @[
                                    @{ @"text": @"" },
                                    @{ @"text": @"Установите настройку конфиденциальности в \"Да\", если хотите, чтоб ваши действия были невидимыми всем пользователям, кроме тех, на кого вы подписались. Если другой пользователь захочет подписаться на ваши действия, вы получите запрос", @"font": TNFontFooter },
                                    @{ @"text": @"" },
-                                ];
+                                ];*/
 }
 
 - (CGFloat)heightForHeader:(BOOL)isHeader inSection:(NSInteger)section

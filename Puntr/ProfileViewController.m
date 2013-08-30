@@ -289,9 +289,9 @@ static const CGFloat TNSideImageLarge = 60.0f;
 
 - (void)settingsButtonTouched
 {
-//    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
-    FilterViewController *fvc = [FilterViewController new];
-    [self.navigationController pushViewController:fvc animated:YES];
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+//    FilterViewController *fvc = [FilterViewController new];
+//    [self.navigationController pushViewController:fvc animated:YES];
 }
 
 - (void)loadProfile
