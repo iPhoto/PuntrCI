@@ -47,6 +47,7 @@
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeAwards modifierObject:self.user];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = frame;
+    collectionView.delegate = self;
     [self.view addSubview:collectionView];
 }
 
@@ -107,9 +108,9 @@
 ////    [cell loadWithAward:award];
 //    return cell;
 //}
-//
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    [self.navigationController pushViewController:[[AwardViewController alloc] init] animated:YES];
-//}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[[AwardViewController alloc] init] animated:YES];
+}
 
 @end

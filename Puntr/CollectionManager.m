@@ -58,7 +58,14 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)prepareCollectionView
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(7.0f, 7.0f, 7.0f, 7.0f);
+    if (self.collectionType == CollectionTypeAwards)
+    {
+        layout.sectionInset = UIEdgeInsetsMake(16.0f, 16.0f, 16.0f, 16.0f);
+    }
+    else
+    {
+        layout.sectionInset = UIEdgeInsetsMake(7.0f, 7.0f, 7.0f, 7.0f);
+    }
     layout.minimumLineSpacing = 12.0f;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     [_collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:TNLeadCellReuseIdentifier];
@@ -209,9 +216,6 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     award.description = @"award3 description";
     award.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
     
-//    [NSDictionary dictionaryWithObjectsAndKeys:, @"title", @"blah blah balah", @"description", @"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig", @"image", nil];
-//    NSDictionary *award1 = [NSDictionary dictionaryWithObjectsAndKeys:@"award2", @"title", @"award2 description", @"description", @"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg", @"image", nil];
-//    NSDictionary *award2 = [NSDictionary dictionaryWithObjectsAndKeys:@"award3", @"title", @"award3 description", @"description", @"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg", @"image", nil];
     NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
     [self combineWithData:awards];
     

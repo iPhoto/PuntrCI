@@ -10,7 +10,7 @@
 
 @class UserModel;
 
-@interface AwardsCollectionViewController : UIViewController
+@interface AwardsCollectionViewController : UIViewController <UICollectionViewDelegateFlowLayout>
 
 - (id)initWithUser:(UserModel *)user;
 

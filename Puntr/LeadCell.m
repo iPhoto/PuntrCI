@@ -20,7 +20,7 @@ static const CGFloat TNHeightButton = 31.0f;
 static const CGFloat TNHeightSwitch = 27.0f;
 static const CGFloat TNHeightText = 12.0f;
 static const CGFloat TNMarginGeneral = 8.0f;
-static const CGFloat TNSideBadge = 296.0f;
+static const CGFloat TNSideBadge = 136.0f;
 static const CGFloat TNSideImage = 28.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
 static const CGFloat TNSideImageSmall = 12.0f;
@@ -414,7 +414,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
-    CGSize awardImageSize = CGSizeMake(132.0f, 132.0f);
+    CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
 
     self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(8.0f, 8.0f, 132.0f, 132.0f)];
 //    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
