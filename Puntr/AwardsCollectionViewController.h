@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectionManagerDelegate.h"
 
 @class UserModel;
 
-@interface AwardsCollectionViewController : UIViewController <UICollectionViewDelegateFlowLayout>
+@interface AwardsCollectionViewController : UIViewController <CollectionManagerDelegate>
 
 - (id)initWithUser:(UserModel *)user;
 

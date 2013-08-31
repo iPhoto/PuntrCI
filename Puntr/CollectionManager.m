@@ -268,4 +268,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     return [LeadCell sizeForModel:self.collectionData[indexPath.row]];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSObject *model = self.collectionData[indexPath.row];
+    if ([self.collectionManagerDelegate respondsToSelector:@selector(collectionViewDidSelectCellWithModel:)]) {
+        [self.collectionManagerDelegate collectionViewDidSelectCellWithModel:model];
+    }
+}
+
 @end

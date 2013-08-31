@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LeadCell.h"
+#import "CollectionManagerDelegate.h"
 
 typedef NS_ENUM(NSInteger, CollectionType)
 {
@@ -22,6 +23,8 @@ typedef NS_ENUM(NSInteger, CollectionType)
 };
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
+
+@property (nonatomic, weak) id<CollectionManagerDelegate> collectionManagerDelegate;
 
 #pragma mark - Convenience
 

@@ -9,6 +9,13 @@
 #ifndef Puntr_CollectionManagerDelegate_h
 #define Puntr_CollectionManagerDelegate_h
 
+@protocol CollectionManagerDelegate <NSObject>
+
+@optional
+
+- (void)collectionViewDidSelectCellWithModel:(NSObject *)model;
+
+@end
 
 
 #endif
