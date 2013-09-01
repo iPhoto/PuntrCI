@@ -150,8 +150,19 @@ typedef NS_ENUM(NSInteger, Direction)
                                                               42.0f
                                                               )];
     [self.buttonFb setBackgroundColor:[UIColor clearColor]];
+    [self.buttonFb setBackgroundImage:[UIImage imageNamed:@"middle"] forState:UIControlStateNormal];
+    [self.buttonFb setBackgroundImage:[UIImage imageNamed:@"middle_active"] forState:UIControlStateHighlighted];
+    [self.buttonFb setImage:[UIImage imageNamed:@"icon_fb"] forState:UIControlStateNormal];
+    [self.buttonFb setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
+    [self.buttonFb setTitle:@"Войти через Facebook" forState:UIControlStateNormal];
+    self.buttonFb.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+    self.buttonFb.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+    self.buttonFb.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    self.buttonFb.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self.buttonFb setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 86)];
     [self.buttonFb addTarget:self action:@selector(fbButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonFb];
+    CGSize fbTextSize = [self.buttonFb.titleLabel.text sizeWithFont:self.buttonFb.titleLabel.font];
     
     self.buttonTw = [[UIButton alloc]initWithFrame:CGRectMake(
                                                               10.0f,
@@ -160,6 +171,17 @@ typedef NS_ENUM(NSInteger, Direction)
                                                               42.0f
                                                               )];
     [self.buttonTw setBackgroundColor:[UIColor clearColor]];
+    [self.buttonTw setBackgroundImage:[UIImage imageNamed:@"bottom"] forState:UIControlStateNormal];
+    [self.buttonTw setBackgroundImage:[UIImage imageNamed:@"bottom_active"] forState:UIControlStateHighlighted];
+    [self.buttonTw setImage:[UIImage imageNamed:@"icon_tw"] forState:UIControlStateNormal];
+    [self.buttonTw setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
+    [self.buttonTw setTitle:@"Войти через Twitter" forState:UIControlStateNormal];
+    self.buttonTw.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+    self.buttonTw.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+    self.buttonTw.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    self.buttonTw.titleLabel.textAlignment = NSTextAlignmentLeft;
+    CGSize twTextSize = [self.buttonTw.titleLabel.text sizeWithFont:self.buttonTw.titleLabel.font];
+    [self.buttonTw setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 86 + fbTextSize.width - twTextSize.width)];
     [self.buttonTw addTarget:self action:@selector(twButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonTw];
     
@@ -167,9 +189,20 @@ typedef NS_ENUM(NSInteger, Direction)
                                                               10.0f,
                                                               CGRectGetMinY(self.imageViewEnterServicies.frame) + 10.0f,
                                                               300.0f,
-                                                              40.0f
+                                                              42.0f
                                                               )];
     [self.buttonVk setBackgroundColor:[UIColor clearColor]];
+    [self.buttonVk setBackgroundImage:[UIImage imageNamed:@"top"] forState:UIControlStateNormal];
+    [self.buttonVk setBackgroundImage:[UIImage imageNamed:@"top_active"] forState:UIControlStateHighlighted];
+    [self.buttonVk setImage:[UIImage imageNamed:@"icon_vk"] forState:UIControlStateNormal];
+    [self.buttonVk setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
+    [self.buttonVk setTitle:@"Войти через ВКонтакте" forState:UIControlStateNormal];
+    self.buttonVk.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+    self.buttonVk.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+    self.buttonVk.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    self.buttonVk.titleLabel.textAlignment = NSTextAlignmentLeft;
+    CGSize vkTextSize = [self.buttonVk.titleLabel.text sizeWithFont:self.buttonVk.titleLabel.font];
+    [self.buttonVk setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 86 + fbTextSize.width - vkTextSize.width)];
     [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonVk];
 }
