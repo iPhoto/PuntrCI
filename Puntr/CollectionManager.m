@@ -207,14 +207,14 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
 
     AwardModel *award1 = [[AwardModel alloc] init];
-    award.title = @"award2";
-    award.description = @"award2 description";
-    award.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
+    award1.title = @"award2";
+    award1.description = @"award2 description";
+    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
 
     AwardModel *award2 = [[AwardModel alloc] init];
-    award.title = @"award3";
-    award.description = @"award3 description";
-    award.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
+    award2.title = @"award3";
+    award2.description = @"award3 description";
+    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
     
     NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
     [self combineWithData:awards];
@@ -268,9 +268,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     return [LeadCell sizeForModel:self.collectionData[indexPath.row]];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSObject *model = self.collectionData[indexPath.row];
-    if ([self.collectionManagerDelegate respondsToSelector:@selector(collectionViewDidSelectCellWithModel:)]) {
+    if ([self.collectionManagerDelegate respondsToSelector:@selector(collectionViewDidSelectCellWithModel:)])
+    {
         [self.collectionManagerDelegate collectionViewDidSelectCellWithModel:model];
     }
 }

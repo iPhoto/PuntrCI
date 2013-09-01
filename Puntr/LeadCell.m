@@ -48,6 +48,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, retain) UIImageView *imageViewAward;
 @property (nonatomic, retain) UILabel *labelAwardPointsCount;
 @property (nonatomic, retain) UILabel *labelAwardTitle;
+@property (nonatomic, retain) UILabel *labelAwardDescription;
 @property (nonatomic, retain) UIButton *buttonAwardShare;
 
 // Category
@@ -416,11 +417,26 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
 
-    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(8.0f, 8.0f, 132.0f, 132.0f)];
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(8.0f, 8.0f, (self.frame.size.height / 2) - 16.0f, (self.frame.size.width / 2) - 16.0f)];
 //    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
-    [self.imageViewAward setImageWithURL:award.image ];
+    [self.imageViewAward setImageWithURL:award.image];
+    self.imageViewAward.backgroundColor = [UIColor blueColor];
+
+    self.labelAwardTitle = [UILabel labelSmallBold:YES black:YES];
+    self.labelAwardDescription = [UILabel labelSmallBold:YES black:YES];
     [self addSubview:self.imageViewAward];
+    [self addSubview:self.labelAwardTitle];
+    [self addSubview:self.labelAwardDescription];
+    self.labelAwardTitle.text = award.title;
+    [self.labelAwardTitle sizeToFit];
+    self.labelAwardTitle.backgroundColor = [UIColor greenColor];
+
+    self.labelAwardDescription.text = award.description;
+    [self.labelAwardDescription sizeToFit];
+    self.labelAwardDescription.backgroundColor = [UIColor greenColor];
     
+    self.labelAwardTitle.center = CGPointMake(CGRectGetMaxX(self.imageViewAward.frame) + (self.labelAwardTitle.frame.size.width / 2) + 8.0f, CGRectGetMidY(self.imageViewAward.frame));
+    self.labelAwardDescription.center = CGPointMake(CGRectGetMinX(self.imageViewAward.frame) + (self.labelAwardDescription.frame.size.width / 2), CGRectGetMaxY(self.imageViewAward.frame) + (self.labelAwardDescription.frame.size.height / 2) + 8.0f);
 }
 
 - (void)displayBackgroundForStake:(StakeModel *)stake
