@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonRegistration];
     
     self.buttonEnter = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.buttonEnter.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonEnter.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonEnter.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonEnter setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f) resizingMode:UIImageResizingModeStretch] forState:UIControlStateNormal];
+    [self.buttonEnter setBackgroundImage:[[UIImage imageNamed:@"login"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f) resizingMode:UIImageResizingModeStretch] forState:UIControlStateNormal];
     [self.buttonEnter addTarget:self action:@selector(enterButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonEnter];
     
