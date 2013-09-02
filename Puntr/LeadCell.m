@@ -23,6 +23,7 @@ static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNSideBadge = 136.0f;
 static const CGFloat TNSideImage = 28.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
+static const CGFloat TNSideImageMedium = 22.0f;
 static const CGFloat TNSideImageSmall = 12.0f;
 static const CGFloat TNWidthButtonLarge = 94.0f;
 static const CGFloat TNWidthButtonSmall = 62.0f;
@@ -70,6 +71,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UIImageView *imageViewEventStakesCount;
 @property (nonatomic, strong) UILabel *labelEventStakesCount;
 @property (nonatomic, strong) UIButton *buttonEventStake;
+
+// Group
+@property (nonatomic, strong) UILabel *labelGroupTitle;
+@property (nonatomic, strong) UIImageView *imageViewGroupImage;
 
 // Line
 @property (nonatomic, strong) UILabel *labelLineTitle;
@@ -138,6 +143,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewAward)
     TNRemove(self.labelAwardPointsCount)
     TNRemove(self.labelAwardTitle)
+    TNRemove(self.labelAwardDescription)
     TNRemove(self.buttonAwardShare)
     
     // Category
@@ -159,6 +165,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewEventStakesCount)
     TNRemove(self.labelEventStakesCount)
     TNRemove(self.buttonEventStake)
+    
+    // Group
+    TNRemove(self.labelGroupTitle)
+    TNRemove(self.imageViewGroupImage)
     
     // Line
     TNRemove(self.labelLineTitle)
@@ -236,6 +246,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self whiteCell];
         [self loadWithEvent:(EventModel *)model];
+    }
+    else if ([model isMemberOfClass:[GroupModel class]])
+    {
+        [self blackCell];
+        [self displayGroup:(GroupModel *)model final:YES];
     }
     else if ([model isMemberOfClass:[NewsModel class]])
     {
@@ -413,6 +428,21 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.blackBackground = YES;
 }
 
+- (void)displayArrow
+{
+    self.imageViewTournamentArrow = [[UIImageView alloc] init];
+    CGFloat marginTime = self.labelActivityCreatedAt && self.delimiters.count == 0 ? [self.labelActivityCreatedAt sizeThatFits:self.labelActivityCreatedAt.frame.size].width + TNMarginGeneral : 0.0f;
+    const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
+    self.imageViewTournamentArrow.frame = CGRectMake(
+                                                     TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
+                                                     self.usedHeight - TNSizeTournamentArrow.height,
+                                                     TNSizeTournamentArrow.width,
+                                                     TNSizeTournamentArrow.height
+                                                     );
+    self.imageViewTournamentArrow.image = [UIImage imageNamed:@"IconArrow"];
+    [self addSubview:self.imageViewTournamentArrow];
+}
+
 - (void)displayAward:(AwardModel *)award
 {
     CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
@@ -540,6 +570,46 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     [self makeFinal:YES];
     
+}
+
+- (void)displayGroup:(GroupModel *)group final:(BOOL)final
+{
+    CGFloat TNGroupHeight = 40.0f;
+    CGFloat TNGroupImageMargin = (TNGroupHeight - TNSideImageMedium) / 2.0f;
+    CGFloat TNGroupTitleMargin = (TNGroupHeight - TNHeightText) / 2.0f;
+    
+    BOOL hasImage = group.image ? YES : NO;
+    if (hasImage)
+    {
+        self.imageViewGroupImage = [[UIImageView alloc] init];
+        self.imageViewGroupImage.frame = CGRectMake(
+                                                       TNGroupImageMargin,
+                                                       TNGroupImageMargin,
+                                                       TNSideImageMedium,
+                                                       TNSideImageMedium
+                                                   );
+        [self.imageViewGroupImage setImageWithURL:group.image];
+        [self addSubview:self.imageViewGroupImage];
+    }
+    
+    CGFloat TNGroupTitleMarginLeft = hasImage ? TNGroupImageMargin * 2.0f + TNSideImageMedium : TNGroupImageMargin;
+    self.labelGroupTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelGroupTitle.frame = CGRectMake(
+                                               TNGroupTitleMarginLeft,
+                                               TNGroupTitleMargin,
+                                               TNWidthCell - TNGroupTitleMarginLeft - TNMarginGeneral,
+                                               TNHeightText
+                                           );
+    self.labelGroupTitle.text = group.title;
+    [self addSubview:self.labelGroupTitle];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelGroupTitle.frame);
+    
+    [self displayArrow];
+    
+    self.usedHeight += TNGroupTitleMargin - TNMarginGeneral;
+    
+    [self makeFinal:final];
 }
 
 - (void)displayLine:(LineModel *)line
@@ -1010,17 +1080,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     if (arrow)
     {
-        self.imageViewTournamentArrow = [[UIImageView alloc] init];
-        CGFloat marginTime = self.labelActivityCreatedAt && self.delimiters.count == 0 ? [self.labelActivityCreatedAt sizeThatFits:self.labelActivityCreatedAt.frame.size].width + TNMarginGeneral : 0.0f;
-        const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
-        self.imageViewTournamentArrow.frame = CGRectMake(
-                                                         TNWidthCell - TNSizeTournamentArrow.width - TNMarginGeneral - marginTime,
-                                                         self.usedHeight - TNSizeTournamentArrow.height,
-                                                         TNSizeTournamentArrow.width,
-                                                         TNSizeTournamentArrow.height
-                                                         );
-        self.imageViewTournamentArrow.image = [UIImage imageNamed:@"IconArrow"];
-        [self addSubview:self.imageViewTournamentArrow];
+        [self displayArrow];
     }
     
     [self makeFinal:final];
