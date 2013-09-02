@@ -12,7 +12,6 @@
 #import "EventViewController.h"
 #import "FilterViewController.h"
 #import "GroupModel.h"
-#import "HeaderCell.h"
 #import "LeadCell.h"
 #import "LoadButtonCell.h"
 #import "NotificationManager.h"
@@ -85,7 +84,7 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
     self.navigationItem.leftBarButtonItem = settingsItem;
     
     [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueEventCell"];
-    [self.collectionView registerClass:[HeaderCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
+    [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueSectionHeader"];
     [self.collectionView registerClass:[LoadButtonCell class] forCellWithReuseIdentifier:@"CatalogueLoadButton"];
     [self.collectionView registerClass:[CategoriesCell class] forCellWithReuseIdentifier:@"CatalogueCategoriesCell"];
     [self.collectionView registerClass:[LeadCell class] forCellWithReuseIdentifier:@"CatalogueTournamentCell"];
@@ -190,9 +189,8 @@ const UIEdgeInsets sectionInsets = { 10.0f, 8.0f, 10.0f, 8.0f };
             return buttonLoad;
         }
         GroupModel *section = (GroupModel *)cellObject;
-        HeaderCell *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
-        header.frame = header.bounds;
-        [header loadWithSection:section];
+        LeadCell *header = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CatalogueSectionHeader" forIndexPath:indexPath];
+        [header loadWithModel:section];
         return header;
     }
     else if ([cellObject isMemberOfClass:[EventModel class]])
