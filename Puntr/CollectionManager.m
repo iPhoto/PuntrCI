@@ -28,6 +28,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) NSArray *collectionData;
 @property (nonatomic, strong) PagingModel *paging;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation CollectionManager
@@ -72,6 +74,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.alwaysBounceVertical = YES;
+    
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+    _refreshControl.tintColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
+    [_collectionView addSubview:_refreshControl];
 }
 
 #pragma mark - Data
@@ -80,16 +88,21 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     self.collectionData = nil;
     [self.paging firstPage];
+    [self loadData];
+}
+
+- (void)loadData
+{
     switch (self.collectionType)
     {
         case CollectionTypeActivities:
             [self loadActivities];
             break;
-
+            
         case CollectionTypeAwards:
             [self loadAwards];
             break;
-
+            
         case CollectionTypeEventStakes:
             [self loadStakes];
             break;
@@ -101,7 +114,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         case CollectionTypeNews:
             [self loadNews];
             break;
-        
+            
         case CollectionTypeSubscriptions:
             [self loadSubscriptions];
             break;
@@ -125,7 +138,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         {
             [self combineWithData:stakes];
         }
-        failure:nil
+        failure:^
+        {
+            [self.refreshControl endRefreshing];
+        }
     ];
 }
 
@@ -138,7 +154,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           {
                                               [self combineWithData:stakes];
                                           }
-                                          failure:nil];
+                                          failure:^
+                                          {
+                                              [self.refreshControl endRefreshing];
+                                          }
+    ];
 }
 
 - (void)loadActivities
@@ -150,7 +170,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                              {
                                                  [self combineWithData:activities];
                                              }
-                                             failure:nil
+                                             failure:^
+                                             {
+                                                 [self.refreshControl endRefreshing];
+                                             }
     ];
 }
 
@@ -161,7 +184,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           {
                                               [self combineWithData:news];
                                           }
-                                          failure:nil
+                                          failure:^
+                                          {
+                                              [self.refreshControl endRefreshing];
+                                          }
     ];
 }
 
@@ -171,7 +197,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               {
                                                   [self combineWithData:privacy];
                                               }
-                                              failure:nil
+                                              failure:^
+                                              {
+                                                  [self.refreshControl endRefreshing];
+                                              }
     ];
 }
 
@@ -181,7 +210,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                            {
                                                [self combineWithData:push];
                                            }
-                                           failure:nil
+                                           failure:^
+                                           {
+                                               [self.refreshControl endRefreshing];
+                                           }
     ];
 }
 
@@ -194,7 +226,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 {
                                                     [self combineWithData:subscriptions];
                                                 }
-                                                failure:nil
+                                                failure:^
+                                                {
+                                                    [self.refreshControl endRefreshing];
+                                                }
     ];
 }
 
@@ -238,6 +273,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     self.collectionData = [combinedData copy];
     
     [self.collectionView reloadData];
+     
+    [self.refreshControl endRefreshing];
 }
 
 
