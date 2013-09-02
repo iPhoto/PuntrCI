@@ -79,6 +79,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 // Line
 @property (nonatomic, strong) UILabel *labelLineTitle;
 
+// Loading
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+
 // Money
 @property (nonatomic, strong) UILabel *labelMoneyAmount;
 @property (nonatomic, strong) UIImageView *imageViewMoney;
@@ -136,6 +139,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.model = nil;
     self.submodel = nil;
     
+    self.backgroundColor = [UIColor clearColor];
+    self.layer.cornerRadius = 0.0;
+    self.layer.masksToBounds = NO;
+    
     // Activity
     TNRemove(self.labelActivityCreatedAt)
     
@@ -172,6 +179,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     // Line
     TNRemove(self.labelLineTitle)
+    
+    // Loading
+    TNRemove(self.activityIndicator)
     
     // Money
     TNRemove(self.labelMoneyAmount)
@@ -251,6 +261,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self blackCell];
         [self displayGroup:(GroupModel *)model final:YES];
+    }
+    else if ([model isMemberOfClass:[LoadModel class]])
+    {
+        [self displayLoading];
     }
     else if ([model isMemberOfClass:[NewsModel class]])
     {
@@ -675,6 +689,23 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.usedHeight = CGRectGetMaxY(self.labelCoefficientValue.frame);
     
     [self makeFinal:final];
+}
+
+- (void)displayLoading
+{
+    CGFloat TNSideActivityIndicator = 20.0f;
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.frame = CGRectMake(
+                                                 (TNWidthCell - TNSideActivityIndicator) / 2.0f,
+                                                 self.usedHeight + TNMarginGeneral,
+                                                 TNSideActivityIndicator,
+                                                 TNSideActivityIndicator
+                                             );
+    self.activityIndicator.color = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
+    [self.activityIndicator startAnimating];
+    [self addSubview:self.activityIndicator];
+    
+    self.usedHeight = CGRectGetMaxY(self.activityIndicator.frame);
 }
 
 - (void)displayParticipant:(ParticipantModel *)participant final:(BOOL)final
