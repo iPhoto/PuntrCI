@@ -30,6 +30,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (nonatomic) BOOL loading;
+
 @end
 
 @implementation CollectionManager
@@ -87,48 +89,63 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)reloadData
 {
     self.collectionData = nil;
-    [self.paging firstPage];
+    self.paging = nil;
     [self loadData];
 }
 
 - (void)loadData
 {
-    switch (self.collectionType)
+    if (!self.loading)
     {
-        case CollectionTypeActivities:
-            [self loadActivities];
-            break;
-            
-        case CollectionTypeAwards:
-            [self loadAwards];
-            break;
-            
-        case CollectionTypeEventStakes:
-            [self loadStakes];
-            break;
-            
-        case CollectionTypeMyStakes:
-            [self loadMyStakes];
-            break;
-            
-        case CollectionTypeNews:
-            [self loadNews];
-            break;
-            
-        case CollectionTypeSubscriptions:
-            [self loadSubscriptions];
-            break;
-            
-        case CollectionTypePrivacySettings:
-            [self loadPrivacySettings];
-            break;
-            
-        case CollectionTypePushSettinds:
-            [self loadPushSettings];
-            break;
-            
-        default:
-            break;
+        self.loading = YES;
+        
+        if (!self.paging)
+        {
+            self.paging = [PagingModel paging];
+            [self.paging firstPage];
+        }
+        else
+        {
+            [self.paging nextPage];
+        }
+        
+        switch (self.collectionType)
+        {
+            case CollectionTypeActivities:
+                [self loadActivities];
+                break;
+                
+            case CollectionTypeAwards:
+                [self loadAwards];
+                break;
+                
+            case CollectionTypeEventStakes:
+                [self loadStakes];
+                break;
+                
+            case CollectionTypeMyStakes:
+                [self loadMyStakes];
+                break;
+                
+            case CollectionTypeNews:
+                [self loadNews];
+                break;
+                
+            case CollectionTypeSubscriptions:
+                [self loadSubscriptions];
+                break;
+                
+            case CollectionTypePrivacySettings:
+                [self loadPrivacySettings];
+                break;
+                
+            case CollectionTypePushSettinds:
+                [self loadPushSettings];
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 
@@ -140,7 +157,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         }
         failure:^
         {
-            [self.refreshControl endRefreshing];
+            [self finishLoading];
         }
     ];
 }
@@ -156,7 +173,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           }
                                           failure:^
                                           {
-                                              [self.refreshControl endRefreshing];
+                                              [self finishLoading];
                                           }
     ];
 }
@@ -172,7 +189,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                              }
                                              failure:^
                                              {
-                                                 [self.refreshControl endRefreshing];
+                                                 [self finishLoading];
                                              }
     ];
 }
@@ -186,7 +203,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           }
                                           failure:^
                                           {
-                                              [self.refreshControl endRefreshing];
+                                              [self finishLoading];
                                           }
     ];
 }
@@ -199,7 +216,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               }
                                               failure:^
                                               {
-                                                  [self.refreshControl endRefreshing];
+                                                  [self finishLoading];
                                               }
     ];
 }
@@ -212,7 +229,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                            }
                                            failure:^
                                            {
-                                               [self.refreshControl endRefreshing];
+                                               [self finishLoading];
                                            }
     ];
 }
@@ -228,7 +245,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 }
                                                 failure:^
                                                 {
-                                                    [self.refreshControl endRefreshing];
+                                                    [self finishLoading];
                                                 }
     ];
 }
@@ -267,16 +284,32 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)combineWithData:(NSArray *)newData
 {
-    NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
-    [combinedData addObjectsFromArray:self.collectionData];
-    [combinedData addObjectsFromArray:newData];
-    self.collectionData = [combinedData copy];
-    
-    [self.collectionView reloadData];
-     
-    [self.refreshControl endRefreshing];
+    if (newData.count) {
+        BOOL finalData = (NSInteger)newData.count < self.paging.limit.integerValue;
+        NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
+        NSMutableArray *oldData = [NSMutableArray arrayWithArray:self.collectionData];
+        if ([oldData.lastObject isMemberOfClass:[LoadModel class]])
+        {
+            [oldData removeLastObject];
+        }
+        [combinedData addObjectsFromArray:oldData];
+        [combinedData addObjectsFromArray:newData];
+        if (!finalData)
+        {
+            [combinedData addObject:[[LoadModel alloc] init]];
+        }
+        self.collectionData = [combinedData copy];
+        
+        [self.collectionView reloadData];
+    }
+    [self finishLoading];
 }
 
+- (void)finishLoading
+{
+    self.loading = NO;
+    [self.refreshControl endRefreshing];
+}
 
 #pragma mark - CollectionView DataSource
 
@@ -293,7 +326,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LeadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TNLeadCellReuseIdentifier forIndexPath:indexPath];
-    [cell loadWithModel:self.collectionData[indexPath.row]];
+    NSObject *model = self.collectionData[indexPath.row];
+    if ([model isMemberOfClass:[LoadModel class]])
+    {
+        [self loadData];
+    }
+    [cell loadWithModel:model];
     cell.delegate = self;
     return cell;
 }

@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
 
-@property (nonatomic, weak) id<CollectionManagerDelegate> collectionManagerDelegate;
+@property (nonatomic, weak) id <CollectionManagerDelegate> collectionManagerDelegate;
 
 #pragma mark - Convenience
 
