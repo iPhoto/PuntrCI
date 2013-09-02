@@ -14,6 +14,8 @@
 @property (nonatomic, strong, readonly) NSNumber *offset;
 @property (nonatomic, strong, readonly) NSDate *beforeTimestamp;
 
++ (PagingModel *)paging;
+
 - (NSDictionary *)parameters;
 
 // Helper

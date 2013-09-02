@@ -20,6 +20,11 @@
 
 @implementation PagingModel
 
++ (PagingModel *)paging
+{
+    return [[self alloc] init];
+}
+
 - (NSDictionary *)parameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
