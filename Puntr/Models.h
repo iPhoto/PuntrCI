@@ -28,6 +28,7 @@
 #import "FilterModel.h"
 #import "GroupModel.h"
 #import "LineModel.h"
+#import "LoadModel.h"
 #import "MoneyModel.h"
 #import "NewsModel.h"
 #import "PagingModel.h"
