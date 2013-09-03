@@ -7,11 +7,8 @@
 //
 
 #import "CollectionManager.h"
-//#import "EventModel.h"
-//#import "LeadCell.h"
-
+#import "LeadCell.h"
 #import "Models.h"
-
 #import "ObjectManager.h"
 #import "PagingModel.h"
 

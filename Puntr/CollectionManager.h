@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LeadCell.h"
+#import "LeadCellDelegate.h"
 #import "CollectionManagerDelegate.h"
 
 typedef NS_ENUM(NSInteger, CollectionType)
