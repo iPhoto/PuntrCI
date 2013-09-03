@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UserModel *user;
 
 @property (nonatomic, strong) UIImageView *imageViewDelimiter;
+@property (nonatomic, strong) UIImageView *imageViewAvatar;
 
 @property (nonatomic, strong) UIButton *buttonSaveData;
 @property (nonatomic, strong) UIButton *buttonPhoto;
@@ -36,8 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     self.user = [[ObjectManager sharedManager] loginedUser];
+    [self loadProfile];
     
     self.title = @"Профиль";
     
@@ -60,7 +62,6 @@
     self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldFirstName.delegate = self;
     [self.view addSubview:self.textFieldFirstName];
-    [self.textFieldFirstName setText:self.user.firstName];
     
     self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];
     self.textFieldLastName.placeholder = @"Фамилия...";
@@ -68,7 +69,6 @@
     self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldLastName.delegate = self;
     [self.view addSubview:self.textFieldLastName];
-    [self.textFieldLastName setText:self.user.lastName];
     
     self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];
     self.textFieldUsername.placeholder = @"Ник...";
@@ -76,11 +76,16 @@
     self.textFieldUsername.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldUsername.delegate = self;
     [self.view addSubview:self.textFieldUsername];
-    [self.textFieldUsername setText:self.user.username];
     
-    self.buttonPhoto = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(18.0f, 19.0f, 85.0f, 85.0f)];
+    self.imageViewAvatar.layer.cornerRadius = 5;
+    self.imageViewAvatar.layer.masksToBounds = YES;
+    [self.view addSubview: self.imageViewAvatar];
+    
+    self.buttonPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonPhoto.frame = CGRectMake(18.0f, 19.0f, 85.0f, 85.0f);
-    [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
+    [self.buttonPhoto setBackgroundColor:[UIColor clearColor]];
+    //[self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
     [self.buttonPhoto setContentMode:UIViewContentModeCenter];
     self.buttonPhoto.tintColor = [UIColor clearColor];
     [self.buttonPhoto.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:10.0f]];
@@ -92,15 +97,7 @@
     self.buttonPhoto.layer.cornerRadius = 5;
     self.buttonPhoto.layer.masksToBounds = YES;
     [self.view addSubview:self.buttonPhoto];
-    if(!self.user.avatar)
-    {
-        [self.buttonPhoto setTitle:@"ЗАГРУЗИТЬ\nФОТО" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.buttonPhoto.imageView setImageWithURL:self.user.avatar];
-        [self.buttonPhoto.imageView setContentMode:UIViewContentModeScaleAspectFill];
-    }
+    
     
     self.viewTextFieldsBackground.frame = CGRectSetHeight(
                                                           self.viewTextFieldsBackground.frame,
@@ -122,6 +119,33 @@
     [self.view addSubview:self.buttonSaveData];
 }
 
+- (void)loadProfile
+{
+    [[ObjectManager sharedManager] userWithTag:self.user.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         self.user = (UserModel *)mappingResult.firstObject;
+         if(!self.user.avatar)
+         {
+             
+             [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
+             [self.buttonPhoto setTitle:@"ЗАГРУЗИТЬ\nФОТО" forState:UIControlStateNormal];
+         }
+         else
+         {
+             [self.imageViewAvatar setImageWithURL:self.user.avatar];
+             [self.imageViewAvatar setImageWithURL:[self.user.avatar URLByAppendingSize:CGSizeMake(85, 85)]];
+             [self.imageViewAvatar setContentMode:UIViewContentModeScaleAspectFill];
+         }
+         [self.textFieldUsername setText:self.user.username];
+         [self.textFieldLastName setText:self.user.lastName];
+         [self.textFieldFirstName setText:self.user.firstName];
+     }
+                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [NotificationManager showError:error];
+     }
+     ];
+}
 - (void)buttonPhotoTouched{
     UIActionSheet *actionSheet;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -235,6 +259,7 @@
     [self.buttonPhoto setImage:imageToSave forState:UIControlStateNormal];
     [self.buttonPhoto.imageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.buttonPhoto setTitle:@"" forState:UIControlStateNormal];
+    self.imageViewAvatar.hidden = YES;
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

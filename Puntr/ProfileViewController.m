@@ -242,6 +242,8 @@ static const CGFloat TNSideImageLarge = 60.0f;
     [whiteView addSubview:self.labelRatingNumber];
     
     self.imageViewAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(8, 8, TNSideImageLarge, TNSideImageLarge)];
+    self.imageViewAvatar.layer.cornerRadius = 5;
+    self.imageViewAvatar.layer.masksToBounds = YES;
     [self.imageViewAvatar setImageWithURL:self.user.avatar];
     [whiteView addSubview:self.imageViewAvatar];
     
