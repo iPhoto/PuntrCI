@@ -592,7 +592,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNGroupImageMargin = (TNGroupHeight - TNSideImageMedium) / 2.0f;
     CGFloat TNGroupTitleMargin = (TNGroupHeight - TNHeightText) / 2.0f;
     
-    BOOL hasImage = group.image ? YES : NO;
+    BOOL hasImage = group.image || group.imageHardcode ? YES : NO;
     if (hasImage)
     {
         self.imageViewGroupImage = [[UIImageView alloc] init];
@@ -602,7 +602,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        TNSideImageMedium,
                                                        TNSideImageMedium
                                                    );
-        [self.imageViewGroupImage setImageWithURL:group.image];
+        if (group.image)
+        {
+            [self.imageViewGroupImage setImageWithURL:group.image];
+        }
+        else
+        {
+            self.imageViewGroupImage.image = group.imageHardcode;
+        }
         [self addSubview:self.imageViewGroupImage];
     }
     
