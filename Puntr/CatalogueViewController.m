@@ -7,11 +7,16 @@
 //
 
 #import "CatalogueViewController.h"
+#import "CategoriesManager.h"
 #import "CollectionManager.h"
 #import "UIViewController+Puntr.h"
 
+static const CGFloat TNWidthScreen = 320.0f;
+static const CGFloat TNHeightCategories = 35.0f;
+
 @interface CatalogueViewController ()
 
+@property (nonatomic, strong) CategoriesManager *categoriesManager;
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
 @end
@@ -28,9 +33,26 @@
     [self addBalanceButton];
     [self addFilterButton];
     
+    // Categories
+    self.categoriesManager = [CategoriesManager manager];
+    UICollectionView *collectionViewCategories = self.categoriesManager.collectionView;
+    collectionViewCategories.frame = CGRectMake(
+                                                   0.0f,
+                                                   0.0f,
+                                                   TNWidthScreen,
+                                                   TNHeightCategories
+                                               );
+    [self.view addSubview:collectionViewCategories];
+    
+    // Groups & Events
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueEvents modifierObject:nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
-    collectionView.frame = self.frame;
+    collectionView.frame = CGRectMake(
+                                         0.0f,
+                                         TNHeightCategories,
+                                         TNWidthScreen,
+                                         CGRectGetHeight(self.frame) - TNHeightCategories
+                                     );
     [self.view addSubview:collectionView];
 }
 
@@ -39,17 +61,7 @@
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
-}
-
-- (void)addFilterButton
-{
-    UIButton *buttonFilter = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [buttonFilter setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
-    [buttonFilter setImage:[UIImage imageNamed:@"IconFilter"] forState:UIControlStateNormal];
-    [buttonFilter setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
-    [buttonFilter addTarget:self action:@selector(touchedButtonFilter) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonFilter];
-    self.navigationItem.leftBarButtonItem = settingsItem;
+    [self.categoriesManager reloadData];
 }
 
 @end
