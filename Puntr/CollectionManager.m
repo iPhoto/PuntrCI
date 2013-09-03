@@ -16,6 +16,7 @@
 #import "PagingModel.h"
 
 static const CGFloat TNScreenWidth = 320.0f;
+static const NSUInteger TNCatalogueLeadLimit = 3;
 
 static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
@@ -31,6 +32,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @property (nonatomic) BOOL loading;
+
+@property (nonatomic) NSUInteger groupsCount;
+@property (nonatomic) NSUInteger groupsLoaded;
+@property (nonatomic, strong) NSArray *groups;
+@property (nonatomic, strong) NSMutableArray *groupsData;
 
 @end
 
@@ -50,8 +56,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     self = [super init];
     if (self)
     {
-        _paging = [[PagingModel alloc] init];
-        [_paging firstPage];
+        _groupsData = [NSMutableArray array];
         _collectionType = collectionType;
         _modifierObject = object;
         [self prepareCollectionView];
@@ -118,6 +123,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             case CollectionTypeAwards:
                 [self loadAwards];
                 break;
+            
+            case CollectionTypeCatalogueEvents:
+                [self loadGroups];
+                break;
                 
             case CollectionTypeEventStakes:
                 [self loadStakes];
@@ -149,35 +158,6 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     }
 }
 
-- (void)loadMyStakes
-{
-    [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
-        {
-            [self combineWithData:stakes];
-        }
-        failure:^
-        {
-            [self finishLoading];
-        }
-    ];
-}
-
-- (void)loadStakes
-{
-    EventModel *event = (EventModel *)self.modifierObject;
-    [[ObjectManager sharedManager] stakesForEvent:event
-                                           paging:self.paging
-                                          success:^(NSArray *stakes)
-                                          {
-                                              [self combineWithData:stakes];
-                                          }
-                                          failure:^
-                                          {
-                                              [self finishLoading];
-                                          }
-    ];
-}
-
 - (void)loadActivities
 {
     UserModel *user = (UserModel *)self.modifierObject;
@@ -191,6 +171,114 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                              {
                                                  [self finishLoading];
                                              }
+    ];
+}
+
+- (void)loadAwards
+{
+    
+    AwardModel *award = [[AwardModel alloc] init];
+    award.title = @"award1";
+    award.description = @"blah blah balah";
+    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
+    
+    AwardModel *award1 = [[AwardModel alloc] init];
+    award1.title = @"award2";
+    award1.description = @"award2 description";
+    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
+    
+    AwardModel *award2 = [[AwardModel alloc] init];
+    award2.title = @"award3";
+    award2.description = @"award3 description";
+    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
+    
+    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
+    [self combineWithData:awards];
+    
+    //    UserModel *user = (UserModel *)self.modifierObject;
+    //    [[ObjectManager sharedManager] awardsForUser:user
+    //                                          paging:self.paging
+    //                                         success:^(NSArray *awards)
+    //                                         {
+    //                                            [self combineWithData:awards];
+    //                                         }
+    //                                         failure:nil
+    //     ];
+}
+
+- (void)loadCatalogueEvents
+{
+    NSMutableArray *groupsData = [NSMutableArray array];
+    for (NSArray *data in self.groupsData)
+    {
+        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        [groupsData addObject:group];
+        [groupsData addObjectsFromArray:data];
+    }
+    
+    self.collectionData = [groupsData copy];
+
+    [self.collectionView reloadData];
+    
+    [self finishLoading];
+}
+
+- (void)loadGroups
+{
+    self.groupsLoaded = 0;
+    self.groupsCount = 0;
+    self.groups = nil;
+    [self.groupsData removeAllObjects];
+    
+    [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
+        {
+            self.groupsCount = groups.count;
+            self.groups = groups;
+            [self.groupsData addObjectsFromArray:groups];
+            
+            PagingModel *paging = [PagingModel paging];
+            [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
+            [paging firstPage];
+            
+            for (GroupModel *group in groups)
+            {
+                FilterModel *filter = [FilterModel filter];
+                filter.group = group;
+                [[ObjectManager sharedManager] eventsWithPaging:paging
+                                                         filter:filter
+                                                        success:^(NSArray *events)
+                                                        {
+                                                            self.groupsLoaded++;
+                                                            [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                            if (self.groupsLoaded == self.groupsCount)
+                                                            {
+                                                                [self loadCatalogueEvents];
+                                                            }
+                                                        }
+                                                        failure:^
+                                                        {
+                                                            [self finishLoading];
+                                                        }
+                ];
+            }
+        }
+        failure:^
+        {
+            [self finishLoading];
+        }
+    ];
+}
+
+- (void)loadMyStakes
+{
+    [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
+        {
+            [self combineWithData:stakes];
+        }
+        failure:^
+        {
+            [self finishLoading];
+        }
     ];
 }
 
@@ -234,6 +322,22 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
+- (void)loadStakes
+{
+    EventModel *event = (EventModel *)self.modifierObject;
+    [[ObjectManager sharedManager] stakesForEvent:event
+                                           paging:self.paging
+                                          success:^(NSArray *stakes)
+                                          {
+                                              [self combineWithData:stakes];
+                                          }
+                                          failure:^
+                                          {
+                                              [self finishLoading];
+                                          }
+    ];
+}
+
 - (void)loadSubscriptions
 {
     UserModel *user = (UserModel *)self.modifierObject;
@@ -250,41 +354,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
-- (void)loadAwards
-{
-    
-    AwardModel *award = [[AwardModel alloc] init];
-    award.title = @"award1";
-    award.description = @"blah blah balah";
-    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
-
-    AwardModel *award1 = [[AwardModel alloc] init];
-    award1.title = @"award2";
-    award1.description = @"award2 description";
-    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
-
-    AwardModel *award2 = [[AwardModel alloc] init];
-    award2.title = @"award3";
-    award2.description = @"award3 description";
-    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
-    
-    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
-    [self combineWithData:awards];
-    
-//    UserModel *user = (UserModel *)self.modifierObject;
-//    [[ObjectManager sharedManager] awardsForUser:user
-//                                          paging:self.paging
-//                                         success:^(NSArray *awards)
-//                                         {
-//                                            [self combineWithData:awards];
-//                                         }
-//                                         failure:nil
-//     ];
-}
-
 - (void)combineWithData:(NSArray *)newData
 {
-    if (newData.count) {
+    if (newData.count)
+    {
         BOOL finalData = (NSInteger)newData.count < self.paging.limit.integerValue;
         NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
         NSMutableArray *oldData = [NSMutableArray arrayWithArray:self.collectionData];
