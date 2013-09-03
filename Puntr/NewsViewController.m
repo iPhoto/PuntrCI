@@ -15,6 +15,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 @interface NewsViewController ()
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
+@property (nonatomic, strong) UILabel *labelSorryText;
 
 @end
 
@@ -34,11 +35,21 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             CGRectGetWidth(applicationFrame),
                                             CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
-    
+
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeNews modifierObject:nil];
+    self.collectionManager.collectionManagerDelegate = self;
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = viewControllerFrame;
     [self.view addSubview:collectionView];
+    
+    self.labelSorryText = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, CGRectGetWidth(viewControllerFrame) - 40, CGRectGetHeight(viewControllerFrame) - 80)];
+    [self.labelSorryText setTextAlignment:NSTextAlignmentCenter];
+    [self.labelSorryText setText:@"sorry =( \nno news for you"];
+    [self.labelSorryText setNumberOfLines:0];
+    [self.labelSorryText setLineBreakMode:NSLineBreakByWordWrapping];
+    [self.labelSorryText setTextColor:[UIColor whiteColor]];
+    [self.labelSorryText setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:self.labelSorryText];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,6 +57,18 @@ static const CGFloat TNItemSpacing = 12.0f;
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
+}
+
+- (void)collectionUpdatedWhithNumberofCells:(int) count
+{
+    if(count == 0)
+    {
+        self.labelSorryText.hidden = NO;
+    }
+    else
+    {
+        self.labelSorryText.hidden = YES;
+    }
 }
 
 @end

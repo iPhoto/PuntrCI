@@ -14,6 +14,7 @@
 @optional
 
 - (void)collectionViewDidSelectCellWithModel:(NSObject *)model;
+- (void)collectionUpdatedWhithNumberofCells:(int) count;
 
 @end
 
