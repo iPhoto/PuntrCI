@@ -14,6 +14,10 @@
 @property (nonatomic, strong) NSURL *image;
 @property (nonatomic, strong) NSString *slug;
 
+@property (nonatomic, strong) UIImage *imageHardcode;
+
++ (GroupModel *)group;
+
 - (NSDictionary *)parameters;
 
 @end

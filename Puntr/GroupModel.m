@@ -10,6 +10,11 @@
 
 @implementation GroupModel
 
++ (GroupModel *)group
+{
+    return [[self alloc] init];
+}
+
 - (NSDictionary *)parameters
 {
     if (self.slug)
