@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CatalogueViewController : UICollectionViewController <UISearchBarDelegate>
+@interface CatalogueViewController : UIViewController
 
 @end
