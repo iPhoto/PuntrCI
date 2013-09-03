@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSArray *categories;
 @property (nonatomic, strong) GroupModel *group;
 
++ (FilterModel *)filter;
+
 - (NSDictionary *)parameters;
 
 @end

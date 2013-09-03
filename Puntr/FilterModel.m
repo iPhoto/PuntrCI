@@ -10,6 +10,11 @@
 
 @implementation FilterModel
 
++ (FilterModel *)filter
+{
+    return [[self alloc] init];
+}
+
 - (NSDictionary *)parameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
