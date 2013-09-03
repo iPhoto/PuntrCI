@@ -197,15 +197,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewMoney)
     
     // Participant
-    for (UIImageView *logo in self.participantLogos) {
-        [logo removeFromSuperview];
-    }
-    [self.participantLogos removeAllObjects];
-    
-    for (UILabel *title in self.participantTitles) {
-        [title removeFromSuperview];
-    }
-    [self.participantTitles removeAllObjects];
+    [self cleanArray:self.participantLogos];
+    [self cleanArray:self.participantTitles];
     
     // Privacy and Push
     TNRemove(self.labelDynamicSelectionTitle)
@@ -229,11 +222,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     // Miscelanouos
     TNRemove(self.imageViewBanner)
-    for (UIImageView *imageView in self.delimiters)
-    {
-        [imageView removeFromSuperview];
-    }
-    [self.delimiters removeAllObjects];
+    [self cleanArray:self.delimiters];
     
 }
 
@@ -1348,6 +1337,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
         topController = [(UITabBarController *)topController selectedViewController];
     }
     return topController;
+}
+
+- (void)cleanArray:(NSMutableArray *)array
+{
+    for (UIView *view in array) {
+        [view removeFromSuperview];
+    }
+    [array removeAllObjects];
 }
 
 @end
