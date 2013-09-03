@@ -208,6 +208,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadCatalogueEvents
 {
+    // Groups with Events
     NSMutableArray *groupsData = [NSMutableArray array];
     for (NSArray *data in self.groupsData)
     {
@@ -215,6 +216,13 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         [groupsData addObject:group];
         [groupsData addObjectsFromArray:data];
     }
+    
+    // Tournaments
+    GroupModel *groupTournaments = [GroupModel group];
+    groupTournaments.slug = KeyTournaments;
+    groupTournaments.title = @"Турниры";
+    groupTournaments.imageHardcode = [UIImage imageNamed:@"sectionTournaments"];
+    [groupsData addObject:groupTournaments];
     
     self.collectionData = [groupsData copy];
 
