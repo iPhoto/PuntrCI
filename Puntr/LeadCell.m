@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "LeadButton.h"
 #import "LeadCell.h"
+#import "LeadManager.h"
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
@@ -76,6 +78,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelGroupTitle;
 @property (nonatomic, strong) UIImageView *imageViewGroupImage;
 
+// Lead Buttons
+@property (nonatomic, strong) NSMutableArray *leadButtons;
+
 // Line
 @property (nonatomic, strong) UILabel *labelLineTitle;
 
@@ -123,6 +128,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self = [super initWithFrame:frame];
     if (self) {
         _delimiters = [NSMutableArray array];
+        _leadButtons = [NSMutableArray array];
         _participantLogos = [NSMutableArray array];
         _participantTitles = [NSMutableArray array];
     }
@@ -176,6 +182,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Group
     TNRemove(self.labelGroupTitle)
     TNRemove(self.imageViewGroupImage)
+    
+    // Lead Buttons
+    [self cleanArray:self.leadButtons];
     
     // Line
     TNRemove(self.labelLineTitle)
@@ -1179,6 +1188,27 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self makeFinal:final];
 }
 
+- (void)placeButtonForObject:(NSObject *)object frame:(CGRect)frame
+{
+    LeadButton *button = [LeadButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    button.model = object;
+    [button addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    if (self.buttonEventStake)
+    {
+        [self insertSubview:button belowSubview:self.buttonEventStake];
+    }
+    else if (self.buttonSubscribe)
+    {
+        [self insertSubview:button belowSubview:self.buttonSubscribe];
+    }
+    else
+    {
+        [self addSubview:button];
+    }
+    [self.leadButtons addObject:button];
+}
+
 - (void)whiteCell
 {
     self.backgroundColor = [UIColor whiteColor];
@@ -1221,6 +1251,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
 }
 
 #pragma mark - Actions
+
+- (void)buttonLeadTouched:(LeadButton *)button
+{
+    LeadManager *manager = [LeadManager manager];
+    [manager actionOnModel:button.model];
+}
 
 - (void)openStake
 {
