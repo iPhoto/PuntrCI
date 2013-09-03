@@ -26,6 +26,7 @@
 		0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40906E17C230DB001CC23F /* UpdateProfileViewController.m */; };
 		0F559FE017D62BE500BC9EA0 /* ArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F559FDE17D62BE400BC9EA0 /* ArrowDown.png */; };
 		0F559FE117D62BE500BC9EA0 /* ArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F559FDF17D62BE500BC9EA0 /* ArrowDown@2x.png */; };
+		0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F559FE317D635EC00BC9EA0 /* SocialModel.m */; };
 		0FA5FC8317AFC25000352827 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8117AFC22F00352827 /* Social.framework */; };
 		0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8417AFCC5600352827 /* Accounts.framework */; };
 		0FA5FC9A17B237C700352827 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5FC8A17B237C700352827 /* LICENSE */; };
@@ -368,6 +369,8 @@
 		0F40906E17C230DB001CC23F /* UpdateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateProfileViewController.m; sourceTree = "<group>"; };
 		0F559FDE17D62BE400BC9EA0 /* ArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowDown.png; sourceTree = "<group>"; };
 		0F559FDF17D62BE500BC9EA0 /* ArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowDown@2x.png"; sourceTree = "<group>"; };
+		0F559FE217D635EC00BC9EA0 /* SocialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialModel.h; sourceTree = "<group>"; };
+		0F559FE317D635EC00BC9EA0 /* SocialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialModel.m; sourceTree = "<group>"; };
 		0FA5FC8117AFC22F00352827 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		0FA5FC8417AFCC5600352827 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		0FA5FC8A17B237C700352827 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -1438,6 +1441,8 @@
 				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
+				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
+				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
 				31EA773517BCB7480060DFCC /* SubscriberModel.m */,
 				31EA773717BCBA5F0060DFCC /* SubscriptionModel.h */,
@@ -1957,6 +1962,7 @@
 				31D2A39D17CC8C81005D683E /* SubscriptionsViewController.m in Sources */,
 				31C16A0517CCA4DE0014C32E /* NSURL+Puntr.m in Sources */,
 				3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */,
+				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
