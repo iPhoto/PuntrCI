@@ -131,7 +131,7 @@
 		31752135176F335F007CCD82 /* logoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752131176F335F007CCD82 /* logoTitle.png */; };
 		31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752132176F335F007CCD82 /* logoTitle@2x.png */; };
 		3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF6B178ABAF4001B2DD1 /* SearchCell.m */; };
-		3180CF6F178AD955001B2DD1 /* CategoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF6E178AD955001B2DD1 /* CategoriesCell.m */; };
+		3180CF6F178AD955001B2DD1 /* CategoriesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF6E178AD955001B2DD1 /* CategoriesManager.m */; };
 		3180CF72178AE489001B2DD1 /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF70178AE489001B2DD1 /* clear.png */; };
 		3180CF73178AE489001B2DD1 /* clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF71178AE489001B2DD1 /* clear@2x.png */; };
 		3180CF79178B286A001B2DD1 /* categoryNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF75178B2869001B2DD1 /* categoryNormal.png */; };
@@ -511,8 +511,8 @@
 		31752132176F335F007CCD82 /* logoTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTitle@2x.png"; sourceTree = "<group>"; };
 		3180CF6A178ABAF4001B2DD1 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		3180CF6B178ABAF4001B2DD1 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
-		3180CF6D178AD955001B2DD1 /* CategoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesCell.h; sourceTree = "<group>"; };
-		3180CF6E178AD955001B2DD1 /* CategoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesCell.m; sourceTree = "<group>"; };
+		3180CF6D178AD955001B2DD1 /* CategoriesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesManager.h; sourceTree = "<group>"; };
+		3180CF6E178AD955001B2DD1 /* CategoriesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesManager.m; sourceTree = "<group>"; };
 		3180CF70178AE489001B2DD1 /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
 		3180CF71178AE489001B2DD1 /* clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear@2x.png"; sourceTree = "<group>"; };
 		3180CF75178B2869001B2DD1 /* categoryNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = categoryNormal.png; sourceTree = "<group>"; };
@@ -1319,6 +1319,8 @@
 				31E3E7A01754E24900B09DAD /* AppDelegate.h */,
 				31E3E7A11754E24900B09DAD /* AppDelegate.m */,
 				314D429B17C5DF860078E931 /* Categories */,
+				3180CF6D178AD955001B2DD1 /* CategoriesManager.h */,
+				3180CF6E178AD955001B2DD1 /* CategoriesManager.m */,
 				31EA773D17BD16CC0060DFCC /* CollectionManager.h */,
 				31EA773E17BD16CD0060DFCC /* CollectionManager.m */,
 				D6B02FA217D29A3C00968563 /* CollectionManagerDelegate.h */,
@@ -1346,8 +1348,6 @@
 				31EF4AE51799941800F27702 /* AmountView.m */,
 				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
 				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
-				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
-				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
 				3180CF7E178B29F1001B2DD1 /* CategoryCell.m */,
 				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
@@ -1869,7 +1869,7 @@
 				31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */,
 				31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */,
 				3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */,
-				3180CF6F178AD955001B2DD1 /* CategoriesCell.m in Sources */,
+				3180CF6F178AD955001B2DD1 /* CategoriesManager.m in Sources */,
 				3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */,
 				765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */,
 				7611C7BA178FA99E00356455 /* StakeModel.m in Sources */,
