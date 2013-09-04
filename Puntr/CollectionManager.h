@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object;
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(id)object;
 
 #pragma mark - Configured CollectionView
 

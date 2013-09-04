@@ -20,7 +20,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @interface CollectionManager ()
 
 @property (nonatomic) CollectionType collectionType;
-@property (nonatomic, strong) NSObject *modifierObject;
+@property (nonatomic, strong) id modifierObject;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
@@ -41,14 +41,14 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(id)object
 {
-    return [[CollectionManager alloc] initWithType:collectionType modifierObject:(NSObject *)object];
+    return [[CollectionManager alloc] initWithType:collectionType modifierObject:(id)object];
 }
 
 #pragma mark - Initialization
 
-- (id)initWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
+- (id)initWithType:(CollectionType)collectionType modifierObject:(id)object
 {
     self = [super init];
     if (self)
@@ -404,7 +404,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LeadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TNLeadCellReuseIdentifier forIndexPath:indexPath];
-    NSObject *model = self.collectionData[indexPath.row];
+    id model = self.collectionData[indexPath.row];
     if ([model isMemberOfClass:[LoadModel class]])
     {
         [self loadData];
@@ -423,7 +423,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSObject *model = self.collectionData[indexPath.row];
+    id model = self.collectionData[indexPath.row];
     if ([self.collectionManagerDelegate respondsToSelector:@selector(collectionViewDidSelectCellWithModel:)])
     {
         [self.collectionManagerDelegate collectionViewDidSelectCellWithModel:model];

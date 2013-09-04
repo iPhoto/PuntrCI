@@ -13,7 +13,7 @@
 
 @optional
 
-- (void)collectionViewDidSelectCellWithModel:(NSObject *)model;
+- (void)collectionViewDidSelectCellWithModel:(id)model;
 
 @end
 

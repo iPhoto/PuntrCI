@@ -119,7 +119,7 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Subscriptions
 
-- (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
+- (void)subscribeFor:(id)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 - (void)unsubscribeFrom:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure;
 

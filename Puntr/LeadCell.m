@@ -41,8 +41,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic) CGFloat usedHeight;
 @property (nonatomic) CGFloat usedWidth;
 @property (nonatomic) BOOL blackBackground;
-@property (nonatomic, strong) NSObject *model;
-@property (nonatomic, strong) NSObject *submodel;
+@property (nonatomic, strong) id model;
+@property (nonatomic, strong) id submodel;
 
 // Activity
 @property (nonatomic, strong) UILabel *labelActivityCreatedAt;
@@ -228,7 +228,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - Size Calculation
 
-+ (CGSize)sizeForModel:(NSObject *)model
++ (CGSize)sizeForModel:(id)model
 {
     LeadCell *cell = [[self alloc] init];
     cell.usedWidth = TNWidthCell;
@@ -238,7 +238,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - General Loading
 
-- (void)loadWithModel:(NSObject *)model
+- (void)loadWithModel:(id)model
 {
     self.model = model;
     
@@ -1177,7 +1177,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self makeFinal:final];
 }
 
-- (void)placeButtonForObject:(NSObject *)object frame:(CGRect)frame
+- (void)placeButtonForObject:(id)object frame:(CGRect)frame
 {
     LeadButton *button = [LeadButton buttonWithType:UIButtonTypeCustom];
     button.frame = frame;

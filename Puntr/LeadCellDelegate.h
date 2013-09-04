@@ -12,6 +12,6 @@
 
 @optional
 - (void)reloadData;
-- (void)actionOnModel:(NSObject *)model;
+- (void)actionOnModel:(id)model;
 
 @end

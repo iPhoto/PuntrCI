@@ -10,6 +10,6 @@
 
 @interface LeadButton : UIButton
 
-@property (nonatomic, strong) NSObject *model;
+@property (nonatomic, strong) id model;
 
 @end
