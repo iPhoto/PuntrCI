@@ -16,7 +16,7 @@
 
 + (void)showError:(NSError *)error
 {
-    [self showError:error forViewController:[self topController]];
+    [self showError:error forViewController:[PuntrUtilities mainNavigationController]];
 }
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController
@@ -55,7 +55,7 @@
 {
     if (message)
     {
-        [self showNotificationMessage:message forViewController:[self topController]];
+        [self showNotificationMessage:message forViewController:[PuntrUtilities mainNavigationController]];
     }
 }
 
@@ -71,7 +71,7 @@
 
 + (void)showSuccessMessage:(NSString *)message
 {
-    [self showSuccessMessage:message forViewController:[self topController]];
+    [self showSuccessMessage:message forViewController:[PuntrUtilities mainNavigationController]];
 }
 
 + (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
@@ -80,18 +80,6 @@
                                       withTitle:@"Поздравляем!"
                                     withMessage:message
                                        withType:TSMessageNotificationTypeSuccess];
-}
-
-#pragma mark - Top Controller
-
-+ (UIViewController *)topController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([topController isKindOfClass:[UITabBarController class]])
-    {
-        topController = [(UITabBarController *)topController selectedViewController];
-    }
-    return topController;
 }
 
 @end
