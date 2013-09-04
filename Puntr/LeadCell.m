@@ -114,6 +114,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UIButton *buttonTournament;
 
 // User
+@property (nonatomic, strong) UserModel *user;
 @property (nonatomic, strong) UILabel *labelUserName;
 @property (nonatomic, strong) UIImageView *imageViewUserAvatar;
 
@@ -219,6 +220,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewTournamentArrow)
     
     // User
+    self.user = nil;
     TNRemove(self.labelUserName)
     TNRemove(self.imageViewUserAvatar)
     
@@ -330,6 +332,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadWithComment:(CommentModel *)comment
 {
     self.event = comment.event;
+    self.user = comment.user;
     [self displayUser:comment.user message:comment.message final:YES];
 }
 
@@ -383,6 +386,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     BOOL loginedUser = [stake.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
     if (!loginedUser)
     {
+        self.user = stake.user;
         [self displayUser:stake.user message:nil final:NO];
     }
     self.event = stake.event;
@@ -1171,6 +1175,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     [self addSubview:self.labelUserName];
     
+    CGFloat minY = self.usedHeight;
+    
     self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.imageViewUserAvatar.frame));
     
     // Message
@@ -1190,6 +1196,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
         
         self.usedHeight = fmax(CGRectGetMaxY(self.labelUserName.frame), CGRectGetMaxY(self.labelCommentMessage.frame));
     }
+    
+    [self placeButtonForObject:self.user frame:CGRectMake(0.0f, minY, TNWidthCell, self.usedHeight + TNMarginGeneral - minY)];
     
     [self makeFinal:final];
 }
