@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Parametrization.h"
+#import "SocialModel.h"
 
 @interface UserModel : NSObject <NSCopying, Parametrization>
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong, readonly) NSNumber *badgesCount;
 @property (nonatomic, strong, readonly) NSNumber *winCount;
 @property (nonatomic, strong, readonly) NSNumber *lossCount;
+@property (nonatomic, strong) SocialModel *socials;
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;

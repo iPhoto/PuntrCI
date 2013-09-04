@@ -300,6 +300,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
         {
             UserModel *profile = (UserModel *)mappingResult.firstObject;
             NSLog(@"ProfileName: %@", profile.firstName);
+            NSLog(@"socials\n fb: %@\ntw: %@\nvk: %@", profile.socials.facebook, profile.socials.twitter, profile.socials.vk);
             [self.imageViewAvatar setImageWithURL:[profile.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
             [self showStars:profile.rating.intValue];
             [self.labelName setText:profile.firstName];

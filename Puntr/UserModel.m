@@ -7,7 +7,6 @@
 //
 
 #import "UserModel.h"
-#import "SocialModel.h"
 
 @interface UserModel ()
 
@@ -19,7 +18,6 @@
 @property (nonatomic, strong) NSNumber *badgesCount;
 @property (nonatomic, strong) NSNumber *winCount;
 @property (nonatomic, strong) NSNumber *lossCount;
-@property (nonatomic, strong) SocialModel *socials;
 
 @end
 
