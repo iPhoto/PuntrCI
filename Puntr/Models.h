@@ -37,6 +37,7 @@
 #import "PasswordModel.h"
 #import "PrivacySettingsModel.h"
 #import "PushSettingsModel.h"
+#import "SocialModel.h"
 #import "StakeModel.h"
 #import "SubscriberModel.h"
 #import "SubscriptionModel.h"

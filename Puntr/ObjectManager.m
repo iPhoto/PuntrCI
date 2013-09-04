@@ -71,6 +71,7 @@
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *privacyMapping = [RKObjectMapping mappingForClass:[PrivacySettingsModel class]];
     RKObjectMapping *pushMapping = [RKObjectMapping mappingForClass:[PushSettingsModel class]];
+    RKObjectMapping *socialsMaping = [RKObjectMapping mappingForClass:[SocialModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
@@ -289,6 +290,10 @@
                                                                                                                keyPath:KeyStakes
                                                                                                            statusCodes:statusCodeOK];
     
+    //Socials
+    [socialsMaping addAttributeMappingsFromArray:@[KeyFacebook, KeyTwitter, KeyVKontakte]];
+    
+    
     // Subscriber
     RKRelationshipMapping *subscriberUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     [subscriberMapping addPropertyMapping:subscriberUserRelationship];
@@ -327,6 +332,8 @@
     
     // User
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeySubscribed, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
+    RKRelationshipMapping *userSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
+    [userMapping addPropertyMapping:userSocialsRelationship];
     RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
                                                                                                 method:RKRequestMethodGET
                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
