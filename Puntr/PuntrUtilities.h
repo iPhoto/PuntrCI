@@ -6,10 +6,12 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface PuntrUtilities : NSObject
 
-+ (NSString *)formattedDate:(NSDate *)date;
++ (UINavigationController *)mainNavigationController;
+
++ (UIViewController *)topController;
 
 @end
