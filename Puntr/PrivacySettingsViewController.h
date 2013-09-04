@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger, DynamicSelction)
 {
     DynamicSelctionPrivacy,
-    DynamicSelctionPush
+    DynamicSelctionPush,
+    DynamicSelctionSocials
 };
 
 @interface PrivacySettingsViewController : UIViewController

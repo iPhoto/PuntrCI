@@ -191,7 +191,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                                  @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched" },
                               ],
                              @[
-                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"performSelector": @"socialsTouched" },
                                  //@{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
                                  @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched"},
                                  @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched" },
@@ -313,6 +313,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPush] animated:YES];
 }
+
+- (void)socialsTouched
+{
+    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionSocials] animated:YES];
+}
+
 #pragma mark - ActionSheet
 
 - (void)showExitDialog

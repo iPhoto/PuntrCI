@@ -294,6 +294,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithTournament:(TournamentModel *)model];
     }
+    else if ([model isMemberOfClass:[DynamicSelectionModel class]])
+    {
+        [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
+    }
 }
 
 #pragma mark -
@@ -580,23 +584,37 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                       );
     self.labelDynamicSelectionTitle.text = dynamicSelection.title;
     [self addSubview:self.labelDynamicSelectionTitle];
+    if(dynamicSelection.description != nil)
+    {
+        self.labelDynamicSelectionDescription = [UILabel labelSmallBold:NO black:YES];
+        CGSize descriptionSize = [dynamicSelection.description sizeWithFont:self.labelDynamicSelectionDescription.font forWidth:TNWidthCell - TNMarginGeneral * 2.0f lineBreakMode:NSLineBreakByWordWrapping];
+        self.labelDynamicSelectionDescription.frame = CGRectMake(
+                                                                 TNMarginGeneral,
+                                                                 CGRectGetMaxY(self.switchDynamicSelection.frame) + TNMarginGeneral,
+                                                                 descriptionSize.width,
+                                                                 descriptionSize.height
+                                                                 );
+        
+        self.labelDynamicSelectionDescription.text = dynamicSelection.description;
+        [self.labelDynamicSelectionDescription setNumberOfLines:0];
+        [self.labelDynamicSelectionDescription setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.labelDynamicSelectionDescription sizeToFit];
+        [self addSubview:self.labelDynamicSelectionDescription];
+        
+        self.usedHeight = CGRectGetMaxY(self.labelDynamicSelectionDescription.frame);
+    }
+    else
+    {
+        
+        self.labelDynamicSelectionTitle.frame = CGRectMake(
+                                                           TNMarginGeneral,
+                                                           CGRectGetMinY(self.switchDynamicSelection.frame) + (CGRectGetHeight(self.switchDynamicSelection.frame) - TNHeightText)/2,
+                                                           CGRectGetMinX(self.switchDynamicSelection.frame) - TNMarginGeneral,
+                                                           TNHeightText
+                                                           );
+        self.usedHeight = CGRectGetMaxY(self.switchDynamicSelection.frame);
+    }
     
-    self.labelDynamicSelectionDescription = [UILabel labelSmallBold:NO black:YES];
-    CGSize descriptionSize = [dynamicSelection.description sizeWithFont:self.labelDynamicSelectionDescription.font forWidth:TNWidthCell - TNMarginGeneral * 2.0f lineBreakMode:NSLineBreakByWordWrapping];
-    self.labelDynamicSelectionDescription.frame = CGRectMake(
-                                                             TNMarginGeneral,
-                                                             CGRectGetMaxY(self.switchDynamicSelection.frame) + TNMarginGeneral,
-                                                             descriptionSize.width,
-                                                             descriptionSize.height
-                                                            );
-    
-    self.labelDynamicSelectionDescription.text = dynamicSelection.description;
-    [self.labelDynamicSelectionDescription setNumberOfLines:0];
-    [self.labelDynamicSelectionDescription setLineBreakMode:NSLineBreakByWordWrapping];
-    [self.labelDynamicSelectionDescription sizeToFit];
-    [self addSubview:self.labelDynamicSelectionDescription];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelDynamicSelectionDescription.frame);
     
     [self makeFinal:YES];
     

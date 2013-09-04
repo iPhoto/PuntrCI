@@ -57,6 +57,14 @@
         }
             break;
             
+        case DynamicSelctionSocials:
+        {
+            self.title = @"Соц. сети";
+            
+            self.collectionManager = [CollectionManager managerWithType:CollectionTypeSocialsSettings modifierObject:nil];
+        }
+            break;
+            
         default:
             break;
     }
