@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "LeadManager.h"
 #import "EventModel.h"
+#import "EventsViewController.h"
 #import "EventViewController.h"
-#import "UserViewController.h"
+#import "GroupModel.h"
+#import "LeadManager.h"
 #import "UserModel.h"
+#import "UserViewController.h"
 
 @implementation LeadManager
 
@@ -32,6 +34,13 @@
         if (![self isVisible:[UserViewController class]])
         {
             [[PuntrUtilities mainNavigationController] pushViewController:[[UserViewController alloc] initWithUser:(UserModel *)model] animated:YES];
+        }
+    }
+    else if ([model isMemberOfClass:[GroupModel class]])
+    {
+        if (![self isVisible:[EventsViewController class]])
+        {
+            [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model] animated:YES];
         }
     }
 }
