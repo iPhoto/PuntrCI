@@ -24,6 +24,9 @@
 		0F40906917BE25C4001CC23F /* IconSettings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40906717BE25A4001CC23F /* IconSettings@2x.png */; };
 		0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */; };
 		0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40906E17C230DB001CC23F /* UpdateProfileViewController.m */; };
+		0F559FE017D62BE500BC9EA0 /* ArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F559FDE17D62BE400BC9EA0 /* ArrowDown.png */; };
+		0F559FE117D62BE500BC9EA0 /* ArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F559FDF17D62BE500BC9EA0 /* ArrowDown@2x.png */; };
+		0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F559FE317D635EC00BC9EA0 /* SocialModel.m */; };
 		0FA5FC8317AFC25000352827 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8117AFC22F00352827 /* Social.framework */; };
 		0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5FC8417AFCC5600352827 /* Accounts.framework */; };
 		0FA5FC9A17B237C700352827 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5FC8A17B237C700352827 /* LICENSE */; };
@@ -56,6 +59,8 @@
 		0FAFC4F917CB8B4700735D0C /* PushSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */; };
 		0FAFC4FB17D09FF200735D0C /* puntrIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */; };
 		0FAFC4FD17D09FFA00735D0C /* puntrIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */; };
+		0FAFC50417D5D5A900735D0C /* unsubscribe.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC50217D5D5A900735D0C /* unsubscribe.png */; };
+		0FAFC50517D5D5A900735D0C /* unsubscribe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */; };
 		1DD68B8017D379C200EBCBC8 /* icon_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7A17D379C200EBCBC8 /* icon_fb.png */; };
 		1DD68B8117D379C200EBCBC8 /* icon_fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7B17D379C200EBCBC8 /* icon_fb@2x.png */; };
 		1DD68B8217D379C200EBCBC8 /* icon_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7C17D379C200EBCBC8 /* icon_tw.png */; };
@@ -365,6 +370,10 @@
 		0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateProfileViewController.h; sourceTree = "<group>"; };
 		0F40906E17C230DB001CC23F /* UpdateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateProfileViewController.m; sourceTree = "<group>"; };
+		0F559FDE17D62BE400BC9EA0 /* ArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowDown.png; sourceTree = "<group>"; };
+		0F559FDF17D62BE500BC9EA0 /* ArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowDown@2x.png"; sourceTree = "<group>"; };
+		0F559FE217D635EC00BC9EA0 /* SocialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialModel.h; sourceTree = "<group>"; };
+		0F559FE317D635EC00BC9EA0 /* SocialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialModel.m; sourceTree = "<group>"; };
 		0FA5FC8117AFC22F00352827 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		0FA5FC8417AFCC5600352827 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		0FA5FC8A17B237C700352827 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -424,6 +433,8 @@
 		0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingsModel.m; sourceTree = "<group>"; };
 		0FAFC4FA17D09FF200735D0C /* puntrIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "puntrIcon@2x.png"; path = "../puntrIcon@2x.png"; sourceTree = "<group>"; };
 		0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = puntrIcon.png; path = ../puntrIcon.png; sourceTree = "<group>"; };
+		0FAFC50217D5D5A900735D0C /* unsubscribe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unsubscribe.png; sourceTree = "<group>"; };
+		0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unsubscribe@2x.png"; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1DD68B7A17D379C200EBCBC8 /* icon_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_fb.png; sourceTree = "<group>"; };
 		1DD68B7B17D379C200EBCBC8 /* icon_fb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fb@2x.png"; sourceTree = "<group>"; };
@@ -996,6 +1007,8 @@
 			children = (
 				31EF4AEF1799AB1C00F27702 /* area.png */,
 				31EF4AF01799AB1C00F27702 /* area@2x.png */,
+				0F559FDE17D62BE400BC9EA0 /* ArrowDown.png */,
+				0F559FDF17D62BE500BC9EA0 /* ArrowDown@2x.png */,
 				310A9CF9178EEECB006D9C8A /* BarDown.png */,
 				310A9CFA178EEECB006D9C8A /* BarDown@2x.png */,
 				1DD68B9617D37A2500EBCBC8 /* bottom_active.png */,
@@ -1153,6 +1166,8 @@
 				1DD68B8F17D37A0800EBCBC8 /* top_active@2x.png */,
 				1DD68B9017D37A0800EBCBC8 /* top.png */,
 				1DD68B9117D37A0800EBCBC8 /* top@2x.png */,
+				0FAFC50217D5D5A900735D0C /* unsubscribe.png */,
+				0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1356,6 +1371,8 @@
 				31EF4AE51799941800F27702 /* AmountView.m */,
 				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
 				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
+				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
+				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
 				3180CF7E178B29F1001B2DD1 /* CategoryCell.m */,
 				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
@@ -1441,6 +1458,8 @@
 				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
+				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
+				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
 				31EA773517BCB7480060DFCC /* SubscriberModel.m */,
 				31EA773717BCBA5F0060DFCC /* SubscriptionModel.h */,
@@ -1789,6 +1808,10 @@
 				1DD68BA317D397C600EBCBC8 /* login@2x.png in Resources */,
 				1DD68BA417D397C600EBCBC8 /* registration.png in Resources */,
 				1DD68BA517D397C600EBCBC8 /* registration@2x.png in Resources */,
+				0FAFC50417D5D5A900735D0C /* unsubscribe.png in Resources */,
+				0FAFC50517D5D5A900735D0C /* unsubscribe@2x.png in Resources */,
+				0F559FE017D62BE500BC9EA0 /* ArrowDown.png in Resources */,
+				0F559FE117D62BE500BC9EA0 /* ArrowDown@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1959,6 +1982,7 @@
 				31FB102B17D48DBF0020E901 /* LoadModel.m in Sources */,
 				76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */,
 				76FCB9B217D636FB00183109 /* LeadButton.m in Sources */,
+				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

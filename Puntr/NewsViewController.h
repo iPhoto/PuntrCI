@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectionManagerDelegate.h"
 
-@interface NewsViewController : UIViewController
+@interface NewsViewController : UIViewController<CollectionManagerDelegate>
 
 @end

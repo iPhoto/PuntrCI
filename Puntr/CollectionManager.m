@@ -293,6 +293,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           success:^(NSArray *news)
                                           {
                                               [self combineWithData:news];
+                                              [self.collectionManagerDelegate collectionUpdatedWhithNumberofCells:news.count];
                                           }
                                           failure:^
                                           {

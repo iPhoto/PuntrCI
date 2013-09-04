@@ -125,7 +125,7 @@ NSString *const KeyType = @"type";
 NSString *const KeyUser = @"user";
 NSString *const KeyUsername = @"username";
 NSString *const KeyValue = @"value";
-NSString *const KeyVKontakte = @"vKontakte";
+NSString *const KeyVKontakte = @"vk";
 NSString *const KeyWinCount = @"winCount";
 
 @end

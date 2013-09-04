@@ -218,7 +218,7 @@ static const CGFloat TNItemSpacing = 12.0f;
                                            success:^
      {
          [self updateToSubscribed:NO];
-         [NotificationManager showSuccessMessage:@"Вы отписались от событие!"];
+         [NotificationManager showSuccessMessage:@"Вы отписались от события!"];
      }
                                            failure:nil];
 }
@@ -228,6 +228,11 @@ static const CGFloat TNItemSpacing = 12.0f;
     SEL subscribeMethod = subscribed ? @selector(unsubscribe) : @selector(subscribe);
     SEL previuosMethod = subscribed ? @selector(subscribe) : @selector(unsubscribe);
     NSString *subscribeTitle = subscribed ? @"Отписаться" : @"Подписаться";
+    
+    NSString *subscribeImage = subscribed ? @"unsubscribe" : @"ButtonDark";
+    CGFloat subscribeImageInset = subscribed ? 7.0f : 8.0f;
+    
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:subscribeImage] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, subscribeImageInset, 0.0f, subscribeImageInset)] forState:UIControlStateNormal];
     
     [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
     [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
