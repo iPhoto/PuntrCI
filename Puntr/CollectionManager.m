@@ -125,6 +125,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadGroups];
                 break;
                 
+            case CollectionTypeEvents:
+                [self loadEvents];
+                break;
+                
             case CollectionTypeEventStakes:
                 [self loadStakes];
                 break;
@@ -226,6 +230,24 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [self.collectionView reloadData];
     
     [self finishLoading];
+}
+
+- (void)loadEvents
+{
+    GroupModel *group = (GroupModel *)self.modifierObject;
+    FilterModel *filter = [FilterModel filter];
+    filter.group = group;
+    [[ObjectManager sharedManager] eventsWithPaging:self.paging
+                                             filter:filter
+                                            success:^(NSArray *events)
+                                            {
+                                                [self combineWithData:events];
+                                            }
+                                            failure:^
+                                            {
+                                                [self finishLoading];
+                                            }
+    ];
 }
 
 - (void)loadGroups
