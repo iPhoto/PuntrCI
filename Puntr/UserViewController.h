@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.h
+//  UserViewController.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 14.06.13.
@@ -10,7 +10,7 @@
 
 @class UserModel;
 
-@interface ProfileViewController : UIViewController
+@interface UserViewController : UIViewController
 
 - (id)initWithUser:(UserModel *)user;
 

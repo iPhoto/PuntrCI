@@ -190,7 +190,7 @@
 		31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueViewController.m */; };
 		31B112A5176B5D6100060EAB /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* NewsViewController.m */; };
 		31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* MyStakesViewController.m */; };
-		31B112AB176B5DDC00060EAB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* ProfileViewController.m */; };
+		31B112AB176B5DDC00060EAB /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* UserViewController.m */; };
 		31B3E7451774996300AEFDF5 /* ErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B3E7441774996300AEFDF5 /* ErrorModel.m */; };
 		31C16A0517CCA4DE0014C32E /* NSURL+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C16A0417CCA4DE0014C32E /* NSURL+Puntr.m */; };
 		31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C1858217BA3489003049D0 /* RKRelationshipMapping+Convenience.m */; };
@@ -589,8 +589,8 @@
 		31B112A4176B5D6100060EAB /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		31B112A6176B5DAD00060EAB /* MyStakesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStakesViewController.h; sourceTree = "<group>"; };
 		31B112A7176B5DAD00060EAB /* MyStakesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStakesViewController.m; sourceTree = "<group>"; };
-		31B112A9176B5DDC00060EAB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		31B112AA176B5DDC00060EAB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		31B112A9176B5DDC00060EAB /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		31B112AA176B5DDC00060EAB /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		31B3E7431774996300AEFDF5 /* ErrorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorModel.h; sourceTree = "<group>"; };
 		31B3E7441774996300AEFDF5 /* ErrorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorModel.m; sourceTree = "<group>"; };
 		31C16A0317CCA4DE0014C32E /* NSURL+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Puntr.h"; sourceTree = "<group>"; };
@@ -1299,8 +1299,8 @@
 				0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */,
 				0FAFC4E817C4E1FF00735D0C /* PrivacySettingsViewController.h */,
 				0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */,
-				31B112A9176B5DDC00060EAB /* ProfileViewController.h */,
-				31B112AA176B5DDC00060EAB /* ProfileViewController.m */,
+				31B112A9176B5DDC00060EAB /* UserViewController.h */,
+				31B112AA176B5DDC00060EAB /* UserViewController.m */,
 				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
 				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
 				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
@@ -1371,8 +1371,8 @@
 				31EF4AE51799941800F27702 /* AmountView.m */,
 				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
 				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
-				3180CF6D178AD955001B2DD1 /* CategoriesCell.h */,
-				3180CF6E178AD955001B2DD1 /* CategoriesCell.m */,
+				3180CF6D178AD955001B2DD1 /* CategoriesManager.h */,
+				3180CF6E178AD955001B2DD1 /* CategoriesManager.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
 				3180CF7E178B29F1001B2DD1 /* CategoryCell.m */,
 				31D9F150179EA81A00C8AC17 /* ComponentPicker.h */,
@@ -1889,7 +1889,7 @@
 				31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */,
 				31B112A5176B5D6100060EAB /* NewsViewController.m in Sources */,
 				31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */,
-				31B112AB176B5DDC00060EAB /* ProfileViewController.m in Sources */,
+				31B112AB176B5DDC00060EAB /* UserViewController.m in Sources */,
 				319403201771C221009F0DBE /* TextField.m in Sources */,
 				31F47E1D177318090047ECCF /* ObjectManager.m in Sources */,
 				31F47E2017731A910047ECCF /* EventModel.m in Sources */,

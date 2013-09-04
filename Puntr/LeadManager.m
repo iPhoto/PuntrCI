@@ -9,7 +9,7 @@
 #import "LeadManager.h"
 #import "EventModel.h"
 #import "EventViewController.h"
-#import "ProfileViewController.h"
+#import "UserViewController.h"
 #import "UserModel.h"
 
 @implementation LeadManager
@@ -29,9 +29,9 @@
     }
     else if ([model isMemberOfClass:[UserModel class]])
     {
-        if (![self isVisible:[ProfileViewController class]])
+        if (![self isVisible:[UserViewController class]])
         {
-            [[PuntrUtilities mainNavigationController] pushViewController:[[ProfileViewController alloc] initWithUser:(UserModel *)model] animated:YES];
+            [[PuntrUtilities mainNavigationController] pushViewController:[[UserViewController alloc] initWithUser:(UserModel *)model] animated:YES];
         }
     }
 }
