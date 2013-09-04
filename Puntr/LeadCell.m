@@ -76,6 +76,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UIButton *buttonEventStake;
 
 // Group
+@property (nonatomic, strong) GroupModel *group;
 @property (nonatomic, strong) UILabel *labelGroupTitle;
 @property (nonatomic, strong) UIImageView *imageViewGroupImage;
 
@@ -183,6 +184,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.buttonEventStake)
     
     // Group
+    self.group = nil;
     TNRemove(self.labelGroupTitle)
     TNRemove(self.imageViewGroupImage)
     
@@ -261,6 +263,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[GroupModel class]])
     {
+        self.group = (GroupModel *)model;
         [self blackCell];
         [self displayGroup:(GroupModel *)model final:YES];
     }
@@ -642,6 +645,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self displayArrow];
     
     self.usedHeight += TNGroupTitleMargin - TNMarginGeneral;
+    
+    CGRect frameGroup = CGRectMake(0.0f, 0.0f, TNWidthCell, self.usedHeight + TNMarginGeneral);
+    [self placeButtonForObject:self.group frame:frameGroup];
     
     [self makeFinal:final];
 }
