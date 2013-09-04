@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.m
+//  UserViewController.m
 //  Puntr
 //
 //  Created by Eugene Tulushev on 14.06.13.
@@ -9,7 +9,7 @@
 #import "CollectionManager.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "ProfileViewController.h"
+#import "UserViewController.h"
 #import "SettingsViewController.h"
 #import "SubscriptionsViewController.h"
 #import "UIViewController+Puntr.h"
@@ -25,7 +25,7 @@
 static const CGFloat TNItemSpacing = 12.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
 
-@interface ProfileViewController ()
+@interface UserViewController ()
 
 @property (nonatomic, strong) UserModel *user;
 
@@ -56,7 +56,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
 
 @end
 
-@implementation ProfileViewController
+@implementation UserViewController
 
 - (id)initWithUser:(UserModel *)user
 {

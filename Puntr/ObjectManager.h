@@ -71,26 +71,6 @@ typedef void (^User)(UserModel *user);
                  success:(Events)success
                  failure:(EmptyFailure)failure;
 
-#pragma mark - Events Compatibility
-
-- (void)eventsWithFilter:(FilterModel *)filter
-                  paging:(PagingModel *)paging
-                 success:(Events)success
-                 failure:(EmptyFailure)failure;
-
-- (void)eventsForGroup:(NSString *)group
-                 limit:(NSNumber *)limit
-               success:(ObjectRequestSuccess)success
-               failure:(ObjectRequestFailure)failure;
-
-- (void)eventsForGroup:(NSString *)group
-                filter:(NSArray *)categoryTags
-                search:(NSString *)search
-                 limit:(NSNumber *)limit
-                  page:(NSNumber *)page
-               success:(ObjectRequestSuccess)success
-               failure:(ObjectRequestFailure)failure;
-
 #pragma mark - Groups
 
 - (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure;

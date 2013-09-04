@@ -10,12 +10,12 @@
 #import "NewsNavigationController.h"
 #import "CatalogueNavigationController.h"
 #import "MyStakesNavigationController.h"
-#import "ProfileNavigationController.h"
+#import "UserNavigationController.h"
 
 #import "NewsViewController.h"
 #import "CatalogueViewController.h"
 #import "MyStakesViewController.h"
-#import "ProfileViewController.h"
+#import "UserViewController.h"
 
 @interface TabBarViewController ()
 
@@ -32,7 +32,7 @@
                                          [[NewsNavigationController alloc] initWithRootViewController:[[NewsViewController alloc] init]],
                                          [[CatalogueNavigationController alloc] initWithRootViewController:[[CatalogueViewController alloc] init]],
                                          [[MyStakesNavigationController alloc] initWithRootViewController:[[MyStakesViewController alloc] init]],
-                                         [[ProfileNavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]]
+                                         [[UserNavigationController alloc] initWithRootViewController:[[UserViewController alloc] init]]
                                     ];
         [self setViewControllers:viewControllers animated:YES];
         [self setSelectedIndex:0];
