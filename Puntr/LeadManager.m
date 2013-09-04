@@ -7,6 +7,8 @@
 //
 
 #import "LeadManager.h"
+#import "EventModel.h"
+#import "EventViewController.h"
 
 @implementation LeadManager
 
@@ -15,9 +17,19 @@
     return [[self alloc] init];
 }
 
-- (void)actionOnModel:(NSObject *)model
+- (void)actionOnModel:(id)model
 {
-    NSLog(@"Action on Model: %@", NSStringFromClass([model class]));
+    if ([model isMemberOfClass:[EventModel class]])
+    {
+        if (![self isVisible:[EventViewController class]]) {
+            [[PuntrUtilities mainNavigationController] pushViewController:[[EventViewController alloc] initWithEvent:(EventModel *)model] animated:YES];
+        }
+    }
+}
+
+- (BOOL)isVisible:(Class)viewControllerClass
+{
+    return [[PuntrUtilities topController] isMemberOfClass:viewControllerClass];
 }
 
 @end
