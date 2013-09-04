@@ -124,6 +124,7 @@
 		315A60FE17B2898C0010756F /* PagingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FD17B2898C0010756F /* PagingModel.m */; };
 		3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */; };
 		316765E617D7628600634FBE /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316765E517D7628600634FBE /* EventsViewController.m */; };
+		316765E917D7722000634FBE /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316765E817D7722000634FBE /* TournamentsViewController.m */; };
 		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
 		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
 		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
@@ -513,6 +514,8 @@
 		3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Puntr.m"; sourceTree = "<group>"; };
 		316765E417D7628600634FBE /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
 		316765E517D7628600634FBE /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		316765E717D7722000634FBE /* TournamentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentsViewController.h; sourceTree = "<group>"; };
+		316765E817D7722000634FBE /* TournamentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
 		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -1338,6 +1341,8 @@
 				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
 				31D2A39B17CC8C81005D683E /* SubscriptionsViewController.h */,
 				31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */,
+				316765E717D7722000634FBE /* TournamentsViewController.h */,
+				316765E817D7722000634FBE /* TournamentsViewController.m */,
 				D6B449BE17B66272000B9F5E /* TournamentViewController.h */,
 				D6B449BF17B66272000B9F5E /* TournamentViewController.m */,
 				0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */,
@@ -1995,6 +2000,7 @@
 				76FCB9B217D636FB00183109 /* LeadButton.m in Sources */,
 				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
 				316765E617D7628600634FBE /* EventsViewController.m in Sources */,
+				316765E917D7722000634FBE /* TournamentsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

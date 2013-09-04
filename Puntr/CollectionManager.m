@@ -125,6 +125,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadGroups];
                 break;
                 
+            case CollectionTypeCatalogueTournaments:
+                [self loadGroups];
+                break;
+                
             case CollectionTypeEvents:
                 [self loadEvents];
                 break;
@@ -236,6 +240,23 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [self finishLoading];
 }
 
+- (void)loadCatalogueTournaments
+{
+    // Groups with Tournaments
+    NSMutableArray *groupsData = [NSMutableArray array];
+    for (NSArray *data in self.groupsData)
+    {
+        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        [groupsData addObject:group];
+        [groupsData addObjectsFromArray:data];
+    }
+    self.collectionData = [groupsData copy];
+    
+    [self.collectionView reloadData];
+    
+    [self finishLoading];
+}
+
 - (void)loadEvents
 {
     GroupModel *group = (GroupModel *)self.modifierObject;
@@ -275,22 +296,44 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             {
                 FilterModel *filter = [FilterModel filter];
                 filter.group = group;
-                [[ObjectManager sharedManager] eventsWithPaging:paging
-                                                         filter:filter
-                                                        success:^(NSArray *events)
-                                                        {
-                                                            self.groupsLoaded++;
-                                                            [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
-                                                            if (self.groupsLoaded == self.groupsCount)
+                if (self.collectionType == CollectionTypeCatalogueEvents)
+                {
+                    [[ObjectManager sharedManager] eventsWithPaging:paging
+                                                             filter:filter
+                                                            success:^(NSArray *events)
                                                             {
-                                                                [self loadCatalogueEvents];
+                                                                self.groupsLoaded++;
+                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                if (self.groupsLoaded == self.groupsCount)
+                                                                {
+                                                                    [self loadCatalogueEvents];
+                                                                }
                                                             }
-                                                        }
-                                                        failure:^
-                                                        {
-                                                            [self finishLoading];
-                                                        }
-                ];
+                                                            failure:^
+                                                            {
+                                                                [self finishLoading];
+                                                            }
+                    ];
+                }
+                else if (self.collectionType == CollectionTypeCatalogueTournaments)
+                {
+                    [[ObjectManager sharedManager] tournamentsWithPaging:paging
+                                                                  filter:filter
+                                                                 success:^(NSArray *events)
+                                                                 {
+                                                                     self.groupsLoaded++;
+                                                                     [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                     if (self.groupsLoaded == self.groupsCount)
+                                                                     {
+                                                                         [self loadCatalogueTournaments];
+                                                                     }
+                                                                 }
+                                                                 failure:^
+                                                                 {
+                                                                     [self finishLoading];
+                                                                 }
+                    ];
+                }
             }
         }
         failure:^
