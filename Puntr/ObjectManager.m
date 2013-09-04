@@ -803,7 +803,7 @@
 
 #pragma mark - Subscriptions
 
-- (void)subscribeFor:(NSObject *)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)subscribeFor:(id)object success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
     [self postObject:object
                 path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]

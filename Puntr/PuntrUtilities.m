@@ -7,15 +7,35 @@
 //
 
 #import "PuntrUtilities.h"
-#import <FormatterKit/TTTTimeIntervalFormatter.h>
 
 @implementation PuntrUtilities
 
-+ (NSString *)formattedDate:(NSDate *)date
++ (UINavigationController *)mainNavigationController
 {
-    TTTTimeIntervalFormatter *formatter = [[TTTTimeIntervalFormatter alloc] init];
-    formatter.usesAbbreviatedCalendarUnits = YES;
-    return [formatter stringForTimeIntervalFromDate:[NSDate date] toDate:date];
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([topController isKindOfClass:[UITabBarController class]])
+    {
+        UINavigationController *mainNavigationController = (UINavigationController *)[(UITabBarController *)topController selectedViewController];
+        return mainNavigationController;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
++ (UIViewController *)topController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([topController isKindOfClass:[UITabBarController class]])
+    {
+        topController = [(UITabBarController *)topController selectedViewController];
+    }
+    if ([topController isKindOfClass:[UINavigationController class]])
+    {
+        topController = [(UINavigationController *)topController visibleViewController];
+    }
+    return topController;
 }
 
 @end

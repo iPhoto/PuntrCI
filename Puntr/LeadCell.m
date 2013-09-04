@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "LeadButton.h"
 #import "LeadCell.h"
+#import "LeadManager.h"
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
@@ -39,8 +41,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic) CGFloat usedHeight;
 @property (nonatomic) CGFloat usedWidth;
 @property (nonatomic) BOOL blackBackground;
-@property (nonatomic, strong) NSObject *model;
-@property (nonatomic, strong) NSObject *submodel;
+@property (nonatomic, strong) id model;
+@property (nonatomic, strong) id submodel;
 
 // Activity
 @property (nonatomic, strong) UILabel *labelActivityCreatedAt;
@@ -66,6 +68,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelComponentCombined;
 
 // Event
+@property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong) UILabel *labelEventStartEndTime;
 @property (nonatomic, strong) UIImageView *imageViewEventLive;
 @property (nonatomic, strong) UIImageView *imageViewEventStakesCount;
@@ -76,8 +79,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelGroupTitle;
 @property (nonatomic, strong) UIImageView *imageViewGroupImage;
 
+// Lead Buttons
+@property (nonatomic, strong) NSMutableArray *leadButtons;
+
 // Line
 @property (nonatomic, strong) UILabel *labelLineTitle;
+
+// Loading
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 // Money
 @property (nonatomic, strong) UILabel *labelMoneyAmount;
@@ -120,6 +129,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self = [super initWithFrame:frame];
     if (self) {
         _delimiters = [NSMutableArray array];
+        _leadButtons = [NSMutableArray array];
         _participantLogos = [NSMutableArray array];
         _participantTitles = [NSMutableArray array];
     }
@@ -135,6 +145,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.blackBackground = NO;
     self.model = nil;
     self.submodel = nil;
+    
+    self.backgroundColor = [UIColor clearColor];
+    self.layer.cornerRadius = 0.0;
+    self.layer.masksToBounds = NO;
     
     // Activity
     TNRemove(self.labelActivityCreatedAt)
@@ -160,6 +174,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.labelComponentCombined)
     
     // Event
+    self.event = nil;
     TNRemove(self.labelEventStartEndTime)
     TNRemove(self.imageViewEventLive)
     TNRemove(self.imageViewEventStakesCount)
@@ -170,23 +185,22 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.labelGroupTitle)
     TNRemove(self.imageViewGroupImage)
     
+    // Lead Buttons
+    [self cleanArray:self.leadButtons];
+    
     // Line
     TNRemove(self.labelLineTitle)
+    
+    // Loading
+    TNRemove(self.activityIndicator)
     
     // Money
     TNRemove(self.labelMoneyAmount)
     TNRemove(self.imageViewMoney)
     
     // Participant
-    for (UIImageView *logo in self.participantLogos) {
-        [logo removeFromSuperview];
-    }
-    [self.participantLogos removeAllObjects];
-    
-    for (UILabel *title in self.participantTitles) {
-        [title removeFromSuperview];
-    }
-    [self.participantTitles removeAllObjects];
+    [self cleanArray:self.participantLogos];
+    [self cleanArray:self.participantTitles];
     
     // Privacy and Push
     TNRemove(self.labelDynamicSelectionTitle)
@@ -210,17 +224,13 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     // Miscelanouos
     TNRemove(self.imageViewBanner)
-    for (UIImageView *imageView in self.delimiters)
-    {
-        [imageView removeFromSuperview];
-    }
-    [self.delimiters removeAllObjects];
+    [self cleanArray:self.delimiters];
     
 }
 
 #pragma mark - Size Calculation
 
-+ (CGSize)sizeForModel:(NSObject *)model
++ (CGSize)sizeForModel:(id)model
 {
     LeadCell *cell = [[self alloc] init];
     cell.usedWidth = TNWidthCell;
@@ -230,7 +240,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - General Loading
 
-- (void)loadWithModel:(NSObject *)model
+- (void)loadWithModel:(id)model
 {
     self.model = model;
     
@@ -251,6 +261,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self blackCell];
         [self displayGroup:(GroupModel *)model final:YES];
+    }
+    else if ([model isMemberOfClass:[LoadModel class]])
+    {
+        [self displayLoading];
     }
     else if ([model isMemberOfClass:[NewsModel class]])
     {
@@ -315,6 +329,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithComment:(CommentModel *)comment
 {
+    self.event = comment.event;
     [self displayUser:comment.user message:comment.message final:YES];
 }
 
@@ -329,6 +344,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithEvent:(EventModel *)event
 {
+    self.event = event;
     self.submodel = event;
     if (event.banner) {
         [self displayBanner:event.banner];
@@ -369,6 +385,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self displayUser:stake.user message:nil final:NO];
     }
+    self.event = stake.event;
     [self displayTournament:stake.event.tournament arrow:YES final:NO];
     [self displayCategory:stake.event.tournament.category];
     [self displayParticipants:stake.event.participants final:NO];
@@ -401,6 +418,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if (subscription.event)
     {
+        self.event = subscription.event;
         self.submodel = subscription.event;
         [self displaySubscribedForObject:self.submodel];
         [self displayCategory:subscription.event.tournament.category];
@@ -494,6 +512,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.imageViewBanner setImageWithURL:[banner URLByAppendingSize:sizeBanner]];
     [self addSubview:self.imageViewBanner];
     
+    [self placeButtonForObject:self.event frame:self.imageViewBanner.frame];
+    
     self.usedHeight = CGRectGetMaxY(self.imageViewBanner.frame);
 }
 
@@ -526,7 +546,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelCategoryTitle.text = category.title;
     [self addSubview:self.labelCategoryTitle];
     
-    self.usedHeight = CGRectGetMaxY(self.labelCategoryTitle.frame);
+    CGFloat maxY = CGRectGetMaxY(self.labelCategoryTitle.frame);
+    [self placeButtonForObject:self.event maxY:maxY];
+    
+    self.usedHeight = maxY;
 }
 
 - (void)displayDynamicSelection:(DynamicSelectionModel *)dynamicSelection
@@ -578,7 +601,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNGroupImageMargin = (TNGroupHeight - TNSideImageMedium) / 2.0f;
     CGFloat TNGroupTitleMargin = (TNGroupHeight - TNHeightText) / 2.0f;
     
-    BOOL hasImage = group.image ? YES : NO;
+    BOOL hasImage = group.image || group.imageHardcode ? YES : NO;
     if (hasImage)
     {
         self.imageViewGroupImage = [[UIImageView alloc] init];
@@ -588,7 +611,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        TNSideImageMedium,
                                                        TNSideImageMedium
                                                    );
-        [self.imageViewGroupImage setImageWithURL:group.image];
+        if (group.image)
+        {
+            [self.imageViewGroupImage setImageWithURL:group.image];
+        }
+        else
+        {
+            self.imageViewGroupImage.image = group.imageHardcode;
+        }
         [self addSubview:self.imageViewGroupImage];
     }
     
@@ -675,6 +705,23 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.usedHeight = CGRectGetMaxY(self.labelCoefficientValue.frame);
     
     [self makeFinal:final];
+}
+
+- (void)displayLoading
+{
+    CGFloat TNSideActivityIndicator = 20.0f;
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.frame = CGRectMake(
+                                                 (TNWidthCell - TNSideActivityIndicator) / 2.0f,
+                                                 self.usedHeight + TNMarginGeneral,
+                                                 TNSideActivityIndicator,
+                                                 TNSideActivityIndicator
+                                             );
+    self.activityIndicator.color = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
+    [self.activityIndicator startAnimating];
+    [self addSubview:self.activityIndicator];
+    
+    self.usedHeight = CGRectGetMaxY(self.activityIndicator.frame);
 }
 
 - (void)displayParticipant:(ParticipantModel *)participant final:(BOOL)final
@@ -832,7 +879,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
         participantIndex++;
     }
     
-    self.usedHeight = CGRectGetMaxY([self.participantTitles.lastObject frame]);
+    CGFloat maxY = CGRectGetMaxY([self.participantTitles.lastObject frame]);
+    [self placeButtonForObject:self.event maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:final];
 }
@@ -1023,12 +1073,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
     [self addSubview:self.labelEventStakesCount];
     
-    self.usedHeight = CGRectGetMaxY(self.labelEventStakesCount.frame);
+    CGFloat maxY = CGRectGetMaxY(self.labelEventStakesCount.frame);
+    [self placeButtonForObject:self.event maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:final];
 }
 
-- (void)displaySubscribedForObject:(NSObject *)object
+- (void)displaySubscribedForObject:(id)object
 {
     self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(
                                                                       TNWidthCell - TNMarginGeneral - TNWidthButtonLarge,
@@ -1141,6 +1194,33 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self makeFinal:final];
 }
 
+- (void)placeButtonForObject:(id)object frame:(CGRect)frame
+{
+    LeadButton *button = [LeadButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    button.model = object;
+    [button addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    if (self.buttonEventStake)
+    {
+        [self insertSubview:button belowSubview:self.buttonEventStake];
+    }
+    else if (self.buttonSubscribe)
+    {
+        [self insertSubview:button belowSubview:self.buttonSubscribe];
+    }
+    else
+    {
+        [self addSubview:button];
+    }
+    [self.leadButtons addObject:button];
+}
+
+- (void)placeButtonForObject:(id)object maxY:(CGFloat)maxY
+{
+    CGRect frame = CGRectBetween(self.usedHeight, maxY);
+    [self placeButtonForObject:self.event frame:frame];
+}
+
 - (void)whiteCell
 {
     self.backgroundColor = [UIColor whiteColor];
@@ -1184,11 +1264,17 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - Actions
 
+- (void)buttonLeadTouched:(LeadButton *)button
+{
+    LeadManager *manager = [LeadManager manager];
+    [manager actionOnModel:button.model];
+}
+
 - (void)openStake
 {
     StakeViewController *stakeViewController = [[StakeViewController alloc] initWithEvent:(EventModel *)self.submodel];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stakeViewController];
-    [[self topController] presentViewController:navigationController animated:YES completion:nil];
+    [[PuntrUtilities mainNavigationController] presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)subscribe
@@ -1266,14 +1352,17 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - Utility
 
-- (UIViewController *)topController
+CGRect CGRectBetween(CGFloat minY, CGFloat maxY)
 {
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([topController isKindOfClass:[UITabBarController class]])
-    {
-        topController = [(UITabBarController *)topController selectedViewController];
+    return CGRectMake(0.0f, minY, TNWidthCell, maxY - minY);
+}
+
+- (void)cleanArray:(NSMutableArray *)array
+{
+    for (UIView *view in array) {
+        [view removeFromSuperview];
     }
-    return topController;
+    [array removeAllObjects];
 }
 
 @end

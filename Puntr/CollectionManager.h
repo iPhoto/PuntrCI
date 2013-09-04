@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LeadCell.h"
+#import "LeadCellDelegate.h"
 #import "CollectionManagerDelegate.h"
 
 typedef NS_ENUM(NSInteger, CollectionType)
 {
     CollectionTypeActivities,
     CollectionTypeAwards,
+    CollectionTypeCatalogueEvents,
     CollectionTypeEventStakes,
     CollectionTypeMyStakes,
     CollectionTypeNews,
@@ -24,11 +25,11 @@ typedef NS_ENUM(NSInteger, CollectionType)
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
 
-@property (nonatomic, weak) id<CollectionManagerDelegate> collectionManagerDelegate;
+@property (nonatomic, weak) id <CollectionManagerDelegate> collectionManagerDelegate;
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object;
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(id)object;
 
 #pragma mark - Configured CollectionView
 

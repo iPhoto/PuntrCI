@@ -11,6 +11,7 @@
 @interface UIViewController (Puntr)
 
 - (void)addBalanceButton;
+- (void)addFilterButton;
 - (void)updateBalance;
 - (CGRect)frame;
 

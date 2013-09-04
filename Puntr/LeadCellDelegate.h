@@ -10,6 +10,8 @@
 
 @protocol LeadCellDelegate <NSObject>
 
+@optional
 - (void)reloadData;
+- (void)actionOnModel:(id)model;
 
 @end

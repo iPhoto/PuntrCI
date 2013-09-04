@@ -63,7 +63,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)collectionViewDidSelectCellWithModel:(NSObject *)model {
+- (void)collectionViewDidSelectCellWithModel:(id)model {
     [self.navigationController pushViewController:[[AwardViewController alloc] initWithAward:(AwardModel *)model] animated:YES];
 }
 

@@ -13,8 +13,8 @@
 
 @property (nonatomic, weak) id <LeadCellDelegate> delegate;
 
-+ (CGSize)sizeForModel:(NSObject *)model;
++ (CGSize)sizeForModel:(id)model;
 
-- (void)loadWithModel:(NSObject *)model;
+- (void)loadWithModel:(id)model;
 
 @end

@@ -7,22 +7,20 @@
 //
 
 #import "CollectionManager.h"
-//#import "EventModel.h"
-//#import "LeadCell.h"
-
+#import "LeadCell.h"
 #import "Models.h"
-
 #import "ObjectManager.h"
 #import "PagingModel.h"
 
 static const CGFloat TNScreenWidth = 320.0f;
+static const NSUInteger TNCatalogueLeadLimit = 3;
 
 static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 @interface CollectionManager ()
 
 @property (nonatomic) CollectionType collectionType;
-@property (nonatomic, strong) NSObject *modifierObject;
+@property (nonatomic, strong) id modifierObject;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
@@ -30,26 +28,32 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (nonatomic) BOOL loading;
+
+@property (nonatomic) NSUInteger groupsCount;
+@property (nonatomic) NSUInteger groupsLoaded;
+@property (nonatomic, strong) NSArray *groups;
+@property (nonatomic, strong) NSMutableArray *groupsData;
+
 @end
 
 @implementation CollectionManager
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(id)object
 {
-    return [[CollectionManager alloc] initWithType:collectionType modifierObject:(NSObject *)object];
+    return [[CollectionManager alloc] initWithType:collectionType modifierObject:(id)object];
 }
 
 #pragma mark - Initialization
 
-- (id)initWithType:(CollectionType)collectionType modifierObject:(NSObject *)object
+- (id)initWithType:(CollectionType)collectionType modifierObject:(id)object
 {
     self = [super init];
     if (self)
     {
-        _paging = [[PagingModel alloc] init];
-        [_paging firstPage];
+        _groupsData = [NSMutableArray array];
         _collectionType = collectionType;
         _modifierObject = object;
         [self prepareCollectionView];
@@ -87,49 +91,187 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)reloadData
 {
     self.collectionData = nil;
-    [self.paging firstPage];
+    self.paging = nil;
     [self loadData];
 }
 
 - (void)loadData
 {
-    switch (self.collectionType)
+    if (!self.loading)
     {
-        case CollectionTypeActivities:
-            [self loadActivities];
-            break;
+        self.loading = YES;
+        
+        if (!self.paging)
+        {
+            self.paging = [PagingModel paging];
+            [self.paging firstPage];
+        }
+        else
+        {
+            [self.paging nextPage];
+        }
+        
+        switch (self.collectionType)
+        {
+            case CollectionTypeActivities:
+                [self loadActivities];
+                break;
+                
+            case CollectionTypeAwards:
+                [self loadAwards];
+                break;
             
-        case CollectionTypeAwards:
-            [self loadAwards];
-            break;
-            
-        case CollectionTypeEventStakes:
-            [self loadStakes];
-            break;
-            
-        case CollectionTypeMyStakes:
-            [self loadMyStakes];
-            break;
-            
-        case CollectionTypeNews:
-            [self loadNews];
-            break;
-            
-        case CollectionTypeSubscriptions:
-            [self loadSubscriptions];
-            break;
-            
-        case CollectionTypePrivacySettings:
-            [self loadPrivacySettings];
-            break;
-            
-        case CollectionTypePushSettinds:
-            [self loadPushSettings];
-            break;
-            
-        default:
-            break;
+            case CollectionTypeCatalogueEvents:
+                [self loadGroups];
+                break;
+                
+            case CollectionTypeEventStakes:
+                [self loadStakes];
+                break;
+                
+            case CollectionTypeMyStakes:
+                [self loadMyStakes];
+                break;
+                
+            case CollectionTypeNews:
+                [self loadNews];
+                break;
+                
+            case CollectionTypeSubscriptions:
+                [self loadSubscriptions];
+                break;
+                
+            case CollectionTypePrivacySettings:
+                [self loadPrivacySettings];
+                break;
+                
+            case CollectionTypePushSettinds:
+                [self loadPushSettings];
+                break;
+                
+            default:
+                break;
+        }
     }
+}
+
+- (void)loadActivities
+{
+    UserModel *user = (UserModel *)self.modifierObject;
+    [[ObjectManager sharedManager] activitiesForUser:user
+                                              paging:self.paging
+                                             success:^(NSArray *activities)
+                                             {
+                                                 [self combineWithData:activities];
+                                             }
+                                             failure:^
+                                             {
+                                                 [self finishLoading];
+                                             }
+    ];
+}
+
+- (void)loadAwards
+{
+    
+    AwardModel *award = [[AwardModel alloc] init];
+    award.title = @"award1";
+    award.description = @"blah blah balah";
+    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
+    
+    AwardModel *award1 = [[AwardModel alloc] init];
+    award1.title = @"award2";
+    award1.description = @"award2 description";
+    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
+    
+    AwardModel *award2 = [[AwardModel alloc] init];
+    award2.title = @"award3";
+    award2.description = @"award3 description";
+    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
+    
+    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
+    [self combineWithData:awards];
+    
+    //    UserModel *user = (UserModel *)self.modifierObject;
+    //    [[ObjectManager sharedManager] awardsForUser:user
+    //                                          paging:self.paging
+    //                                         success:^(NSArray *awards)
+    //                                         {
+    //                                            [self combineWithData:awards];
+    //                                         }
+    //                                         failure:nil
+    //     ];
+}
+
+- (void)loadCatalogueEvents
+{
+    // Groups with Events
+    NSMutableArray *groupsData = [NSMutableArray array];
+    for (NSArray *data in self.groupsData)
+    {
+        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        [groupsData addObject:group];
+        [groupsData addObjectsFromArray:data];
+    }
+    
+    // Tournaments
+    GroupModel *groupTournaments = [GroupModel group];
+    groupTournaments.slug = KeyTournaments;
+    groupTournaments.title = @"Турниры";
+    groupTournaments.imageHardcode = [UIImage imageNamed:@"sectionTournaments"];
+    [groupsData addObject:groupTournaments];
+    
+    self.collectionData = [groupsData copy];
+
+    [self.collectionView reloadData];
+    
+    [self finishLoading];
+}
+
+- (void)loadGroups
+{
+    self.groupsLoaded = 0;
+    self.groupsCount = 0;
+    self.groups = nil;
+    [self.groupsData removeAllObjects];
+    
+    [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
+        {
+            self.groupsCount = groups.count;
+            self.groups = groups;
+            [self.groupsData addObjectsFromArray:groups];
+            
+            PagingModel *paging = [PagingModel paging];
+            [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
+            [paging firstPage];
+            
+            for (GroupModel *group in groups)
+            {
+                FilterModel *filter = [FilterModel filter];
+                filter.group = group;
+                [[ObjectManager sharedManager] eventsWithPaging:paging
+                                                         filter:filter
+                                                        success:^(NSArray *events)
+                                                        {
+                                                            self.groupsLoaded++;
+                                                            [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                            if (self.groupsLoaded == self.groupsCount)
+                                                            {
+                                                                [self loadCatalogueEvents];
+                                                            }
+                                                        }
+                                                        failure:^
+                                                        {
+                                                            [self finishLoading];
+                                                        }
+                ];
+            }
+        }
+        failure:^
+        {
+            [self finishLoading];
+        }
+    ];
 }
 
 - (void)loadMyStakes
@@ -140,8 +282,49 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         }
         failure:^
         {
-            [self.refreshControl endRefreshing];
+            [self finishLoading];
         }
+    ];
+}
+
+- (void)loadNews
+{
+    [[ObjectManager sharedManager] newsWithPaging:self.paging
+                                          success:^(NSArray *news)
+                                          {
+                                              [self combineWithData:news];
+                                              [self.collectionManagerDelegate collectionUpdatedWhithNumberofCells:news.count];
+                                          }
+                                          failure:^
+                                          {
+                                              [self finishLoading];
+                                          }
+    ];
+}
+
+- (void)loadPrivacySettings
+{
+    [[ObjectManager sharedManager] privacyWithSuccess:^(NSArray *privacy)
+                                              {
+                                                  [self combineWithData:privacy];
+                                              }
+                                              failure:^
+                                              {
+                                                  [self finishLoading];
+                                              }
+    ];
+}
+
+- (void)loadPushSettings
+{
+    [[ObjectManager sharedManager] pushWithSuccess:^(NSArray *push)
+                                           {
+                                               [self combineWithData:push];
+                                           }
+                                           failure:^
+                                           {
+                                               [self finishLoading];
+                                           }
     ];
 }
 
@@ -156,65 +339,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           }
                                           failure:^
                                           {
-                                              [self.refreshControl endRefreshing];
+                                              [self finishLoading];
                                           }
-    ];
-}
-
-- (void)loadActivities
-{
-    UserModel *user = (UserModel *)self.modifierObject;
-    [[ObjectManager sharedManager] activitiesForUser:user
-                                              paging:self.paging
-                                             success:^(NSArray *activities)
-                                             {
-                                                 [self combineWithData:activities];
-                                             }
-                                             failure:^
-                                             {
-                                                 [self.refreshControl endRefreshing];
-                                             }
-    ];
-}
-
-- (void)loadNews
-{
-    [[ObjectManager sharedManager] newsWithPaging:self.paging
-                                          success:^(NSArray *news)
-                                          {
-                                              [self combineWithData:news];
-                                              [self.collectionManagerDelegate collectionUpdatedWhithNumberofCells:news.count];
-                                          }
-                                          failure:^
-                                          {
-                                              [self.refreshControl endRefreshing];
-                                          }
-    ];
-}
-
-- (void)loadPrivacySettings
-{
-    [[ObjectManager sharedManager] privacyWithSuccess:^(NSArray *privacy)
-                                              {
-                                                  [self combineWithData:privacy];
-                                              }
-                                              failure:^
-                                              {
-                                                  [self.refreshControl endRefreshing];
-                                              }
-    ];
-}
-
-- (void)loadPushSettings
-{
-    [[ObjectManager sharedManager] pushWithSuccess:^(NSArray *push)
-                                           {
-                                               [self combineWithData:push];
-                                           }
-                                           failure:^
-                                           {
-                                               [self.refreshControl endRefreshing];
-                                           }
     ];
 }
 
@@ -229,55 +355,40 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 }
                                                 failure:^
                                                 {
-                                                    [self.refreshControl endRefreshing];
+                                                    [self finishLoading];
                                                 }
     ];
 }
 
-- (void)loadAwards
-{
-    
-    AwardModel *award = [[AwardModel alloc] init];
-    award.title = @"award1";
-    award.description = @"blah blah balah";
-    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
-
-    AwardModel *award1 = [[AwardModel alloc] init];
-    award1.title = @"award2";
-    award1.description = @"award2 description";
-    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
-
-    AwardModel *award2 = [[AwardModel alloc] init];
-    award2.title = @"award3";
-    award2.description = @"award3 description";
-    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
-    
-    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
-    [self combineWithData:awards];
-    
-//    UserModel *user = (UserModel *)self.modifierObject;
-//    [[ObjectManager sharedManager] awardsForUser:user
-//                                          paging:self.paging
-//                                         success:^(NSArray *awards)
-//                                         {
-//                                            [self combineWithData:awards];
-//                                         }
-//                                         failure:nil
-//     ];
-}
-
 - (void)combineWithData:(NSArray *)newData
 {
-    NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
-    [combinedData addObjectsFromArray:self.collectionData];
-    [combinedData addObjectsFromArray:newData];
-    self.collectionData = [combinedData copy];
-    
-    [self.collectionView reloadData];
-     
-    [self.refreshControl endRefreshing];
+    if (newData.count)
+    {
+        BOOL finalData = (NSInteger)newData.count < self.paging.limit.integerValue;
+        NSMutableArray *combinedData = [NSMutableArray arrayWithCapacity:self.collectionData.count + newData.count];
+        NSMutableArray *oldData = [NSMutableArray arrayWithArray:self.collectionData];
+        if ([oldData.lastObject isMemberOfClass:[LoadModel class]])
+        {
+            [oldData removeLastObject];
+        }
+        [combinedData addObjectsFromArray:oldData];
+        [combinedData addObjectsFromArray:newData];
+        if (!finalData)
+        {
+            [combinedData addObject:[[LoadModel alloc] init]];
+        }
+        self.collectionData = [combinedData copy];
+        
+        [self.collectionView reloadData];
+    }
+    [self finishLoading];
 }
 
+- (void)finishLoading
+{
+    self.loading = NO;
+    [self.refreshControl endRefreshing];
+}
 
 #pragma mark - CollectionView DataSource
 
@@ -294,7 +405,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LeadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TNLeadCellReuseIdentifier forIndexPath:indexPath];
-    [cell loadWithModel:self.collectionData[indexPath.row]];
+    id model = self.collectionData[indexPath.row];
+    if ([model isMemberOfClass:[LoadModel class]])
+    {
+        [self loadData];
+    }
+    [cell loadWithModel:model];
     cell.delegate = self;
     return cell;
 }
@@ -308,7 +424,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSObject *model = self.collectionData[indexPath.row];
+    id model = self.collectionData[indexPath.row];
     if ([self.collectionManagerDelegate respondsToSelector:@selector(collectionViewDidSelectCellWithModel:)])
     {
         [self.collectionManagerDelegate collectionViewDidSelectCellWithModel:model];
