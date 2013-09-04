@@ -49,6 +49,7 @@ static const CGFloat TNItemSpacing = 12.0f;
     self.navigationItem.leftBarButtonItem = buttonCancel;
     
     UIBarButtonItem *buttonSend = [[UIBarButtonItem alloc] initWithTitle:@"Отправить" style:UIBarButtonItemStyleBordered target:self action:@selector(sendButtonTouched)];
+    [buttonSend setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     self.navigationItem.rightBarButtonItem = buttonSend;
     
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(TNItemSpacing, TNItemSpacing, CGRectGetWidth(viewControllerFrame)  - (2 * TNItemSpacing), CGRectGetHeight(viewControllerFrame) - (216 + (2 * TNItemSpacing)))];
