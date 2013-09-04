@@ -117,13 +117,11 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Tournaments
 
-- (void)tournamentsForGroup:(NSString *)group
-                     filter:(NSArray *)categoryTags
-                     search:(NSString *)search
-                      limit:(NSNumber *)limit
-                       page:(NSNumber *)page
-                    success:(ObjectRequestSuccess)success
-                    failure:(ObjectRequestFailure)failure;
+
+- (void)tournamentsWithPaging:(PagingModel *)paging
+                       filter:(FilterModel *)filter
+                      success:(Tournaments)success
+                      failure:(EmptyFailure)failure;
 
 #pragma mark - User
 

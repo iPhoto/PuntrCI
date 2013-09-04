@@ -544,6 +544,32 @@
     ];
 }
 
+#pragma mark - Awards
+
+- (void)awardsForUser:(UserModel *)user
+               paging:(PagingModel *)paging
+              success:(Awards)success
+              failure:(EmptyFailure)failure
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
+    if (paging) {
+        [parameters setObject:paging.parameters forKey:KeyPaging];
+    }
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIAwards]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         NSArray *awards = mappingResult.dictionary[KeyAwards];
+         return success(awards);
+     }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self reportWithFailure:failure error:error];
+     }
+     ];
+}
+
 #pragma mark - Categories
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure
@@ -632,67 +658,6 @@
                 [self reportWithFailure:failure error:error];
             }
     ];
-}
-
-#pragma mark - Events Compatibility
-
-- (void)eventsWithFilter:(FilterModel *)filter
-                paging:(PagingModel *)paging
-                 success:(Events)success
-                 failure:(EmptyFailure)failure
-{
-    
-}
-
-- (void)eventsForGroup:(NSString *)group
-                 limit:(NSNumber *)limit
-               success:(ObjectRequestSuccess)success
-               failure:(ObjectRequestFailure)failure
-{
-    [self eventsForGroup:group
-                  filter:nil
-                  search:nil
-                   limit:limit
-                    page:nil
-                 success:success
-                 failure:failure];
-}
-
-- (void)eventsForGroup:(NSString *)group
-                filter:(NSArray *)categoryTags
-                search:(NSString *)search
-                 limit:(NSNumber *)limit
-                  page:(NSNumber *)page
-               success:(ObjectRequestSuccess)success
-               failure:(ObjectRequestFailure)failure
-{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (group)
-    {
-        [parameters setObject:group forKey:KeyGroup];
-    }
-    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0])
-    {
-        [parameters setObject:categoryTags forKey:KeyFilter];
-    }
-    if (search)
-    {
-        [parameters setObject:search forKey:KeySearch];
-    }
-    if (limit)
-    {
-        [parameters setObject:limit forKey:KeyLimit];
-    }
-    if (page && limit)
-    {
-        [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
-    }
-    
-    [self getObject:nil
-               path:APIEvents
-         parameters:parameters
-            success:success
-            failure:failure];
 }
 
 #pragma mark - Groups
@@ -861,84 +826,31 @@
     ];
 }
 
-#pragma mark - Awards
-
-- (void)awardsForUser:(UserModel *)user
-               paging:(PagingModel *)paging
-              success:(Awards)success
-              failure:(EmptyFailure)failure
-{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (paging) {
-        [parameters setObject:paging.parameters forKey:KeyPaging];
-    }
-    [self getObject:nil
-               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIAwards]
-         parameters:parameters
-            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         NSArray *awards = mappingResult.dictionary[KeyAwards];
-         return success(awards);
-     }
-            failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
-}
-
-
 #pragma mark - Tournaments
 
-- (void)tournamentssForGroup:(NSString *)group
-                       limit:(NSNumber *)limit
-                     success:(ObjectRequestSuccess)success
-                     failure:(ObjectRequestFailure)failure
+- (void)tournamentsWithPaging:(PagingModel *)paging
+                       filter:(FilterModel *)filter
+                      success:(Tournaments)success
+                      failure:(EmptyFailure)failure
 {
-    [self tournamentsForGroup:group
-                    filter:nil
-                       search:nil
-                        limit:limit
-                         page:nil
-                      success:success
-                      failure:failure];
-}
-
-- (void)tournamentsForGroup:(NSString *)group
-                     filter:(NSArray *)categoryTags
-                     search:(NSString *)search
-                      limit:(NSNumber *)limit
-                    page:(NSNumber *)page
-                    success:(ObjectRequestSuccess)success
-                    failure:(ObjectRequestFailure)failure
-{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (group)
-    {
-        [parameters setObject:group forKey:KeyGroup];
-    }
-    if (categoryTags && categoryTags.count != 0 && ![categoryTags[0] isEqualToNumber:@0])
-    {
-        [parameters setObject:categoryTags forKey:KeyFilter];
-    }
-    if (search)
-    {
-        [parameters setObject:search forKey:KeySearch];
-    }
-    if (limit)
-    {
-        [parameters setObject:limit forKey:KeyLimit];
-    }
-    if (page && limit)
-    {
-        [parameters setObject:@(page.integerValue * limit.integerValue) forKey:KeyOffset];
-    }
-    
+    NSDictionary *parameters = @{
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null],
+                                    KeyFilter: filter ? filter.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:APITournaments
          parameters:parameters
-            success:success
-            failure:failure];
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *tournaments = mappingResult.dictionary[KeyTournaments];
+                success(tournaments);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - User
