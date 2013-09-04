@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class GroupModel;
+
 @interface EventsViewController : UIViewController
+
++ (EventsViewController *)eventsForGroup:(GroupModel *)group;
 
 @end

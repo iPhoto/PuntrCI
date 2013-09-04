@@ -123,6 +123,7 @@
 		315A60FB17B287AA0010756F /* FilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FA17B287AA0010756F /* FilterModel.m */; };
 		315A60FE17B2898C0010756F /* PagingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 315A60FD17B2898C0010756F /* PagingModel.m */; };
 		3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */; };
+		316765E617D7628600634FBE /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316765E517D7628600634FBE /* EventsViewController.m */; };
 		31752119176F04CB007CCD82 /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752117176F04CB007CCD82 /* navigationBarBackground.png */; };
 		3175211A176F04CB007CCD82 /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */; };
 		3175211D176F0B0B007CCD82 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3175211B176F0B0B007CCD82 /* logo.png */; };
@@ -510,6 +511,8 @@
 		315A60FD17B2898C0010756F /* PagingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingModel.m; sourceTree = "<group>"; };
 		3164F99517CE4C3500AB0673 /* UILabel+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Puntr.h"; sourceTree = "<group>"; };
 		3164F99617CE4C3500AB0673 /* UILabel+Puntr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Puntr.m"; sourceTree = "<group>"; };
+		316765E417D7628600634FBE /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		316765E517D7628600634FBE /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		31752117176F04CB007CCD82 /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		31752118176F04CB007CCD82 /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		3175211B176F0B0B007CCD82 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -1301,12 +1304,18 @@
 			children = (
 				0FAFC4E517C4B24B00735D0C /* AddCommentViewController.h */,
 				0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */,
+				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
+				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
+				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
+				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
 				31B112A0176B5CD000060EAB /* CatalogueViewController.h */,
 				31B112A1176B5CD000060EAB /* CatalogueViewController.m */,
 				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
 				0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */,
 				76335D4C17697C3F009F75E2 /* EnterViewController.h */,
 				76335D4D17697C3F009F75E2 /* EnterViewController.m */,
+				316765E417D7628600634FBE /* EventsViewController.h */,
+				316765E517D7628600634FBE /* EventsViewController.m */,
 				765FCDB7178D0CC100A58B81 /* EventViewController.h */,
 				765FCDB8178D0CC100A58B81 /* EventViewController.m */,
 				AC34681717CFDA420077418B /* FilterViewController.h */,
@@ -1319,12 +1328,6 @@
 				0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */,
 				0FAFC4E817C4E1FF00735D0C /* PrivacySettingsViewController.h */,
 				0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */,
-				31B112A9176B5DDC00060EAB /* UserViewController.h */,
-				31B112AA176B5DDC00060EAB /* UserViewController.m */,
-				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
-				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
-				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
-				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
 				3195D390176A26F5005E4856 /* RegistrationViewController.h */,
 				3195D391176A26F5005E4856 /* RegistrationViewController.m */,
 				ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */,
@@ -1339,6 +1342,8 @@
 				D6B449BF17B66272000B9F5E /* TournamentViewController.m */,
 				0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */,
 				0F40906E17C230DB001CC23F /* UpdateProfileViewController.m */,
+				31B112A9176B5DDC00060EAB /* UserViewController.h */,
+				31B112AA176B5DDC00060EAB /* UserViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1989,6 +1994,7 @@
 				76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */,
 				76FCB9B217D636FB00183109 /* LeadButton.m in Sources */,
 				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
+				316765E617D7628600634FBE /* EventsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
