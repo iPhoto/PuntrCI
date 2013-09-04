@@ -275,7 +275,7 @@
 		764C42631769CC0D00B7FBF2 /* NewsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42621769CC0D00B7FBF2 /* NewsNavigationController.m */; };
 		764C42661769CC3700B7FBF2 /* CatalogueNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42651769CC3700B7FBF2 /* CatalogueNavigationController.m */; };
 		764C42691769CCA500B7FBF2 /* MyStakesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C42681769CCA500B7FBF2 /* MyStakesNavigationController.m */; };
-		764C426C1769CCD400B7FBF2 /* ProfileNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */; };
+		764C426C1769CCD400B7FBF2 /* UserNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764C426B1769CCD400B7FBF2 /* UserNavigationController.m */; };
 		765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765FCDB8178D0CC100A58B81 /* EventViewController.m */; };
 		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
 		76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FCB9AE17D62D3900183109 /* LeadManager.m */; };
@@ -712,8 +712,8 @@
 		764C42651769CC3700B7FBF2 /* CatalogueNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CatalogueNavigationController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		764C42671769CCA500B7FBF2 /* MyStakesNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStakesNavigationController.h; sourceTree = "<group>"; };
 		764C42681769CCA500B7FBF2 /* MyStakesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStakesNavigationController.m; sourceTree = "<group>"; };
-		764C426A1769CCD400B7FBF2 /* ProfileNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileNavigationController.h; sourceTree = "<group>"; };
-		764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNavigationController.m; sourceTree = "<group>"; };
+		764C426A1769CCD400B7FBF2 /* UserNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNavigationController.h; sourceTree = "<group>"; };
+		764C426B1769CCD400B7FBF2 /* UserNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNavigationController.m; sourceTree = "<group>"; };
 		765FCDB7178D0CC100A58B81 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		765FCDB8178D0CC100A58B81 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		76F6715D17A049570032C9AE /* AFHTTPClientTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClientTweak.h; sourceTree = "<group>"; };
@@ -1270,8 +1270,8 @@
 				764C42681769CCA500B7FBF2 /* MyStakesNavigationController.m */,
 				764C42611769CC0D00B7FBF2 /* NewsNavigationController.h */,
 				764C42621769CC0D00B7FBF2 /* NewsNavigationController.m */,
-				764C426A1769CCD400B7FBF2 /* ProfileNavigationController.h */,
-				764C426B1769CCD400B7FBF2 /* ProfileNavigationController.m */,
+				764C426A1769CCD400B7FBF2 /* UserNavigationController.h */,
+				764C426B1769CCD400B7FBF2 /* UserNavigationController.m */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -1883,7 +1883,7 @@
 				764C42661769CC3700B7FBF2 /* CatalogueNavigationController.m in Sources */,
 				764C42691769CCA500B7FBF2 /* MyStakesNavigationController.m in Sources */,
 				AC34681917CFDA420077418B /* FilterViewController.m in Sources */,
-				764C426C1769CCD400B7FBF2 /* ProfileNavigationController.m in Sources */,
+				764C426C1769CCD400B7FBF2 /* UserNavigationController.m in Sources */,
 				3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */,
 				31DDC097176B234F000E99F3 /* Constants.m in Sources */,
 				31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */,

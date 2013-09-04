@@ -1,18 +1,18 @@
 //
-//  ProfileNavigationController.m
+//  UserNavigationController.m
 //  Puntr
 //
 //  Created by Eugene Tulushev on 13.06.13.
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "ProfileNavigationController.h"
+#import "UserNavigationController.h"
 
-@interface ProfileNavigationController ()
+@interface UserNavigationController ()
 
 @end
 
-@implementation ProfileNavigationController
+@implementation UserNavigationController
 
 - (void)viewDidLoad
 {

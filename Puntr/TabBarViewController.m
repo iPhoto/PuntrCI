@@ -10,7 +10,7 @@
 #import "NewsNavigationController.h"
 #import "CatalogueNavigationController.h"
 #import "MyStakesNavigationController.h"
-#import "ProfileNavigationController.h"
+#import "UserNavigationController.h"
 
 #import "NewsViewController.h"
 #import "CatalogueViewController.h"
@@ -32,7 +32,7 @@
                                          [[NewsNavigationController alloc] initWithRootViewController:[[NewsViewController alloc] init]],
                                          [[CatalogueNavigationController alloc] initWithRootViewController:[[CatalogueViewController alloc] init]],
                                          [[MyStakesNavigationController alloc] initWithRootViewController:[[MyStakesViewController alloc] init]],
-                                         [[ProfileNavigationController alloc] initWithRootViewController:[[UserViewController alloc] init]]
+                                         [[UserNavigationController alloc] initWithRootViewController:[[UserViewController alloc] init]]
                                     ];
         [self setViewControllers:viewControllers animated:YES];
         [self setSelectedIndex:0];

@@ -1,5 +1,5 @@
 //
-//  ProfileNavigationController.h
+//  UserNavigationController.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 13.06.13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileNavigationController : UINavigationController
+@interface UserNavigationController : UINavigationController
 
 @end
