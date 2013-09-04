@@ -68,6 +68,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelComponentCombined;
 
 // Event
+@property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong) UILabel *labelEventStartEndTime;
 @property (nonatomic, strong) UIImageView *imageViewEventLive;
 @property (nonatomic, strong) UIImageView *imageViewEventStakesCount;
@@ -173,6 +174,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.labelComponentCombined)
     
     // Event
+    self.event = nil;
     TNRemove(self.labelEventStartEndTime)
     TNRemove(self.imageViewEventLive)
     TNRemove(self.imageViewEventStakesCount)
@@ -327,6 +329,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithComment:(CommentModel *)comment
 {
+    self.event = comment.event;
     [self displayUser:comment.user message:comment.message final:YES];
 }
 
@@ -341,6 +344,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithEvent:(EventModel *)event
 {
+    self.event = event;
     self.submodel = event;
     if (event.banner) {
         [self displayBanner:event.banner];
@@ -381,6 +385,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self displayUser:stake.user message:nil final:NO];
     }
+    self.event = stake.event;
     [self displayTournament:stake.event.tournament arrow:YES final:NO];
     [self displayCategory:stake.event.tournament.category];
     [self displayParticipants:stake.event.participants final:NO];
@@ -413,6 +418,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if (subscription.event)
     {
+        self.event = subscription.event;
         self.submodel = subscription.event;
         [self displaySubscribedForObject:self.submodel];
         [self displayCategory:subscription.event.tournament.category];
@@ -506,6 +512,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.imageViewBanner setImageWithURL:[banner URLByAppendingSize:sizeBanner]];
     [self addSubview:self.imageViewBanner];
     
+    [self placeButtonForObject:self.event frame:self.imageViewBanner.frame];
+    
     self.usedHeight = CGRectGetMaxY(self.imageViewBanner.frame);
 }
 
@@ -538,7 +546,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelCategoryTitle.text = category.title;
     [self addSubview:self.labelCategoryTitle];
     
-    self.usedHeight = CGRectGetMaxY(self.labelCategoryTitle.frame);
+    CGFloat maxY = CGRectGetMaxY(self.labelCategoryTitle.frame);
+    [self placeButtonForObject:self.event maxY:maxY];
+    
+    self.usedHeight = maxY;
 }
 
 - (void)displayDynamicSelection:(DynamicSelectionModel *)dynamicSelection
@@ -868,7 +879,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
         participantIndex++;
     }
     
-    self.usedHeight = CGRectGetMaxY([self.participantTitles.lastObject frame]);
+    CGFloat maxY = CGRectGetMaxY([self.participantTitles.lastObject frame]);
+    [self placeButtonForObject:self.event maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:final];
 }
@@ -1059,12 +1073,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
     [self addSubview:self.labelEventStakesCount];
     
-    self.usedHeight = CGRectGetMaxY(self.labelEventStakesCount.frame);
+    CGFloat maxY = CGRectGetMaxY(self.labelEventStakesCount.frame);
+    [self placeButtonForObject:self.event maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:final];
 }
 
-- (void)displaySubscribedForObject:(NSObject *)object
+- (void)displaySubscribedForObject:(id)object
 {
     self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(
                                                                       TNWidthCell - TNMarginGeneral - TNWidthButtonLarge,
@@ -1198,6 +1215,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.leadButtons addObject:button];
 }
 
+- (void)placeButtonForObject:(id)object maxY:(CGFloat)maxY
+{
+    CGRect frame = CGRectBetween(self.usedHeight, maxY);
+    [self placeButtonForObject:self.event frame:frame];
+}
+
 - (void)whiteCell
 {
     self.backgroundColor = [UIColor whiteColor];
@@ -1251,7 +1274,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     StakeViewController *stakeViewController = [[StakeViewController alloc] initWithEvent:(EventModel *)self.submodel];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:stakeViewController];
-    [[self topController] presentViewController:navigationController animated:YES completion:nil];
+    [[PuntrUtilities mainNavigationController] presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)subscribe
@@ -1329,14 +1352,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #pragma mark - Utility
 
-- (UIViewController *)topController
+CGRect CGRectBetween(CGFloat minY, CGFloat maxY)
 {
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([topController isKindOfClass:[UITabBarController class]])
-    {
-        topController = [(UITabBarController *)topController selectedViewController];
-    }
-    return topController;
+    return CGRectMake(0.0f, minY, TNWidthCell, maxY - minY);
 }
 
 - (void)cleanArray:(NSMutableArray *)array
