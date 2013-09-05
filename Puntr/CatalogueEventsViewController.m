@@ -1,12 +1,12 @@
 //
-//  CatalogueViewController.m
+//  CatalogueEventsViewController.m
 //  Puntr
 //
 //  Created by Eugene Tulushev on 14.06.13.
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "CatalogueViewController.h"
+#import "CatalogueEventsViewController.h"
 #import "CategoriesManager.h"
 #import "CollectionManager.h"
 #import "UIViewController+Puntr.h"
@@ -14,14 +14,14 @@
 static const CGFloat TNWidthScreen = 320.0f;
 static const CGFloat TNHeightCategories = 35.0f;
 
-@interface CatalogueViewController ()
+@interface CatalogueEventsViewController ()
 
 @property (nonatomic, strong) CategoriesManager *categoriesManager;
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
 @end
 
-@implementation CatalogueViewController
+@implementation CatalogueEventsViewController
 
 - (void)viewDidLoad
 {

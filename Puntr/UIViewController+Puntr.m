@@ -40,6 +40,20 @@
     self.navigationItem.leftBarButtonItem = settingsItem;
 }
 
+- (void)addSettingsButton
+{
+    UIButton *buttonSettings = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [buttonSettings setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
+    [buttonSettings setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
+    [buttonSettings setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
+    [buttonSettings addTarget:self action:@selector(settingsButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
+    
+    self.navigationItem.leftBarButtonItem = settingsItem;
+}
+
+
 - (void)touchedButtonFilter
 {
     FilterViewController *filterViewController = [FilterViewController new];

@@ -21,6 +21,10 @@
     {
         [parameters setObject:self.secret forKey:KeySecret];
     }
+    if (self.pushToken)
+    {
+        [parameters setObject:self.pushToken forKey:KeyPushToken];
+    }
     return [parameters copy];
 }
 

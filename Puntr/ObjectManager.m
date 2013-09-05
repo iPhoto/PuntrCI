@@ -14,7 +14,6 @@
 
 @interface ObjectManager ()
 
-@property (nonatomic, strong) AuthorizationModel *authorization;
 @property (nonatomic, strong) UserModel *user;
 
 @end
@@ -103,7 +102,7 @@
                                                                                                statusCodes:statusCodeOK];
     
     // Authorization
-    [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret]];
+    [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret, KeyPushToken]];
     RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
                                                                                                          method:RKRequestMethodPOST
                                                                                                     pathPattern:APIAuthorization
@@ -519,13 +518,14 @@
 {
     [self postObject:access
                 path:APIAuthorization
-          parameters:nil
+          parameters:self.authorization.pushToken ? @{KeyPushToken: self.authorization.pushToken} : nil
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
                  NSDictionary *response = mappingResult.dictionary;
                  AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
                  UserModel *user = (UserModel *)response[KeyUser];
-                 self.authorization = authorization;
+                 self.authorization.sid = authorization.sid;
+                 self.authorization.secret = authorization.secret;
                  self.user = user;
                  success(authorization, user);
              }
@@ -956,7 +956,8 @@
             NSDictionary *response = mappingResult.dictionary;
             AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
             UserModel *user = (UserModel *)response[KeyUser];
-            self.authorization = authorization;
+            self.authorization.sid = authorization.sid;
+            self.authorization.secret = authorization.secret;
             self.user = user;
             success(authorization, user);
         }

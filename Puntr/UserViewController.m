@@ -73,29 +73,19 @@ static const CGFloat TNSideImageLarge = 60.0f;
     [super viewDidLoad];
     if (!self.user)
     {
+        self.title = @"Профиль";
+        [self addSettingsButton];
         self.user = [[ObjectManager sharedManager] loginedUser];
     }
-    self.title = @"Профиль";
+    else
+    {
+        self.title = @"Игрок";
+    }
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self addBalanceButton];
     
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    CGRect viewControllerFrame = CGRectMake(0.0f,
-                                            0.0f,
-                                            CGRectGetWidth(applicationFrame),
-                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
-                                            );
-    
-    UIButton *buttonSettings = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [buttonSettings setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
-    [buttonSettings setImage:[UIImage imageNamed:@"IconSettings"] forState:UIControlStateNormal];
-    [buttonSettings setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 4)];
-    [buttonSettings addTarget:self action:@selector(settingsButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-
-    UIBarButtonItem *settingsItem = [[UIBarButtonItem alloc] initWithCustomView:buttonSettings];
-    
-    self.navigationItem.leftBarButtonItem = settingsItem;
+    CGRect viewControllerFrame = self.frame;
     
     UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, 305, 128)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];

@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *secret;
+@property (nonatomic, copy) NSString *pushToken;
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;

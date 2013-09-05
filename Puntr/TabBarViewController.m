@@ -13,7 +13,7 @@
 #import "UserNavigationController.h"
 
 #import "NewsViewController.h"
-#import "CatalogueViewController.h"
+#import "CatalogueEventsViewController.h"
 #import "MyStakesViewController.h"
 #import "UserViewController.h"
 
@@ -30,7 +30,7 @@
     {
         NSArray *viewControllers = @[
                                          [[NewsNavigationController alloc] initWithRootViewController:[[NewsViewController alloc] init]],
-                                         [[CatalogueNavigationController alloc] initWithRootViewController:[[CatalogueViewController alloc] init]],
+                                         [[CatalogueNavigationController alloc] initWithRootViewController:[[CatalogueEventsViewController alloc] init]],
                                          [[MyStakesNavigationController alloc] initWithRootViewController:[[MyStakesViewController alloc] init]],
                                          [[UserNavigationController alloc] initWithRootViewController:[[UserViewController alloc] init]]
                                     ];

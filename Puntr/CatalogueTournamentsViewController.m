@@ -1,5 +1,5 @@
 //
-//  TournamentsViewController.m
+//  CatalogueTournamentsViewController.m
 //  Puntr
 //
 //  Created by Eugene Tulushev on 04.09.13.
@@ -8,22 +8,22 @@
 
 #import "CategoriesManager.h"
 #import "CollectionManager.h"
-#import "TournamentsViewController.h"
+#import "CatalogueTournamentsViewController.h"
 #import "UIViewController+Puntr.h"
 
 static const CGFloat TNWidthScreen = 320.0f;
 static const CGFloat TNHeightCategories = 35.0f;
 
-@interface TournamentsViewController ()
+@interface CatalogueTournamentsViewController ()
 
 @property (nonatomic, strong) CategoriesManager *categoriesManager;
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
 @end
 
-@implementation TournamentsViewController
+@implementation CatalogueTournamentsViewController
 
-+ (TournamentsViewController *)tournaments
++ (CatalogueTournamentsViewController *)tournaments
 {
     return [[self alloc] init];
 }

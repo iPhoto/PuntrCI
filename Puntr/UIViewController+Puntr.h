@@ -12,6 +12,7 @@
 
 - (void)addBalanceButton;
 - (void)addFilterButton;
+- (void)addSettingsButton;
 - (void)updateBalance;
 - (CGRect)frame;
 

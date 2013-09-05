@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "AddCommentViewController.h"
+#import "CommentViewController.h"
 #import "CollectionManager.h"
 #import "EventModel.h"
 #import "EventViewController.h"
@@ -168,13 +168,12 @@ static const CGFloat TNItemSpacing = 12.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[self updateBalance];
     [self.collectionManager reloadData];
 }
 
 - (void)rightNavButtonTouched
 {
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AddCommentViewController alloc] initWithEvent:self.event]] animated:YES completion:nil
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CommentViewController commentWithEvent:self.event]] animated:YES completion:nil
     ];
 }
 
