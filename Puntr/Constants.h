@@ -35,6 +35,7 @@ FOUNDATION_EXPORT NSString *const APIGroups;
 FOUNDATION_EXPORT NSString *const APINews;
 FOUNDATION_EXPORT NSString *const APIPrivacy;
 FOUNDATION_EXPORT NSString *const APIPush;
+FOUNDATION_EXPORT NSString *const APISocials;
 FOUNDATION_EXPORT NSString *const APIStakes;
 FOUNDATION_EXPORT NSString *const APISubscribers;
 FOUNDATION_EXPORT NSString *const APISubscriptions;

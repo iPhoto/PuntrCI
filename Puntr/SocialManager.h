@@ -11,12 +11,14 @@
 #import "VKRequest.h"
 
 typedef void (^SocialManagerSuccess)();
+typedef void (^SocialManagerFailure)();
 
 typedef NS_ENUM(NSInteger, SocialNetworkType)
 {
     SocialNetworkTypeTwitter,
     SocialNetworkTypeFacebook,
-    SocialNetworkTypeVkontakte
+    SocialNetworkTypeVkontakte,
+    SocialNetworkTypeNone
 };
 
 @class SocialManager;
@@ -31,7 +33,7 @@ typedef NS_ENUM(NSInteger, SocialNetworkType)
 
 + (SocialManager *)sharedManager;
 
-- (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success;
+- (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success failure:(SocialManagerFailure)failure;
 
 - (void)loginTwWithUser:(NSInteger)index;
 

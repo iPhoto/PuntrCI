@@ -222,30 +222,36 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)fbButtonTouched
 {
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook success:^(AccessModel *accessModel)
-         {
-             [self loginWithSocialModel:accessModel];
-         }
-    ];
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook
+                                                        success:^(AccessModel *accessModel)
+                                                        {
+                                                            [self loginWithSocialModel:accessModel];
+                                                        }
+                                                        failure:nil
+     ];
 }
 
 - (void)twButtonTouched
 {
     NSLog(@"tw touched");
     [SocialManager sharedManager].delegate = self;
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter success:^(AccessModel *accessModel)
-         {
-             [self loginWithSocialModel:accessModel];
-         }
-    ];
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter
+                                                        success:^(AccessModel *accessModel)
+                                                        {
+                                                            [self loginWithSocialModel:accessModel];
+                                                        }
+                                                        failure:nil
+     ];
 }
 
 - (void)vkButtonTouched
 {
-    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte success:^(AccessModel *accessModel)
-         {
-             [self loginWithSocialModel:accessModel];
-         }
+    [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte
+                                                        success:^(AccessModel *accessModel)
+                                                        {
+                                                            [self loginWithSocialModel:accessModel];
+                                                        }
+                                                        failure:nil
     ];
 }
 

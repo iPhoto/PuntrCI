@@ -12,6 +12,7 @@
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
+#import "SocialManager.h"
 #import "StakeViewController.h"
 #import "UILabel+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
@@ -1326,7 +1327,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     if([self.model isKindOfClass:[PrivacySettingsModel class]])
     {
-        PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.submodel;
+        PrivacySettingsModel *privacyModel = (PrivacySettingsModel *)self.model;
         privacyModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPrivacy:privacyModel
                                           success:^(NSArray *privacy)
@@ -1340,7 +1341,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([self.model isKindOfClass:[PushSettingsModel class]])
     {
-        PushSettingsModel *pushModel = (PushSettingsModel *)self.submodel;
+        PushSettingsModel *pushModel = (PushSettingsModel *)self.model;
         pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
         [[ObjectManager sharedManager] setPush:pushModel
                                        success:^(NSArray *push)
@@ -1348,8 +1349,86 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                            [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
                                            [self.delegate reloadData];
                                        }
-                                       failure:nil
+                                       failure:^
+                                       {
+                                           [self.delegate reloadData];
+                                       }
         ];
+    }
+    else if ([self.model isKindOfClass:[DynamicSelectionModel class]])
+    {/*
+        PushSettingsModel *pushModel = (PushSettingsModel *)self.submodel;
+        pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
+        [[ObjectManager sharedManager] setPush:pushModel
+                                       success:^(NSArray *push)
+         {
+             [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+             [self.delegate reloadData];
+         }
+                                       failure:^
+         {
+             [self.delegate reloadData];
+         }
+         ];
+    */
+        DynamicSelectionModel *socialModel = (DynamicSelectionModel *)self.model;
+        if (self.switchDynamicSelection.on)
+        {
+            SocialNetworkType socialNetworkType;
+            if([socialModel.slug isEqualToString: KeyFacebook])
+            {
+                socialNetworkType = SocialNetworkTypeFacebook;
+            }
+            else if ([socialModel.slug isEqualToString: KeyTwitter])
+            {
+                socialNetworkType = SocialNetworkTypeTwitter;
+            }
+            else if ([socialModel.slug isEqualToString: KeyVKontakte])
+            {
+                socialNetworkType = SocialNetworkTypeVkontakte;
+            }
+            else
+            {
+                socialNetworkType = SocialNetworkTypeNone;
+            }
+            
+            [[SocialManager sharedManager]loginWithSocialNetworkOfType:socialNetworkType
+                                                               success:^(AccessModel *accessModel)
+                                                               {
+                                                                   [[ObjectManager sharedManager] setSocialsWithAccess:accessModel
+                                                                                                               success:^
+                                                                                                               {
+                                                                                                                   [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                                                                   [self.delegate reloadData];
+                                                                                                               }
+                                                                                                               failure:^
+                                                                                                               {
+                                                                                                                   [self.delegate reloadData];
+                                                                                                               }
+                                                                   ];
+                                                               }
+                                                               failure:^
+                                                               {
+                                                                   [self.delegate reloadData];
+                                                               }
+             
+            ];
+        }
+        else
+        {
+            [[ObjectManager sharedManager] disconnectSocialsWithName:socialModel.slug
+                                                             success:^
+                                                             {
+                                                                 [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                 [self.delegate reloadData];
+                                                             }
+                                                             failure:^
+                                                             {
+                                                                 [self.delegate reloadData];
+                                                             }
+            ];
+        }
+
     }
 }
 

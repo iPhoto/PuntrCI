@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SocialManager.h"
 
 typedef NS_ENUM(NSInteger, DynamicSelction)
 {
@@ -15,7 +16,7 @@ typedef NS_ENUM(NSInteger, DynamicSelction)
     DynamicSelctionSocials
 };
 
-@interface PrivacySettingsViewController : UIViewController
+@interface PrivacySettingsViewController : UIViewController<UIActionSheetDelegate, SocialManagerDelegate>
 
 - (id)initWithDynamicSelection:(DynamicSelction) dynamicSelection;
 
