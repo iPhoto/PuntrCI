@@ -94,20 +94,24 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     NSDictionary *cellDictionary = self.settingsArray[indexPath.section][indexPath.row];
     
-    NSString *reuseIdFileName = @"middle.png";
+    NSString *reuseIdFileName = @"middle";
     if (indexPath.row == 0)
     {
-        reuseIdFileName = @"top.png";
+        reuseIdFileName = @"top";
     }
     if (indexPath.row == ((NSArray *)self.settingsArray[indexPath.section]).count - 1)
     {
-        reuseIdFileName = @"bottom.png";
+        reuseIdFileName = @"bottom";
     }
+    
+    NSString *fileNameSimple = [reuseIdFileName stringByAppendingString:@".png"];
+    NSString *fileNameSelected = [reuseIdFileName stringByAppendingString:@"_active.png"];
     
     SettingsTableViewCell *cell = [[SettingsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                                reuseIdentifier:reuseIdFileName];
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:reuseIdFileName]];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fileNameSimple]];
     cell.backgroundColor = [UIColor clearColor];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fileNameSelected]];
     
     if (cellDictionary[@"title"])
     {
@@ -186,20 +190,20 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     self.settingsArray = @[
                              @[
-                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched" },
-                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched" },
-                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched" },
+                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched", @"isAccessory": @(YES) },
                               ],
                              @[
-                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"performSelector": @"socialsTouched", @"isAccessory": @(YES) },
                                  //@{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched"},
-                                 @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched" },
+                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched", @"isAccessory": @(YES)},
+                                 @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched", @"isAccessory": @(YES) },
                                  @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
                               ],
                              @[
                                  @{ @"pictureName": @"9.png", @"title": @"Оферта", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования" },
+                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"isAccessory": @(YES) },
                               ],
                           ];
     
@@ -313,6 +317,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPush] animated:YES];
 }
+
+- (void)socialsTouched
+{
+    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionSocials] animated:YES];
+}
+
 #pragma mark - ActionSheet
 
 - (void)showExitDialog

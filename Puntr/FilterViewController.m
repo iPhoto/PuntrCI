@@ -14,6 +14,9 @@
 #define TABLE_HEADER @"Выберите интересующие вас виды спорта:"
 #define TNFontHeader [UIFont systemFontOfSize:[UIFont systemFontSize]]
 
+#define BUTTON_TITLE_CHECK_ALL      @"Выбрать все"
+#define BUTTON_TITLE_UNCHECK_ALL    @"Снять все"
+
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
@@ -100,7 +103,6 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
                    }
                }
            } failure:nil];
-//       [self.imageView setImageWithURL:[category.image URLByAppendingSize:CGSizeMake(TNSideCategoryImage, TNSideCategoryImage)]];
     }
     
     if (category.title)
@@ -117,8 +119,11 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 @interface FilterViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *categories;
-@property (nonatomic, weak) UITableView *filtersTableView;
+@property (nonatomic, strong) NSMutableArray *isChecked;
 @property (nonatomic, strong) NSMutableDictionary *unCheckedTags;
+
+@property (nonatomic, weak) UITableView *filtersTableView;
+@property (nonatomic, weak) UIButton *buttonCheck;
 
 @end
 
@@ -163,9 +168,69 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
         self.unCheckedTags = [NSMutableDictionary new];
     }
     
+    [self addCheckButton];
+    
     [self requestData];
 }
 
+
+
+#pragma mark - Utils funcs
+
+- (void)addCheckButton
+{
+    UIButton *buttonCheck = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 84, 31)];
+    self.buttonCheck = buttonCheck;
+    [self.buttonCheck setBackgroundImage:[[UIImage imageNamed:@"button_green.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
+    [self.buttonCheck.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
+    self.buttonCheck.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+    self.buttonCheck.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonCheck setTitle:[self checkUncheckButtonTitle] forState:UIControlStateNormal];
+    [self.buttonCheck addTarget:self action:@selector(checkUnckeckButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.buttonCheck];
+}
+
+- (void)checkUnckeckButtonPressed
+{
+    BOOL newState = !([self isAllSportsChecked]);
+    for (NSInteger i = 0; i < self.isChecked.count; i++) {
+        [self setCategoryWithIndex:i inStateChecked:newState];
+    }
+    [self.buttonCheck setTitle:[self checkUncheckButtonTitle] forState:UIControlStateNormal];
+    [self.filtersTableView reloadRowsAtIndexPaths:[self.filtersTableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    [self saveUncheckedStates];
+}
+
+- (BOOL)isAllSportsChecked
+{
+    BOOL retVal = YES;
+    for (NSNumber *isChecked in self.isChecked) {
+        if (![isChecked boolValue]) {
+            retVal = NO;
+            break;
+        }
+    }
+    return retVal;
+}
+
+- (NSString *)checkUncheckButtonTitle
+{
+    NSString *retVal = ([self isAllSportsChecked]) ? BUTTON_TITLE_UNCHECK_ALL : BUTTON_TITLE_CHECK_ALL;
+    return retVal;
+}
+
+- (void)setCategoryWithIndex:(NSInteger)index inStateChecked:(BOOL)isChecked
+{
+    CategoryModel *category = self.categories[index];
+    NSString *key = [category.tag stringValue];
+    self.isChecked[index] = @(isChecked);
+    if (isChecked) {
+        [self.unCheckedTags removeObjectForKey:key];
+    }
+    else {
+        self.unCheckedTags[key] = @(YES);
+    }
+}
 
 - (void)requestData
 {
@@ -175,6 +240,11 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
          NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
          [consolidatedCategories addObjectsFromArray:categories];
          weakSelf.categories = [consolidatedCategories copy];
+         weakSelf.isChecked = [NSMutableArray new];
+         for (CategoryModel *category in weakSelf.categories) {
+             [weakSelf.isChecked addObject:@(([weakSelf isCheckedCategory:category]))];
+         }
+         [weakSelf.buttonCheck setTitle:[weakSelf checkUncheckButtonTitle] forState:UIControlStateNormal];
          [weakSelf.filtersTableView reloadData];
      } failure:nil];
 }
@@ -286,14 +356,8 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     TNTableViewCell *cell = (TNTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.isChecked = !cell.isChecked;
-    CategoryModel *category = cell.someObject;
-    NSString *key = [category.tag stringValue];
-    if (cell.isChecked) {
-        [self.unCheckedTags removeObjectForKey:key];
-    }
-    else {
-        self.unCheckedTags[key] = @(YES);
-    }
+    [self setCategoryWithIndex:indexPath.row inStateChecked:cell.isChecked];
+    [self.buttonCheck setTitle:[self checkUncheckButtonTitle] forState:UIControlStateNormal];
     [self saveUncheckedStates];
 }
 

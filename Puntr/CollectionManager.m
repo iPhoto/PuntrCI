@@ -145,16 +145,20 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadNews];
                 break;
                 
-            case CollectionTypeSubscriptions:
-                [self loadSubscriptions];
-                break;
-                
             case CollectionTypePrivacySettings:
                 [self loadPrivacySettings];
                 break;
                 
             case CollectionTypePushSettinds:
                 [self loadPushSettings];
+                break;
+                
+            case CollectionTypeSocialsSettings:
+                [self loadSocialsSettings];
+                break;
+                
+            case CollectionTypeSubscriptions:
+                [self loadSubscriptions];
                 break;
                 
             default:
@@ -406,6 +410,36 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           {
                                               [self finishLoading];
                                           }
+    ];
+}
+
+- (void)loadSocialsSettings
+{
+    [[ObjectManager sharedManager] userWithTag:[[ObjectManager sharedManager] loginedUser].tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         UserModel *profile = (UserModel *)mappingResult.firstObject;
+         
+         DynamicSelectionModel *fbDynamicModel = [[DynamicSelectionModel alloc] init];
+         fbDynamicModel.slug = KeyFacebook;
+         fbDynamicModel.status = profile.socials.facebook;
+         fbDynamicModel.title = @"facebook";
+         
+         DynamicSelectionModel *twDynamicModel = [[DynamicSelectionModel alloc] init];
+         twDynamicModel.slug = KeyTwitter;
+         twDynamicModel.status = profile.socials.twitter;
+         twDynamicModel.title = @"twitter";
+         
+         DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
+         vkDynamicModel.slug = KeyVKontakte;
+         vkDynamicModel.status = profile.socials.vk;
+         vkDynamicModel.title = @"vKontakte";
+         
+         [self combineWithData:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
+     }
+                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self finishLoading];
+     }
     ];
 }
 
