@@ -1,5 +1,5 @@
 //
-//  CatalogueViewController.h
+//  CatalogueEventsViewController.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 14.06.13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CatalogueViewController : UIViewController
+@interface CatalogueEventsViewController : UIViewController
 
 @end

@@ -189,7 +189,7 @@
 		3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* RegistrationViewController.m */; };
 		31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161B1785CE78000D8F2C /* NotificationManager.m */; };
 		31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* ParameterModel.m */; };
-		31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueViewController.m */; };
+		31B112A2176B5CD000060EAB /* CatalogueEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */; };
 		31B112A5176B5D6100060EAB /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A4176B5D6100060EAB /* NewsViewController.m */; };
 		31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A7176B5DAD00060EAB /* MyStakesViewController.m */; };
 		31B112AB176B5DDC00060EAB /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112AA176B5DDC00060EAB /* UserViewController.m */; };
@@ -595,8 +595,8 @@
 		31AD161B1785CE78000D8F2C /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		31AD161D1785D294000D8F2C /* ParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterModel.h; sourceTree = "<group>"; };
 		31AD161E1785D294000D8F2C /* ParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParameterModel.m; sourceTree = "<group>"; };
-		31B112A0176B5CD000060EAB /* CatalogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CatalogueViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		31B112A1176B5CD000060EAB /* CatalogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogueViewController.m; sourceTree = "<group>"; };
+		31B112A0176B5CD000060EAB /* CatalogueEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CatalogueEventsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogueEventsViewController.m; sourceTree = "<group>"; };
 		31B112A3176B5D6100060EAB /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
 		31B112A4176B5D6100060EAB /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		31B112A6176B5DAD00060EAB /* MyStakesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStakesViewController.h; sourceTree = "<group>"; };
@@ -1323,8 +1323,8 @@
 				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
 				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
 				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
-				31B112A0176B5CD000060EAB /* CatalogueViewController.h */,
-				31B112A1176B5CD000060EAB /* CatalogueViewController.m */,
+				31B112A0176B5CD000060EAB /* CatalogueEventsViewController.h */,
+				31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */,
 				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
 				0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */,
 				76335D4C17697C3F009F75E2 /* EnterViewController.h */,
@@ -1926,7 +1926,7 @@
 				764C426C1769CCD400B7FBF2 /* UserNavigationController.m in Sources */,
 				3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */,
 				31DDC097176B234F000E99F3 /* Constants.m in Sources */,
-				31B112A2176B5CD000060EAB /* CatalogueViewController.m in Sources */,
+				31B112A2176B5CD000060EAB /* CatalogueEventsViewController.m in Sources */,
 				31B112A5176B5D6100060EAB /* NewsViewController.m in Sources */,
 				31B112A8176B5DAD00060EAB /* MyStakesViewController.m in Sources */,
 				31B112AB176B5DDC00060EAB /* UserViewController.m in Sources */,
