@@ -57,7 +57,7 @@
 		0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC617B2387200352827 /* VKStorageItem.m */; };
 		0FA5FCD617B2387200352827 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCC917B2387200352827 /* VKUser.m */; };
 		0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5FCD817B23ED800352827 /* SocialManager.m */; };
-		0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */; };
+		0FAFC4E717C4B24C00735D0C /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E617C4B24C00735D0C /* CommentViewController.m */; };
 		0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */; };
 		0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */; };
 		0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAFC4EF17CB874900735D0C /* DynamicSelectionModel.m */; };
@@ -433,8 +433,8 @@
 		0FA5FCC917B2387200352827 /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
 		0FA5FCD717B23ED800352827 /* SocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialManager.h; sourceTree = "<group>"; };
 		0FA5FCD817B23ED800352827 /* SocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialManager.m; sourceTree = "<group>"; };
-		0FAFC4E517C4B24B00735D0C /* AddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommentViewController.h; sourceTree = "<group>"; };
-		0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentViewController.m; sourceTree = "<group>"; };
+		0FAFC4E517C4B24B00735D0C /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		0FAFC4E617C4B24C00735D0C /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		0FAFC4E817C4E1FF00735D0C /* PrivacySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacySettingsViewController.h; sourceTree = "<group>"; };
 		0FAFC4E917C4E20000735D0C /* PrivacySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacySettingsViewController.m; sourceTree = "<group>"; };
 		0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
@@ -1317,8 +1317,6 @@
 		31F47E16177306CF0047ECCF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0FAFC4E517C4B24B00735D0C /* AddCommentViewController.h */,
-				0FAFC4E617C4B24C00735D0C /* AddCommentViewController.m */,
 				D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */,
 				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
 				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
@@ -1329,6 +1327,8 @@
 				316765E817D7722000634FBE /* CatalogueTournamentsViewController.m */,
 				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
 				0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */,
+				0FAFC4E517C4B24B00735D0C /* CommentViewController.h */,
+				0FAFC4E617C4B24C00735D0C /* CommentViewController.m */,
 				76335D4C17697C3F009F75E2 /* EnterViewController.h */,
 				76335D4D17697C3F009F75E2 /* EnterViewController.m */,
 				316765E417D7628600634FBE /* EventsViewController.h */,
@@ -2009,7 +2009,7 @@
 				31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */,
 				0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */,
 				0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */,
-				0FAFC4E717C4B24C00735D0C /* AddCommentViewController.m in Sources */,
+				0FAFC4E717C4B24C00735D0C /* CommentViewController.m in Sources */,
 				0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */,
 				0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */,
 				0FAFC4F017CB874900735D0C /* DynamicSelectionModel.m in Sources */,

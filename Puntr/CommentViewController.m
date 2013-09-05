@@ -1,26 +1,32 @@
 //
-//  AddCommentViewController.m
+//  CommentViewController.m
 //  Puntr
 //
 //  Created by Alexander Lebedev on 8/21/13.
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "AddCommentViewController.h"
+#import "CommentViewController.h"
 #import "CommentModel.h"
+#import "EventModel.h"
 #import "ObjectManager.h"
 #import <QuartzCore/QuartzCore.h>
 
 static const CGFloat TNItemSpacing = 12.0f;
 
-@interface AddCommentViewController ()
+@interface CommentViewController ()
 
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) EventModel *event;
 
 @end
 
-@implementation AddCommentViewController
+@implementation CommentViewController
+
++ (CommentViewController *)commentWithEvent:(EventModel *)event
+{
+    return [[self alloc] initWithEvent:event];
+}
 
 - (id)initWithEvent:(EventModel *)event
 {
