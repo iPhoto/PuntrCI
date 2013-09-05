@@ -524,7 +524,8 @@
                  NSDictionary *response = mappingResult.dictionary;
                  AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
                  UserModel *user = (UserModel *)response[KeyUser];
-                 self.authorization = authorization;
+                 self.authorization.sid = authorization.sid;
+                 self.authorization.secret = authorization.secret;
                  self.user = user;
                  success(authorization, user);
              }
@@ -955,7 +956,8 @@
             NSDictionary *response = mappingResult.dictionary;
             AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
             UserModel *user = (UserModel *)response[KeyUser];
-            self.authorization = authorization;
+            self.authorization.sid = authorization.sid;
+            self.authorization.secret = authorization.secret;
             self.user = user;
             success(authorization, user);
         }
