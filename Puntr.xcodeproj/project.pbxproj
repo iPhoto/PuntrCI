@@ -189,6 +189,7 @@
 		3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* RegistrationViewController.m */; };
 		31A5BD4017D8DFFC000A9B89 /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A5BD3F17D8DFFB000A9B89 /* TournamentsViewController.m */; };
 		31A5BD4317D8E704000A9B89 /* TournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A5BD4217D8E703000A9B89 /* TournamentViewController.m */; };
+		31A5BD4617D8F700000A9B89 /* DefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A5BD4517D8F700000A9B89 /* DefaultsManager.m */; };
 		31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161B1785CE78000D8F2C /* NotificationManager.m */; };
 		31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* ParameterModel.m */; };
 		31B112A2176B5CD000060EAB /* CatalogueEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */; };
@@ -596,6 +597,8 @@
 		31A5BD3F17D8DFFB000A9B89 /* TournamentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
 		31A5BD4117D8E702000A9B89 /* TournamentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentViewController.h; sourceTree = "<group>"; };
 		31A5BD4217D8E703000A9B89 /* TournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentViewController.m; sourceTree = "<group>"; };
+		31A5BD4417D8F6FF000A9B89 /* DefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultsManager.h; sourceTree = "<group>"; };
+		31A5BD4517D8F700000A9B89 /* DefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsManager.m; sourceTree = "<group>"; };
 		31AD161A1785CE78000D8F2C /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		31AD161B1785CE78000D8F2C /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		31AD161D1785D294000D8F2C /* ParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterModel.h; sourceTree = "<group>"; };
@@ -1031,6 +1034,8 @@
 				31EA773D17BD16CC0060DFCC /* CollectionManager.h */,
 				31EA773E17BD16CD0060DFCC /* CollectionManager.m */,
 				D6B02FA217D29A3C00968563 /* CollectionManagerDelegate.h */,
+				31A5BD4417D8F6FF000A9B89 /* DefaultsManager.h */,
+				31A5BD4517D8F700000A9B89 /* DefaultsManager.m */,
 				76FCB9AD17D62D3900183109 /* LeadManager.h */,
 				76FCB9AE17D62D3900183109 /* LeadManager.m */,
 				31AD161A1785CE78000D8F2C /* NotificationManager.h */,
@@ -2031,6 +2036,7 @@
 				316765E917D7722000634FBE /* CatalogueTournamentsViewController.m in Sources */,
 				31A5BD4017D8DFFC000A9B89 /* TournamentsViewController.m in Sources */,
 				31A5BD4317D8E704000A9B89 /* TournamentViewController.m in Sources */,
+				31A5BD4617D8F700000A9B89 /* DefaultsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
