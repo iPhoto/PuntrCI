@@ -60,7 +60,7 @@
         case DynamicSelctionSocials:
         {
             self.title = @"Соц. сети";
-            
+            [SocialManager sharedManager].delegate = self;
             self.collectionManager = [CollectionManager managerWithType:CollectionTypeSocialsSettings modifierObject:nil];
         }
             break;
@@ -83,6 +83,35 @@
 {
     [super viewWillAppear:animated];
     [self.collectionManager reloadData];
+}
+
+- (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    for (NSString *name in array)
+    {
+        [sheet addButtonWithTitle:name];
+    }
+    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
+    [sheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.cancelButtonIndex)
+    {
+        [[SocialManager sharedManager] loginTwWithUser:buttonIndex];
+    }
+    else
+    {
+        [self.collectionManager reloadData];
+    }
 }
 
 @end

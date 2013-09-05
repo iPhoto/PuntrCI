@@ -1057,6 +1057,38 @@
     ];
 }
 
+- (void)setSocialsWithAccess:(AccessModel *)access success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self postObject:access
+                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISocials]
+          parameters:self.authorization.wrappedParameters
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 success();
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
+    ];
+}
+
+- (void)disconnectSocialsWithName:(NSString *)socialNetwork success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self deleteObject:nil
+                  path:[NSString stringWithFormat:@"%@/%@/%@/%@", APIUsers, self.user.tag.stringValue, APISocials, socialNetwork]
+            parameters:self.authorization.wrappedParameters
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+               {
+                   success();
+               }
+               failure:^(RKObjectRequestOperation *operation, NSError *error)
+               {
+                   [self reportWithFailure:failure error:error];
+               }
+                                                                                                                                                                         ];
+}
+
 - (void)pushWithSuccess:(Push)success failure:(EmptyFailure)failure
 {
     [self getObject:nil

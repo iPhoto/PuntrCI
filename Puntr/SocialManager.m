@@ -26,6 +26,7 @@
 @property (nonatomic, strong) TWAPIManager *twitterApiManager;
 @property (nonatomic, strong) NSArray *twitterAccounts;
 @property (nonatomic, strong) SocialManagerSuccess success;
+@property (nonatomic, strong) SocialManagerFailure failure;
 
 @end
 
@@ -45,9 +46,10 @@
     return sharedManager;
 }
 
-- (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success
+- (void)loginWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success failure:(SocialManagerFailure)failure
 {
     self.success = success;
+    self.failure = failure;
     switch (socialNetworkType)
     {
         case SocialNetworkTypeFacebook:
@@ -63,6 +65,10 @@
             break;
             
         default:
+            if(self.failure)
+            {
+                self.failure();
+            }
             break;
     }
 }
@@ -92,6 +98,10 @@
                                                 {
                                                     NSLog(@"Fail");
                                                     NSLog(@"Error: %@", error);
+                                                    if(self.failure)
+                                                    {
+                                                        self.failure();
+                                                    }
                                                 }
                                             }
      ];
@@ -122,6 +132,10 @@
                                                 else
                                                 {
                                                     NSLog(@"no access");
+                                                    if(self.failure)
+                                                    {
+                                                        self.failure();
+                                                    }
                                                 }
                                             }
     ];
@@ -155,6 +169,10 @@
              else
              {
                  NSLog(@"Reverse Auth process failed. Error returned was: %@\n", [error localizedDescription]);
+                 if(self.failure)
+                 {
+                     self.failure();
+                 }
              }
         }
     ];

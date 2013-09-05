@@ -150,6 +150,10 @@ typedef void (^User)(UserModel *user);
 
 - (void)setPrivacy:(PrivacySettingsModel *)privacy success:(Privacy)success failure:(EmptyFailure)failure;
 
+- (void)setSocialsWithAccess:(AccessModel *)access success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
+- (void)disconnectSocialsWithName:(NSString *)socialNetwork success:(EmptySuccess)success failure:(EmptyFailure)failure;
+
 - (void)pushWithSuccess:(Push)success failure:(EmptyFailure)failure;
 
 - (void)setPush:(PushSettingsModel *)push success:(Push)success failure:(EmptyFailure)failure;
