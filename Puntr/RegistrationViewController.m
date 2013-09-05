@@ -159,12 +159,12 @@
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
+    [self.buttonRegistration setTitle:@"Зарегистрироваться" forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.scrollView addSubview:self.buttonRegistration];
 }
 
