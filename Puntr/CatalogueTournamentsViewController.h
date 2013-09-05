@@ -1,5 +1,5 @@
 //
-//  TournamentsViewController.h
+//  CatalogueTournamentsViewController.h
 //  Puntr
 //
 //  Created by Eugene Tulushev on 04.09.13.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TournamentsViewController : UIViewController
+@interface CatalogueTournamentsViewController : UIViewController
 
-+ (TournamentsViewController *)tournaments;
++ (CatalogueTournamentsViewController *)tournaments;
 
 @end

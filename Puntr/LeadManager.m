@@ -11,7 +11,7 @@
 #import "EventViewController.h"
 #import "GroupModel.h"
 #import "LeadManager.h"
-#import "TournamentsViewController.h"
+#import "CatalogueTournamentsViewController.h"
 #import "UserModel.h"
 #import "UserViewController.h"
 
@@ -40,9 +40,9 @@
     else if ([model isMemberOfClass:[GroupModel class]])
     {
         GroupModel *group = (GroupModel *)model;
-        if ([group.slug isEqualToString:KeyTournaments] && ![self isVisible:[TournamentsViewController class]])
+        if ([group.slug isEqualToString:KeyTournaments] && ![self isVisible:[CatalogueTournamentsViewController class]])
         {
-            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournaments] animated:YES];
+            [[PuntrUtilities mainNavigationController] pushViewController:[CatalogueTournamentsViewController tournaments] animated:YES];
         }
         else if (![self isVisible:[EventsViewController class]])
         {
