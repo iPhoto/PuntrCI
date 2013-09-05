@@ -40,6 +40,8 @@ typedef void (^User)(UserModel *user);
 
 @interface ObjectManager : RKObjectManager
 
+@property (nonatomic, strong) AuthorizationModel *authorization;
+
 - (void)configureMapping;
 
 #pragma mark - Authorization
