@@ -7,14 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "AuthorizationModel.h"
 #import "CatalogueNavigationController.h"
 #import "EnterViewController.h"
 #import "HTTPClient.h"
+#import "NotificationManager.h"
 #import "ObjectManager.h"
-#import <PonyDebugger/PonyDebugger.h>
 #import "SocialManager.h"
 #import "TabBarViewController.h"
 #import "TextField.h"
+#import <PonyDebugger/PonyDebugger.h>
 
 @interface AppDelegate ()
 
@@ -38,6 +40,12 @@
     [debugger enableNetworkTrafficDebugging];
     [debugger forwardAllNetworkTraffic];
 #endif
+    //  Push Notifications
+    [[UIApplication sharedApplication]
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -93,6 +101,18 @@
 }
 
 #pragma mark - Application Delegate
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [ObjectManager sharedManager].authorization.pushToken = [deviceToken description];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [NotificationManager showError:error];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    application.applicationIconBadgeNumber = 0;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
