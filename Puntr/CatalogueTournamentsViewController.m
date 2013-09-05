@@ -58,6 +58,10 @@ static const CGFloat TNHeightCategories = 35.0f;
                                          CGRectGetHeight(self.frame) - TNHeightCategories
                                      );
     [self.view addSubview:collectionView];
+    CollectionManager *collectionManager = self.collectionManager;
+    self.categoriesManager.callback = ^(){
+        [collectionManager reloadData];
+    };
 }
 
 - (void)viewDidAppear:(BOOL)animated
