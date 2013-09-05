@@ -230,7 +230,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     NSMutableArray *groupsData = [NSMutableArray array];
     for (NSArray *data in self.groupsData)
     {
-        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
         [groupsData addObject:group];
         [groupsData addObjectsFromArray:data];
     }
@@ -255,7 +255,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     NSMutableArray *groupsData = [NSMutableArray array];
     for (NSArray *data in self.groupsData)
     {
-        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
         [groupsData addObject:group];
         [groupsData addObjectsFromArray:data];
     }
@@ -322,7 +322,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                             success:^(NSArray *events)
                                                             {
                                                                 self.groupsLoaded++;
-                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
                                                                 if (self.groupsLoaded == self.groupsCount)
                                                                 {
                                                                     [self loadCatalogueEvents];
@@ -341,7 +341,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                  success:^(NSArray *events)
                                                                  {
                                                                      self.groupsLoaded++;
-                                                                     [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                     [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
                                                                      if (self.groupsLoaded == self.groupsCount)
                                                                      {
                                                                          [self loadCatalogueTournaments];
@@ -360,7 +360,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                             success:^(NSArray *events)
                                                             {
                                                                 self.groupsLoaded++;
-                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
                                                                 if (self.groupsLoaded == self.groupsCount)
                                                                 {
                                                                     [self loadTournament];
@@ -504,7 +504,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [groupsData addObject:(TournamentModel *)self.modifierObject];
     for (NSArray *data in self.groupsData)
     {
-        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
         [groupsData addObject:group];
         [groupsData addObjectsFromArray:data];
     }
