@@ -161,6 +161,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadSubscriptions];
                 break;
                 
+            case CollectionTypeTournaments:
+                [self loadTournaments];
+                break;
+                
             default:
                 break;
         }
@@ -456,6 +460,24 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 {
                                                     [self finishLoading];
                                                 }
+    ];
+}
+
+- (void)loadTournaments
+{
+    GroupModel *group = (GroupModel *)self.modifierObject;
+    FilterModel *filter = [FilterModel filter];
+    filter.group = group;
+    [[ObjectManager sharedManager] tournamentsWithPaging:self.paging
+                                                  filter:filter
+                                                 success:^(NSArray *tournaments)
+                                                 {
+                                                     [self combineWithData:tournaments];
+                                                 }
+                                                 failure:^
+                                                 {
+                                                     [self finishLoading];
+                                                 }
     ];
 }
 

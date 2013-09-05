@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypePrivacySettings,
     CollectionTypePushSettinds,
     CollectionTypeSocialsSettings,
-    CollectionTypeSubscriptions
+    CollectionTypeSubscriptions,
+    CollectionTypeTournaments
 };
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
