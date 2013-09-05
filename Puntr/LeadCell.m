@@ -111,6 +111,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UIButton *buttonSubscribe;
 
 // Tournament
+@property (nonatomic, strong) TournamentModel *tournament;
 @property (nonatomic, strong) UILabel *labelTournamentTitle;
 @property (nonatomic, strong) UIImageView *imageViewTournamentArrow;
 @property (nonatomic, strong) UIButton *buttonTournament;
@@ -219,6 +220,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.buttonSubscribe)
     
     // Tournament
+    self.tournament = nil;
     TNRemove(self.labelTournamentTitle)
     TNRemove(self.imageViewTournamentArrow)
     
@@ -340,6 +342,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadWithComment:(CommentModel *)comment
 {
     self.event = comment.event;
+    self.tournament = comment.event.tournament;
     self.user = comment.user;
     [self displayUser:comment.user message:comment.message final:YES];
 }
@@ -357,6 +360,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     self.event = event;
     self.submodel = event;
+    self.tournament = event.tournament;
     if (event.banner) {
         [self displayBanner:event.banner];
     }
@@ -398,6 +402,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displayUser:stake.user message:nil final:NO];
     }
     self.event = stake.event;
+    self.tournament = stake.event.tournament;
     [self displayTournament:stake.event.tournament arrow:YES final:NO];
     [self displayCategory:stake.event.tournament.category];
     [self displayParticipants:stake.event.participants final:NO];
@@ -432,6 +437,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         self.event = subscription.event;
         self.submodel = subscription.event;
+        self.tournament = subscription.event.tournament;
         [self displaySubscribedForObject:self.submodel];
         [self displayCategory:subscription.event.tournament.category];
         [self displayParticipants:subscription.event.participants final:NO];
@@ -441,6 +447,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithTournament:(TournamentModel *)tournament
 {
+    self.tournament = tournament;
     [self whiteCell];
     if (tournament.banner) {
         [self displayBanner:tournament.banner];
@@ -524,7 +531,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.imageViewBanner setImageWithURL:[banner URLByAppendingSize:sizeBanner]];
     [self addSubview:self.imageViewBanner];
     
-    [self placeButtonForObject:self.event frame:self.imageViewBanner.frame];
+    [self placeButtonForObject:[self tournamentOrEvent] frame:self.imageViewBanner.frame];
     
     self.usedHeight = CGRectGetMaxY(self.imageViewBanner.frame);
 }
@@ -559,7 +566,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelCategoryTitle];
     
     CGFloat maxY = CGRectGetMaxY(self.labelCategoryTitle.frame);
-    [self placeButtonForObject:self.event maxY:maxY];
+    [self placeButtonForObject:[self tournamentOrEvent] maxY:maxY];
     
     self.usedHeight = maxY;
 }
@@ -1103,7 +1110,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelEventStakesCount];
     
     CGFloat maxY = CGRectGetMaxY(self.labelEventStakesCount.frame);
-    [self placeButtonForObject:self.event maxY:maxY + TNMarginGeneral];
+    [self placeButtonForObject:[self tournamentOrEvent] maxY:maxY + TNMarginGeneral];
     
     self.usedHeight = maxY;
     
@@ -1158,7 +1165,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelTournamentTitle.text = tournament.title;
     [self addSubview:self.labelTournamentTitle];
     
-    self.usedHeight = CGRectGetMaxY(self.labelTournamentTitle.frame);
+    CGFloat maxY = CGRectGetMaxY(self.labelTournamentTitle.frame);
+    
+    [self placeButtonForObject:self.tournament maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     if (arrow)
     {
@@ -1251,7 +1262,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)placeButtonForObject:(id)object maxY:(CGFloat)maxY
 {
     CGRect frame = CGRectBetween(self.usedHeight, maxY);
-    [self placeButtonForObject:self.event frame:frame];
+    [self placeButtonForObject:object frame:frame];
 }
 
 - (void)whiteCell
@@ -1460,6 +1471,20 @@ CGRect CGRectBetween(CGFloat minY, CGFloat maxY)
         [view removeFromSuperview];
     }
     [array removeAllObjects];
+}
+
+- (id)tournamentOrEvent
+{
+    id object = nil;
+    if ([self.model isMemberOfClass:[EventModel class]] || ([self.model respondsToSelector:@selector(event)] && [self.model event]))
+    {
+        object = self.event;
+    }
+    else if ([self.model isMemberOfClass:[TournamentModel class]] || ([self.model respondsToSelector:@selector(tournament)] && [self.model tournament]))
+    {
+        object = self.tournament;
+    }
+    return object;
 }
 
 @end
