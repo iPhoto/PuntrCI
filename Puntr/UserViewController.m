@@ -336,7 +336,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
 
 - (void)awardButtonTouched
 {
-    [self.navigationController pushViewController:[[AwardsCollectionViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[AwardsCollectionViewController alloc] initWithUser:self.user] animated:YES];
 }
 
 
