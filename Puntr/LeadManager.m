@@ -6,12 +6,15 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+
+#import "CatalogueEventsViewController.h"
+#import "CatalogueTournamentsViewController.h"
 #import "EventModel.h"
 #import "EventsViewController.h"
 #import "EventViewController.h"
 #import "GroupModel.h"
 #import "LeadManager.h"
-#import "CatalogueTournamentsViewController.h"
+#import "TournamentsViewController.h"
 #import "UserModel.h"
 #import "UserViewController.h"
 
@@ -44,9 +47,16 @@
         {
             [[PuntrUtilities mainNavigationController] pushViewController:[CatalogueTournamentsViewController tournaments] animated:YES];
         }
-        else if (![self isVisible:[EventsViewController class]])
+        else
         {
-            [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model] animated:YES];
+            if ([self isVisible:[CatalogueEventsViewController class]] && ![self isVisible:[EventsViewController class]])
+            {
+                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model] animated:YES];
+            }
+            else if ([self isVisible:[CatalogueTournamentsViewController class]] && ![self isVisible:[TournamentsViewController class]])
+            {
+                [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournamentsForGroup:(GroupModel *)model] animated:YES];
+            }
         }
     }
 }
