@@ -14,6 +14,7 @@
 #import "EventViewController.h"
 #import "GroupModel.h"
 #import "LeadManager.h"
+#import "TournamentViewController.h"
 #import "TournamentsViewController.h"
 #import "UserModel.h"
 #import "UserViewController.h"
@@ -33,13 +34,6 @@
             [[PuntrUtilities mainNavigationController] pushViewController:[[EventViewController alloc] initWithEvent:(EventModel *)model] animated:YES];
         }
     }
-    else if ([model isMemberOfClass:[UserModel class]])
-    {
-        if (![self isVisible:[UserViewController class]])
-        {
-            [[PuntrUtilities mainNavigationController] pushViewController:[[UserViewController alloc] initWithUser:(UserModel *)model] animated:YES];
-        }
-    }
     else if ([model isMemberOfClass:[GroupModel class]])
     {
         GroupModel *group = (GroupModel *)model;
@@ -49,7 +43,7 @@
         }
         else
         {
-            if ([self isVisible:[CatalogueEventsViewController class]] && ![self isVisible:[EventsViewController class]])
+            if (([self isVisible:[CatalogueEventsViewController class]] || [self isVisible:[TournamentViewController class]]) && ![self isVisible:[EventsViewController class]])
             {
                 [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model] animated:YES];
             }
@@ -57,6 +51,20 @@
             {
                 [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournamentsForGroup:(GroupModel *)model] animated:YES];
             }
+        }
+    }
+    else if ([model isMemberOfClass:[UserModel class]])
+    {
+        if (![self isVisible:[UserViewController class]])
+        {
+            [[PuntrUtilities mainNavigationController] pushViewController:[[UserViewController alloc] initWithUser:(UserModel *)model] animated:YES];
+        }
+    }
+    else if ([model isMemberOfClass:[TournamentModel class]])
+    {
+        if (![self isVisible:[TournamentViewController class]])
+        {
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model] animated:YES];
         }
     }
 }
