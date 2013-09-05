@@ -161,6 +161,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadSubscriptions];
                 break;
                 
+            case CollectionTypeTournament:
+                [self loadGroups];
+                break;
+                
             case CollectionTypeTournaments:
                 [self loadTournaments];
                 break;
@@ -338,6 +342,25 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                  }
                     ];
                 }
+                else if (self.collectionType == CollectionTypeTournament)
+                {
+                    [[ObjectManager sharedManager] eventsWithPaging:paging
+                                                             filter:filter
+                                                            success:^(NSArray *events)
+                                                            {
+                                                                self.groupsLoaded++;
+                                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObject:group] withObject:events];
+                                                                if (self.groupsLoaded == self.groupsCount)
+                                                                {
+                                                                    [self loadTournament];
+                                                                }
+                                                            }
+                                                            failure:^
+                                                            {
+                                                                [self finishLoading];
+                                                            }
+                    ];
+                }
             }
         }
         failure:^
@@ -461,6 +484,25 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                     [self finishLoading];
                                                 }
     ];
+}
+
+- (void)loadTournament
+{
+    // Groups with Events
+    NSMutableArray *groupsData = [NSMutableArray array];
+    [groupsData addObject:(TournamentModel *)self.modifierObject];
+    for (NSArray *data in self.groupsData)
+    {
+        GroupModel *group = self.groups[[self.groupsData indexOfObject:data]];
+        [groupsData addObject:group];
+        [groupsData addObjectsFromArray:data];
+    }
+    
+    self.collectionData = [groupsData copy];
+    
+    [self.collectionView reloadData];
+    
+    [self finishLoading];
 }
 
 - (void)loadTournaments

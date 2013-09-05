@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypePushSettinds,
     CollectionTypeSocialsSettings,
     CollectionTypeSubscriptions,
+    CollectionTypeTournament,
     CollectionTypeTournaments
 };
 
