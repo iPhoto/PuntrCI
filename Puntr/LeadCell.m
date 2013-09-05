@@ -1356,21 +1356,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         ];
     }
     else if ([self.model isKindOfClass:[DynamicSelectionModel class]])
-    {/*
-        PushSettingsModel *pushModel = (PushSettingsModel *)self.submodel;
-        pushModel.status = [NSNumber numberWithBool:self.switchDynamicSelection.on];
-        [[ObjectManager sharedManager] setPush:pushModel
-                                       success:^(NSArray *push)
-         {
-             [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
-             [self.delegate reloadData];
-         }
-                                       failure:^
-         {
-             [self.delegate reloadData];
-         }
-         ];
-    */
+    {
         DynamicSelectionModel *socialModel = (DynamicSelectionModel *)self.model;
         if (self.switchDynamicSelection.on)
         {

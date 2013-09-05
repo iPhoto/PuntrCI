@@ -98,7 +98,10 @@
                                                 {
                                                     NSLog(@"Fail");
                                                     NSLog(@"Error: %@", error);
-                                                    self.failure();
+                                                    if(self.failure)
+                                                    {
+                                                        self.failure();
+                                                    }
                                                 }
                                             }
      ];
