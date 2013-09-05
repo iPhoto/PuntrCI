@@ -97,6 +97,7 @@ NSString *const KeyPasswordNewConfirmation = @"passwordNewConfirmation";
 NSString *const KeyPosition = @"position";
 NSString *const KeyPrivacy = @"privacy";
 NSString *const KeyPush = @"push";
+NSString *const KeyPushToken = @"pushToken";
 NSString *const KeyRating = @"rating";
 NSString *const KeySearch = @"search";
 NSString *const KeySecret = @"secret";
