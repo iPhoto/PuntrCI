@@ -187,6 +187,7 @@
 		3194037017723718009F0DBE /* catalogueHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036E17723718009F0DBE /* catalogueHeaderBackground.png */; };
 		3194037117723718009F0DBE /* catalogueHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */; };
 		3195D392176A26F5005E4856 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3195D391176A26F5005E4856 /* RegistrationViewController.m */; };
+		31A5BD4017D8DFFC000A9B89 /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A5BD3F17D8DFFB000A9B89 /* TournamentsViewController.m */; };
 		31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161B1785CE78000D8F2C /* NotificationManager.m */; };
 		31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD161E1785D294000D8F2C /* ParameterModel.m */; };
 		31B112A2176B5CD000060EAB /* CatalogueEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */; };
@@ -591,6 +592,8 @@
 		3194036F17723718009F0DBE /* catalogueHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "catalogueHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		3195D390176A26F5005E4856 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		3195D391176A26F5005E4856 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		31A5BD3E17D8DFFA000A9B89 /* TournamentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentsViewController.h; sourceTree = "<group>"; };
+		31A5BD3F17D8DFFB000A9B89 /* TournamentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
 		31AD161A1785CE78000D8F2C /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		31AD161B1785CE78000D8F2C /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		31AD161D1785D294000D8F2C /* ParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterModel.h; sourceTree = "<group>"; };
@@ -1355,6 +1358,8 @@
 				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
 				31D2A39B17CC8C81005D683E /* SubscriptionsViewController.h */,
 				31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */,
+				31A5BD3E17D8DFFA000A9B89 /* TournamentsViewController.h */,
+				31A5BD3F17D8DFFB000A9B89 /* TournamentsViewController.m */,
 				D6B449BE17B66272000B9F5E /* TournamentViewController.h */,
 				D6B449BF17B66272000B9F5E /* TournamentViewController.m */,
 				0F40906D17C230DA001CC23F /* UpdateProfileViewController.h */,
@@ -2025,6 +2030,7 @@
 				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
 				316765E617D7628600634FBE /* EventsViewController.m in Sources */,
 				316765E917D7722000634FBE /* CatalogueTournamentsViewController.m in Sources */,
+				31A5BD4017D8DFFC000A9B89 /* TournamentsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
