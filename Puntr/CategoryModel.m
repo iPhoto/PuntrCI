@@ -10,6 +10,13 @@
 
 @implementation CategoryModel
 
++ (CategoryModel *)categoryWithTag:(NSNumber *)tag
+{
+    CategoryModel *category = [[self alloc] init];
+    category.tag = tag;
+    return category;
+}
+
 - (NSDictionary *)parameters
 {
     if (self.tag)

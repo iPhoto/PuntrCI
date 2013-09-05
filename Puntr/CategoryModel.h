@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSURL *image;
 
++ (CategoryModel *)categoryWithTag:(NSNumber *)tag;
+
 - (NSDictionary *)parameters;
 
 @end
