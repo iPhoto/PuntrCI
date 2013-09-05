@@ -7,6 +7,7 @@
 //
 
 #import "CollectionManager.h"
+#import "DefaultsManager.h"
 #import "LeadCell.h"
 #import "Models.h"
 #import "ObjectManager.h"
@@ -270,6 +271,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     GroupModel *group = (GroupModel *)self.modifierObject;
     FilterModel *filter = [FilterModel filter];
     filter.group = group;
+    CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
+    if (![category.tag isEqualToNumber:@0])
+    {
+        filter.categories = @[category];
+    }
     [[ObjectManager sharedManager] eventsWithPaging:self.paging
                                              filter:filter
                                             success:^(NSArray *events)
@@ -304,6 +310,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             {
                 FilterModel *filter = [FilterModel filter];
                 filter.group = group;
+                CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
+                if (![category.tag isEqualToNumber:@0])
+                {
+                    filter.categories = @[category];
+                }
                 if (self.collectionType == CollectionTypeCatalogueEvents)
                 {
                     [[ObjectManager sharedManager] eventsWithPaging:paging
@@ -510,6 +521,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     GroupModel *group = (GroupModel *)self.modifierObject;
     FilterModel *filter = [FilterModel filter];
     filter.group = group;
+    CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
+    if (![category.tag isEqualToNumber:@0])
+    {
+        filter.categories = @[category];
+    }
     [[ObjectManager sharedManager] tournamentsWithPaging:self.paging
                                                   filter:filter
                                                  success:^(NSArray *tournaments)

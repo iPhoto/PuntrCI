@@ -8,6 +8,7 @@
 
 #import "CategoriesManager.h"
 #import "CategoryCell.h"
+#import "DefaultsManager.h"
 #import "ObjectManager.h"
 #import "CategoryModel.h"
 
@@ -17,7 +18,6 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
-@property (nonatomic) NSUInteger selectionIndex;
 @property (nonatomic) BOOL alreadyInitialized;
 
 @end
@@ -97,8 +97,9 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
 {
     CategoryCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:TNCategoryCellReuseIdentifier
                                                                         forIndexPath:indexPath];
-    [cell loadWithCategory:self.collectionData[indexPath.row]];
-    if (indexPath.row == (NSInteger)self.selectionIndex)
+    CategoryModel *category = self.collectionData[indexPath.row];
+    [cell loadWithCategory:category];
+    if ([category.tag isEqualToNumber:[DefaultsManager sharedManager].defaultCategoryTag])
     {
         cell.selected = YES;
         [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
@@ -110,7 +111,8 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectionIndex = (NSUInteger)indexPath.row;
+    CategoryModel *category = self.collectionData[indexPath.row];
+    [DefaultsManager sharedManager].defaultCategoryTag = category.tag;
     if (self.callback)
     {
         self.callback();
