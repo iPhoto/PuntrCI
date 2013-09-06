@@ -567,6 +567,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         
         [self.collectionView reloadData];
     }
+    else
+    {
+        NSMutableArray *oldData = [NSMutableArray arrayWithArray:self.collectionData];
+        if ([oldData.lastObject isMemberOfClass:[LoadModel class]])
+        {
+            [oldData removeLastObject];
+        }
+        self.collectionData = [oldData copy];
+        
+        [self.collectionView reloadData];
+    }
     [self finishLoading];
 }
 
