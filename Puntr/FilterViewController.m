@@ -6,24 +6,20 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "CategoryModel.h"
+#import "DefaultsManager.h"
 #import "FilterViewController.h"
 #import "ObjectManager.h"
-#import "CategoryModel.h"
 
+#define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
 
-#define TABLE_HEADER @"Выберите интересующие вас виды спорта:"
-#define TNFontHeader [UIFont systemFontOfSize:[UIFont systemFontSize]]
-
-#define BUTTON_TITLE_CHECK_ALL      @"Выбрать все"
-#define BUTTON_TITLE_UNCHECK_ALL    @"Снять все"
+static NSString * const TNTableHeader = @"Выберите интересующие вас виды спорта:";
+static NSString * const TNButtonTitleCheckAll = @"Выбрать все";
+static NSString * const TNButtonTitleUncheckAll = @"Снять все";
+static NSString *const TNKeyCategories = @"KeyCategoriesFilter";
 
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
-
-static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
-
-
-
 
 #pragma mark - TableViewCell
 
@@ -36,22 +32,25 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 @end
 
-
-@implementation TNTableViewCell {
+@implementation TNTableViewCell
+{
     UIImageView *_checkedImageView;
     UIImageView *_uncheckedImageView;
 }
 
 - (id)init
 {
-    if (self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil]) {
+    if (self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil])
+    {
+        
     }
     return self;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
         _checkedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked.png"]];
         _uncheckedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"unchecked.png"]];
     }
@@ -61,10 +60,12 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 - (void)setIsChecked:(BOOL)isChecked
 {
     _isChecked = isChecked;
-    if (_isChecked) {
+    if (_isChecked)
+    {
         self.accessoryView = _checkedImageView;
     }
-    else {
+    else
+    {
         self.accessoryView = _uncheckedImageView;
     }
 }
@@ -95,14 +96,20 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[category.image URLByAppendingSize:CGSizeMake(TNSideCategoryImage, TNSideCategoryImage)]];
         
         UIImageView *tmpImageView = [UIImageView new];
-        [tmpImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-               if (weakSelf && weakSelf.someObject) {
-                   if (weakSelf.someObject == category) {
-                       weakSelf.imageView.image = image;
-                       [weakSelf setNeedsLayout];
-                   }
-               }
-           } failure:nil];
+        [tmpImageView setImageWithURLRequest:request
+                            placeholderImage:nil
+                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+                                     {
+                                        if (weakSelf && weakSelf.someObject)
+                                        {
+                                            if (weakSelf.someObject == category)
+                                            {
+                                                weakSelf.imageView.image = image;
+                                                [weakSelf setNeedsLayout];
+                                            }
+                                        }
+                                     }
+                                     failure:nil];
     }
     
     if (category.title)
@@ -112,9 +119,6 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 }
 
 @end
-
-
-
 
 @interface FilterViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -127,17 +131,7 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 @end
 
-
-
 @implementation FilterViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -163,8 +157,9 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     self.filtersTableView.scrollEnabled = YES;
     [self.view addSubview:self.filtersTableView];
     
-    self.unCheckedTags = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:FFCategoriesKey]];
-    if (!self.unCheckedTags) {
+    self.unCheckedTags = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:TNKeyCategories]];
+    if (!self.unCheckedTags)
+    {
         self.unCheckedTags = [NSMutableDictionary new];
     }
     
@@ -173,16 +168,14 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     [self requestData];
 }
 
-
-
-#pragma mark - Utils funcs
+#pragma mark - Utility
 
 - (void)addCheckButton
 {
     UIButton *buttonCheck = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 84, 31)];
     self.buttonCheck = buttonCheck;
     [self.buttonCheck setBackgroundImage:[[UIImage imageNamed:@"button_green.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)] forState:UIControlStateNormal];
-    [self.buttonCheck.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0f]];
+    [self.buttonCheck.titleLabel setFont:TNFont];
     self.buttonCheck.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonCheck.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonCheck setTitle:[self checkUncheckButtonTitle] forState:UIControlStateNormal];
@@ -193,7 +186,8 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 - (void)checkUnckeckButtonPressed
 {
     BOOL newState = !([self isAllSportsChecked]);
-    for (NSInteger i = 0; i < self.isChecked.count; i++) {
+    for (NSInteger i = 0; i < self.isChecked.count; i++)
+    {
         [self setCategoryWithIndex:i inStateChecked:newState];
     }
     [self.buttonCheck setTitle:[self checkUncheckButtonTitle] forState:UIControlStateNormal];
@@ -204,8 +198,10 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 - (BOOL)isAllSportsChecked
 {
     BOOL retVal = YES;
-    for (NSNumber *isChecked in self.isChecked) {
-        if (![isChecked boolValue]) {
+    for (NSNumber *isChecked in self.isChecked)
+    {
+        if (![isChecked boolValue])
+        {
             retVal = NO;
             break;
         }
@@ -215,7 +211,7 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 - (NSString *)checkUncheckButtonTitle
 {
-    NSString *retVal = ([self isAllSportsChecked]) ? BUTTON_TITLE_UNCHECK_ALL : BUTTON_TITLE_CHECK_ALL;
+    NSString *retVal = ([self isAllSportsChecked]) ? TNButtonTitleUncheckAll : TNButtonTitleCheckAll;
     return retVal;
 }
 
@@ -224,10 +220,12 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     CategoryModel *category = self.categories[index];
     NSString *key = [category.tag stringValue];
     self.isChecked[index] = @(isChecked);
-    if (isChecked) {
+    if (isChecked)
+    {
         [self.unCheckedTags removeObjectForKey:key];
     }
-    else {
+    else
+    {
         self.unCheckedTags[key] = @(YES);
     }
 }
@@ -236,24 +234,28 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 {
     __weak FilterViewController *weakSelf = self;
     [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories)
-     {
-         NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
-         [consolidatedCategories addObjectsFromArray:categories];
-         weakSelf.categories = [consolidatedCategories copy];
-         weakSelf.isChecked = [NSMutableArray new];
-         for (CategoryModel *category in weakSelf.categories) {
-             [weakSelf.isChecked addObject:@(([weakSelf isCheckedCategory:category]))];
-         }
-         [weakSelf.buttonCheck setTitle:[weakSelf checkUncheckButtonTitle] forState:UIControlStateNormal];
-         [weakSelf.filtersTableView reloadData];
-     } failure:nil];
+        {
+            NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
+            [consolidatedCategories addObjectsFromArray:categories];
+            weakSelf.categories = [consolidatedCategories copy];
+            weakSelf.isChecked = [NSMutableArray new];
+            for (CategoryModel *category in weakSelf.categories)
+            {
+                [weakSelf.isChecked addObject:@(([weakSelf isCheckedCategory:category]))];
+            }
+            [weakSelf.buttonCheck setTitle:[weakSelf checkUncheckButtonTitle] forState:UIControlStateNormal];
+            [weakSelf.filtersTableView reloadData];
+        }
+        failure:nil
+    ];
 }
 
 - (BOOL)isCheckedCategory:(CategoryModel *)category
 {
     BOOL retVal = YES;
     NSString *key = [category.tag stringValue];
-    if (self.unCheckedTags[key]) {
+    if (self.unCheckedTags[key])
+    {
         retVal = NO;
     }
     return retVal;
@@ -261,7 +263,7 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 
 - (void)saveUncheckedStates
 {
-    [[NSUserDefaults standardUserDefaults] setObject:self.unCheckedTags forKey:FFCategoriesKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.unCheckedTags forKey:TNKeyCategories];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -291,8 +293,8 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
         cell = [[TNTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdFileName];
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:reuseIdFileName]];
         cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.font = TNFont;
+        cell.textLabel.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     }
     
     CategoryModel *category = self.categories[indexPath.row];
@@ -308,8 +310,7 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
     
     CGFloat settingsWidth = CGRectGetWidth(self.filtersTableView.frame);
     
-    NSString *header = TABLE_HEADER;
-    CGSize headerSize = [header sizeWithFont:TNFontHeader
+    CGSize headerSize = [TNTableHeader sizeWithFont:TNFont
                            constrainedToSize:CGSizeMake(settingsWidth - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
                                lineBreakMode:NSLineBreakByClipping];
     headerHeight = TNHeaderFooterTopPadding + headerSize.height + 5.0f;
@@ -320,29 +321,29 @@ static NSString *const FFCategoriesKey = @"FilterCategoriesKey";
 {
     UIView *headerView = nil;
     
-    NSString *header = TABLE_HEADER;
     CGFloat settingsWidth = CGRectGetWidth(self.filtersTableView.frame);
     
     CGFloat headerHeight = [self tableView:self.filtersTableView heightForHeaderInSection:0];
     
     headerView = [[UIView alloc] initWithFrame:CGRectMake(
-                                                          0.0f,
-                                                          0.0f,
-                                                          settingsWidth,
-                                                          TNHeaderFooterTopPadding + headerHeight + 5.0f
-                                                          )];
+                                                             0.0f,
+                                                             0.0f,
+                                                             settingsWidth,
+                                                             TNHeaderFooterTopPadding + headerHeight + 5.0f
+                                                         )];
     
     UILabel *headerViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(
-                                                                         TNHeaderFooterSidePadding,
-                                                                         TNHeaderFooterTopPadding,
-                                                                         settingsWidth - (TNHeaderFooterSidePadding * 2.0f),
-                                                                         headerHeight - (TNHeaderFooterTopPadding * 2.0f)
-                                                                         )];
-    headerViewLabel.text = header;
-    headerViewLabel.font = TNFontHeader;
+                                                                            TNHeaderFooterSidePadding,
+                                                                            TNHeaderFooterTopPadding,
+                                                                            settingsWidth - (TNHeaderFooterSidePadding * 2.0f),
+                                                                            headerHeight - (TNHeaderFooterTopPadding * 2.0f)
+                                                                        )];
+    headerViewLabel.text = TNTableHeader;
+    headerViewLabel.font = TNFont;
     headerViewLabel.backgroundColor = [UIColor clearColor];
     headerViewLabel.textColor = [UIColor whiteColor];
     headerViewLabel.lineBreakMode = NSLineBreakByClipping;
+    headerViewLabel.textAlignment = NSTextAlignmentCenter;
     [headerView addSubview:headerViewLabel];
     
     return headerView;
