@@ -25,10 +25,10 @@ static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
     static DefaultsManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^
-                  {
-                      sharedManager = [[self alloc] init];
-                  }
-                  );
+                     {
+                         sharedManager = [[self alloc] init];
+                     }
+                 );
     return sharedManager;
 }
 
