@@ -55,6 +55,8 @@ static const CGFloat TNItemSpacing = 12.0f;
     self.imageViewSorryArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArrowDown"]];
     [self.imageViewSorryArrow setFrame:CGRectMake(100, CGRectGetHeight(viewControllerFrame) - CGRectGetHeight(self.imageViewSorryArrow.frame), CGRectGetWidth(self.imageViewSorryArrow.frame), CGRectGetHeight(self.imageViewSorryArrow.frame))];
     [self.view addSubview:self.imageViewSorryArrow];
+    self.labelSorryText.hidden = YES;
+    self.imageViewSorryArrow.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,8 +66,10 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.collectionManager reloadData];
 }
 
-- (void)collectionUpdatedWhithNumberofCells:(int) count
+- (void)collectionUpdated
 {
+    int count = [self.collectionManager.collectionView numberOfItemsInSection:0];
+    
     if(count == 0)
     {
         self.labelSorryText.hidden = NO;

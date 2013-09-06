@@ -14,7 +14,7 @@
 @optional
 
 - (void)collectionViewDidSelectCellWithModel:(id)model;
-- (void)collectionUpdatedWhithNumberofCells:(int) count;
+- (void)collectionUpdated;
 
 @end
 
