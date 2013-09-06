@@ -193,26 +193,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 }
 
 - (void)loadAwards
-{
-    
-//    AwardModel *award = [[AwardModel alloc] init];
-//    award.title = @"award1";
-//    award.description = @"blah blah balah";
-//    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
-//    
-//    AwardModel *award1 = [[AwardModel alloc] init];
-//    award1.title = @"award2";
-//    award1.description = @"award2 description";
-//    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
-//    
-//    AwardModel *award2 = [[AwardModel alloc] init];
-//    award2.title = @"award3";
-//    award2.description = @"award3 description";
-//    award2.image = [NSURL URLWithString:@"http://img2.joyreactor.cc/pics/post/1-сентября-песочница-855392.jpeg"];
-//    
-//    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
-//    [self combineWithData:awards];
-    
+{  
     UserModel *user = (UserModel *)self.modifierObject;
     [[ObjectManager sharedManager] awardsForUser:user
                                           paging:self.paging
@@ -252,13 +233,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadCatalogueTournaments
 {
     // Groups with Tournaments
-    NSMutableArray *groupsData = [NSMutableArray array];
-    for (NSArray *data in self.groupsData)
-    {
-        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
-        [groupsData addObject:group];
-        [groupsData addObjectsFromArray:data];
-    }
+    NSMutableArray *groupsData = [self groupsWithObjects];
     self.collectionData = [groupsData copy];
     
     [self.collectionView reloadData];
@@ -291,42 +266,34 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadEventsWithFilter:(FilterModel *)filter
 {
-    [[ObjectManager sharedManager] eventsWithPaging:self.paging
-                                             filter:filter
-                                            success:^(NSArray *events)
-                                            {
-                                                [self combineWithData:events];
-                                            }
-                                            failure:^
-                                            {
-                                                [self finishLoading];
-                                            }
-    ];
+    [self loadEventsWithGroup:nil groups:nil paging:nil filter:filter];
 }
 
 - (void)loadEventsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
 {
-    [[ObjectManager sharedManager] eventsWithPaging:paging
+    [[ObjectManager sharedManager] eventsWithPaging:paging ? paging : self.paging 
                                              filter:filter
                                             success:^(NSArray *events)
                                             {
-                                                self.groupsLoaded++;
-                                                [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
-                                                if (self.groupsLoaded == self.groupsCount)
+                                                if (groups)
                                                 {
-                                                    if (self.collectionType == CollectionTypeCatalogueEvents)
+                                                    self.groupsLoaded++;
+                                                    [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
+                                                    if (self.groupsLoaded == self.groupsCount)
                                                     {
-                                                        [self loadCatalogueEvents];
+                                                        if (self.collectionType == CollectionTypeCatalogueEvents)
+                                                        {
+                                                            [self loadCatalogueEvents];
+                                                        }
+                                                        else if (self.collectionType == CollectionTypeTournament)
+                                                        {
+                                                            [self loadTournament];
+                                                        }
                                                     }
-                                                    else if (self.collectionType == CollectionTypeCatalogueTournaments)
-                                                    {
-                                                        [self loadCatalogueTournaments];
-                                                    }
-                                                    else if (self.collectionType == CollectionTypeTournament)
-                                                    {
-                                                        [self loadTournament];
-                                                    }
-                                                    
+                                                }
+                                                else
+                                                {
+                                                    [self combineWithData:events];
                                                 }
                                             }
                                             failure:^
@@ -361,14 +328,28 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 if (![category.tag isEqualToNumber:@0])
                 {
                     filter.categories = @[category];
-                    [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
+                    if (self.collectionType == CollectionTypeCatalogueTournaments)
+                    {
+                        [self loadTournamentsWithGroup:group groups:groups paging:paging filter:filter];
+                    }
+                    else
+                    {
+                        [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
+                    }
                 }
                 else
                 {
                     [CategoryModel includedCategoriesWithSuccess:^(NSArray *includedCategories)
                         {
                             filter.categories = includedCategories;
-                            [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
+                            if (self.collectionType == CollectionTypeCatalogueTournaments)
+                            {
+                                [self loadTournamentsWithGroup:group groups:groups paging:paging filter:filter];
+                            }
+                            else
+                            {
+                                [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
+                            }
                         }
                     ];
                 }
@@ -501,7 +482,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadTournament
 {
     // Groups with Events
-    NSMutableArray *groupsWithEvents = [self groupsWithEvents];
+    NSMutableArray *groupsWithEvents = [self groupsWithObjects];
     [groupsWithEvents insertObject:(TournamentModel *)self.modifierObject atIndex:0];
     
     self.collectionData = [groupsWithEvents copy];
@@ -535,11 +516,28 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadTournamentsWithFilter:(FilterModel *)filter
 {
-    [[ObjectManager sharedManager] tournamentsWithPaging:self.paging
+    [self loadTournamentsWithGroup:nil groups:nil paging:nil filter:filter];
+}
+
+- (void)loadTournamentsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
+{   
+    [[ObjectManager sharedManager] tournamentsWithPaging:paging ? paging : self.paging
                                                   filter:filter
                                                  success:^(NSArray *tournaments)
                                                  {
-                                                     [self combineWithData:tournaments];
+                                                     if (groups)
+                                                     {
+                                                         self.groupsLoaded++;
+                                                         [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:tournaments];
+                                                         if (self.groupsLoaded == self.groupsCount)
+                                                         {
+                                                             [self loadCatalogueTournaments];
+                                                         }
+                                                     }
+                                                     else
+                                                     {
+                                                         [self combineWithData:tournaments];
+                                                     }
                                                  }
                                                  failure:^
                                                  {
@@ -621,7 +619,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 #pragma mark - Utility
 
-- (NSMutableArray *)groupsWithEvents
+- (NSMutableArray *)groupsWithObjects
 {
     NSMutableArray *groupsWithEvents = [NSMutableArray array];
     for (NSArray *data in self.groupsData)
