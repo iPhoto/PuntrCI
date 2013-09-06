@@ -40,21 +40,26 @@
     CGFloat imageSide = (self.view.frame.size.width / 2) - (2 *  EDGE_VIEWS);
     
     self.awardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(EDGE_VIEWS, EDGE_VIEWS, imageSide, imageSide)];
-    self.awardImageView.backgroundColor = [UIColor redColor];
+    self.awardImageView.backgroundColor = [UIColor clearColor];
     CGSize awardImageSize = CGSizeMake(imageSide, imageSide);
-//    [self.awardImageView setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
-    [self.awardImageView setImageWithURL:self.award.image];
+    [self.awardImageView setImageWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
     
     [self.view addSubview:self.awardImageView];
     
     CGFloat labelX = CGRectGetMaxX(self.awardImageView.frame) + EDGE_VIEWS;
-    CGFloat labelWidth = self.view.frame.size.width - labelX;
+    CGFloat labelWidth = self.view.frame.size.width - labelX - EDGE_VIEWS;
     
-    CGSize labelSize = [self.award.title sizeWithFont:[UIFont fontWithName:@"Arial-BoldMT" size:20.0f] forWidth:labelWidth lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize labelSize = [self.award.title sizeWithFont:[UIFont fontWithName:@"Arial-BoldMT" size:20.0f] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     self.awardTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, CGRectGetMidY(self.awardImageView.frame) - (labelSize.height / 2), labelWidth, labelSize.height)];
     self.awardTitleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20.0f];
+    self.awardTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.awardTitleLabel.numberOfLines = 0;
     self.awardTitleLabel.text = self.award.title;
+
     [self.view addSubview:self.awardTitleLabel];
+    
+    labelX += labelWidth / 2;
+    
     
     self.awardComment = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.awardImageView.frame), CGRectGetMaxY(self.awardImageView.frame) + EDGE_VIEWS, self.view.frame.size.width - (2 * coverMargin), labelSize.height)];
     self.awardComment.placeholder = @"Ваш комментарий";
@@ -63,7 +68,8 @@
     self.awardComment.contentVerticalAlignment  = UIControlContentHorizontalAlignmentCenter;
     self.awardComment.delegate = self;
     [self.view addSubview:self.awardComment];
-    
+   
+    labelSize = [@"Поделиться" sizeWithFont:[UIFont fontWithName:@"Arial-BoldMT" size:16.0f] constrainedToSize:CGSizeMake(self.view.frame.size.width - (2 * coverMargin) - CGRectGetMinX(self.awardImageView.frame), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     self.shareAwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.shareAwardButton.frame = CGRectMake(CGRectGetMinX(self.awardImageView.frame), CGRectGetMaxY(self.awardComment.frame) + EDGE_VIEWS, self.view.frame.size.width - (2 * coverMargin) - CGRectGetMinX(self.awardImageView.frame), 2 * labelSize.height);
     self.shareAwardButton.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16.0f];

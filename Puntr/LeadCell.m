@@ -484,26 +484,46 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
 
-    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(8.0f, 8.0f, (self.frame.size.height / 2) - 16.0f, (self.frame.size.width / 2) - 16.0f)];
-//    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
-    [self.imageViewAward setImageWithURL:award.image];
-    self.imageViewAward.backgroundColor = [UIColor blueColor];
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, (self.frame.size.height / 2) - 16.0f, (self.frame.size.width / 2) - 8.0f)];
+    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
+    self.imageViewAward.backgroundColor = [UIColor clearColor];
 
-    self.labelAwardTitle = [UILabel labelSmallBold:YES black:YES];
+    self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];
     self.labelAwardDescription = [UILabel labelSmallBold:YES black:YES];
     [self addSubview:self.imageViewAward];
     [self addSubview:self.labelAwardTitle];
     [self addSubview:self.labelAwardDescription];
-    self.labelAwardTitle.text = award.title;
-    [self.labelAwardTitle sizeToFit];
-    self.labelAwardTitle.backgroundColor = [UIColor greenColor];
 
-    self.labelAwardDescription.text = award.description;
-    [self.labelAwardDescription sizeToFit];
-    self.labelAwardDescription.backgroundColor = [UIColor greenColor];
+    CGFloat labelX = CGRectGetMaxX(self.imageViewAward.frame) + 4.0f;
+    CGFloat labelY = CGRectGetMidY(self.imageViewAward.frame);
+
+    CGFloat labelWidth = CGRectGetWidth(self.frame) - labelX - 4.0f;
+
+    labelX += labelWidth / 2;
+    CGSize textSize = [award.title sizeWithFont:self.labelAwardTitle.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    self.labelAwardTitle.numberOfLines = 0;
+    self.labelAwardTitle.lineBreakMode = NSLineBreakByWordWrapping;
+    self.labelAwardTitle.contentMode = UIViewContentModeCenter;
+    self.labelAwardTitle.text = award.title;
+    self.labelAwardTitle.backgroundColor = [UIColor clearColor];
+    self.labelAwardTitle.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
+    self.labelAwardTitle.center = CGPointMake(labelX, labelY);
     
-    self.labelAwardTitle.center = CGPointMake(CGRectGetMaxX(self.imageViewAward.frame) + (self.labelAwardTitle.frame.size.width / 2) + 8.0f, CGRectGetMidY(self.imageViewAward.frame));
-    self.labelAwardDescription.center = CGPointMake(CGRectGetMinX(self.imageViewAward.frame) + (self.labelAwardDescription.frame.size.width / 2), CGRectGetMaxY(self.imageViewAward.frame) + (self.labelAwardDescription.frame.size.height / 2) + 8.0f);
+    
+    labelX = CGRectGetMinX(self.imageViewAward.frame);
+    labelY = CGRectGetMaxY(self.imageViewAward.frame) + 8.0f;
+    labelWidth = CGRectGetWidth(self.frame) - 2*labelX;
+    textSize  = [award.description sizeWithFont:self.labelAwardDescription.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    labelX += labelWidth / 2;
+
+    self.labelAwardDescription.numberOfLines = 0;
+    self.labelAwardDescription.lineBreakMode = NSLineBreakByWordWrapping;
+    self.labelAwardDescription.contentMode = UIViewContentModeCenter;
+    self.labelAwardDescription.text = award.description;
+    self.labelAwardDescription.backgroundColor = [UIColor clearColor];
+
+    self.labelAwardDescription.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
+    self.labelAwardDescription.center = CGPointMake(labelX, labelY + textSize.height / 2);
 }
 
 - (void)displayBackgroundForStake:(StakeModel *)stake
