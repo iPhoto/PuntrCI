@@ -10,6 +10,14 @@
 
 static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
 
+@interface DefaultsManager ()
+
+@property (nonatomic) BOOL defaultCategoryTagLoaded;
+
+@property (nonatomic, strong) NSNumber *categoryTag;
+
+@end
+
 @implementation DefaultsManager
 
 + (DefaultsManager *)sharedManager
@@ -25,8 +33,17 @@ static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
 }
 
 - (NSNumber *)defaultCategoryTag
-{
-    NSNumber *defaultCategoryTag = [[NSUserDefaults standardUserDefaults] objectForKey:TNDefaultCategoryTag];
+{  
+    NSNumber *defaultCategoryTag = nil;
+    if (self.defaultCategoryTagLoaded)
+    {
+        defaultCategoryTag = self.categoryTag;
+    }
+    else
+    {
+        self.categoryTag = defaultCategoryTag = [[NSUserDefaults standardUserDefaults] objectForKey:TNDefaultCategoryTag];
+        self.defaultCategoryTagLoaded = YES;
+    }
     if (!defaultCategoryTag)
     {
         defaultCategoryTag = @0;
@@ -36,6 +53,7 @@ static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
 
 - (void)setDefaultCategoryTag:(NSNumber *)defaultCategoryTag
 {
+    self.categoryTag = defaultCategoryTag;
     [[NSUserDefaults standardUserDefaults] setObject:defaultCategoryTag forKey:TNDefaultCategoryTag];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
