@@ -16,6 +16,15 @@ PODS:
   - FormatterKit/TimeIntervalFormatter (1.2.1)
   - FormatterKit/UnitOfInformationFormatter (1.2.1)
   - FormatterKit/URLRequestFormatter (1.2.1)
+  - libwebp (0.3.0-rc7):
+    - libwebp/dec
+    - libwebp/dsp
+    - libwebp/utils
+    - libwebp/webp
+  - libwebp/dec (0.3.0-rc7)
+  - libwebp/dsp (0.3.0-rc7)
+  - libwebp/utils (0.3.0-rc7)
+  - libwebp/webp (0.3.0-rc7)
   - Masonry (0.2.3)
   - PonyDebugger (0.3.0):
     - SocketRocket
@@ -35,6 +44,11 @@ PODS:
   - RestKit/Support (0.20.3):
     - TransitionKit (= 1.1.1)
   - Reveal-iOS-SDK (0.9.0)
+  - SDWebImage (3.4):
+    - libwebp
+    - SDWebImage/MapKit
+  - SDWebImage/MapKit (3.4):
+    - libwebp
   - SocketRocket (0.3.1-beta2)
   - SOCKit (1.1)
   - TestFlightSDK (2.0)
@@ -49,6 +63,7 @@ DEPENDENCIES:
   - PonyDebugger
   - RestKit
   - Reveal-iOS-SDK
+  - SDWebImage
   - TestFlightSDK (~> 2.0)
   - TSMessages
 
@@ -61,10 +76,12 @@ SPEC CHECKSUMS:
   ActionSheetPicker: 16e212011d5c2e92b3e38609a58b93919b4056aa
   AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54
   FormatterKit: 43c6567e367a872196747fda0c26395c37bd7dd6
+  libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
   Masonry: 6ab455cddc0a29be3eebdca923d75207efe99664
   PonyDebugger: bafc25809ade389d0d1c1f1147877145cc26bd78
   RestKit: 1f181c180105a92f11ec4f6cd7de37625e516d83
   Reveal-iOS-SDK: 2f011ee3e4653abc92b652f409f1641c7a1dae00
+  SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
   TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858

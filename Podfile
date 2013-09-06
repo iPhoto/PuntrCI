@@ -1,11 +1,12 @@
 platform :ios, '6.0'
 inhibit_all_warnings!
-pod 'RestKit'
-pod 'AFNetworking'
-pod 'TestFlightSDK', '~> 2.0'
-pod 'Reveal-iOS-SDK' #Remove for Release
-pod 'FormatterKit', :git => 'https://github.com/Tulushev/FormatterKit.git', :commit => '99c189627c'
-pod 'TSMessages'
 pod 'ActionSheetPicker'
+pod 'AFNetworking'
+pod 'FormatterKit', :git => 'https://github.com/Tulushev/FormatterKit.git', :commit => '99c189627c'
 pod 'Masonry'
 pod 'PonyDebugger'
+pod 'RestKit'
+pod 'Reveal-iOS-SDK' #Remove for Release
+pod 'SDWebImage'
+pod 'TestFlightSDK', '~> 2.0'
+pod 'TSMessages'
