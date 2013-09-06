@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^IncludedCategories)(NSArray *includedCategories);
+
 @interface CategoryModel : NSObject
 
 @property (nonatomic, strong) NSNumber *tag;
@@ -15,6 +17,7 @@
 @property (nonatomic, strong) NSURL *image;
 
 + (CategoryModel *)categoryWithTag:(NSNumber *)tag;
++ (void)includedCategoriesWithSuccess:(IncludedCategories)success;
 
 - (NSDictionary *)parameters;
 

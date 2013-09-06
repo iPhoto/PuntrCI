@@ -7,6 +7,8 @@
 //
 
 #import "CategoryModel.h"
+#import "DefaultsManager.h"
+#import "ObjectManager.h"
 
 @implementation CategoryModel
 
@@ -15,6 +17,25 @@
     CategoryModel *category = [[self alloc] init];
     category.tag = tag;
     return category;
+}
+
++ (void)includedCategoriesWithSuccess:(IncludedCategories)success
+{
+    [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories)
+        {
+            NSArray *excludedCategoryTags = [DefaultsManager sharedManager].excludedCategoryTags;
+            NSMutableArray *includedCategories = [NSMutableArray arrayWithCapacity:categories.count];
+            for (CategoryModel *category in categories)
+            {
+                if (![excludedCategoryTags containsObject:category.tag])
+                {
+                    [includedCategories addObject:category];
+                }
+            }
+            success([includedCategories copy]);
+        }
+        failure:nil
+    ];
 }
 
 - (NSDictionary *)parameters
