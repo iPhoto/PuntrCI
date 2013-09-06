@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AwardModel.h"
 
-@interface AwardViewController : UIViewController <UITextFieldDelegate>
+@interface AwardViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
 - (id)initWithAward:(AwardModel *)award;
 

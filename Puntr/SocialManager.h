@@ -37,6 +37,8 @@ typedef NS_ENUM(NSInteger, SocialNetworkType)
 
 - (void)loginTwWithUser:(NSInteger)index;
 
+- (UIViewController *)shareWithSocialNetwork:(SocialNetworkType)socialNetworkType Text:(NSString *)text Image:(UIImage *)image;
+
 @property (nonatomic, weak) id <SocialManagerDelegate> delegate;
 
 @end

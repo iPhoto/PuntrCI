@@ -7,7 +7,7 @@
 //
 
 #import "AwardViewController.h"
-
+#import "SocialManager.h"
 
 #define EDGE_VIEWS  16.0f
 @interface AwardViewController () <UITextFieldDelegate>
@@ -80,11 +80,34 @@
 
 - (void)shareAwardButtonAction:(UIButton *)button {
     //
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    
+    [sheet addButtonWithTitle:@"Facebook"];
+    [sheet addButtonWithTitle:@"Twitter"];
+    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
+    [sheet showInView:self.view];
 }
 
 - (BOOL)becomeFirstResponder {
     return YES;
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeFacebook Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
+    }
+    else if (buttonIndex == 1)
+    {
+        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeTwitter Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
+    }
+}
 
 @end
