@@ -16,7 +16,6 @@
 static NSString * const TNTableHeader = @"Выберите интересующие вас виды спорта:";
 static NSString * const TNButtonTitleCheckAll = @"Выбрать все";
 static NSString * const TNButtonTitleUncheckAll = @"Снять все";
-static NSString *const TNKeyCategories = @"KeyCategoriesFilter";
 
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
@@ -124,7 +123,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSMutableArray *isChecked;
-@property (nonatomic, strong) NSMutableDictionary *unCheckedTags;
+@property (nonatomic, strong) NSMutableArray *uncheckedCategoryTags;
 
 @property (nonatomic, weak) UITableView *filtersTableView;
 @property (nonatomic, weak) UIButton *buttonCheck;
@@ -157,11 +156,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     self.filtersTableView.scrollEnabled = YES;
     [self.view addSubview:self.filtersTableView];
     
-    self.unCheckedTags = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:TNKeyCategories]];
-    if (!self.unCheckedTags)
-    {
-        self.unCheckedTags = [NSMutableDictionary new];
-    }
+    self.uncheckedCategoryTags = [NSMutableArray arrayWithArray:[DefaultsManager sharedManager].excludedCategoryTags];
     
     [self addCheckButton];
     
@@ -218,15 +213,17 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)setCategoryWithIndex:(NSInteger)index inStateChecked:(BOOL)isChecked
 {
     CategoryModel *category = self.categories[index];
-    NSString *key = [category.tag stringValue];
     self.isChecked[index] = @(isChecked);
     if (isChecked)
     {
-        [self.unCheckedTags removeObjectForKey:key];
+        [self.uncheckedCategoryTags removeObject:category.tag];
     }
     else
     {
-        self.unCheckedTags[key] = @(YES);
+        if (![self.uncheckedCategoryTags containsObject:category.tag])
+        {
+            [self.uncheckedCategoryTags addObject:category.tag];
+        }
     }
 }
 
@@ -252,19 +249,17 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (BOOL)isCheckedCategory:(CategoryModel *)category
 {
-    BOOL retVal = YES;
-    NSString *key = [category.tag stringValue];
-    if (self.unCheckedTags[key])
+    BOOL isCheckedCategory = YES;
+    if ([self.uncheckedCategoryTags containsObject:category.tag])
     {
-        retVal = NO;
+        isCheckedCategory = NO;
     }
-    return retVal;
+    return isCheckedCategory;
 }
 
 - (void)saveUncheckedStates
 {
-    [[NSUserDefaults standardUserDefaults] setObject:self.unCheckedTags forKey:TNKeyCategories];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [DefaultsManager sharedManager].excludedCategoryTags = [self.uncheckedCategoryTags copy];
 }
 
 
