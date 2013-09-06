@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UserModel *user;
 
+@property (nonatomic, strong) NSArray *categories;
+
 @end
 
 @implementation ObjectManager
@@ -581,19 +583,27 @@
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure
 {
-    [self getObject:nil
-               path:APICategories
-         parameters:self.authorization.wrappedParameters
-            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-            {
-                NSArray *categories = mappingResult.dictionary[KeyCategories];
-                success(categories);
-            }
-            failure:^(RKObjectRequestOperation *operation, NSError *error)
-            {
-                [self reportWithFailure:failure error:error];
-            }
-    ];
+    if (self.categories)
+    {
+        success(self.categories);
+    }
+    else
+    {
+        [self getObject:nil
+                   path:APICategories
+             parameters:self.authorization.wrappedParameters
+                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                {
+                    NSArray *categories = mappingResult.dictionary[KeyCategories];
+                    self.categories = categories;
+                    success(categories);
+                }
+                failure:^(RKObjectRequestOperation *operation, NSError *error)
+                {
+                    [self reportWithFailure:failure error:error];
+                }
+        ];
+    }
 }
 
 #pragma mark - Comments
