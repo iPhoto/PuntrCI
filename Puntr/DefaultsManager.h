@@ -11,6 +11,7 @@
 @interface DefaultsManager : NSObject
 
 @property (nonatomic, strong) NSNumber *defaultCategoryTag;
+@property (nonatomic, strong) NSArray *excludedCategoryTags;
 
 + (DefaultsManager *)sharedManager;
 
