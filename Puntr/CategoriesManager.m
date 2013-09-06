@@ -9,7 +9,6 @@
 #import "CategoriesManager.h"
 #import "CategoryCell.h"
 #import "DefaultsManager.h"
-#import "ObjectManager.h"
 #import "CategoryModel.h"
 
 static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdentifier";
@@ -55,7 +54,7 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
     [_collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:TNCategoryCellReuseIdentifier];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.backgroundColor = [UIColor colorWithRed:0.09f green:0.09f blue:0.09f alpha:1.00f];
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.bounces = NO;
 }
@@ -66,18 +65,17 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
 {
     self.collectionData = nil;
     
-    [[ObjectManager sharedManager] categoriesWithSuccess:^(NSArray *categories)
+    [CategoryModel includedCategoriesWithSuccess:^(NSArray *includedCategories)
         {
             CategoryModel *categoryAll = [[CategoryModel alloc] init];
             categoryAll.tag = @0;
             categoryAll.title = @"Все";
-            NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:categories.count + 1];
+            NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:includedCategories.count + 1];
             [consolidatedCategories addObject:categoryAll];
-            [consolidatedCategories addObjectsFromArray:categories];
+            [consolidatedCategories addObjectsFromArray:includedCategories];
             self.collectionData = [consolidatedCategories copy];
             [self.collectionView reloadData];
         }
-        failure:nil
     ];
 }
 
