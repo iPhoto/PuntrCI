@@ -16,6 +16,8 @@
 #import "LinePicker.h"
 #import "NotificationManager.h"
 #import "ParticipantViewController.h"
+#import "ChooseOpponentViewController.h"
+
 
 @interface StakeViewController ()
 
@@ -258,6 +260,7 @@
     self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
                               forState:UIControlStateNormal];
+    [self.buttonBet addTarget:self action:@selector(betButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonBet];
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -345,6 +348,11 @@
             failure:nil
         ];
     }
+}
+
+- (void)betButtonTouched
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[ChooseOpponentViewController alloc] init]] animated:YES completion:nil];
 }
 
 - (BOOL)stakeIsComplete
