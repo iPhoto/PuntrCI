@@ -295,6 +295,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[TournamentModel class]])
     {
+        [self whiteCell];
         [self loadWithTournament:(TournamentModel *)model];
     }
     else if ([model isMemberOfClass:[DynamicSelectionModel class]])
@@ -327,6 +328,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         SubscriptionModel *subscription = [[SubscriptionModel alloc] init];
         subscription.event = activity.event;
+        [self loadWithSubscription:subscription];
+    }
+    else if (activity.tournament)
+    {
+        SubscriptionModel *subscription = [[SubscriptionModel alloc] init];
+        subscription.tournament = activity.tournament;
         [self loadWithSubscription:subscription];
     }
     else if (activity.user)
@@ -449,6 +456,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displayParticipants:subscription.event.participants final:NO];
         [self displayStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
     }
+    else if (subscription.tournament)
+    {
+        [self loadWithTournament:subscription.tournament];
+    }
     else if (subscription.user)
     {
         self.user = subscription.user;
@@ -462,7 +473,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     self.tournament = tournament;
     self.submodel = tournament;
-    [self whiteCell];
     if (tournament.banner) {
         [self displayBanner:tournament.banner];
     }
