@@ -422,7 +422,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self displayParticipants:stake.event.participants final:NO];
     if (loginedUser)
     {
-        
+        [self displayLine:stake.line
+               components:stake.components
+              coefficient:stake.coefficient
+                    final:NO];
         [self displayStakeStatus:stake.status
                            money:stake.money
                      coefficient:stake.coefficient
