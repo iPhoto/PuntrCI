@@ -1145,16 +1145,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                   TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
                                                   TNHeightText
                                                   );
-    NSString *stakesCountString = nil;
-    if ([stakesCount isEqualToNumber:@0])
-    {
-        stakesCountString = @"Поставьте первым!";
-    }
-    else
-    {
-        stakesCountString = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
-    }
-    self.labelEventStakesCount.text = stakesCountString;
+    self.labelEventStakesCount.text = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
     self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
     [self addSubview:self.labelEventStakesCount];
     
