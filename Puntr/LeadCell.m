@@ -290,6 +290,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displayTopRightTime:stake.createdAt];
         [self loadWithStake:stake];
     }
+    else if ([model isMemberOfClass:[SubscriberModel class]])
+    {
+        SubscriptionModel *subscription = [[SubscriptionModel alloc] init];
+        subscription.user = [(SubscriberModel *)model user];
+        [self loadWithSubscription:subscription];
+    }
     else if ([model isMemberOfClass:[SubscriptionModel class]])
     {
         [self loadWithSubscription:(SubscriptionModel *)model];
