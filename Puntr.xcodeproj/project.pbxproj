@@ -304,6 +304,9 @@
 		AC5562CF17C0042E007064C1 /* middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5562C917C0042E007064C1 /* middle@2x.png */; };
 		AC5562D017C0042E007064C1 /* top.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5562CA17C0042E007064C1 /* top.png */; };
 		AC5562D117C0042E007064C1 /* top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5562CB17C0042E007064C1 /* top@2x.png */; };
+		AC7F956417D929CE000F3078 /* ChooseOpponentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */; };
+		AC7F956717D93566000F3078 /* IconShuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956517D93566000F3078 /* IconShuffle.png */; };
+		AC7F956817D93566000F3078 /* IconShuffle@2s.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956617D93566000F3078 /* IconShuffle@2s.png */; };
 		ACA2646617BD79FD006DE0FD /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2645217BD79FD006DE0FD /* 1.png */; };
 		ACA2646717BD79FD006DE0FD /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2645317BD79FD006DE0FD /* 10.png */; };
 		ACA2646817BD79FD006DE0FD /* 10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2645417BD79FD006DE0FD /* 10@2x.png */; };
@@ -762,6 +765,10 @@
 		AC5562C917C0042E007064C1 /* middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "middle@2x.png"; sourceTree = "<group>"; };
 		AC5562CA17C0042E007064C1 /* top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top.png; sourceTree = "<group>"; };
 		AC5562CB17C0042E007064C1 /* top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top@2x.png"; sourceTree = "<group>"; };
+		AC7F956217D929CE000F3078 /* ChooseOpponentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseOpponentViewController.h; sourceTree = "<group>"; };
+		AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseOpponentViewController.m; sourceTree = "<group>"; };
+		AC7F956517D93566000F3078 /* IconShuffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconShuffle.png; sourceTree = "<group>"; };
+		AC7F956617D93566000F3078 /* IconShuffle@2s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconShuffle@2s.png"; sourceTree = "<group>"; };
 		ACA2645217BD79FD006DE0FD /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		ACA2645317BD79FD006DE0FD /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
 		ACA2645417BD79FD006DE0FD /* 10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "10@2x.png"; sourceTree = "<group>"; };
@@ -1137,6 +1144,8 @@
 				3153A79C17CB73A3009FB6B4 /* IconMoneyStavkaGrey@2x.png */,
 				0F40906617BE2587001CC23F /* IconSettings.png */,
 				0F40906717BE25A4001CC23F /* IconSettings@2x.png */,
+				AC7F956517D93566000F3078 /* IconShuffle.png */,
+				AC7F956617D93566000F3078 /* IconShuffle@2s.png */,
 				310A9D0B178EEECB006D9C8A /* IconUser.png */,
 				310A9D0C178EEECB006D9C8A /* IconUser@2x.png */,
 				3116A8741774899C002BEC46 /* leadDelimiter.png */,
@@ -1335,6 +1344,8 @@
 				316765E817D7722000634FBE /* CatalogueTournamentsViewController.m */,
 				0F40906A17BE48A1001CC23F /* ChangePasswordViewController.h */,
 				0F40906B17BE48A2001CC23F /* ChangePasswordViewController.m */,
+				AC7F956217D929CE000F3078 /* ChooseOpponentViewController.h */,
+				AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */,
 				0FAFC4E517C4B24B00735D0C /* CommentViewController.h */,
 				0FAFC4E617C4B24C00735D0C /* CommentViewController.m */,
 				76335D4C17697C3F009F75E2 /* EnterViewController.h */,
@@ -1686,6 +1697,7 @@
 				ACA2646A17BD79FD006DE0FD /* 2.png in Resources */,
 				3194032B1772188A009F0DBE /* tabBarSelected.png in Resources */,
 				3194032C1772188A009F0DBE /* tabBarSelected@2x.png in Resources */,
+				AC7F956817D93566000F3078 /* IconShuffle@2s.png in Resources */,
 				3194032F177219AF009F0DBE /* tabBarShadow.png in Resources */,
 				31940330177219AF009F0DBE /* tabBarShadow@2x.png in Resources */,
 				319403411772201F009F0DBE /* tabBarCatalogue.png in Resources */,
@@ -1765,6 +1777,7 @@
 				31D708E7178EC933004746E6 /* ButtonGray@2x.png in Resources */,
 				31D708E8178EC933004746E6 /* ButtonGreen.png in Resources */,
 				31D708E9178EC933004746E6 /* ButtonGreen@2x.png in Resources */,
+				AC7F956717D93566000F3078 /* IconShuffle.png in Resources */,
 				AC34683217D00F710077418B /* top_area.png in Resources */,
 				310A9D0D178EEECB006D9C8A /* BarDown.png in Resources */,
 				310A9D0E178EEECB006D9C8A /* BarDown@2x.png in Resources */,
@@ -2018,6 +2031,7 @@
 				31CF778817BE5A69009B2FC6 /* TwitterModel.m in Sources */,
 				0F40906C17BE48A3001CC23F /* ChangePasswordViewController.m in Sources */,
 				0F40906F17C230DB001CC23F /* UpdateProfileViewController.m in Sources */,
+				AC7F956417D929CE000F3078 /* ChooseOpponentViewController.m in Sources */,
 				0FAFC4E717C4B24C00735D0C /* CommentViewController.m in Sources */,
 				0FAFC4EA17C4E20100735D0C /* PrivacySettingsViewController.m in Sources */,
 				0FAFC4ED17C60FF700735D0C /* StatisticViewController.m in Sources */,

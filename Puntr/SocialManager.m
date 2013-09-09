@@ -181,7 +181,7 @@
 - (void)loginVk
 {
     [[VKConnector sharedInstance] setDelegate:self];
-    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:@[@"offline"]];
+    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:@[@"offline", @"wall"]];
 }
 
 - (void)VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken
@@ -193,7 +193,6 @@
     {
         self.success(vkModel);
     }
-
 }
 
 - (void)userFbData
@@ -219,6 +218,52 @@
             }
         }
     ];
+}
+
+- (UIViewController *)shareWithSocialNetwork:(SocialNetworkType)socialNetworkType Text:(NSString *)text Image:(UIImage *)image
+{
+    if (text == nil)
+    {
+        text = @"";
+    }
+    NSString *comment = [NSString stringWithFormat:@"some awesom words about puntr\n%@", text] ;
+    switch (socialNetworkType)
+    {
+        case SocialNetworkTypeFacebook:
+        {
+            SLComposeViewController *composeController = [SLComposeViewController
+                                                          composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+            [composeController setInitialText:comment];
+            [composeController addImage:image];
+            return composeController;
+        }
+            break;
+            
+        case SocialNetworkTypeTwitter:
+        {
+            SLComposeViewController *composeController = [SLComposeViewController
+                                                          composeViewControllerForServiceType:SLServiceTypeTwitter];
+            
+            [composeController setInitialText:comment];
+            [composeController addImage:image];
+            return composeController;
+        }
+            break;
+            
+        case SocialNetworkTypeVkontakte:
+        {
+            /*
+             NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[[NSString stringWithFormat:@"-%lu", (unsigned long)[VKUser currentUser].accessToken.userID], @"fuck the system"] forKeys:@[@"owner_id", @"message"]];
+             [[[VKUser currentUser] wallPost:dict] start];*/
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
 }
 
 @end
