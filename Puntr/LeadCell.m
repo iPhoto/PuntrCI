@@ -19,6 +19,7 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
+static const CGFloat TNCornerRadius = 3.75f;
 static const CGFloat TNHeightButton = 31.0f;
 static const CGFloat TNHeightSwitch = 27.0f;
 static const CGFloat TNHeightText = 12.0f;
@@ -1239,6 +1240,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                     TNSideImage
                                                     );
         [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
         [self addSubview:self.imageViewUserAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
@@ -1322,7 +1325,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     if (final)
     {
-        self.layer.cornerRadius = 3.75f;
+        self.layer.cornerRadius = TNCornerRadius;
         self.layer.masksToBounds = YES;
     }
     else
