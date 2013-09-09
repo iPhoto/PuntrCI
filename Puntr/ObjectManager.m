@@ -785,11 +785,13 @@
 
 #pragma mark - Subscriptions
 
-- (void)subscribeFor:(id)object success:(EmptySuccess)success failure:(EmptyFailure)failure
+- (void)subscribeFor:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
-    [self postObject:object
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:object.wrappedParameters];
+    [parameters setObject:self.authorization.parameters forKey:KeyAuthorization];
+    [self postObject:nil
                 path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APISubscriptions]
-          parameters:self.authorization.wrappedParameters
+          parameters:parameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
                  success();
