@@ -239,7 +239,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
     
     if (![self.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]])
     {
-        self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 95, 40)];
+        self.buttonSubscribe = [[UIButton alloc] initWithFrame:CGRectMake(204, 28, 94, 31)];
         [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"]
                                                   resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
                                         forState:UIControlStateNormal];
@@ -248,6 +248,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
         self.buttonSubscribe.titleLabel.shadowColor = [UIColor blackColor];
         self.buttonSubscribe.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
         [self.buttonSubscribe.titleLabel setTextColor:[UIColor whiteColor]];
+        [self updateToSubscribed:self.user.subscribed.boolValue];
         [whiteView addSubview:self.buttonSubscribe];
     }
     
@@ -322,6 +323,43 @@ static const CGFloat TNSideImageLarge = 60.0f;
     {
         [[self.stars objectAtIndex:i] setImage:[UIImage imageNamed:@"StarUnselected.png"]];
     }
+}
+
+- (void)subscribe
+{
+    [[ObjectManager sharedManager] subscribeFor:self.user
+                                        success:^
+     {
+         [self updateToSubscribed:YES];
+         [NotificationManager showSuccessMessage:@"Вы подписались на пользователя!"];
+     }
+                                        failure:nil
+     ];
+}
+
+- (void)unsubscribe
+{
+    [[ObjectManager sharedManager] unsubscribeFrom:self.user
+                                           success:^
+     {
+         [self updateToSubscribed:NO];
+         [NotificationManager showSuccessMessage:@"Вы отписались от пользователя!"];
+     }
+                                           failure:nil];
+}
+
+- (void)updateToSubscribed:(BOOL)subscribed
+{
+    SEL subscribeMethod = subscribed ? @selector(unsubscribe) : @selector(subscribe);
+    SEL previuosMethod = subscribed ? @selector(subscribe) : @selector(unsubscribe);
+    NSString *subscribeTitle = subscribed ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeImage = subscribed ? @"ButtonRed" : @"ButtonBar";
+    CGFloat subscribeImageInset = subscribed ? 5.0f : 7.0f;
+    
+    [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:subscribeImage] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, subscribeImageInset, 0.0f, subscribeImageInset)] forState:UIControlStateNormal];
+    [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
+    [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)subscriptions
