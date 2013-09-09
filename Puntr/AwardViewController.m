@@ -8,8 +8,11 @@
 
 #import "AwardViewController.h"
 #import "SocialManager.h"
+#import "MZFormSheetController.h"
+#import "PushContentViewController.h"
 
 #define EDGE_VIEWS  16.0f
+
 @interface AwardViewController () <UITextFieldDelegate>
 
 @property (nonatomic, retain) AwardModel *award;
@@ -88,6 +91,7 @@
     
     [sheet addButtonWithTitle:@"Facebook"];
     [sheet addButtonWithTitle:@"Twitter"];
+    [sheet addButtonWithTitle:@"Push test"];
     sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
     [sheet showInView:self.view];
 }
@@ -107,6 +111,13 @@
     else if (buttonIndex == 1)
     {
         [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeTwitter Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
+    }
+    else if (buttonIndex == 2)
+    {
+        PushContentViewController *vc = [[PushContentViewController alloc] init];
+        // present form sheet with view controller
+        [self presentFormSheetWithViewController:vc animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        }];
     }
 }
 
