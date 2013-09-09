@@ -154,7 +154,7 @@ static const CGFloat TNItemSpacing = 12.0f;
         }
     );
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventStakes modifierObject:self.event];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventStakes modifierObjects:@[self.event]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                       0.0f,

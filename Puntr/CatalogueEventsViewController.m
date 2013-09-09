@@ -45,7 +45,7 @@ static const CGFloat TNHeightCategories = 35.0f;
     [self.view addSubview:collectionViewCategories];
     
     // Groups & Events
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueEvents modifierObject:nil];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueEvents modifierObjects:nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                          0.0f,

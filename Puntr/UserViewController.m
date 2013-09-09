@@ -261,7 +261,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
     [self.labelActivity setText:@"Активность"];
     [self.view addSubview:self.labelActivity];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeActivities modifierObject:self.user];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeActivities modifierObjects:@[self.user]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                       0.0f,

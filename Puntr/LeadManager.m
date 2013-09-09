@@ -43,13 +43,18 @@
         }
         else
         {
-            if (([self isVisible:[CatalogueEventsViewController class]] || [self isVisible:[TournamentViewController class]]) && ![self isVisible:[EventsViewController class]])
+            if ([self isVisible:[CatalogueEventsViewController class]] && ![self isVisible:[EventsViewController class]])
             {
-                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model] animated:YES];
+                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:nil] animated:YES];
             }
             else if ([self isVisible:[CatalogueTournamentsViewController class]] && ![self isVisible:[TournamentsViewController class]])
             {
                 [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournamentsForGroup:(GroupModel *)model] animated:YES];
+            }
+            else if ([self isVisible:[TournamentViewController class]] && ![self isVisible:[EventsViewController class]])
+            {
+                TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
+                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:tournamentViewController.tournament] animated:YES];
             }
         }
     }

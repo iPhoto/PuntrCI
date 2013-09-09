@@ -49,7 +49,7 @@ static const CGFloat TNHeightCategories = 35.0f;
     [self.view addSubview:collectionViewCategories];
     
     // Groups & Tournaments
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueTournaments modifierObject:nil];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueTournaments modifierObjects:nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                          0.0f,

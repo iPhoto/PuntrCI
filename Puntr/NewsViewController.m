@@ -37,7 +37,7 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
 
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeNews modifierObject:nil];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeNews modifierObjects:nil];
     self.collectionManager.collectionManagerDelegate = self;
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = viewControllerFrame;

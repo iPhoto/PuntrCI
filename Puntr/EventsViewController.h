@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class GroupModel;
+@class GroupModel, TournamentModel;
 
 @interface EventsViewController : UIViewController
 
-+ (EventsViewController *)eventsForGroup:(GroupModel *)group;
++ (EventsViewController *)eventsForGroup:(GroupModel *)group tournament:(TournamentModel *)tournament;
 
 @end

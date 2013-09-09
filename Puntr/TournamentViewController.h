@@ -12,6 +12,8 @@
 
 @interface TournamentViewController : UIViewController
 
+@property (nonatomic, strong, readonly) TournamentModel *tournament;
+
 + (TournamentViewController *)controllerForTournament:(TournamentModel *)tournament;
 
 @end

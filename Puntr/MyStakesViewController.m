@@ -48,7 +48,7 @@ static const CGFloat TNItemSpacing = 12.0f;
         }
     );
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeMyStakes modifierObject:nil];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeMyStakes modifierObjects:nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                       0.0f,

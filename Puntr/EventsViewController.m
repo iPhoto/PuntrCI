@@ -9,11 +9,13 @@
 #import "CollectionManager.h"
 #import "EventsViewController.h"
 #import "GroupModel.h"
+#import "TournamentModel.h"
 #import "UIViewController+Puntr.h"
 
 @interface EventsViewController ()
 
 @property (nonatomic, strong, readonly) GroupModel *group;
+@property (nonatomic, strong, readonly) TournamentModel *tournament;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -21,17 +23,18 @@
 
 @implementation EventsViewController
 
-+ (EventsViewController *)eventsForGroup:(GroupModel *)group
++ (EventsViewController *)eventsForGroup:(GroupModel *)group tournament:(TournamentModel *)tournament
 {
-    return [[self alloc] initWithGroup:group];
+    return [[self alloc] initWithGroup:group tournament:tournament];
 }
 
-- (id)initWithGroup:(GroupModel *)group
+- (id)initWithGroup:(GroupModel *)group tournament:(TournamentModel *)tournament
 {
     self = [super init];
     if (self)
     {
         _group = group;
+        _tournament = tournament;
     }
     return self;
 }
@@ -45,7 +48,10 @@
     
     [self addBalanceButton];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEvents modifierObject:self.group];
+    CollectionType type = self.tournament ? CollectionTypeTournamentEvents : CollectionTypeEvents;
+    NSArray *modifierObjects = self.tournament ? @[self.group, self.tournament] : @[self.group];
+    
+    self.collectionManager = [CollectionManager managerWithType:type modifierObjects:modifierObjects];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];

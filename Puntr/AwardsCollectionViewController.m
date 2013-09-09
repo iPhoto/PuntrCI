@@ -44,7 +44,7 @@
     self.title = @"Награды";
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeAwards modifierObject:self.user];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeAwards modifierObjects:@[self.user]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = frame;
     self.collectionManager.collectionManagerDelegate = self;

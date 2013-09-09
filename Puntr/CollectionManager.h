@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypeSocialsSettings,
     CollectionTypeSubscriptions,
     CollectionTypeTournament,
+    CollectionTypeTournamentEvents,
     CollectionTypeTournaments
 };
 
@@ -34,7 +35,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
 
 #pragma mark - Convenience
 
-+ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObject:(id)object;
++ (CollectionManager *)managerWithType:(CollectionType)collectionType modifierObjects:(NSArray *)objects;
 
 #pragma mark - Configured CollectionView
 

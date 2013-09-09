@@ -45,7 +45,7 @@
     
     [self addBalanceButton];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournament modifierObject:self.tournament];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournament modifierObjects:@[self.tournament]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];

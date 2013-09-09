@@ -46,14 +46,14 @@
         {
             self.title = @"Приватность";
             
-            self.collectionManager = [CollectionManager managerWithType:CollectionTypePrivacySettings modifierObject:nil];
+            self.collectionManager = [CollectionManager managerWithType:CollectionTypePrivacySettings modifierObjects:nil];
         }
             break;
         case DynamicSelctionPush:
         {
             self.title = @"Push";
             
-            self.collectionManager = [CollectionManager managerWithType:CollectionTypePushSettinds modifierObject:nil];
+            self.collectionManager = [CollectionManager managerWithType:CollectionTypePushSettinds modifierObjects:nil];
         }
             break;
             
@@ -61,7 +61,7 @@
         {
             self.title = @"Соц. сети";
             [SocialManager sharedManager].delegate = self;
-            self.collectionManager = [CollectionManager managerWithType:CollectionTypeSocialsSettings modifierObject:nil];
+            self.collectionManager = [CollectionManager managerWithType:CollectionTypeSocialsSettings modifierObjects:nil];
         }
             break;
             
