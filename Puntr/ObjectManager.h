@@ -116,6 +116,13 @@ typedef void (^User)(UserModel *user);
                success:(Stakes)success
                failure:(EmptyFailure)failure;
 
+#pragma mark - Subscribers
+
+- (void)subscribersForUser:(UserModel *)user
+                    paging:(PagingModel *)paging
+                   success:(Subscribers)success
+                   failure:(EmptyFailure)failure;
+
 #pragma mark - Subscriptions
 
 - (void)subscribeFor:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure;

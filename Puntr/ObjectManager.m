@@ -789,6 +789,32 @@
     ];
 }
 
+#pragma mark - Subscribers
+
+- (void)subscribersForUser:(UserModel *)user
+                    paging:(PagingModel *)paging
+                   success:(Subscribers)success
+                   failure:(EmptyFailure)failure
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
+    if (paging) {
+        [parameters setObject:paging.parameters forKey:KeyPaging];
+    }
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APISubscribers]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *subscribers = mappingResult.dictionary[KeySubscribers];
+                success(subscribers);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 #pragma mark - Subscriptions
 
 - (void)subscribeFor:(id <Parametrization>)object success:(EmptySuccess)success failure:(EmptyFailure)failure
