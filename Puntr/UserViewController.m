@@ -11,6 +11,7 @@
 #import "ObjectManager.h"
 #import "UserViewController.h"
 #import "SettingsViewController.h"
+#import "SubscribersViewController.h"
 #import "SubscriptionsViewController.h"
 #import "UIViewController+Puntr.h"
 #import "UserModel.h"
@@ -369,7 +370,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
 
 - (void)followers
 {
-    [self.navigationController pushViewController:[[SubscriptionsViewController alloc] initWithUser:self.user] animated:YES];
+    [self.navigationController pushViewController:[SubscribersViewController subscribersForUser:self.user] animated:YES];
 }
 
 - (void)awardButtonTouched
