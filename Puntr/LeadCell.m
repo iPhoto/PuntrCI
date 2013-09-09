@@ -329,6 +329,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
         subscription.event = activity.event;
         [self loadWithSubscription:subscription];
     }
+    else if (activity.user)
+    {
+        SubscriptionModel *subscription = [[SubscriptionModel alloc] init];
+        subscription.user = activity.user;
+        [self loadWithSubscription:subscription];
+    }
 }
 
 - (void)loadWithAward:(AwardModel *)award
@@ -442,6 +448,13 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displayCategory:subscription.event.tournament.category];
         [self displayParticipants:subscription.event.participants final:NO];
         [self displayStartTime:subscription.event.startTime endTime:subscription.event.endTime stakesCount:subscription.event.stakesCount final:YES];
+    }
+    else if (subscription.user)
+    {
+        self.user = subscription.user;
+        self.submodel = subscription.user;
+        [self displaySubscribedForObject:self.submodel];
+        [self displayUser:self.submodel message:nil final:YES];
     }
 }
 
