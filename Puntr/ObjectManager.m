@@ -200,6 +200,11 @@
                                                                                                     pathPattern:APIEvents
                                                                                                           keyPath:KeyEvents
                                                                                                       statusCodes:statusCodeOK];
+    RKResponseDescriptor *eventTournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
+                                                                                                                     method:RKRequestMethodGET
+                                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APITournaments, APIEvents]
+                                                                                                                    keyPath:KeyEvents
+                                                                                                                statusCodes:statusCodeOK];
     
     // Group
     [groupMapping addAttributeMappingsFromArray:@[KeyTitle, KeyImage, KeySlug]];
@@ -375,6 +380,7 @@
             componentCollectionResponseDescriptor,
             errorResponseDescriptor,
             eventCollectionResponseDescriptor,
+            eventTournamentCollectionResponseDescriptor,
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
@@ -870,6 +876,32 @@
                 [self reportWithFailure:failure error:error];
             }
     ];
+}
+
+- (void)eventsForTournament:(TournamentModel *)tournament
+                     paging:(PagingModel *)paging
+                     filter:(FilterModel *)filter
+                    success:(Events)success
+                    failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null],
+                                     KeyFilter: filter ? filter.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APITournaments, tournament.tag.stringValue, APIEvents]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *events = mappingResult.dictionary[KeyEvents];
+                success(events);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+     ];
 }
 
 #pragma mark - User

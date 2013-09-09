@@ -9,7 +9,24 @@
 #import "RKObjectManager.h"
 #import "Parametrization.h"
 
-@class AccessModel, AuthorizationModel, CoefficientModel, CommentModel, CredentialsModel, EventModel, FilterModel, LineModel, MoneyModel, PagingModel, PasswordModel, PrivacySettingsModel, PushSettingsModel, RegistrationModel, StakeModel, UserModel;
+@class
+    AccessModel,
+    AuthorizationModel,
+    CoefficientModel,
+    CommentModel,
+    CredentialsModel, 
+    EventModel,
+    FilterModel, 
+    LineModel, 
+    MoneyModel,
+    PagingModel,
+    PasswordModel,
+    PrivacySettingsModel,
+    PushSettingsModel,
+    RegistrationModel,
+    StakeModel,
+    TournamentModel,
+    UserModel;
 
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
@@ -124,6 +141,12 @@ typedef void (^User)(UserModel *user);
                        filter:(FilterModel *)filter
                       success:(Tournaments)success
                       failure:(EmptyFailure)failure;
+
+- (void)eventsForTournament:(TournamentModel *)tournament
+                     paging:(PagingModel *)paging
+                     filter:(FilterModel *)filter
+                    success:(Events)success
+                    failure:(EmptyFailure)failure;
 
 #pragma mark - User
 
