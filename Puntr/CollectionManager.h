@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypePrivacySettings,
     CollectionTypePushSettinds,
     CollectionTypeSocialsSettings,
+    CollectionTypeSubscribers,
     CollectionTypeSubscriptions,
     CollectionTypeTournament,
     CollectionTypeTournamentEvents,
