@@ -448,10 +448,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadWithTournament:(TournamentModel *)tournament
 {
     self.tournament = tournament;
+    self.submodel = tournament;
     [self whiteCell];
     if (tournament.banner) {
         [self displayBanner:tournament.banner];
     }
+    [self displaySubscribedForObject:self.submodel];
     [self displayCategory:tournament.category];
     [self displayTournament:tournament arrow:NO final:NO];
     [self displayStartTime:tournament.startTime endTime:tournament.endTime stakesCount:tournament.stakesCount final:YES];
