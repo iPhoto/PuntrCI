@@ -146,6 +146,7 @@
 		3180CF7B178B286A001B2DD1 /* categorySelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF77178B286A001B2DD1 /* categorySelected.png */; };
 		3180CF7C178B286A001B2DD1 /* categorySelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF78178B286A001B2DD1 /* categorySelected@2x.png */; };
 		3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF7E178B29F1001B2DD1 /* CategoryCell.m */; };
+		3180DD9017DE009E008AD97E /* SubscribersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180DD8F17DE009D008AD97E /* SubscribersViewController.m */; };
 		318D475917B8E0F400A64C6A /* CredentialsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 318D475817B8E0F400A64C6A /* CredentialsModel.m */; };
 		3194031A1771BE85009F0DBE /* delimiter.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403161771BE85009F0DBE /* delimiter.png */; };
 		3194031B1771BE85009F0DBE /* delimiter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319403171771BE85009F0DBE /* delimiter@2x.png */; };
@@ -551,6 +552,8 @@
 		3180CF78178B286A001B2DD1 /* categorySelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorySelected@2x.png"; sourceTree = "<group>"; };
 		3180CF7D178B29EF001B2DD1 /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
 		3180CF7E178B29F1001B2DD1 /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
+		3180DD8E17DE009B008AD97E /* SubscribersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribersViewController.h; sourceTree = "<group>"; };
+		3180DD8F17DE009D008AD97E /* SubscribersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribersViewController.m; sourceTree = "<group>"; };
 		318D475617B8D81500A64C6A /* Models.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
 		318D475717B8E0F400A64C6A /* CredentialsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsModel.h; sourceTree = "<group>"; };
 		318D475817B8E0F400A64C6A /* CredentialsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsModel.m; sourceTree = "<group>"; };
@@ -1372,6 +1375,8 @@
 				31D7B62B17958511000DCAF3 /* StakeViewController.m */,
 				0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */,
 				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
+				3180DD8E17DE009B008AD97E /* SubscribersViewController.h */,
+				3180DD8F17DE009D008AD97E /* SubscribersViewController.m */,
 				31D2A39B17CC8C81005D683E /* SubscriptionsViewController.h */,
 				31D2A39C17CC8C81005D683E /* SubscriptionsViewController.m */,
 				31A5BD3E17D8DFFA000A9B89 /* TournamentsViewController.h */,
@@ -2051,6 +2056,7 @@
 				31A5BD4017D8DFFC000A9B89 /* TournamentsViewController.m in Sources */,
 				31A5BD4317D8E704000A9B89 /* TournamentViewController.m in Sources */,
 				31A5BD4617D8F700000A9B89 /* DefaultsManager.m in Sources */,
+				3180DD9017DE009E008AD97E /* SubscribersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
