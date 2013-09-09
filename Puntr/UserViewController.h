@@ -12,6 +12,8 @@
 
 @interface UserViewController : UIViewController
 
+@property (nonatomic, strong, readonly) UserModel *user;
+
 - (id)initWithUser:(UserModel *)user;
 
 @end

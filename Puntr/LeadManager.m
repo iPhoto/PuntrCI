@@ -60,7 +60,22 @@
     }
     else if ([model isMemberOfClass:[UserModel class]])
     {
+        BOOL allowTransition = NO;
         if (![self isVisible:[UserViewController class]])
+        {
+            allowTransition = YES;
+        }
+        else
+        {
+            UserModel *user = model;
+            UserViewController *userViewController = (UserViewController *)[PuntrUtilities topController];
+            if (![user.tag isEqualToNumber:userViewController.user.tag])
+            {
+                allowTransition = YES;
+            }
+        }
+        
+        if (allowTransition)
         {
             [[PuntrUtilities mainNavigationController] pushViewController:[[UserViewController alloc] initWithUser:(UserModel *)model] animated:YES];
         }
