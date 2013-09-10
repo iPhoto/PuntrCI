@@ -8,6 +8,7 @@
 
 #import "EnterViewController.h"
 #import "ChangePasswordViewController.h"
+#import "CopyrightViewController.h"
 #import "ObjectManager.h"
 #import "PrivacySettingsViewController.h"
 #import "SettingsViewController.h"
@@ -202,8 +203,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                                  @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
                               ],
                              @[
-                                 @{ @"pictureName": @"9.png", @"title": @"Оферта", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"9.png", @"title": @"Оферта", @"performSelector": @"offerTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"performSelector": @"termsTouched", @"isAccessory": @(YES) },
                               ],
                           ];
     
@@ -321,6 +322,16 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)socialsTouched
 {
     [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionSocials] animated:YES];
+}
+
+- (void)offerTouched
+{
+    [self.navigationController pushViewController:[[CopyrightViewController alloc] initWithCopyrightSelection:CopyrightSelectionOffer] animated:YES];
+}
+
+- (void)termsTouched
+{
+    [self.navigationController pushViewController:[[CopyrightViewController alloc] initWithCopyrightSelection:CopyrightSelectionTerms] animated:YES];
 }
 
 #pragma mark - ActionSheet
