@@ -93,7 +93,7 @@
     [sheet addButtonWithTitle:@"Twitter"];
     [sheet addButtonWithTitle:@"Push test"];
     sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
-    [sheet showInView:self.view];
+    [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
 
 - (BOOL)becomeFirstResponder {
