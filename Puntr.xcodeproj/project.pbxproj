@@ -244,6 +244,9 @@
 		31E3E7B11754E24900B09DAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7911754E24800B09DAD /* UIKit.framework */; };
 		31E3E7B21754E24900B09DAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E3E7931754E24800B09DAD /* Foundation.framework */; };
 		31E3E7BA1754E24900B09DAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31E3E7B81754E24900B09DAD /* InfoPlist.strings */; };
+		31E848C517E0A9DB009C943B /* DelimiterProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E848C317E0A9DB009C943B /* DelimiterProfile.png */; };
+		31E848C617E0A9DB009C943B /* DelimiterProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E848C417E0A9DB009C943B /* DelimiterProfile@2x.png */; };
+		31E848C917E0C49C009C943B /* UserDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E848C817E0C49C009C943B /* UserDetailsModel.m */; };
 		31EA773617BCB7480060DFCC /* SubscriberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773517BCB7480060DFCC /* SubscriberModel.m */; };
 		31EA773917BCBA5F0060DFCC /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773817BCBA5F0060DFCC /* SubscriptionModel.m */; };
 		31EA773C17BCD6A20060DFCC /* PasswordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA773B17BCD6A20060DFCC /* PasswordModel.m */; };
@@ -688,6 +691,10 @@
 		31E3E7AF1754E24900B09DAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		31E3E7B71754E24900B09DAD /* PuntrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PuntrTests-Info.plist"; sourceTree = "<group>"; };
 		31E3E7B91754E24900B09DAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		31E848C317E0A9DB009C943B /* DelimiterProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DelimiterProfile.png; sourceTree = "<group>"; };
+		31E848C417E0A9DB009C943B /* DelimiterProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DelimiterProfile@2x.png"; sourceTree = "<group>"; };
+		31E848C717E0C49C009C943B /* UserDetailsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsModel.h; sourceTree = "<group>"; };
+		31E848C817E0C49C009C943B /* UserDetailsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsModel.m; sourceTree = "<group>"; };
 		31EA773417BCB7480060DFCC /* SubscriberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriberModel.h; sourceTree = "<group>"; };
 		31EA773517BCB7480060DFCC /* SubscriberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriberModel.m; sourceTree = "<group>"; };
 		31EA773717BCBA5F0060DFCC /* SubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionModel.h; sourceTree = "<group>"; };
@@ -1140,6 +1147,8 @@
 				319403171771BE85009F0DBE /* delimiter@2x.png */,
 				31ED083317B53580003FEFA7 /* delimiterBlack.png */,
 				31ED083417B53580003FEFA7 /* delimiterBlack@2x.png */,
+				31E848C317E0A9DB009C943B /* DelimiterProfile.png */,
+				31E848C417E0A9DB009C943B /* DelimiterProfile@2x.png */,
 				3175212B176F18DE007CCD82 /* enterServicies.png */,
 				3175212C176F18DE007CCD82 /* enterServicies@2x.png */,
 				3175211F176F0D7C007CCD82 /* enterTextFieldsBackground.png */,
@@ -1538,10 +1547,10 @@
 				0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */,
 				0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */,
 				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
-				7611C7B8178FA99E00356455 /* StakeModel.h */,
-				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
 				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
+				7611C7B8178FA99E00356455 /* StakeModel.h */,
+				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
 				31EA773517BCB7480060DFCC /* SubscriberModel.m */,
 				31EA773717BCBA5F0060DFCC /* SubscriptionModel.h */,
@@ -1552,6 +1561,8 @@
 				0F40905C17B500A7001CC23F /* TournamentModel.m */,
 				31CF778617BE5A68009B2FC6 /* TwitterModel.h */,
 				31CF778717BE5A68009B2FC6 /* TwitterModel.m */,
+				31E848C717E0C49C009C943B /* UserDetailsModel.h */,
+				31E848C817E0C49C009C943B /* UserDetailsModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
 				3127C037179851850056D78A /* UserModel.m */,
 				31CF778317BE5A54009B2FC6 /* VKontakteModel.h */,
@@ -1910,6 +1921,8 @@
 				0F559FEC17D7541C00BC9EA0 /* middle_active@2x.png in Resources */,
 				0F559FEF17D7543000BC9EA0 /* bottom_active.png in Resources */,
 				0F559FF017D7543000BC9EA0 /* bottom_active@2x.png in Resources */,
+				31E848C517E0A9DB009C943B /* DelimiterProfile.png in Resources */,
+				31E848C617E0A9DB009C943B /* DelimiterProfile@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2091,6 +2104,7 @@
 				0F29531617DF4BD10036EE9D /* CopyrightModel.m in Sources */,
 				0F29531917DF5F020036EE9D /* CopyrightViewController.m in Sources */,
 				76EA3E9117DF1D9000450A55 /* SwitchModel.m in Sources */,
+				31E848C917E0C49C009C943B /* UserDetailsModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
