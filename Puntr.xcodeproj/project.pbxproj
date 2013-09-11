@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F29531617DF4BD10036EE9D /* CopyrightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29531517DF4BD10036EE9D /* CopyrightModel.m */; };
 		0F29531917DF5F020036EE9D /* CopyrightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29531817DF5F020036EE9D /* CopyrightViewController.m */; };
+		0F29531C17E0883F0036EE9D /* StatisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F29531B17E0883F0036EE9D /* StatisticModel.m */; };
 		0F3DB90D179E727F00F9B3AE /* StarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB909179E725000F9B3AE /* StarSelected.png */; };
 		0F3DB90E179E727F00F9B3AE /* StarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */; };
 		0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90B179E726700F9B3AE /* StarUnselected.png */; };
@@ -367,6 +368,8 @@
 		0F29531517DF4BD10036EE9D /* CopyrightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyrightModel.m; sourceTree = "<group>"; };
 		0F29531717DF5F020036EE9D /* CopyrightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyrightViewController.h; sourceTree = "<group>"; };
 		0F29531817DF5F020036EE9D /* CopyrightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyrightViewController.m; sourceTree = "<group>"; };
+		0F29531A17E0883F0036EE9D /* StatisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticModel.h; sourceTree = "<group>"; };
+		0F29531B17E0883F0036EE9D /* StatisticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticModel.m; sourceTree = "<group>"; };
 		0F3DB909179E725000F9B3AE /* StarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarSelected.png; sourceTree = "<group>"; };
 		0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarSelected@2x.png"; sourceTree = "<group>"; };
 		0F3DB90B179E726700F9B3AE /* StarUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarUnselected.png; sourceTree = "<group>"; };
@@ -1535,6 +1538,8 @@
 				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
+				0F29531A17E0883F0036EE9D /* StatisticModel.h */,
+				0F29531B17E0883F0036EE9D /* StatisticModel.m */,
 				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
 				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
@@ -2083,6 +2088,7 @@
 				3180DD9017DE009E008AD97E /* SubscribersViewController.m in Sources */,
 				0F29531617DF4BD10036EE9D /* CopyrightModel.m in Sources */,
 				0F29531917DF5F020036EE9D /* CopyrightViewController.m in Sources */,
+				0F29531C17E0883F0036EE9D /* StatisticModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

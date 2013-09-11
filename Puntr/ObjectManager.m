@@ -75,6 +75,7 @@
     RKObjectMapping *pushMapping = [RKObjectMapping mappingForClass:[PushSettingsModel class]];
     RKObjectMapping *socialsMaping = [RKObjectMapping mappingForClass:[SocialModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
+    RKObjectMapping *statisticsMaping = [RKObjectMapping mappingForClass:[StatisticModel class]];
     RKObjectMapping *subscriberMapping = [RKObjectMapping mappingForClass:[SubscriberModel class]];
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
@@ -305,6 +306,9 @@
                                                                                                                keyPath:KeyStakes
                                                                                                            statusCodes:statusCodeOK];
     
+    //Statistics
+    [statisticsMaping addAttributeMappingsFromArray:@[KeyStakesCount, KeyWinCount, KeyLossCount, KeyWinMoney, KeyLossMoney, KeyMaximumGain]];
+    
     //Socials
     [socialsMaping addAttributeMappingsFromArray:@[KeyFacebook, KeyTwitter, KeyVKontakte]];
     
@@ -347,6 +351,8 @@
     
     // User
     [userMapping addAttributeMappingsFromArray:@[KeyTag, KeyEmail, KeyFirstName, KeyLastName, KeyUsername, KeyAvatar, KeySubscribed, KeyTopPosition, KeyRating, KeySubscriptionsCount, KeySubscribersCount, KeyBadgesCount, KeyWinCount, KeyLossCount]];
+    RKRelationshipMapping *userStatisticsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyStatistics mapping:statisticsMaping];
+    [userMapping addPropertyMapping:userStatisticsRelationship];
     RKRelationshipMapping *userSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
     [userMapping addPropertyMapping:userSocialsRelationship];
     RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
