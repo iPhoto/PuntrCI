@@ -111,6 +111,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 // Subscription
 @property (nonatomic, strong) UIButton *buttonSubscribe;
 
+// Switch
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+
 // Tournament
 @property (nonatomic, strong) TournamentModel *tournament;
 @property (nonatomic, strong) UILabel *labelTournamentTitle;
@@ -220,6 +223,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Subscription
     TNRemove(self.buttonSubscribe)
     
+    // Switch
+    TNRemove(self.segmentedControl)
+    
     // Tournament
     self.tournament = nil;
     TNRemove(self.labelTournamentTitle)
@@ -260,6 +266,13 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithAward:(AwardModel *)model];
     }
+    else if ([model isMemberOfClass:[CommentModel class]])
+    {
+        CommentModel *comment = (CommentModel *)model;
+        [self blackCell];
+        [self displayTopRightTime:comment.createdAt];
+        [self loadWithComment:comment];
+    }
     else if ([model isMemberOfClass:[EventModel class]])
     {
         [self whiteCell];
@@ -299,6 +312,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else if ([model isMemberOfClass:[SubscriptionModel class]])
     {
         [self loadWithSubscription:(SubscriptionModel *)model];
+    }
+    else if ([model isMemberOfClass:[SwitchModel class]])
+    {
+        [self loadWithSwitch:(SwitchModel *)model];
     }
     else if ([model isMemberOfClass:[TournamentModel class]])
     {
@@ -477,6 +494,27 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displaySubscribedForObject:self.submodel];
         [self displayUser:self.submodel message:nil final:YES];
     }
+}
+
+- (void)loadWithSwitch:(SwitchModel *)switchModel
+{
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[switchModel.firstTitle, switchModel.secondTitle]];
+    self.segmentedControl.frame = CGRectMake(
+                                                TNMarginGeneral,
+                                                0.0f,
+                                                TNWidthCell - TNMarginGeneral * 2.0f,
+                                                TNHeightButton
+                                            );
+    self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.segmentedControl.tintColor = [UIColor blackColor];
+    [self.segmentedControl addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self addSubview:self.segmentedControl];
+    self.usedHeight = CGRectGetMaxY(self.segmentedControl.frame);
+    dispatch_async(dispatch_get_main_queue(), ^
+                      {
+                          self.segmentedControl.selectedSegmentIndex = switchModel.firstOn ? 0 : 1;
+                      }
+                  );
 }
 
 - (void)loadWithTournament:(TournamentModel *)tournament
@@ -1380,6 +1418,21 @@ static const CGFloat TNWidthSwitch = 78.0f;
      }
                                         failure:nil
      ];
+}
+
+- (void)segmentValueChanged:(UISegmentedControl *)segmentedControl
+{
+    SwitchModel *switchModel = (SwitchModel *)self.model;
+    CollectionType switchedType;
+    if (segmentedControl.selectedSegmentIndex == 0)
+    {
+        switchedType = switchModel.firstType;
+    }
+    else
+    {
+        switchedType = switchModel.secondType;
+    }
+    [self.delegate switchToType:switchedType];
 }
 
 - (void)touchedSwitchDynamicSelection
