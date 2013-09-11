@@ -54,6 +54,11 @@
     self.beforeTimestamp = [NSDate date];
 }
 
+- (BOOL)isFirstPage
+{
+    return self.page == 0;
+}
+
 - (void)nextPage
 {
     self.page++;
