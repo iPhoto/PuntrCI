@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CollectionManagerTypes.h"
 
 @protocol LeadCellDelegate <NSObject>
 
 @optional
 - (void)reloadData;
 - (void)actionOnModel:(id)model;
+- (void)switchToType:(CollectionType)collectionType;
 
 @end
