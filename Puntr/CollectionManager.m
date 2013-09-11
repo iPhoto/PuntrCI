@@ -468,17 +468,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
          DynamicSelectionModel *fbDynamicModel = [[DynamicSelectionModel alloc] init];
          fbDynamicModel.slug = KeyFacebook;
          fbDynamicModel.status = profile.socials.facebook;
-         fbDynamicModel.title = @"facebook";
+         fbDynamicModel.title = @"Facebook";
          
          DynamicSelectionModel *twDynamicModel = [[DynamicSelectionModel alloc] init];
          twDynamicModel.slug = KeyTwitter;
          twDynamicModel.status = profile.socials.twitter;
-         twDynamicModel.title = @"twitter";
+         twDynamicModel.title = @"Twitter";
          
          DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
          vkDynamicModel.slug = KeyVKontakte;
          vkDynamicModel.status = profile.socials.vk;
-         vkDynamicModel.title = @"vKontakte";
+         vkDynamicModel.title = @"VKontakte";
          
          [self combineWithData:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
      }
