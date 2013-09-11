@@ -204,7 +204,15 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               paging:self.paging
                                              success:^(NSArray *activities)
                                              {
-                                                 [self combineWithData:activities];
+                                                 if (self.paging.isFirstPage)
+                                                 {
+                                                     UserModel *user = [self objectInArray:self.modifierObjects ofClass:[UserModel class]];
+                                                     [self combineWithStationaryObjects:@[user] withNewObjects:activities];
+                                                 }
+                                                 else
+                                                 {
+                                                     [self combineWithData:activities];
+                                                 }
                                              }
                                              failure:^
                                              {
@@ -289,7 +297,13 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                             {
                                                 if (self.paging.isFirstPage)
                                                 {
-                                                    [self combineWithStationaryObjectsForEvent:comments];
+                                                    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
+                                                                                                     firstTitle:@"Комментарии"
+                                                                                                        firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
+                                                                                                     secondType:CollectionTypeEventStakes
+                                                                                                    secondTitle:@"Ставки"
+                                                                                                       secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
+                                                    [self combineWithStationaryObjects:@[switchModel] withNewObjects:comments];
                                                 }
                                                 else
                                                 {
@@ -334,7 +348,13 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           {
                                               if (self.paging.isFirstPage)
                                               {
-                                                  [self combineWithStationaryObjectsForEvent:stakes];
+                                                  SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
+                                                                                                   firstTitle:@"Комментарии"
+                                                                                                      firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
+                                                                                                   secondType:CollectionTypeEventStakes
+                                                                                                  secondTitle:@"Ставки"
+                                                                                                     secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
+                                                  [self combineWithStationaryObjects:@[switchModel] withNewObjects:stakes];
                                               }
                                               else
                                               {
@@ -722,17 +742,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [self finishLoading];
 }
 
-- (void)combineWithStationaryObjectsForEvent:(NSArray *)newObjects
+- (void)combineWithStationaryObjects:(NSArray *)stationaryObjects withNewObjects:(NSArray *)newObjects
 {
-    NSMutableArray *stationaryObjects = [NSMutableArray array];
-    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
-                                                     firstTitle:@"Комментарии"
-                                                        firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
-                                                     secondType:CollectionTypeEventStakes
-                                                    secondTitle:@"Ставки"
-                                                       secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-    [stationaryObjects addObject:switchModel];
-    
     NSMutableArray *combined = [NSMutableArray arrayWithCapacity:newObjects.count + stationaryObjects.count];
     [combined addObjectsFromArray:stationaryObjects];
     [combined addObjectsFromArray:newObjects];
