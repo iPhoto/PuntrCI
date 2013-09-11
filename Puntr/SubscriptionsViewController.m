@@ -21,7 +21,12 @@
 
 @implementation SubscriptionsViewController
 
-- (id)initWithUser:(UserModel *)user
++ (SubscriptionsViewController *)subscriptionsForUser:(UserModel *)user
+{
+    return [[self alloc] initWithUserModel:user];
+}
+
+- (id)initWithUserModel:(UserModel *)user
 {
     self = [super init];
     if (self) {

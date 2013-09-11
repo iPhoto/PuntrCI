@@ -12,6 +12,6 @@
 
 @interface SubscriptionsViewController : UIViewController
 
-- (id)initWithUser:(UserModel *)user;
++ (SubscriptionsViewController *)subscriptionsForUser:(UserModel *)user;
 
 @end
