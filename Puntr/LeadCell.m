@@ -123,7 +123,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
 // User
 @property (nonatomic, strong) UserModel *user;
 @property (nonatomic, strong) UILabel *labelUserName;
+@property (nonatomic, strong) UILabel *labelUserTopPosition;
 @property (nonatomic, strong) UIImageView *imageViewUserAvatar;
+@property (nonatomic, strong) NSMutableArray *userStars;
+@property (nonatomic, strong) UILabel *labelUserAwardsCount;
+@property (nonatomic, strong) UILabel *labelUserAwardsTitle;
+@property (nonatomic, strong) UILabel *labelUserSubscribersCount;
+@property (nonatomic, strong) UILabel *labelUserSubscribersTitle;
+@property (nonatomic, strong) UILabel *labelUserSubscriptionsCount;
+@property (nonatomic, strong) UILabel *labelUserSubscriptionsTitle;
+@property (nonatomic, strong) UILabel *labelUserActivity;
+@property (nonatomic, strong) UIView *userBackgroundProfile;
+@property (nonatomic, strong) UIView *userBackgroundButtons;
 
 @property (nonatomic, strong) UIImageView *imageViewBanner;
 @property (nonatomic, strong) NSMutableArray *delimiters;
@@ -140,6 +151,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         _leadButtons = [NSMutableArray array];
         _participantLogos = [NSMutableArray array];
         _participantTitles = [NSMutableArray array];
+        _userStars = [NSMutableArray array];
     }
     return self;
 }
@@ -234,7 +246,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // User
     self.user = nil;
     TNRemove(self.labelUserName)
+    TNRemove(self.labelUserTopPosition)
     TNRemove(self.imageViewUserAvatar)
+    [self cleanArray:self.userStars];
+    TNRemove(self.labelUserAwardsCount)
+    TNRemove(self.labelUserAwardsTitle)
+    TNRemove(self.labelUserSubscribersCount)
+    TNRemove(self.labelUserSubscribersTitle)
+    TNRemove(self.labelUserSubscriptionsCount)
+    TNRemove(self.labelUserSubscriptionsTitle)
+    TNRemove(self.labelUserActivity)
+    TNRemove(self.userBackgroundButtons)
+    TNRemove(self.userBackgroundProfile)
     
     // Miscelanouos
     TNRemove(self.imageViewBanner)
@@ -272,6 +295,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self blackCell];
         [self displayTopRightTime:comment.createdAt];
         [self loadWithComment:comment];
+    }
+    else if ([model isMemberOfClass:[DynamicSelectionModel class]])
+    {
+        [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
     }
     else if ([model isMemberOfClass:[EventModel class]])
     {
@@ -322,9 +349,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self whiteCell];
         [self loadWithTournament:(TournamentModel *)model];
     }
-    else if ([model isMemberOfClass:[DynamicSelectionModel class]])
+    else if ([model isMemberOfClass:[UserModel class]])
     {
-        [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
+        self.user = (UserModel *)model;
+        [self loadWithProfile:self.user];
     }
 }
 
@@ -428,6 +456,276 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithEvent:news.event];
     }
+}
+
+- (void)loadWithProfile:(UserModel *)user
+{
+    CGFloat avatarWidth = 0.0f;
+    
+    CGFloat TNHeightBackgroundButtons = 50.0f;
+    CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
+    
+    // Background User
+    
+    self.userBackgroundProfile = [[UIView alloc] init];
+    self.userBackgroundProfile.frame = CGRectMake(
+                                          0.0f,
+                                          0.0f,
+                                          TNWidthCell,
+                                          TNSideImageLarge + TNMarginGeneral + 2.0f + TNHeightBackgroundButtons
+                                      );
+    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.userBackgroundProfile];
+    
+    // Avatar
+    if (user.avatar)
+    {
+        self.imageViewUserAvatar = [[UIImageView alloc] init];
+        self.imageViewUserAvatar.frame = CGRectMake(
+                                                       TNMarginGeneral,
+                                                       TNMarginGeneral,
+                                                       TNSideImageLarge,
+                                                       TNSideImageLarge
+                                                   );
+        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
+        [self addSubview:self.imageViewUserAvatar];
+        
+        avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
+    }
+    
+    CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
+    
+    // Name
+    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName.frame = CGRectMake(
+                                             avatarWidth + TNMarginGeneral,
+                                             TNMarginGeneral,
+                                             TNWidthLabel,
+                                             TNHeightText
+                                         );
+    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    [self addSubview:self.labelUserName];
+    
+    // Top Position
+    self.labelUserTopPosition = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelUserTopPosition.frame = CGRectMake(
+                                                    avatarWidth + TNMarginGeneral,
+                                                    CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
+                                                    TNWidthLabel,
+                                                    TNHeightText
+                                                );
+    self.labelUserTopPosition.text = [NSString stringWithFormat:@"Рейтинг: %@", user.topPosition.stringValue];
+    [self addSubview:self.labelUserTopPosition];
+    
+    // Stars Raitng
+    CGFloat TNMarginStar = TNSizeStar.height - TNHeightText;
+    CGFloat TNSpacingStar = 2.0f;
+    
+    for (NSInteger starIndex = 1; starIndex <= 5; starIndex++)
+    {
+        NSInteger previousStarIndex = starIndex - 1;
+        UIImageView *imageViewStar = [[UIImageView alloc] init];
+        imageViewStar.frame = CGRectMake(
+                                            avatarWidth + TNMarginGeneral + previousStarIndex * (TNSizeStar.width + TNSpacingStar),
+                                            TNMarginGeneral + TNHeightText * 3.0f + (TNHeightText - TNMarginStar),
+                                            TNSizeStar.width,
+                                            TNSizeStar.height
+                                        );
+        UIImage *imageStar = nil;
+        if (starIndex <= user.rating.integerValue)
+        {
+            imageStar = [UIImage imageNamed:@"StarSelected"];
+        }
+        else
+        {
+            imageStar = [UIImage imageNamed:@"StarUnselected"];
+        }
+        imageViewStar.image = imageStar;
+        [self.userStars addObject:imageViewStar];
+        [self addSubview:imageViewStar];
+    }
+    
+    CGFloat TNHeightBackgroundUser = TNMarginGeneral + TNSideImageLarge + TNMarginGeneral;
+    
+    // Background Buttons
+    
+    self.userBackgroundButtons = [[UIView alloc] init];
+    self.userBackgroundButtons.frame = CGRectMake(
+                                                     0.0f,
+                                                     TNHeightBackgroundUser,
+                                                     TNWidthCell,
+                                                     TNHeightBackgroundButtons
+                                                 );
+    self.userBackgroundButtons.backgroundColor = [UIColor colorWithWhite:0.900 alpha:1.000];
+    [self.userBackgroundProfile addSubview:self.userBackgroundButtons];
+    
+    self.userBackgroundProfile.layer.cornerRadius = TNCornerRadius;
+    self.userBackgroundProfile.layer.masksToBounds = YES;
+    
+    CGFloat TNMarginBackgroundButtons = 1.0f;
+    NSUInteger TNNumberBackgroundButtons = 3;
+    
+    // Subscriptions
+    self.labelUserSubscriptionsCount = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserSubscriptionsCount.frame = CGRectMake(
+                                                           0.0f,
+                                                           TNHeightBackgroundUser + TNMarginBackgroundButtons + TNMarginGeneral,
+                                                           TNWidthCell / TNNumberBackgroundButtons,
+                                                           TNHeightText
+                                                       );
+    self.labelUserSubscriptionsCount.shadowColor = [UIColor whiteColor];
+    self.labelUserSubscriptionsCount.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserSubscriptionsCount.text = user.subscriptionsCount.stringValue;
+    self.labelUserSubscriptionsCount.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserSubscriptionsCount];
+    
+    
+    self.labelUserSubscriptionsTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelUserSubscriptionsTitle.frame = CGRectMake(
+                                                           0.0f,
+                                                           CGRectGetMaxY(self.labelUserSubscriptionsCount.frame) + TNMarginGeneral,
+                                                           TNWidthCell / TNNumberBackgroundButtons,
+                                                           TNHeightText
+                                                       );
+    self.labelUserSubscriptionsTitle.shadowColor = [UIColor whiteColor];
+    self.labelUserSubscriptionsTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserSubscriptionsTitle.text = @"Подписок";
+    self.labelUserSubscriptionsTitle.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserSubscriptionsTitle];
+    
+    CGSize sizeDelimiter = CGSizeMake(2.0f, TNHeightBackgroundButtons - TNMarginBackgroundButtons * 2.0f - TNMarginGeneral * 2.0f);
+    UIImage *imageDelimiter = [[UIImage imageNamed:@"DelimiterProfile"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    
+    UIImageView *delimiterSubscriptions = [[UIImageView alloc] init];
+    delimiterSubscriptions.frame = CGRectMake(
+                                                 TNWidthCell / TNNumberBackgroundButtons - sizeDelimiter.width / 2.0f,
+                                                 TNHeightBackgroundUser + TNMarginBackgroundButtons + TNMarginGeneral,
+                                                 sizeDelimiter.width,
+                                                 sizeDelimiter.height
+                                             );
+    delimiterSubscriptions.image = imageDelimiter;
+    [self.delimiters addObject:delimiterSubscriptions];
+    [self addSubview:delimiterSubscriptions];
+    
+    // Subscribers
+    self.labelUserSubscribersCount = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserSubscribersCount.frame = CGRectMake(
+                                                         TNWidthCell / TNNumberBackgroundButtons,
+                                                         TNHeightBackgroundUser + TNMarginBackgroundButtons + TNMarginGeneral,
+                                                         TNWidthCell / TNNumberBackgroundButtons,
+                                                         TNHeightText
+                                                     );
+    self.labelUserSubscribersCount.shadowColor = [UIColor whiteColor];
+    self.labelUserSubscribersCount.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserSubscribersCount.text = user.subscribersCount.stringValue;
+    self.labelUserSubscribersCount.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserSubscribersCount];
+    
+    
+    self.labelUserSubscribersTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelUserSubscribersTitle.frame = CGRectMake(
+                                                         TNWidthCell / TNNumberBackgroundButtons,
+                                                         CGRectGetMaxY(self.labelUserSubscribersCount.frame) + TNMarginGeneral,
+                                                         TNWidthCell / TNNumberBackgroundButtons,
+                                                         TNHeightText
+                                                     );
+    self.labelUserSubscribersTitle.shadowColor = [UIColor whiteColor];
+    self.labelUserSubscribersTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserSubscribersTitle.text = @"Подписчиков";
+    self.labelUserSubscribersTitle.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserSubscribersTitle];
+    
+    UIImageView *delimiterSubscribers = [[UIImageView alloc] init];
+    delimiterSubscribers.frame = CGRectMake(
+                                               (TNWidthCell / TNNumberBackgroundButtons) * 2.0f - sizeDelimiter.width / 2.0f,
+                                               TNHeightBackgroundUser + TNMarginBackgroundButtons + TNMarginGeneral,
+                                               sizeDelimiter.width,
+                                               sizeDelimiter.height
+                                           );
+    delimiterSubscribers.image = imageDelimiter;
+    [self.delimiters addObject:delimiterSubscribers];
+    [self addSubview:delimiterSubscribers];
+    
+    // Awards
+    self.labelUserAwardsCount = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserAwardsCount.frame = CGRectMake(
+                                                    (TNWidthCell / TNNumberBackgroundButtons) * 2.0f,
+                                                    TNHeightBackgroundUser + TNMarginBackgroundButtons + TNMarginGeneral,
+                                                    TNWidthCell / TNNumberBackgroundButtons,
+                                                    TNHeightText
+                                                );
+    self.labelUserAwardsCount.shadowColor = [UIColor whiteColor];
+    self.labelUserAwardsCount.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserAwardsCount.text = user.badgesCount.stringValue;
+    self.labelUserAwardsCount.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserAwardsCount];
+    
+    
+    self.labelUserAwardsTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelUserAwardsTitle.frame = CGRectMake(
+                                                    (TNWidthCell / TNNumberBackgroundButtons) * 2.0f,
+                                                    CGRectGetMaxY(self.labelUserAwardsCount.frame) + TNMarginGeneral,
+                                                    TNWidthCell / TNNumberBackgroundButtons,
+                                                    TNHeightText
+                                                );
+    self.labelUserAwardsTitle.shadowColor = [UIColor whiteColor];
+    self.labelUserAwardsTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    self.labelUserAwardsTitle.text = @"Наград";
+    self.labelUserAwardsTitle.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.labelUserAwardsTitle];
+    
+    BOOL loginedUser = [user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
+    if (!loginedUser)
+    {
+        self.submodel = user;
+        [self displaySubscribedForObject:user];
+        self.labelUserName.frame = CGRectSetWidth(
+                                                     self.labelUserName.frame,
+                                                     CGRectGetWidth(self.labelUserName.frame) - CGRectGetWidth(self.buttonSubscribe.frame) - TNMarginGeneral
+                                                 );
+    }
+    
+    CGRect frameButtonSubscriptions = CGRectMake(
+                                                    0.0f,
+                                                    TNHeightBackgroundUser,
+                                                    TNWidthCell / TNNumberBackgroundButtons,
+                                                    TNHeightBackgroundButtons
+                                                );
+    
+    UserDetailsModel *userDetailsSubscriptions = [UserDetailsModel detailsWithUser:self.user type:UserDetailsTypeSubscriptions];
+    [self placeButtonForObject:userDetailsSubscriptions frame:frameButtonSubscriptions];
+    
+    CGRect frameButtonSubscribers = CGRectMake(
+                                                  TNWidthCell / TNNumberBackgroundButtons,
+                                                  TNHeightBackgroundUser,
+                                                  TNWidthCell / TNNumberBackgroundButtons,
+                                                  TNHeightBackgroundButtons
+                                              );
+    UserDetailsModel *userDetailsSubscribers = [UserDetailsModel detailsWithUser:self.user type:UserDetailsTypeSubscribers];
+    [self placeButtonForObject:userDetailsSubscribers frame:frameButtonSubscribers];
+    
+    CGRect frameButtonAwards = CGRectMake(
+                                             (TNWidthCell / TNNumberBackgroundButtons) * 2.0f,
+                                             TNHeightBackgroundUser,
+                                             TNWidthCell / TNNumberBackgroundButtons,
+                                             TNHeightBackgroundButtons
+                                         );
+    UserDetailsModel *userDetailsAwards = [UserDetailsModel detailsWithUser:self.user type:UserDetailsTypeAwards];
+    [self placeButtonForObject:userDetailsAwards frame:frameButtonAwards];
+    
+    self.labelUserActivity = [UILabel labelSmallBold:YES black:YES];
+    self.labelUserActivity.frame = CGRectMake(
+                                                 TNMarginGeneral,
+                                                 TNHeightBackgroundUser + TNHeightBackgroundButtons + TNHeightText,
+                                                 TNWidthCell - TNMarginGeneral,
+                                                 TNHeightText
+                                             );
+    self.labelUserActivity.text = @"Активность";
+    [self addSubview:self.labelUserActivity];
+    
+    self.usedHeight = CGRectGetMaxY(self.labelUserActivity.frame) - TNMarginGeneral;
 }
 
 - (void)loadWithStake:(StakeModel *)stake
@@ -1287,7 +1585,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     // Name
     self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
-    CGFloat userNameHeight = user.avatar && !message ? TNSideImage : TNHeightText;
+    CGFloat userNameHeight = message ? TNHeightText : TNSideImage;
     self.labelUserName.frame = CGRectMake(
                                           TNMarginGeneral + avatarWidth,
                                           self.usedHeight + TNMarginGeneral,
@@ -1341,6 +1639,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else
     {
         [self addSubview:button];
+        [self bringSubviewToFront:button];
     }
     [self.leadButtons addObject:button];
 }
