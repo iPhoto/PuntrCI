@@ -45,6 +45,7 @@
 #import "SwitchModel.h"
 #import "TournamentModel.h"
 #import "TwitterModel.h"
+#import "UserDetailsModel.h"
 #import "UserModel.h"
 #import "VKontakteModel.h"
 
