@@ -98,7 +98,7 @@
     self.buttonChangePassword.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonChangePassword.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonChangePassword addTarget:self action:@selector(changePasswordButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonChangePassword setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonChangePassword setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonChangePassword];
     
 }
