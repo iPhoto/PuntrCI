@@ -7,7 +7,10 @@
 //
 
 #import "StatisticViewController.h"
+#import "NotificationManager.h"
+#import "ObjectManager.h"
 #import "StakeElementView.h"
+#import "UserModel.h"
 #import <QuartzCore/QuartzCore.h>
 
 static const CGFloat TNItemSpacing = 8.0f;
@@ -20,7 +23,8 @@ static const CGFloat TNItemSpacing = 8.0f;
 @property (strong, nonatomic) StakeElementView *wins;
 @property (strong, nonatomic) StakeElementView *loose;
 @property (strong, nonatomic) StakeElementView *maxWin;
-@property (strong, nonatomic) StakeElementView *favouriteTeam;
+@property (strong, nonatomic) StakeElementView *winMoney;
+@property (strong, nonatomic) StakeElementView *lossMoney;
 
 @end
 
@@ -93,18 +97,27 @@ static const CGFloat TNItemSpacing = 8.0f;
     [self.maxWin loadWithTitle:@"Максимальный выигрыш:" target:nil action:nil];
     [self.view addSubview:self.maxWin];
     
-    self.favouriteTeam = [[StakeElementView alloc] initWithFrame:CGRectMake(
+    self.winMoney = [[StakeElementView alloc] initWithFrame:CGRectMake(
                                                                    TNItemSpacing * 2.0f,
                                                                    CGRectGetMaxY(self.maxWin.frame) + TNItemSpacing,
                                                                    screenWidth - TNItemSpacing * 4.0f,
                                                                    stakeElementHeight
                                                                    )];
-    [self.favouriteTeam loadWithTitle:@"Любимая команда:" target:nil action:nil];
-    [self.view addSubview:self.favouriteTeam];
+    [self.winMoney loadWithTitle:@"Суммарный выигрыш:" target:nil action:nil];
+    [self.view addSubview:self.winMoney];
+    
+    self.lossMoney = [[StakeElementView alloc] initWithFrame:CGRectMake(
+                                                                       TNItemSpacing * 2.0f,
+                                                                       CGRectGetMaxY(self.winMoney.frame) + TNItemSpacing,
+                                                                       screenWidth - TNItemSpacing * 4.0f,
+                                                                       stakeElementHeight
+                                                                       )];
+    [self.lossMoney loadWithTitle:@"Суммарный проигрыш:" target:nil action:nil];
+    [self.view addSubview:self.lossMoney];
     
     self.viewTextFieldsBackground.frame = CGRectSetHeight(
                                                           self.viewTextFieldsBackground.frame,
-                                                          CGRectGetMaxY(self.favouriteTeam.frame)
+                                                          CGRectGetMaxY(self.lossMoney.frame)
                                                          );
 }
 
@@ -112,6 +125,33 @@ static const CGFloat TNItemSpacing = 8.0f;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self loadProfile];
+}
+
+- (void)loadProfile
+{
+    [[ObjectManager sharedManager] userWithTag:[[ObjectManager sharedManager] loginedUser].tag
+                                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                       {
+                                           UserModel *profile = (UserModel *)mappingResult.firstObject;
+                                           NSLog(@"ProfileName: %@", profile.firstName);
+                                           [self.stakeCount updateResult:profile.statistics.stakesCount.stringValue];
+                                           [self.wins updateResult:profile.statistics.winCount.stringValue];
+                                           [self.loose updateResult:profile.statistics.lossCount.stringValue];
+                                           [self.maxWin updateResult:profile.statistics.maximumGain.stringValue];
+                                           [self.winMoney updateResult:profile.statistics.winMoney.stringValue];
+                                           [self.lossMoney updateResult:profile.statistics.lossMoney.stringValue];
+                                       }
+                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                       {
+                                           [NotificationManager showError:error];
+                                       }
+     ];
 }
 
 @end

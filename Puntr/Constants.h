@@ -88,6 +88,8 @@ FOUNDATION_EXPORT NSString *const KeyLines;
 FOUNDATION_EXPORT NSString *const KeyLogin;
 FOUNDATION_EXPORT NSString *const KeyLogo;
 FOUNDATION_EXPORT NSString *const KeyLossCount;
+FOUNDATION_EXPORT NSString *const KeyMaximumGain;
+FOUNDATION_EXPORT NSString *const KeyLossMoney;
 FOUNDATION_EXPORT NSString *const KeyMessage;
 FOUNDATION_EXPORT NSString *const KeyMoney;
 FOUNDATION_EXPORT NSString *const KeyNews;
@@ -115,6 +117,7 @@ FOUNDATION_EXPORT NSString *const KeySocials;
 FOUNDATION_EXPORT NSString *const KeyStake;
 FOUNDATION_EXPORT NSString *const KeyStakes;
 FOUNDATION_EXPORT NSString *const KeyStakesCount;
+FOUNDATION_EXPORT NSString *const KeyStatistics;
 FOUNDATION_EXPORT NSString *const KeyStartTime;
 FOUNDATION_EXPORT NSString *const KeyStatus;
 FOUNDATION_EXPORT NSString *const KeySubscribed;
@@ -136,5 +139,6 @@ FOUNDATION_EXPORT NSString *const KeyUsername;
 FOUNDATION_EXPORT NSString *const KeyValue;
 FOUNDATION_EXPORT NSString *const KeyVKontakte;
 FOUNDATION_EXPORT NSString *const KeyWinCount;
+FOUNDATION_EXPORT NSString *const KeyWinMoney;
 
 @end

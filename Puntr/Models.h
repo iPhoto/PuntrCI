@@ -40,6 +40,7 @@
 #import "PushSettingsModel.h"
 #import "SocialModel.h"
 #import "StakeModel.h"
+#import "StatisticModel.h"
 #import "SubscriberModel.h"
 #import "SubscriptionModel.h"
 #import "SwitchModel.h"

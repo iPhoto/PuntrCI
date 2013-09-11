@@ -88,6 +88,8 @@ NSString *const KeyLines = @"lines";
 NSString *const KeyLogin = @"login";
 NSString *const KeyLogo = @"logo";
 NSString *const KeyLossCount = @"lossCount";
+NSString *const KeyLossMoney = @"lossMoney";
+NSString *const KeyMaximumGain = @"maximumGain";
 NSString *const KeyMessage = @"message";
 NSString *const KeyMoney = @"money";
 NSString *const KeyNews = @"news";
@@ -116,6 +118,7 @@ NSString *const KeyStake = @"stake";
 NSString *const KeyStakes = @"stakes";
 NSString *const KeyStakesCount = @"stakesCount";
 NSString *const KeyStartTime = @"startTime";
+NSString *const KeyStatistics = @"statistics";
 NSString *const KeyStatus = @"status";
 NSString *const KeySubscribed = @"subscribed";
 NSString *const KeySubscribers = @"subscribers";
@@ -136,5 +139,6 @@ NSString *const KeyUsername = @"username";
 NSString *const KeyValue = @"value";
 NSString *const KeyVKontakte = @"vk";
 NSString *const KeyWinCount = @"winCount";
+NSString *const KeyWinMoney = @"winMoney";
 
 @end
