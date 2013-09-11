@@ -7,16 +7,17 @@
 //
 
 
+#import "AwardsCollectionViewController.h"
 #import "CatalogueEventsViewController.h"
 #import "CatalogueTournamentsViewController.h"
-#import "EventModel.h"
 #import "EventsViewController.h"
 #import "EventViewController.h"
-#import "GroupModel.h"
 #import "LeadManager.h"
-#import "TournamentViewController.h"
+#import "Models.h"
+#import "SubscribersViewController.h"
+#import "SubscriptionsViewController.h"
 #import "TournamentsViewController.h"
-#import "UserModel.h"
+#import "TournamentViewController.h"
 #import "UserViewController.h"
 
 @implementation LeadManager
@@ -56,6 +57,27 @@
                 TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
                 [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:tournamentViewController.tournament] animated:YES];
             }
+        }
+    }
+    else if ([model isMemberOfClass:[UserDetailsModel class]])
+    {
+        UserDetailsModel *userDetails = (UserDetailsModel *)model;
+        switch (userDetails.userDetailsType)
+        {
+            case UserDetailsTypeSubscriptions:
+                [[PuntrUtilities mainNavigationController] pushViewController:[SubscriptionsViewController subscriptionsForUser:userDetails.user] animated:YES];
+                break;
+                
+            case UserDetailsTypeSubscribers:
+                [[PuntrUtilities mainNavigationController] pushViewController:[SubscribersViewController subscribersForUser:userDetails.user] animated:YES];
+                break;
+                
+            case UserDetailsTypeAwards:
+                [[PuntrUtilities mainNavigationController] pushViewController:[[AwardsCollectionViewController alloc] initWithUser:userDetails.user] animated:YES];
+                break;
+                
+            default:
+                break;
         }
     }
     else if ([model isMemberOfClass:[UserModel class]])
