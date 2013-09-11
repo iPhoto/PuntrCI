@@ -111,17 +111,40 @@
     
     
     labelX += labelWidth / 2;
-    labelSize = [@"Поделиться" sizeWithFont:[UIFont fontWithName:@"Arial-BoldMT" size:16.0f] constrainedToSize:CGSizeMake(self.view.frame.size.width - (2 * coverMargin) - CGRectGetMinX(self.awardImageView.frame), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+
+    UIImage *buttonImage = [UIImage imageNamed:@"icon_fb"];
+    UIImage *buttonImageHighlighted = [UIImage imageNamed:@"icon_fb_active"];
+    
     self.facebookShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.facebookShareAwardButton setImage:<#(UIImage *)#> forState:<#(UIControlState)#>
+    [self.facebookShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
+    [self.facebookShareAwardButton setImage:buttonImageHighlighted forState:UIControlStateHighlighted];
     
-    self.shareAwardButton.frame = CGRectMake(coverMargin, CGRectGetMaxY(self.awardTitleLabel.frame) + EDGE_VIEWS, self.view.frame.size.width - (2 * coverMargin), 2 * labelSize.height);
-    self.shareAwardButton.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16.0f];
-    [self.shareAwardButton setTitle:@"Поделиться" forState:UIControlStateNormal];
-    [self.shareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.shareAwardButton];
+    self.facebookShareAwardButton.frame = CGRectMake(0.0f, 0.0f, buttonImage.size.width, buttonImage.size.height);
+    self.facebookShareAwardButton.center = CGPointMake(CGRectGetMinX(self.awardImageView.frame), CGRectGetMaxY(self.awardTitleLabel.frame) + EDGE_VIEWS + (buttonImage.size.height / 2));
+    [self.facebookShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.facebookShareAwardButton];
     
-    self.view.frame = CGRectMake(0.0f, 0.0f, 280.0f, CGRectGetMaxY(self.shareAwardButton.frame) + EDGE_VIEWS);
+    buttonImage = [UIImage imageNamed:@"icon_tw"];
+    buttonImageHighlighted = [UIImage imageNamed:@"icon_tw_active"];
+
+    self.twitterShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.twitterShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
+    [self.twitterShareAwardButton setImage:buttonImageHighlighted forState:UIControlStateHighlighted];
+
+    self.twitterShareAwardButton.frame = CGRectMake(0.0f, 0.0f, buttonImage.size.width, buttonImage.size.height);
+    [self.twitterShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.twitterShareAwardButton.center = CGPointMake(CGRectGetMidX(self.awardImageView.frame), CGRectGetMaxY(self.awardTitleLabel.frame) + EDGE_VIEWS + (buttonImage.size.height / 2));
+    [self.view addSubview:self.twitterShareAwardButton];
+
+    buttonImage = [UIImage imageNamed:@"icon_vk"];
+    buttonImageHighlighted = [UIImage imageNamed:@"icon_vk_active"];
+    self.vkShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.vkShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
+    [self.vkShareAwardButton setImage:buttonImageHighlighted forState:UIControlStateHighlighted];
+    self.vkShareAwardButton.frame = CGRectMake(0.0f, 0.0f, buttonImage.size.width, buttonImage.size.height);
+    [self.vkShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.vkShareAwardButton.center = CGPointMake(CGRectGetMaxX(self.awardImageView.frame), CGRectGetMaxY(self.awardTitleLabel.frame) + EDGE_VIEWS + (buttonImage.size.height / 2));
+    [self.view addSubview:self.vkShareAwardButton];
 }
 
 - (void)shareAwardButtonAction:(UIButton *)button {
@@ -135,8 +158,7 @@
     [sheet addButtonWithTitle:@"Facebook"];
     [sheet addButtonWithTitle:@"Twitter"];
     sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
-//    [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
-    [sheet showInView:self.view];
+    [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
 }
 
 - (BOOL)becomeFirstResponder {
