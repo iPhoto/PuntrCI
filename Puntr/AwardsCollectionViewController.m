@@ -17,6 +17,9 @@
 
 #import "UIViewController+Puntr.h"
 
+#import "MZFormSheetController.h"
+#import "PushContentViewController.h"
+
 @interface AwardsCollectionViewController ()
 
 @property (nonatomic, strong) UserModel *user;
@@ -39,6 +42,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[MZFormSheetController appearance] setCornerRadius:20.0];
+    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
+    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
+    [[MZFormSheetController appearance] setShouldDismissOnBackgroundViewTap:YES];
+
    	CGRect frame = self.frame;
     
     self.title = @"Награды";
@@ -64,7 +73,14 @@
 }
 
 - (void)collectionViewDidSelectCellWithModel:(id)model {
-    [self.navigationController pushViewController:[[AwardViewController alloc] initWithAward:(AwardModel *)model] animated:YES];
+//    [self.navigationController pushViewController:[[AwardViewController alloc] initWithAward:(AwardModel *)model] animated:YES];
+    AwardViewController *vc = [[AwardViewController alloc] initWithAward:(AwardModel *)model];
+    // present form sheet with view controller
+    [self presentFormSheetWithViewController:vc
+                                    animated:YES
+                           completionHandler:^(MZFormSheetController *formSheetController) {
+    }];
+
 }
 
 @end
