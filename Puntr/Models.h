@@ -43,6 +43,7 @@
 #import "StatisticModel.h"
 #import "SubscriberModel.h"
 #import "SubscriptionModel.h"
+#import "SwitchModel.h"
 #import "TournamentModel.h"
 #import "TwitterModel.h"
 #import "UserModel.h"

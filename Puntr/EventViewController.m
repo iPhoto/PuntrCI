@@ -36,8 +36,6 @@ static const CGFloat TNItemSpacing = 12.0f;
 @property (nonatomic, strong) UIButton *buttonSubscribe;
 @property (nonatomic, strong) UIButton *buttonStake;
 
-@property (nonatomic, strong) UISegmentedControl *segmentedControl;
-
 @end
 
 @implementation EventViewController
@@ -143,24 +141,13 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonStake];
     
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Комментарии", @"Ставки"]];
-    self.segmentedControl.frame = CGRectMake(15.0f, coverMargin + participantsHeight * 2.0f + TNItemSpacing, 290.0f, 31.0f);
-    self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    self.segmentedControl.tintColor = [UIColor blackColor];
-    [self.view addSubview:self.segmentedControl];
-    dispatch_async(dispatch_get_main_queue(), ^
-        {
-            self.segmentedControl.selectedSegmentIndex = 1;
-        }
-    );
-    
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventStakes modifierObjects:@[self.event]];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventComments modifierObjects:@[self.event]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                       0.0f,
-                                      CGRectGetMaxY(self.segmentedControl.frame) + TNItemSpacing,
+                                      CGRectGetMaxY(backgroundCover.frame) + TNItemSpacing,
                                       CGRectGetWidth(viewControllerFrame),
-                                      CGRectGetHeight(viewControllerFrame) - (CGRectGetMaxY(self.segmentedControl.frame) + TNItemSpacing)
+                                      CGRectGetHeight(viewControllerFrame) - (CGRectGetMaxY(backgroundCover.frame) + TNItemSpacing)
                                       );
     [self.view addSubview:collectionView];
 }

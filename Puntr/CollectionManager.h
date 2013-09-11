@@ -9,26 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LeadCellDelegate.h"
 #import "CollectionManagerDelegate.h"
-
-typedef NS_ENUM(NSInteger, CollectionType)
-{
-    CollectionTypeActivities,
-    CollectionTypeAwards,
-    CollectionTypeCatalogueEvents,
-    CollectionTypeCatalogueTournaments,
-    CollectionTypeEvents,
-    CollectionTypeEventStakes,
-    CollectionTypeMyStakes,
-    CollectionTypeNews,
-    CollectionTypePrivacySettings,
-    CollectionTypePushSettinds,
-    CollectionTypeSocialsSettings,
-    CollectionTypeSubscribers,
-    CollectionTypeSubscriptions,
-    CollectionTypeTournament,
-    CollectionTypeTournamentEvents,
-    CollectionTypeTournaments
-};
+#import "CollectionManagerTypes.h"
 
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
 
@@ -42,8 +23,10 @@ typedef NS_ENUM(NSInteger, CollectionType)
 
 - (UICollectionView *)collectionView;
 
-#pragma mark - Data
+#pragma mark - Reload
 
 - (void)reloadData;
+
+- (void)switchToType:(CollectionType)collectionType;
 
 @end

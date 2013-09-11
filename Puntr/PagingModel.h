@@ -21,6 +21,7 @@
 // Helper
 
 - (void)firstPage;
+- (BOOL)isFirstPage;
 - (void)nextPage;
 - (void)setDefaultLimit:(NSNumber *)limit;
 
