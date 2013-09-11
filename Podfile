@@ -10,3 +10,4 @@ pod 'Reveal-iOS-SDK' #Remove for Release
 pod 'SDWebImage'
 pod 'TestFlightSDK', '~> 2.0'
 pod 'TSMessages'
+pod 'MZFormSheetController'

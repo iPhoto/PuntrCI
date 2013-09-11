@@ -14,6 +14,7 @@
     AuthorizationModel,
     CoefficientModel,
     CommentModel,
+    CopyrightModel,
     CredentialsModel, 
     EventModel,
     FilterModel, 
@@ -41,6 +42,7 @@ typedef void (^Categories)(NSArray *categories);
 typedef void (^Coefficient)(CoefficientModel *coefficient);
 typedef void (^Comments)(NSArray *comments);
 typedef void (^Components)(NSArray *components);
+typedef void (^Copyright)(CopyrightModel *copyright);
 typedef void (^Events)(NSArray *events);
 typedef void (^Groups)(NSArray *groups);
 typedef void (^Money)(MoneyModel *money);
@@ -82,6 +84,12 @@ typedef void (^User)(UserModel *user);
            forEvent:(EventModel *)event
             success:(EmptySuccess)success
             failure:(EmptyFailure)failure;
+
+#pragma mark - Copyrights
+
+- (void)termWithSuccess:(Copyright)success failure:(EmptyFailure)failure;
+
+- (void)offerWithSuccess:(Copyright)success failure:(EmptyFailure)failure;
 
 #pragma mark - Events
 

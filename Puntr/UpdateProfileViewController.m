@@ -115,7 +115,7 @@
     self.buttonSaveData.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSaveData.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
     [self.buttonSaveData addTarget:self action:@selector(touchedButtonSaveData) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonSaveData setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
+    [self.buttonSaveData setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.view addSubview:self.buttonSaveData];
 }
 

@@ -61,6 +61,7 @@
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
     RKObjectMapping *commentMapping = [RKObjectMapping mappingForClass:[CommentModel class]];
     RKObjectMapping *componentMapping = [RKObjectMapping mappingForClass:[ComponentModel class]];
+    RKObjectMapping *copyrightMaping = [RKObjectMapping mappingForClass:[CopyrightModel class]];
     RKObjectMapping *criterionMapping = [RKObjectMapping mappingForClass:[CriterionModel class]];
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[ErrorModel class]];
     RKObjectMapping *eventMapping = [RKObjectMapping mappingForClass:[EventModel class]];
@@ -165,6 +166,14 @@
                                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComponents]
                                                                                                               keyPath:KeyComponents
                                                                                                           statusCodes:statusCodeOK];
+    
+    //Copyright
+    [copyrightMaping addAttributeMappingsFromArray:@[KeyOffer, KeyTerms]];
+    RKResponseDescriptor *copyrightResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:copyrightMaping
+                                                                                                     method:RKRequestMethodGET
+                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:field", APICopyright]
+                                                                                                    keyPath:KeyCopyright
+                                                                                                statusCodes:statusCodeOK];
     
     // Criterion
     [criterionMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
@@ -378,6 +387,7 @@
             commentCreateResponseDescriptor,
             commentResponseDescriptor,
             componentCollectionResponseDescriptor,
+            copyrightResponseDescriptor,
             errorResponseDescriptor,
             eventCollectionResponseDescriptor,
             eventTournamentCollectionResponseDescriptor,
@@ -654,6 +664,42 @@
              {
                  [self reportWithFailure:failure error:error];
              }
+     ];
+}
+
+#pragma mark - Copyrights
+
+- (void)termWithSuccess:(Copyright)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@", APICopyright, APITerms]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         CopyrightModel *copyright = mappingResult.firstObject;
+         success(copyright);
+     }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self reportWithFailure:failure error:error];
+     }
+     ];
+}
+
+- (void)offerWithSuccess:(Copyright)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@", APICopyright, APIOffer]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         CopyrightModel *copyright = mappingResult.firstObject;
+         success(copyright);
+     }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self reportWithFailure:failure error:error];
+     }
      ];
 }
 

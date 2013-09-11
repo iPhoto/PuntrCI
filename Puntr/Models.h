@@ -19,6 +19,7 @@
 #import "CoefficientModel.h"
 #import "CommentModel.h"
 #import "ComponentModel.h"
+#import "CopyrightModel.h"
 #import "CredentialsModel.h"
 #import "CriterionModel.h"
 #import "DynamicSelectionModel.h"
