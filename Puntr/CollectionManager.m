@@ -224,8 +224,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadAwards
 {
     AwardModel *award = [[AwardModel alloc] init];
-    award.title = @"award1";
-    award.description = @"blah blah balah";
+    award.title = @"award1 very very long award title and super very long award title";
+    award.description = @"blah blah balah award1 very very long award title and 100500 words";
     award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
     
     AwardModel *award1 = [[AwardModel alloc] init];

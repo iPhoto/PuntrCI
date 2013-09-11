@@ -74,7 +74,7 @@
 
 - (void)collectionViewDidSelectCellWithModel:(id)model {
 //    [self.navigationController pushViewController:[[AwardViewController alloc] initWithAward:(AwardModel *)model] animated:YES];
-    AwardViewController *vc = [[AwardViewController alloc] initWithAward:(AwardModel *)model];
+    AwardViewController *vc = [[AwardViewController alloc] initWithAward:(AwardModel *)model fromPushNotification:NO];
     // present form sheet with view controller
     [self presentFormSheetWithViewController:vc
                                     animated:YES

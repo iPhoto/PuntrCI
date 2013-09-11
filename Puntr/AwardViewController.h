@@ -11,6 +11,6 @@
 
 @interface AwardViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
-- (id)initWithAward:(AwardModel *)award;
+- (id)initWithAward:(AwardModel *)award fromPushNotification:(BOOL)fromPush;
 
 @end
