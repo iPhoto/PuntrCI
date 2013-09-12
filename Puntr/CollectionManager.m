@@ -159,6 +159,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadNews];
                 break;
                 
+            case CollectionTypeParticipant:
+                [self loadParticipant];
+                break;
+                
             case CollectionTypePrivacySettings:
                 [self loadPrivacySettings];
                 break;
@@ -493,6 +497,30 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           {
                                               [self finishLoading];
                                           }
+    ];
+}
+
+- (void)loadParticipant
+{
+    ParticipantModel *participant = [self objectInArray:self.modifierObjects ofClass:[ParticipantModel class]];
+    [[ObjectManager sharedManager] eventsForParticipant:participant
+                                                 paging:self.paging
+                                                success:^(NSArray *events)
+                                                {
+                                                    if (self.paging.isFirstPage)
+                                                    {
+                                                        
+                                                        [self combineWithStationaryObjects:@[participant] withNewObjects:events];
+                                                    }
+                                                    else
+                                                    {
+                                                        [self combineWithData:events];
+                                                    }
+                                                }
+                                                failure:^
+                                                {
+                                                    [self finishLoading];
+                                                }
     ];
 }
 
