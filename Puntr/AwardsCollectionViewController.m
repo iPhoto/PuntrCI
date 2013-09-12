@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
 
-    [[MZFormSheetController appearance] setCornerRadius:20.0];
+    [[MZFormSheetController appearance] setCornerRadius:3.75f];
     [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
     [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
     [[MZFormSheetController appearance] setShouldDismissOnBackgroundViewTap:YES];
