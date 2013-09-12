@@ -35,6 +35,7 @@ NSString *const APIEvents = @"events";
 NSString *const APIGroups = @"groups";
 NSString *const APINews = @"news";
 NSString *const APIOffer = @"offer";
+NSString *const APIParticipants = @"participants";
 NSString *const APIPrivacy = @"privacy";
 NSString *const APIPush = @"push";
 NSString *const APISocials = @"socials";
