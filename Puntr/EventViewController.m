@@ -181,7 +181,7 @@ static const CGFloat TNItemSpacing = 12.0f;
     {
         i = 1;
     }
-    [self.navigationController pushViewController:[[ParticipantViewController alloc] initWithParticipant:self.event.participants[i]] animated:YES];
+    [self.navigationController pushViewController:[ParticipantViewController controllerWithParticipant:self.event.participants[i]] animated:YES];
 }
 
 #pragma mark - Subscription

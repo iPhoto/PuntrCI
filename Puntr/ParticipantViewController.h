@@ -11,6 +11,6 @@
 
 @interface ParticipantViewController : UIViewController
 
-- (id)initWithParticipant:(ParticipantModel *)participant;
++ (ParticipantViewController *)controllerWithParticipant:(ParticipantModel *)participant;
 
 @end
