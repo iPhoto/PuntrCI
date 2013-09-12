@@ -98,6 +98,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 // Participant
 @property (nonatomic, strong) NSMutableArray *participantLogos;
 @property (nonatomic, strong) NSMutableArray *participantTitles;
+@property (nonatomic, strong) UILabel *labelParticipantSubscribersCount;
+@property (nonatomic, strong) UIImageView *imageViewParticipantSubscribersCount;
 
 // Privacy and Push
 @property (nonatomic, strong) UILabel *labelDynamicSelectionTitle;
@@ -222,6 +224,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Participant
     [self cleanArray:self.participantLogos];
     [self cleanArray:self.participantTitles];
+    TNRemove(self.labelParticipantSubscribersCount)
+    TNRemove(self.imageViewParticipantSubscribersCount)
     
     // Privacy and Push
     TNRemove(self.labelDynamicSelectionTitle)
@@ -318,6 +322,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else if ([model isMemberOfClass:[NewsModel class]])
     {
         [self loadWithNews:(NewsModel *)model];
+    }
+    else if ([model isMemberOfClass:[ParticipantModel class]])
+    {
+        [self loadWithParticipant:(ParticipantModel *)model];
     }
     else if ([model isMemberOfClass:[PushSettingsModel class]] || [model isMemberOfClass:[PrivacySettingsModel class]])
     {
@@ -456,6 +464,73 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithEvent:news.event];
     }
+}
+
+- (void)loadWithParticipant:(ParticipantModel *)participant
+{
+    self.submodel = participant;
+    
+    [self whiteCell];
+    [self displaySubscribedForObject:participant];
+    
+    // Logo
+    CGFloat logoWidth = 0.0f;
+    if (participant.logo)
+    {
+        UIImageView *imageViewParticipantLogo = [[UIImageView alloc] init];
+        imageViewParticipantLogo.frame = CGRectMake(
+                                                       TNMarginGeneral,
+                                                       TNMarginGeneral,
+                                                       TNSideImageLarge,
+                                                       TNSideImageLarge
+                                                   );
+        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        imageViewParticipantLogo.layer.cornerRadius = TNCornerRadius;
+        imageViewParticipantLogo.layer.masksToBounds = YES;
+        [self.participantLogos addObject:imageViewParticipantLogo];
+        [self addSubview:imageViewParticipantLogo];
+        
+        logoWidth = CGRectGetWidth(imageViewParticipantLogo.frame) + TNMarginGeneral;
+    }
+    
+    CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - logoWidth - TNWidthButtonLarge - TNMarginGeneral;
+    
+    // Name
+    UILabel *labelParticipantTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
+    labelParticipantTitle.frame = CGRectMake(
+                                                logoWidth + TNMarginGeneral,
+                                                TNMarginGeneral,
+                                                TNWidthLabel,
+                                                TNHeightText
+                                            );
+    labelParticipantTitle.text = participant.title;
+    [self.participantTitles addObject:labelParticipantTitle];
+    [self addSubview:labelParticipantTitle];
+    
+    CGSize sizeParticipantLogo = CGSizeMake(10.0f, 9.0f);
+    self.imageViewParticipantSubscribersCount = [[UIImageView alloc] init];
+    self.imageViewParticipantSubscribersCount.frame = CGRectMake(
+                                                                    logoWidth + TNMarginGeneral,
+                                                                    CGRectGetMaxY(labelParticipantTitle.frame) + TNMarginGeneral,
+                                                                    sizeParticipantLogo.width,
+                                                                    sizeParticipantLogo.height
+                                                                );
+    self.imageViewParticipantSubscribersCount.image = [UIImage imageNamed:@"IconUser"];
+    [self addSubview:self.imageViewParticipantSubscribersCount];
+    
+    self.labelParticipantSubscribersCount = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelParticipantSubscribersCount.frame = CGRectMake(
+                                                                CGRectGetMaxX(self.imageViewParticipantSubscribersCount.frame) + TNMarginGeneral,
+                                                                CGRectGetMaxY(labelParticipantTitle.frame) + TNMarginGeneral,
+                                                                TNWidthLabel,
+                                                                TNHeightText
+                                                            );
+    self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"Болельщиков: %@", participant.subscribersCount.stringValue];
+    [self addSubview:self.labelParticipantSubscribersCount];
+    
+    self.usedHeight = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    
+    [self makeFinal:YES];
 }
 
 - (void)loadWithProfile:(UserModel *)user
