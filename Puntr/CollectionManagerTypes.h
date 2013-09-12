@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
 {
     CollectionTypeActivities,
     CollectionTypeAwards,
+    CollectionTypeBets,
     CollectionTypeCatalogueEvents,
     CollectionTypeCatalogueTournaments,
     CollectionTypeEventComments,

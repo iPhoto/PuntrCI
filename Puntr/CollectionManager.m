@@ -131,6 +131,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadAwards];
                 break;
             
+            case CollectionTypeBets:
+                [self loadBets];
+                break;
+                
             case CollectionTypeCatalogueEvents:
                 [self loadGroups];
                 break;
@@ -254,6 +258,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 //                                         }
 //                                         failure:nil
 //     ];
+}
+
+- (void)loadBets
+{
+    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
+                                                     firstTitle:@"Ставки"
+                                                        firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
+                                                     secondType:CollectionTypeBets
+                                                    secondTitle:@"Пари"
+                                                       secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
+    [self combineWithStationaryObjects:@[switchModel] withNewObjects:@[]];
 }
 
 - (void)loadCatalogueEvents
@@ -476,7 +491,20 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
         {
-            [self combineWithData:stakes];
+            if (self.paging.isFirstPage)
+            {
+                SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
+                                                                 firstTitle:@"Ставки"
+                                                                    firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
+                                                                 secondType:CollectionTypeBets
+                                                                secondTitle:@"Пари"
+                                                                   secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
+                [self combineWithStationaryObjects:@[switchModel] withNewObjects:stakes];
+            }
+            else
+            {
+                [self combineWithData:stakes];
+            }
         }
         failure:^
         {
