@@ -21,6 +21,7 @@
     LineModel, 
     MoneyModel,
     PagingModel,
+    ParticipantModel,
     PasswordModel,
     PrivacySettingsModel,
     PushSettingsModel,
@@ -97,6 +98,11 @@ typedef void (^User)(UserModel *user);
                   filter:(FilterModel *)filter
                  success:(Events)success
                  failure:(EmptyFailure)failure;
+
+- (void)eventsForParticipant:(ParticipantModel *)participant
+                      paging:(PagingModel *)paging
+                     success:(Events)success
+                     failure:(EmptyFailure)failure;
 
 #pragma mark - Groups
 

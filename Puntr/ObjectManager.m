@@ -210,6 +210,11 @@
                                                                                                     pathPattern:APIEvents
                                                                                                           keyPath:KeyEvents
                                                                                                       statusCodes:statusCodeOK];
+    RKResponseDescriptor *eventParticipantResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
+                                                                                                            method:RKRequestMethodGET
+                                                                                                       pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIParticipants, APIEvents]
+                                                                                                           keyPath:KeyEvents
+                                                                                                       statusCodes:statusCodeOK];
     RKResponseDescriptor *eventTournamentCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
                                                                                                                      method:RKRequestMethodGET
                                                                                                                 pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APITournaments, APIEvents]
@@ -396,6 +401,7 @@
             copyrightResponseDescriptor,
             errorResponseDescriptor,
             eventCollectionResponseDescriptor,
+            eventParticipantResponseDescriptor,
             eventTournamentCollectionResponseDescriptor,
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
@@ -729,6 +735,30 @@
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
             } failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
+- (void)eventsForParticipant:(ParticipantModel *)participant
+                      paging:(PagingModel *)paging
+                     success:(Events)success
+                     failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIParticipants, participant.tag, APIEvents]
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *events = mappingResult.dictionary[KeyEvents];
+                success(events);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
                 [self reportWithFailure:failure error:error];
             }
