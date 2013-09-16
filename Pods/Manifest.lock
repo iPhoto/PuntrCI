@@ -54,6 +54,7 @@ PODS:
     - libwebp
   - SocketRocket (0.3.1-beta2)
   - SOCKit (1.1)
+  - SVProgressHUD (0.9)
   - TestFlightSDK (2.0)
   - TransitionKit (1.1.1)
   - TSMessages (0.9.3)
@@ -68,6 +69,7 @@ DEPENDENCIES:
   - RestKit
   - Reveal-iOS-SDK
   - SDWebImage
+  - SVProgressHUD
   - TestFlightSDK (~> 2.0)
   - TSMessages
 
@@ -90,8 +92,9 @@ SPEC CHECKSUMS:
   SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
   TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
   TSMessages: e741d102e8291074b4ee7545b53c90ed5f220dd5
 
-COCOAPODS: 0.20.2
+COCOAPODS: 0.23.0
