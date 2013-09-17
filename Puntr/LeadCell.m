@@ -1559,7 +1559,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         self.imageViewEventLive = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconLive"]];
         self.imageViewEventLive.frame = CGRectMake(
                                                    TNMarginGeneral + liveSize.width + TNMarginGeneral,
-                                                   self.usedHeight + TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral - 1,
                                                    sizeLive.width,
                                                    sizeLive.height
                                                    );
