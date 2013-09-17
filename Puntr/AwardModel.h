@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, copy) NSURL *image;
+@property (nonatomic) BOOL received;
 
 @end

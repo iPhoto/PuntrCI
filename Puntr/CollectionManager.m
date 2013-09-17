@@ -231,33 +231,15 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadAwards
 {
-    AwardModel *award = [[AwardModel alloc] init];
-    award.title = @"award1 very very long award title and super very long award title";
-    award.description = @"blah blah balah award1 very very long award title and 100500 words";
-    award.image = [NSURL URLWithString:@"http://img-fotki.yandex.ru/get/9113/223557196.d/0_beeb9_4cba89a4_orig"];
-    
-    AwardModel *award1 = [[AwardModel alloc] init];
-    award1.title = @"award2";
-    award1.description = @"award2 description";
-    award1.image = [NSURL URLWithString:@"http://i130.photobucket.com/albums/p273/runata/433043004400_zpsc277ec3d.jpg"];
-    
-    AwardModel *award2 = [[AwardModel alloc] init];
-    award2.title = @"award3";
-    award2.description = @"award3 description";
-    award2.image = [NSURL URLWithString:@"http://i.postnext.com/img_set20/frfbrght545_004.jpg"];
-    
-    NSArray *awards = [NSArray arrayWithObjects:award, award1, award2, nil];
-    [self combineWithData:awards];
-    
-//    UserModel *user = [self objectInArray:self.modifierObjects ofClass:[UserModel class]];
-//    [[ObjectManager sharedManager] awardsForUser:user
-//                                          paging:self.paging
-//                                         success:^(NSArray *awards)
-//                                         {
-//                                            [self combineWithData:awards];
-//                                         }
-//                                         failure:nil
-//     ];
+    UserModel *user = [self objectInArray:self.modifierObjects ofClass:[UserModel class]];
+    [[ObjectManager sharedManager] awardsForUser:user
+                                          paging:self.paging
+                                         success:^(NSArray *awards)
+                                         {
+                                            [self combineWithData:awards];
+                                         }
+                                         failure:nil
+     ];
 }
 
 - (void)loadBets

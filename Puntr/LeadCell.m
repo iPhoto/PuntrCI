@@ -931,7 +931,29 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
 
     self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, (self.frame.size.height / 2) - 16.0f, (self.frame.size.width / 2) - 8.0f)];
-    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[award.image URLByAppendingSize:awardImageSize]];
+    __weak LeadCell *weakSelf = self;
+    [self.imageViewAward setImageWithURLRequest:urlRequest
+                               placeholderImage:nil
+                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                            if (!award.received)
+                                            {
+                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                                    UIImage *blurPhotoImage = [PuntrUtilities blurImage:image];
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        weakSelf.imageViewAward.image = blurPhotoImage;
+                                                    });
+                                                });
+                                            }
+                                            else
+                                            {
+                                                weakSelf.imageViewAward.image = image;
+                                            }
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                            nil;
+                                        }];
+//    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
     self.imageViewAward.backgroundColor = [UIColor clearColor];
 
     self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];

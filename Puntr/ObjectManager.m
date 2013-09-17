@@ -119,7 +119,7 @@
                                                                                                               statusCodes:statusCodeCreated];
     
     // Award
-    [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage]];
+    [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage, KeyReceived]];
     RKResponseDescriptor *awardCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:awardMapping
                                                                                                            method:RKRequestMethodGET
                                                                                                       pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIAwards]

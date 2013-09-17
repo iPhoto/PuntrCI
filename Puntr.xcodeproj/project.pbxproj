@@ -293,6 +293,7 @@
 		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
 		76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FCB9AE17D62D3900183109 /* LeadManager.m */; };
 		76FCB9B217D636FB00183109 /* LeadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FCB9B117D636FB00183109 /* LeadButton.m */; };
+		9AA0FAF217E82AE5004A2B36 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA0FAF117E82AE5004A2B36 /* CoreImage.framework */; };
 		AC34681917CFDA420077418B /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC34681817CFDA420077418B /* FilterViewController.m */; };
 		AC34682A17D00F710077418B /* bottom_area.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34681E17D00F710077418B /* bottom_area.png */; };
 		AC34682B17D00F710077418B /* bottom_area@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34681F17D00F710077418B /* bottom_area@2x.png */; };
@@ -759,6 +760,7 @@
 		76FCB9AE17D62D3900183109 /* LeadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadManager.m; sourceTree = "<group>"; };
 		76FCB9B017D636FB00183109 /* LeadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadButton.h; sourceTree = "<group>"; };
 		76FCB9B117D636FB00183109 /* LeadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadButton.m; sourceTree = "<group>"; };
+		9AA0FAF117E82AE5004A2B36 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		AC34681717CFDA420077418B /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		AC34681817CFDA420077418B /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		AC34681E17D00F710077418B /* bottom_area.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_area.png; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA0FAF217E82AE5004A2B36 /* CoreImage.framework in Frameworks */,
 				D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */,
 				D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */,
 				0FA5FC8617AFCC6200352827 /* Accounts.framework in Frameworks */,
@@ -1262,6 +1265,7 @@
 		31E3E7901754E24800B09DAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AA0FAF117E82AE5004A2B36 /* CoreImage.framework */,
 				D6B4514D17DE7694002ECADC /* Accelerate.framework */,
 				D6B4514B17DE766C002ECADC /* QuartzCore.framework */,
 				0FA5FC8417AFCC5600352827 /* Accounts.framework */,

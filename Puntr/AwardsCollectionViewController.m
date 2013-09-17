@@ -73,8 +73,7 @@
 }
 
 - (void)collectionViewDidSelectCellWithModel:(id)model {
-//    [self.navigationController pushViewController:[[AwardViewController alloc] initWithAward:(AwardModel *)model] animated:YES];
-    BOOL isFromPush = [((AwardModel *)model).title isEqualToString:@"award2"];
+    BOOL isFromPush = NO;// [((AwardModel *)model).title isEqualToString:@"award2"];
     AwardViewController *vc = [[AwardViewController alloc] initWithAward:(AwardModel *)model fromPushNotification:isFromPush];
     // present form sheet with view controller
     [self presentFormSheetWithViewController:vc

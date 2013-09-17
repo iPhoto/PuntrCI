@@ -79,9 +79,30 @@
     CGFloat imageSide = 148.0f;
     self.awardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(EDGE_VIEWS, EDGE_VIEWS, imageSide, imageSide)];
     self.awardImageView.backgroundColor = [UIColor clearColor];
-//    CGSize awardImageSize = CGSizeMake(imageSide, imageSide);
+    CGSize awardImageSize = CGSizeMake(imageSide, imageSide);
 //    [self.awardImageView setImageWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
-    [self.awardImageView setImageWithURL:self.award.image];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
+    __weak AwardViewController *weakSelf = self;
+    [self.awardImageView setImageWithURLRequest:urlRequest
+                               placeholderImage:nil
+                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                            if (!weakSelf.award.received)
+                                            {
+                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                                    UIImage *blurPhotoImage = [PuntrUtilities blurImage:image];
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        weakSelf.awardImageView.image = blurPhotoImage;
+                                                    });
+                                                });
+                                            }
+                                            else
+                                            {
+                                                weakSelf.awardImageView.image = image;
+                                            }
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                            nil;
+                                        }];
     self.awardImageView.center = CGPointMake(self.view.center.x, (imageSide / 2) + EDGE_VIEWS + CGRectGetMaxY(self.controllerTitleLabel.frame));
     [self.view addSubview:self.awardImageView];
     

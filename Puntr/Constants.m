@@ -108,6 +108,7 @@ NSString *const KeyPrivacy = @"privacy";
 NSString *const KeyPush = @"push";
 NSString *const KeyPushToken = @"pushToken";
 NSString *const KeyRating = @"rating";
+NSString *const KeyReceived = @"received";
 NSString *const KeySearch = @"search";
 NSString *const KeySecret = @"secret";
 NSString *const KeySecretToken = @"secretToken";
