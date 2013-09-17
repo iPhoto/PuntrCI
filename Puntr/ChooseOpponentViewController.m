@@ -20,6 +20,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 static const CGFloat TNMarginGeneral = 8.0f;
 static const CGFloat TNHeightText = 12.0f;
 
+static const CGFloat avatarWidth = 40;
 
 @interface COTableViewCell : UITableViewCell
 
@@ -33,15 +34,29 @@ static const CGFloat TNHeightText = 12.0f;
     UIImageView *_checkedImageView;
     UIImageView *_uncheckedImageView;
     UILabel *_rate;
+    UILabel *_name;
+    UIImageView *_avatar;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
         _checkedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked.png"]];
         _uncheckedImageView = nil;
-        _rate = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 40, 20)];
+        
+        _rate = [[UILabel alloc] initWithFrame:CGRectMake(210, 10, 60, 20)];
+        _rate.textAlignment = NSTextAlignmentCenter;
+        _rate.font = [UIFont systemFontOfSize:13];
         [self addSubview:_rate];
+        
+        _name = [[UILabel alloc] initWithFrame:CGRectMake(avatarWidth + 20, 3, 60, 40)];
+        _name.numberOfLines = 2;
+        _name.font = [UIFont systemFontOfSize:12];
+        [self addSubview:_name];
+        
+        _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, avatarWidth, avatarWidth)];
+        [self addSubview:_avatar];
     }
     return self;
 }
@@ -61,26 +76,24 @@ static const CGFloat TNHeightText = 12.0f;
 
 - (void)setupWithUser:(UserModel *)user
 {
-    self.textLabel.text = user.username?:@"Hmmm userName";
-    self.imageView.image = user.avatarData;
+    _name.text = user.username?:@"Hmmm userName";
+    _avatar.image = user.avatarData;
     
-    CGFloat avatarWidth = 40;
     CGFloat TNSpacingStar = 2.0f;
     CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
-    CGFloat TNMarginStar = TNSizeStar.height - TNHeightText;
     
-    for (NSInteger starIndex = 1; starIndex <= 5; starIndex++)
+    CGFloat startStars = CGRectGetMaxX(_name.frame) + 6;
+    for (NSInteger starIndex = 0; starIndex < 5; starIndex++)
     {
-        NSInteger previousStarIndex = starIndex - 1;
         UIImageView *imageViewStar = [[UIImageView alloc] init];
         imageViewStar.frame = CGRectMake(
-                                         avatarWidth + ((TNSizeStar.width + TNSpacingStar) * starIndex),
+                                         startStars + ((TNSizeStar.width + TNSpacingStar) * starIndex),
                                          (self.frame.size.height - TNSizeStar.height) / 2,
                                          TNSizeStar.width,
                                          TNSizeStar.height
                                          );
         UIImage *imageStar = nil;
-        if (starIndex <= user.rating.integerValue)
+        if (starIndex < user.rating.integerValue)
         {
             imageStar = [UIImage imageNamed:@"StarSelected"];
         }
@@ -89,12 +102,10 @@ static const CGFloat TNHeightText = 12.0f;
             imageStar = [UIImage imageNamed:@"StarUnselected"];
         }
         imageViewStar.image = imageStar;
-//        [self.userStars addObject:imageViewStar];
         [self addSubview:imageViewStar];
     }
     
     _rate.text = [user.rating stringValue];
-
 }
 
 @end
@@ -224,8 +235,9 @@ static const CGFloat TNHeightText = 12.0f;
                                                  paging:self.paging
                                                 success:^(NSArray *subscribers)
      {
-         //self.subscribers = [NSArray arrayWithArray:subscribers];
-         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], nil];
+         self.subscribers = [NSArray arrayWithArray:subscribers];
+//         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
+//         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], nil];
          [self.opponentsTableView reloadData];
      }
         failure:^
@@ -260,8 +272,6 @@ static const CGFloat TNHeightText = 12.0f;
         cell = [[COTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdFileName];
         cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:reuseIdFileName]];
         cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.font = TNFont;
-        cell.textLabel.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     }
     
     UserModel *user = ((SubscriberModel *)self.subscribers[indexPath.row]).user;
