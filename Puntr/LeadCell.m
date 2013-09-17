@@ -53,8 +53,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, retain) UIImageView *imageViewAward;
 @property (nonatomic, retain) UILabel *labelAwardPointsCount;
 @property (nonatomic, retain) UILabel *labelAwardTitle;
-@property (nonatomic, retain) UILabel *labelAwardDescription;
-@property (nonatomic, retain) UIButton *buttonAwardShare;
+//@property (nonatomic, retain) UILabel *labelAwardDescription;
+//@property (nonatomic, retain) UIButton *buttonAwardShare;
 
 // Category
 @property (nonatomic, strong) UILabel *labelCategoryTitle;
@@ -179,8 +179,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewAward)
     TNRemove(self.labelAwardPointsCount)
     TNRemove(self.labelAwardTitle)
-    TNRemove(self.labelAwardDescription)
-    TNRemove(self.buttonAwardShare)
+//    TNRemove(self.labelAwardDescription)
+//    TNRemove(self.buttonAwardShare)
     
     // Category
     TNRemove(self.labelCategoryTitle)
@@ -928,9 +928,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
-    CGSize awardImageSize = CGSizeMake(TNSideBadge, TNSideBadge);
+    CGSize awardImageSize = CGSizeMake(TNSideBadge - TNMarginGeneral, TNSideBadge - TNMarginGeneral);
 
-    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, (self.frame.size.height / 2) - 16.0f, (self.frame.size.width / 2) - 8.0f)];
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(TNMarginGeneral, (TNMarginGeneral / 2), awardImageSize.height, awardImageSize.width)];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[award.image URLByAppendingSize:awardImageSize]];
     __weak LeadCell *weakSelf = self;
     [self.imageViewAward setImageWithURLRequest:urlRequest
@@ -957,41 +957,37 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.imageViewAward.backgroundColor = [UIColor clearColor];
 
     self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];
-    self.labelAwardDescription = [UILabel labelSmallBold:YES black:YES];
+//    self.labelAwardDescription = [UILabel labelSmallBold:YES black:YES];
     [self addSubview:self.imageViewAward];
     [self addSubview:self.labelAwardTitle];
-    [self addSubview:self.labelAwardDescription];
+//    [self addSubview:self.labelAwardDescription];
 
-    CGFloat labelX = CGRectGetMaxX(self.imageViewAward.frame) + 4.0f;
-    CGFloat labelY = CGRectGetMidY(self.imageViewAward.frame);
-
-    CGFloat labelWidth = CGRectGetWidth(self.frame) - labelX - 4.0f;
-
-    labelX += labelWidth / 2;
+    CGFloat labelWidth = CGRectGetWidth(self.frame);
     CGSize textSize = [award.title sizeWithFont:self.labelAwardTitle.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat labelY = CGRectGetMaxY(self.imageViewAward.frame) + (textSize.height / 2);
     self.labelAwardTitle.numberOfLines = 0;
     self.labelAwardTitle.lineBreakMode = NSLineBreakByWordWrapping;
     self.labelAwardTitle.contentMode = UIViewContentModeCenter;
     self.labelAwardTitle.text = award.title;
     self.labelAwardTitle.backgroundColor = [UIColor clearColor];
     self.labelAwardTitle.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
-    self.labelAwardTitle.center = CGPointMake(labelX, labelY);
+    [self.labelAwardTitle sizeToFit];
+    self.labelAwardTitle.center = CGPointMake(CGRectGetMidX(self.imageViewAward.frame), labelY);
     
-    
-    labelX = CGRectGetMinX(self.imageViewAward.frame);
-    labelY = CGRectGetMaxY(self.imageViewAward.frame) + 8.0f;
-    labelWidth = CGRectGetWidth(self.frame) - 2*labelX;
-    textSize  = [award.description sizeWithFont:self.labelAwardDescription.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    labelX += labelWidth / 2;
-
-    self.labelAwardDescription.numberOfLines = 0;
-    self.labelAwardDescription.lineBreakMode = NSLineBreakByWordWrapping;
-    self.labelAwardDescription.contentMode = UIViewContentModeCenter;
-    self.labelAwardDescription.text = award.description;
-    self.labelAwardDescription.backgroundColor = [UIColor clearColor];
-
-    self.labelAwardDescription.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
-    self.labelAwardDescription.center = CGPointMake(labelX, labelY + textSize.height / 2);
+//    labelX = CGRectGetMinX(self.imageViewAward.frame);
+//    labelY = CGRectGetMaxY(self.imageViewAward.frame) + 8.0f;
+//    labelWidth = CGRectGetWidth(self.frame) - 2*labelX;
+//    textSize  = [award.description sizeWithFont:self.labelAwardDescription.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+//    labelX += labelWidth / 2;
+//
+//    self.labelAwardDescription.numberOfLines = 0;
+//    self.labelAwardDescription.lineBreakMode = NSLineBreakByWordWrapping;
+//    self.labelAwardDescription.contentMode = UIViewContentModeCenter;
+//    self.labelAwardDescription.text = award.description;
+//    self.labelAwardDescription.backgroundColor = [UIColor clearColor];
+//
+//    self.labelAwardDescription.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
+//    self.labelAwardDescription.center = CGPointMake(labelX, labelY + textSize.height / 2);
 }
 
 - (void)displayBackgroundForStake:(StakeModel *)stake
