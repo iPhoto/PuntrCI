@@ -14,6 +14,7 @@
 @optional
 
 - (void)collectionViewDidSelectCellWithModel:(id)model;
+- (BOOL)haveItems;
 - (void)collectionUpdated;
 
 @end
