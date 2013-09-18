@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AwardModel.h"
 
-@interface AwardViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
+@interface AwardViewController : UIViewController <UITextFieldDelegate>
 
 - (id)initWithAward:(AwardModel *)award fromPushNotification:(BOOL)fromPush;
 
