@@ -501,7 +501,6 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                           success:^(NSArray *news)
                                           {
                                               [self combineWithData:news];
-                                              [self.collectionManagerDelegate collectionUpdated];
                                           }
                                           failure:^
                                           {

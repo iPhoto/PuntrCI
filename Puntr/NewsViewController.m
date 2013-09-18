@@ -43,7 +43,7 @@ static const CGFloat TNItemSpacing = 12.0f;
     collectionView.frame = viewControllerFrame;
     [self.view addSubview:collectionView];
     
-    self.labelSorryText = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, CGRectGetWidth(viewControllerFrame) - 40, CGRectGetHeight(viewControllerFrame) - 80)];
+    self.labelSorryText = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, CGRectGetWidth(viewControllerFrame) - 40, CGRectGetHeight(viewControllerFrame) - 60)];
     [self.labelSorryText setTextAlignment:NSTextAlignmentCenter];
     [self.labelSorryText setText:@"Чтобы у вас появились нововсти, подпишитесь на событие, команду, турнир или сделайте ставку в каталоге"];
     [self.labelSorryText setNumberOfLines:0];
@@ -66,19 +66,17 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.collectionManager reloadData];
 }
 
-- (void)collectionUpdated
+- (void)haveItems:(BOOL)haveItems
 {
-    int count = [self.collectionManager.collectionView numberOfItemsInSection:0];
-    
-    if(count == 0)
-    {
-        self.labelSorryText.hidden = NO;
-        self.imageViewSorryArrow.hidden = NO;
-    }
-    else
+    if(haveItems)
     {
         self.labelSorryText.hidden = YES;
         self.imageViewSorryArrow.hidden = YES;
+    }
+    else
+    {
+        self.labelSorryText.hidden = NO;
+        self.imageViewSorryArrow.hidden = NO;
     }
 }
 
