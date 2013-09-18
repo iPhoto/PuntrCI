@@ -928,9 +928,23 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
-    CGSize awardImageSize = CGSizeMake(TNSideBadge - TNMarginGeneral, TNSideBadge - TNMarginGeneral);
-
-    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(TNMarginGeneral, (TNMarginGeneral / 2), awardImageSize.height, awardImageSize.width)];
+    self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];
+    self.labelAwardTitle.numberOfLines = 0;
+    self.labelAwardTitle.lineBreakMode = NSLineBreakByWordWrapping;
+    self.labelAwardTitle.contentMode = UIViewContentModeCenter;
+    self.labelAwardTitle.textAlignment = NSTextAlignmentCenter;
+    self.labelAwardTitle.text = award.title;
+    self.labelAwardTitle.backgroundColor = [UIColor clearColor];
+    CGFloat labelWidth = TNSideBadge;
+    CGSize textSize = [award.title sizeWithFont:self.labelAwardTitle.font constrainedToSize:CGSizeMake(labelWidth, labelWidth) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat labelY = TNSideBadge - (textSize.height) - (TNMarginGeneral / 2);
+    self.labelAwardTitle.frame = CGRectMake(0.0f, labelY, labelWidth, textSize.height);
+    [self addSubview:self.labelAwardTitle];
+    
+    CGFloat awardImageSide = CGRectGetMinY(self.labelAwardTitle.frame) - TNMarginGeneral;
+    CGSize awardImageSize = CGSizeMake(awardImageSide, awardImageSide);
+    CGFloat awardImageX = (TNSideBadge - awardImageSide) / 2;
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(awardImageX, 0.0f, awardImageSize.height, awardImageSize.width)];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[award.image URLByAppendingSize:awardImageSize]];
     __weak LeadCell *weakSelf = self;
     [self.imageViewAward setImageWithURLRequest:urlRequest
@@ -955,39 +969,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                         }];
 //    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
     self.imageViewAward.backgroundColor = [UIColor clearColor];
-
-    self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];
-//    self.labelAwardDescription = [UILabel labelSmallBold:YES black:YES];
     [self addSubview:self.imageViewAward];
-    [self addSubview:self.labelAwardTitle];
-//    [self addSubview:self.labelAwardDescription];
-
-    CGFloat labelWidth = CGRectGetWidth(self.frame);
-    CGSize textSize = [award.title sizeWithFont:self.labelAwardTitle.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    CGFloat labelY = CGRectGetMaxY(self.imageViewAward.frame) + (textSize.height / 2);
-    self.labelAwardTitle.numberOfLines = 0;
-    self.labelAwardTitle.lineBreakMode = NSLineBreakByWordWrapping;
-    self.labelAwardTitle.contentMode = UIViewContentModeCenter;
-    self.labelAwardTitle.text = award.title;
-    self.labelAwardTitle.backgroundColor = [UIColor clearColor];
-    self.labelAwardTitle.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
-    [self.labelAwardTitle sizeToFit];
-    self.labelAwardTitle.center = CGPointMake(CGRectGetMidX(self.imageViewAward.frame), labelY);
-    
-//    labelX = CGRectGetMinX(self.imageViewAward.frame);
-//    labelY = CGRectGetMaxY(self.imageViewAward.frame) + 8.0f;
-//    labelWidth = CGRectGetWidth(self.frame) - 2*labelX;
-//    textSize  = [award.description sizeWithFont:self.labelAwardDescription.font constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-//    labelX += labelWidth / 2;
-//
-//    self.labelAwardDescription.numberOfLines = 0;
-//    self.labelAwardDescription.lineBreakMode = NSLineBreakByWordWrapping;
-//    self.labelAwardDescription.contentMode = UIViewContentModeCenter;
-//    self.labelAwardDescription.text = award.description;
-//    self.labelAwardDescription.backgroundColor = [UIColor clearColor];
-//
-//    self.labelAwardDescription.frame = CGRectMake(0.0f, 0.0f, labelWidth, textSize.height);
-//    self.labelAwardDescription.center = CGPointMake(labelX, labelY + textSize.height / 2);
 }
 
 - (void)displayBackgroundForStake:(StakeModel *)stake
