@@ -73,14 +73,17 @@
 }
 
 - (void)collectionViewDidSelectCellWithModel:(id)model {
-    BOOL isFromPush = NO;// [((AwardModel *)model).title isEqualToString:@"award2"];
-    AwardViewController *vc = [[AwardViewController alloc] initWithAward:(AwardModel *)model fromPushNotification:isFromPush];
-    // present form sheet with view controller
-    [self presentFormSheetWithViewController:vc
-                                    animated:YES
-                           completionHandler:^(MZFormSheetController *formSheetController) {
-    }];
-
+    AwardModel *award = (AwardModel *)model;
+    if (award.received)
+    {
+        BOOL isFromPush = NO;// [((AwardModel *)model).title isEqualToString:@"award2"];
+        AwardViewController *vc = [[AwardViewController alloc] initWithAward:award fromPushNotification:isFromPush];
+        // present form sheet with view controller
+        [self presentFormSheetWithViewController:vc
+                                        animated:YES
+                               completionHandler:^(MZFormSheetController *formSheetController) {
+                               }];
+    }
 }
 
 @end
