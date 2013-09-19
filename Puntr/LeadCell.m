@@ -96,6 +96,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UIImageView *imageViewMoney;
 
 // Participant
+@property (nonatomic, strong) ParticipantModel *participant;
 @property (nonatomic, strong) NSMutableArray *participantLogos;
 @property (nonatomic, strong) NSMutableArray *participantTitles;
 @property (nonatomic, strong) UILabel *labelParticipantSubscribersCount;
@@ -179,8 +180,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewAward)
     TNRemove(self.labelAwardPointsCount)
     TNRemove(self.labelAwardTitle)
-//    TNRemove(self.labelAwardDescription)
-//    TNRemove(self.buttonAwardShare)
     
     // Category
     TNRemove(self.labelCategoryTitle)
@@ -222,6 +221,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewMoney)
     
     // Participant
+    self.participant = nil;
     [self cleanArray:self.participantLogos];
     [self cleanArray:self.participantTitles];
     TNRemove(self.labelParticipantSubscribersCount)
@@ -325,7 +325,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[ParticipantModel class]])
     {
-        [self loadWithParticipant:(ParticipantModel *)model];
+        self.participant = (ParticipantModel *)model;
+        [self loadWithParticipant:self.participant];
     }
     else if ([model isMemberOfClass:[PushSettingsModel class]] || [model isMemberOfClass:[PrivacySettingsModel class]])
     {
@@ -829,9 +830,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self blackCell];
     if (subscription.participant)
     {
-        self.submodel = subscription.participant;
-        [self displaySubscribedForObject:self.submodel];
-        [self displayParticipant:subscription.participant final:YES];
+        self.participant = subscription.participant;
+        self.submodel = self.participant;
+        [self displaySubscribedForObject:self.participant];
+        [self displayParticipant:self.participant final:YES];
     }
     else if (subscription.event)
     {
@@ -1241,7 +1243,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.participantTitles addObject:labelParticipantTitle];
     [self addSubview:labelParticipantTitle];
     
-    self.usedHeight = CGRectGetMaxY(labelParticipantTitle.frame);
+    CGFloat maxY = CGRectGetMaxY(labelParticipantTitle.frame);
+    [self placeButtonForObject:self.participant maxY:maxY + TNMarginGeneral];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:final];
 }
