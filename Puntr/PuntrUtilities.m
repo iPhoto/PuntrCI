@@ -19,6 +19,10 @@
         UINavigationController *mainNavigationController = (UINavigationController *)[(UITabBarController *)topController selectedViewController];
         return mainNavigationController;
     }
+    else if ([topController isKindOfClass:[UINavigationController class]])
+    {
+        return (UINavigationController *)topController;
+    }
     else
     {
         return nil;
