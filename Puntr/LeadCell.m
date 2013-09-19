@@ -450,19 +450,34 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadWithNews:(NewsModel *)news
 {
     [self blackCell];
-    [self displayTopRightTime:news.createdAt];
     if (news.stake)
     {
+        [self displayTopRightTime:news.createdAt];
         [news.stake setType:news.type];
         [self loadWithStake:news.stake];
     }
     else if (news.comment)
     {
+        [self displayTopRightTime:news.createdAt];
         [self loadWithComment:news.comment];
     }
     else if (news.event)
     {
-        [self loadWithEvent:news.event];
+        self.event = news.event;
+        self.submodel = news.event;
+        self.tournament = news.event.tournament;
+        if (news.event.banner) {
+            [self displayBanner:news.event.banner];
+        }
+        [self displayTopRightTime:news.createdAt];
+        [self displayTournament:news.event.tournament arrow:YES final:NO];
+        if (![news.event.endTime isEqualToDate:[news.event.endTime earlierDate:[NSDate date]]])
+        {
+            [self displayStakeButton];
+        }
+        [self displayCategory:news.event.tournament.category];
+        [self displayParticipants:news.event.participants final:NO];
+        [self displayStartTime:news.event.startTime endTime:news.event.endTime stakesCount:news.event.stakesCount final:YES];
     }
 }
 
@@ -1570,7 +1585,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelActivityCreatedAt = [UILabel labelSmallBold:NO black:self.blackBackground];
     self.labelActivityCreatedAt.frame = CGRectMake(
                                                    TNMarginGeneral,
-                                                   TNMarginGeneral,
+                                                   self.usedHeight + TNMarginGeneral,
                                                    CGRectGetWidth(self.frame) - TNMarginGeneral * 2.0f,
                                                    TNHeightText
                                                    );
@@ -1584,7 +1599,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)displayTournament:(TournamentModel *)tournament arrow:(BOOL)arrow final:(BOOL)final
 {
     self.labelTournamentTitle = [UILabel labelSmallBold:YES black:self.blackBackground];
-    CGFloat widthLabel = arrow ? TNWidthCell - TNMarginGeneral * 2.0f : TNWidthCell - TNMarginGeneral * 3.0f - TNWidthButtonLarge;
+    CGFloat marginTime = self.labelActivityCreatedAt && self.delimiters.count == 0 ? [self.labelActivityCreatedAt sizeThatFits:self.labelActivityCreatedAt.frame.size].width + TNMarginGeneral : 0.0f;
+    const CGSize TNSizeTournamentArrow = CGSizeMake(7.0f, 11.0f);
+    CGFloat widthLabel = arrow ? TNWidthCell - TNMarginGeneral * 2.0f - marginTime - TNMarginGeneral - TNSizeTournamentArrow.width: TNWidthCell - TNMarginGeneral * 3.0f - TNWidthButtonLarge;
     self.labelTournamentTitle.frame = CGRectMake(
                                                  TNMarginGeneral,
                                                  self.usedHeight + TNMarginGeneral,
