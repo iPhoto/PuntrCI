@@ -6,17 +6,18 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "EnterViewController.h"
-#import "TabBarViewController.h"
-#import "RegistrationViewController.h"
-#import "HTTPClient.h"
-#import "TabBarViewController.h"
 #import "CredentialsModel.h"
-#import "ObjectManager.h"
+#import "EnterViewController.h"
+#import "HTTPClient.h"
 #import "NotificationManager.h"
-#import <Social/Social.h>
-#import <Accounts/Accounts.h>
+#import "ObjectManager.h"
+#import "RegistrationViewController.h"
 #import "SocialManager.h"
+#import "TabBarViewController.h"
+#import "TabBarViewController.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 typedef NS_ENUM(NSInteger, Direction)
 {
@@ -234,13 +235,18 @@ typedef NS_ENUM(NSInteger, Direction)
 - (void)twButtonTouched
 {
     NSLog(@"tw touched");
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [SocialManager sharedManager].delegate = self;
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter
                                                         success:^(AccessModel *accessModel)
                                                         {
+                                                            [SVProgressHUD dismiss];
                                                             [self loginWithSocialModel:accessModel];
                                                         }
-                                                        failure:nil
+                                                        failure:^
+                                                        {
+                                                            [SVProgressHUD dismiss];
+                                                        }
      ];
 }
 
@@ -319,6 +325,11 @@ typedef NS_ENUM(NSInteger, Direction)
     {
         [[SocialManager sharedManager] loginTwWithUser:buttonIndex];
     }
+}
+
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - Notifications
