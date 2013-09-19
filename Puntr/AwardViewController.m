@@ -133,8 +133,8 @@
     
     labelX += labelWidth / 2;
 
-    UIImage *buttonImage = [UIImage imageNamed:@"icon_fb"];
-    UIImage *buttonImageHighlighted = [UIImage imageNamed:@"icon_fb_active"];
+    UIImage *buttonImage = [UIImage imageNamed:@"badge_icon_fb"];
+    UIImage *buttonImageHighlighted = [UIImage imageNamed:@"badge_icon_fb_active"];
     
     self.facebookShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.facebookShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
@@ -145,8 +145,8 @@
     [self.facebookShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.facebookShareAwardButton];
     
-    buttonImage = [UIImage imageNamed:@"icon_tw"];
-    buttonImageHighlighted = [UIImage imageNamed:@"icon_tw_active"];
+    buttonImage = [UIImage imageNamed:@"badge_icon_tw"];
+    buttonImageHighlighted = [UIImage imageNamed:@"badge_icon_tw_active"];
 
     self.twitterShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.twitterShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
@@ -157,8 +157,8 @@
     self.twitterShareAwardButton.center = CGPointMake(CGRectGetMidX(self.awardImageView.frame), CGRectGetMaxY(self.awardTitleLabel.frame) + EDGE_VIEWS + (buttonImage.size.height / 2));
     [self.view addSubview:self.twitterShareAwardButton];
 
-    buttonImage = [UIImage imageNamed:@"icon_vk"];
-    buttonImageHighlighted = [UIImage imageNamed:@"icon_vk_active"];
+    buttonImage = [UIImage imageNamed:@"badge_icon_vk"];
+    buttonImageHighlighted = [UIImage imageNamed:@"badge_icon_vk_active"];
     self.vkShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.vkShareAwardButton setImage:buttonImage forState:UIControlStateNormal];
     [self.vkShareAwardButton setImage:buttonImageHighlighted forState:UIControlStateHighlighted];

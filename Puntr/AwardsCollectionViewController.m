@@ -20,6 +20,8 @@
 #import "MZFormSheetController.h"
 #import "PushContentViewController.h"
 
+#import "NotificationManager.h"
+
 @interface AwardsCollectionViewController ()
 
 @property (nonatomic, strong) UserModel *user;
@@ -83,6 +85,10 @@
                                         animated:YES
                                completionHandler:^(MZFormSheetController *formSheetController) {
                                }];
+    }
+    else
+    {
+       [NotificationManager showNotificationMessage:@"Награда еще не получена!"];
     }
 }
 
