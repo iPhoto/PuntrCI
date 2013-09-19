@@ -30,12 +30,13 @@
     [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeMyStakes modifierObjects:nil];
+    CollectionType collectionType = CollectionTypeMyStakes;
+    self.collectionManager = [CollectionManager managerWithType:collectionType modifierObjects:nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];
     
-    self.noDataManager = [[NoDataManager alloc] initWithNoDataOfType:NoDataTypeStakes];
+    self.noDataManager = [NoDataManager managerWithType:collectionType];
     self.noDataManager.view = self.view;
     self.collectionManager.collectionManagerDelegate = self.noDataManager;
 }

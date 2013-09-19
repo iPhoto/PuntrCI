@@ -7,17 +7,17 @@
 //
 
 #import "NoDataManager.h"
-#import "CollectionManagerTypes.h"
+#import "ObjectManager.h"
 
-static NSString *const kCopyrightNews = @"Чтобы у вас появились новости, подпишитесь на событие, команду, турнир или сделайте ставку в каталоге";
-static NSString *const kCopyrightStakes = @"Вы можете сделать ставку выбрав событие из каталога";
-static NSString *const kCopyrightBets = @"Вы можете создать пари выбрав событие из каталога";
-static NSString *const kCopyrightProfile = @"Здесь будет отображаться ваша активность: ставки, статусы ставок, подписки";
-static NSString *const kCopyrightOtherUser = @"Здесь будет отображаться активность пользователя: ставки, статусы ставок, подписки";
+static NSString * const TNCopyrightNews = @"Чтобы у вас появились новости, подпишитесь на событие, команду, турнир или сделайте ставку в каталоге";
+static NSString * const TNCopyrightStakes = @"Вы можете сделать ставку выбрав событие из каталога";
+static NSString * const TNCopyrightBets = @"Вы можете создать пари выбрав событие из каталога";
+static NSString * const TNCopyrightProfile = @"Здесь будет отображаться ваша активность: ставки, статусы ставок, подписки";
+static NSString * const TNCopyrightOtherUser = @"Здесь будет отображаться активность пользователя: ставки, статусы ставок, подписки";
 
 @interface NoDataManager ()
 
-@property ()NoDataType noDataType;
+@property (nonatomic) CollectionType collectionType;
 
 @property (nonatomic, strong) UILabel *labelSorryText;
 @property (nonatomic, strong) UIImageView *imageViewSorryArrow;
@@ -26,34 +26,33 @@ static NSString *const kCopyrightOtherUser = @"Здесь будет отобр�
 
 @implementation NoDataManager
 
-- (id)initWithNoDataOfType:(NoDataType)noDataType
++ (NoDataManager *)managerWithType:(CollectionType)collectionType
+{
+    return [[self alloc] initWithType:collectionType];
+}
+
+- (id)initWithType:(CollectionType)collectionType
 {
     self = [super init];
-    if (self) {
-        _noDataType = noDataType;
+    if (self)
+    {
+        _collectionType = collectionType;
     }
     return self;
 }
 
 - (void)haveItems:(BOOL)haveItems withCollectionType:(CollectionType)collectionType
 {
-    if(collectionType == CollectionTypeBets)
+    self.collectionType = collectionType;
+    
+    if (haveItems)
     {
-        self.noDataType = NoDataTypeBets;
-    }
-    else if(collectionType == CollectionTypeMyStakes)
-    {
-        self.noDataType = NoDataTypeStakes;
-    }
-    if(haveItems)
-    {
-        [self.labelSorryText removeFromSuperview];
-        [self.imageViewSorryArrow removeFromSuperview];
-        self.labelSorryText = nil;
-        self.imageViewSorryArrow = nil;
+        [self clear];
     }
     else
     {
+        [self clear];
+        
         self.labelSorryText = [[UILabel alloc] initWithFrame:CGRectMake(20, 175, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) - 175)];
         [self.labelSorryText setTextAlignment:NSTextAlignmentCenter];
         [self.labelSorryText setNumberOfLines:0];
@@ -62,13 +61,13 @@ static NSString *const kCopyrightOtherUser = @"Здесь будет отобр�
         [self.labelSorryText setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:self.labelSorryText];
         
-        if(self.noDataType == NoDataTypeProfile)
+        if (self.collectionType == CollectionTypeActivitiesSelf)
         {
-            self.labelSorryText.text = kCopyrightProfile;
+            self.labelSorryText.text = TNCopyrightProfile;
         }
-        else if(self.noDataType == NoDataTypeOtherUser)
+        else if (self.collectionType == CollectionTypeActivities)
         {
-            self.labelSorryText.text = kCopyrightOtherUser;
+            self.labelSorryText.text = TNCopyrightOtherUser;
         }
         else
         {
@@ -77,18 +76,19 @@ static NSString *const kCopyrightOtherUser = @"Здесь будет отобр�
             self.imageViewSorryArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArrowDown"]];
             [self.imageViewSorryArrow setFrame:CGRectMake(100, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.imageViewSorryArrow.frame), CGRectGetWidth(self.imageViewSorryArrow.frame), CGRectGetHeight(self.imageViewSorryArrow.frame))];
             [self.view addSubview:self.imageViewSorryArrow];
-            switch (self.noDataType)
+            
+            switch (self.collectionType)
             {
-                case NoDataTypeNews:
-                    self.labelSorryText.text = kCopyrightNews;
+                case CollectionTypeNews:
+                    self.labelSorryText.text = TNCopyrightNews;
                     break;
                     
-                case NoDataTypeBets:
-                    self.labelSorryText.text = kCopyrightBets;
+                case CollectionTypeBets:
+                    self.labelSorryText.text = TNCopyrightBets;
                     break;
                     
-                case NoDataTypeStakes:
-                    self.labelSorryText.text = kCopyrightStakes;
+                case CollectionTypeMyStakes:
+                    self.labelSorryText.text = TNCopyrightStakes;
                     break;
                     
                 default:
@@ -97,4 +97,13 @@ static NSString *const kCopyrightOtherUser = @"Здесь будет отобр�
         }
     }
 }
+
+- (void)clear
+{
+    [self.labelSorryText removeFromSuperview];
+    [self.imageViewSorryArrow removeFromSuperview];
+    self.labelSorryText = nil;
+    self.imageViewSorryArrow = nil;
+}
+
 @end

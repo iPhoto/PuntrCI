@@ -125,7 +125,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         
         switch (self.collectionType)
         {
-            case CollectionTypeActivities:
+            case CollectionTypeActivities || CollectionTypeActivitiesSelf:
                 [self loadActivities];
                 break;
                 

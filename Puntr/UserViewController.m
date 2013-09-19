@@ -42,24 +42,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CollectionType collectionType;
     if (!self.user)
     {
+        collectionType = CollectionTypeActivitiesSelf;
         self.title = @"Профиль";
         [self addSettingsButton];
         self.user = [[ObjectManager sharedManager] loginedUser];
-        self.noDataManager = [[NoDataManager alloc] initWithNoDataOfType:NoDataTypeProfile];
+        self.noDataManager = [NoDataManager managerWithType:collectionType];
     }
     else
     {
+        collectionType = CollectionTypeActivities;
         self.title = @"Игрок";
-        self.noDataManager = [[NoDataManager alloc] initWithNoDataOfType:NoDataTypeOtherUser];
+        self.noDataManager = [NoDataManager managerWithType:collectionType];
     }
     self.noDataManager.view = self.view;
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self addBalanceButton];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeActivities modifierObjects:@[self.user]];
+    self.collectionManager = [CollectionManager managerWithType:collectionType modifierObjects:@[self.user]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];
