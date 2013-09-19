@@ -1,1 +1,1 @@
-../../TSMessages/Views/TSMessageView.h
+../../TSMessages/TSMessages/Views/TSMessageView.h

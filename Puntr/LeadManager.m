@@ -14,6 +14,7 @@
 #import "EventViewController.h"
 #import "LeadManager.h"
 #import "Models.h"
+#import "ParticipantViewController.h"
 #import "SubscribersViewController.h"
 #import "SubscriptionsViewController.h"
 #import "TournamentsViewController.h"
@@ -57,6 +58,13 @@
                 TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
                 [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:tournamentViewController.tournament] animated:YES];
             }
+        }
+    }
+    else if ([model isMemberOfClass:[ParticipantModel class]])
+    {
+        if (![self isVisible:[ParticipantViewController class]])
+        {
+            [[PuntrUtilities mainNavigationController] pushViewController:[ParticipantViewController controllerWithParticipant:(ParticipantModel *)model] animated:YES];
         }
     }
     else if ([model isMemberOfClass:[UserDetailsModel class]])

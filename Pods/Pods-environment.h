@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_FormatterKit_UnitOfInformationFormatter 2
 #define COCOAPODS_VERSION_PATCH_FormatterKit_UnitOfInformationFormatter 1
 
+// HexColors
+#define COCOAPODS_POD_AVAILABLE_HexColors
+#define COCOAPODS_VERSION_MAJOR_HexColors 2
+#define COCOAPODS_VERSION_MINOR_HexColors 2
+#define COCOAPODS_VERSION_PATCH_HexColors 0
+
 // MZAppearance
 #define COCOAPODS_POD_AVAILABLE_MZAppearance
 #define COCOAPODS_VERSION_MAJOR_MZAppearance 1
@@ -76,7 +82,7 @@
 #define COCOAPODS_POD_AVAILABLE_MZFormSheetController
 #define COCOAPODS_VERSION_MAJOR_MZFormSheetController 1
 #define COCOAPODS_VERSION_MINOR_MZFormSheetController 2
-#define COCOAPODS_VERSION_PATCH_MZFormSheetController 2
+#define COCOAPODS_VERSION_PATCH_MZFormSheetController 3
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
@@ -130,7 +136,7 @@
 #define COCOAPODS_POD_AVAILABLE_Reveal_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Reveal_iOS_SDK 0
 #define COCOAPODS_VERSION_MINOR_Reveal_iOS_SDK 9
-#define COCOAPODS_VERSION_PATCH_Reveal_iOS_SDK 0
+#define COCOAPODS_VERSION_PATCH_Reveal_iOS_SDK 1
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
@@ -166,7 +172,7 @@
 #define COCOAPODS_POD_AVAILABLE_TSMessages
 #define COCOAPODS_VERSION_MAJOR_TSMessages 0
 #define COCOAPODS_VERSION_MINOR_TSMessages 9
-#define COCOAPODS_VERSION_PATCH_TSMessages 3
+#define COCOAPODS_VERSION_PATCH_TSMessages 4
 
 // TestFlightSDK
 #define COCOAPODS_POD_AVAILABLE_TestFlightSDK

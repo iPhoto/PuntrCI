@@ -433,6 +433,8 @@ static BOOL instanceOfFormSheetAnimating = 0;
         [self.presentedFSViewController setFormSheetController:self];
 
         [self addKeyboardNotifications];
+        
+        self.formSheetWindow.hidden = NO;
 
         if (self.didPresentCompletionHandler) {
             self.didPresentCompletionHandler(self.presentedFSViewController);
@@ -1044,6 +1046,7 @@ static BOOL instanceOfFormSheetAnimating = 0;
     self.presentedFSViewController = nil;
     
     [self.formSheetWindow removeGestureRecognizer:self.backgroundTapGestureRecognizer];
+    self.formSheetWindow.hidden = YES;
     
     self.formSheetWindow.rootViewController = nil;
     [self.formSheetWindow removeFromSuperview];

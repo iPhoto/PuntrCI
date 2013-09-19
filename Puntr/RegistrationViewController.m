@@ -289,6 +289,18 @@
 
 - (BOOL)dataIsValid
 {
+    if (!self.user.firstName || self.user.firstName.length == 0)
+    {
+        [NotificationManager showNotificationMessage:@"Введите имя"];
+        return NO;
+    }
+    
+    if (!self.user.lastName || self.user.lastName.length == 0)
+    {
+        [NotificationManager showNotificationMessage:@"Введите фамилию"];
+        return NO;
+    }
+    
     if (!self.user.email || self.user.email.length == 0)
     {
         [NotificationManager showNotificationMessage:@"Введите Email"];
@@ -304,18 +316,6 @@
     if (!self.user.username || self.user.username.length == 0)
     {
         [NotificationManager showNotificationMessage:@"Введите никнейм"];
-        return NO;
-    }
-    
-    if (!self.user.firstName || self.user.firstName.length == 0)
-    {
-        [NotificationManager showNotificationMessage:@"Введите имя"];
-        return NO;
-    }
-    
-    if (!self.user.lastName || self.user.lastName.length == 0)
-    {
-        [NotificationManager showNotificationMessage:@"Введите фамилию"];
         return NO;
     }
     
