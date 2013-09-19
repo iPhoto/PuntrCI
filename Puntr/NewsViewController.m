@@ -8,6 +8,7 @@
 
 #import "CollectionManager.h"
 #import "NewsViewController.h"
+#import "NoDataManager.h"
 #import "UIViewController+Puntr.h"
 
 static const CGFloat TNItemSpacing = 12.0f;
@@ -17,6 +18,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 @property (nonatomic, strong) CollectionManager *collectionManager;
 @property (nonatomic, strong) UILabel *labelSorryText;
 @property (nonatomic, strong) UIImageView *imageViewSorryArrow;
+@property (nonatomic, strong) NoDataManager *noDataManager;
 
 @end
 
@@ -38,25 +40,13 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             );
 
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeNews modifierObjects:nil];
-    self.collectionManager.collectionManagerDelegate = self;
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = viewControllerFrame;
     [self.view addSubview:collectionView];
     
-    self.labelSorryText = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, CGRectGetWidth(viewControllerFrame) - 40, CGRectGetHeight(viewControllerFrame) - 60)];
-    [self.labelSorryText setTextAlignment:NSTextAlignmentCenter];
-    [self.labelSorryText setText:@"Чтобы у вас появились нововсти, подпишитесь на событие, команду, турнир или сделайте ставку в каталоге"];
-    [self.labelSorryText setNumberOfLines:0];
-    [self.labelSorryText setLineBreakMode:NSLineBreakByWordWrapping];
-    [self.labelSorryText setTextColor:[UIColor whiteColor]];
-    [self.labelSorryText setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:self.labelSorryText];
-    
-    self.imageViewSorryArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArrowDown"]];
-    [self.imageViewSorryArrow setFrame:CGRectMake(100, CGRectGetHeight(viewControllerFrame) - CGRectGetHeight(self.imageViewSorryArrow.frame), CGRectGetWidth(self.imageViewSorryArrow.frame), CGRectGetHeight(self.imageViewSorryArrow.frame))];
-    [self.view addSubview:self.imageViewSorryArrow];
-    self.labelSorryText.hidden = YES;
-    self.imageViewSorryArrow.hidden = YES;
+    self.noDataManager = [[NoDataManager alloc] initWithNoDataOfType:NoDataTypeNews];
+    self.noDataManager.view = self.view;
+    self.collectionManager.collectionManagerDelegate = self.noDataManager;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,20 +54,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
-}
-
-- (void)haveItems:(BOOL)haveItems
-{
-    if(haveItems)
-    {
-        self.labelSorryText.hidden = YES;
-        self.imageViewSorryArrow.hidden = YES;
-    }
-    else
-    {
-        self.labelSorryText.hidden = NO;
-        self.imageViewSorryArrow.hidden = NO;
-    }
 }
 
 @end
