@@ -138,6 +138,11 @@ static const CGFloat TNItemSpacing = 12.0f;
     [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"]
                                           resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
                                 forState:UIControlStateNormal];
+    if (self.event.endTime)
+    {
+        self.buttonStake.enabled = NO;
+        
+    }
     [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonStake];
     
