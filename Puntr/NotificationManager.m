@@ -10,6 +10,8 @@
 #import <TSMessages/TSMessage.h>
 #import "ErrorModel.h"
 
+static const NSTimeInterval TNDuration = 1.5f;
+
 @implementation NotificationManager
 
 #pragma mark - Error
@@ -43,6 +45,7 @@
     {
         errorMessage = [error localizedDescription];
     }
+
     [TSMessage showNotificationInViewController:viewController
                                           title:errorTitle
                                        subtitle:errorMessage
@@ -79,7 +82,13 @@
     [TSMessage showNotificationInViewController:viewController
                                           title:@"Поздравляем!"
                                        subtitle:message
-                                           type:TSMessageNotificationTypeSuccess];
+                                           type:TSMessageNotificationTypeSuccess
+                                       duration:TNDuration
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 @end
