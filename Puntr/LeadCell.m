@@ -584,43 +584,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelUserName];
     
     // Top Position
-    self.labelUserTopPosition = [UILabel labelSmallBold:NO black:self.blackBackground];
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
     self.labelUserTopPosition.frame = CGRectMake(
                                                     avatarWidth + TNMarginGeneral,
                                                     CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
                                                     TNWidthLabel,
                                                     TNHeightText
                                                 );
-    self.labelUserTopPosition.text = [NSString stringWithFormat:@"Рейтинг: %@", user.topPosition.stringValue];
+    self.labelUserTopPosition.text = [NSString stringWithFormat:@"ROI: %@", user.rating.stringValue];
     [self addSubview:self.labelUserTopPosition];
-    
-    // Stars Raitng
-    CGFloat TNMarginStar = TNSizeStar.height - TNHeightText;
-    CGFloat TNSpacingStar = 2.0f;
-    
-    for (NSInteger starIndex = 1; starIndex <= 5; starIndex++)
-    {
-        NSInteger previousStarIndex = starIndex - 1;
-        UIImageView *imageViewStar = [[UIImageView alloc] init];
-        imageViewStar.frame = CGRectMake(
-                                            avatarWidth + TNMarginGeneral + previousStarIndex * (TNSizeStar.width + TNSpacingStar),
-                                            TNMarginGeneral + TNHeightText * 3.0f + (TNHeightText - TNMarginStar),
-                                            TNSizeStar.width,
-                                            TNSizeStar.height
-                                        );
-        UIImage *imageStar = nil;
-        if (starIndex <= user.rating.integerValue)
-        {
-            imageStar = [UIImage imageNamed:@"StarSelected"];
-        }
-        else
-        {
-            imageStar = [UIImage imageNamed:@"StarUnselected"];
-        }
-        imageViewStar.image = imageStar;
-        [self.userStars addObject:imageViewStar];
-        [self addSubview:imageViewStar];
-    }
     
     CGFloat TNHeightBackgroundUser = TNMarginGeneral + TNSideImageLarge + TNMarginGeneral;
     
