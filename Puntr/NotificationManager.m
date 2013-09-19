@@ -44,9 +44,9 @@
         errorMessage = [error localizedDescription];
     }
     [TSMessage showNotificationInViewController:viewController
-                                      withTitle:errorTitle
-                                    withMessage:errorMessage
-                                       withType:TSMessageNotificationTypeError];
+                                          title:errorTitle
+                                       subtitle:errorMessage
+                                           type:TSMessageNotificationTypeError];
 }
 
 #pragma mark - Notification
@@ -62,9 +62,9 @@
 + (void)showNotificationMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                      withTitle:@"Внимание"
-                                    withMessage:message
-                                       withType:TSMessageNotificationTypeWarning];
+                                          title:@"Внимание"
+                                       subtitle:message
+                                           type:TSMessageNotificationTypeWarning];
 }
 
 #pragma mark - Success
@@ -77,9 +77,9 @@
 + (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                      withTitle:@"Поздравляем!"
-                                    withMessage:message
-                                       withType:TSMessageNotificationTypeSuccess];
+                                          title:@"Поздравляем!"
+                                       subtitle:message
+                                           type:TSMessageNotificationTypeSuccess];
 }
 
 @end

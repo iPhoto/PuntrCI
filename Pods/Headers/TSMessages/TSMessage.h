@@ -1,1 +1,1 @@
-../../TSMessages/Classes/TSMessage.h
+../../TSMessages/TSMessages/Classes/TSMessage.h
