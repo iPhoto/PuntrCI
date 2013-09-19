@@ -36,6 +36,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) NSArray *groups;
 @property (nonatomic, strong) NSMutableArray *groupsData;
 
+@property (nonatomic) NSUInteger stationaryObjectsCount;
+
 @end
 
 @implementation CollectionManager
@@ -215,7 +217,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                  if (self.paging.isFirstPage)
                                                  {
                                                      UserModel *user = [self objectInArray:self.modifierObjects ofClass:[UserModel class]];
-                                                     [self combineWithStationaryObjects:@[user] withNewObjects:activities];
+                                                     NSArray *stationaryObjects = @[user];
+                                                     self.stationaryObjectsCount = stationaryObjects.count;
+                                                     [self combineWithStationaryObjects:stationaryObjects withNewObjects:activities];
                                                  }
                                                  else
                                                  {
@@ -250,7 +254,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                      secondType:CollectionTypeBets
                                                     secondTitle:@"Пари"
                                                        secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
-    [self combineWithStationaryObjects:@[switchModel] withNewObjects:@[]];
+    NSArray *stationaryObjects = @[switchModel];
+    self.stationaryObjectsCount = stationaryObjects.count;
+    [self combineWithStationaryObjects:stationaryObjects withNewObjects:@[]];
 }
 
 - (void)loadCatalogueEvents
@@ -304,7 +310,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                                                      secondType:CollectionTypeEventStakes
                                                                                                     secondTitle:@"Ставки"
                                                                                                        secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                    [self combineWithStationaryObjects:@[switchModel] withNewObjects:comments];
+                                                    NSArray *stationaryObjects = @[switchModel];
+                                                    self.stationaryObjectsCount = stationaryObjects.count;
+                                                    [self combineWithStationaryObjects:stationaryObjects withNewObjects:comments];
                                                 }
                                                 else
                                                 {
@@ -355,7 +363,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                                                    secondType:CollectionTypeEventStakes
                                                                                                   secondTitle:@"Ставки"
                                                                                                      secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                  [self combineWithStationaryObjects:@[switchModel] withNewObjects:stakes];
+                                                  NSArray *stationaryObjects = @[switchModel];
+                                                  self.stationaryObjectsCount = stationaryObjects.count;
+                                                  [self combineWithStationaryObjects:stationaryObjects withNewObjects:stakes];
                                               }
                                               else
                                               {
@@ -481,7 +491,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                  secondType:CollectionTypeBets
                                                                 secondTitle:@"Пари"
                                                                    secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
-                [self combineWithStationaryObjects:@[switchModel] withNewObjects:stakes];
+                NSArray *stationaryObjects = @[switchModel];
+                self.stationaryObjectsCount = stationaryObjects.count;
+                [self combineWithStationaryObjects:stationaryObjects withNewObjects:stakes];
             }
             else
             {
@@ -518,8 +530,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 {
                                                     if (self.paging.isFirstPage)
                                                     {
-                                                        
-                                                        [self combineWithStationaryObjects:@[participant] withNewObjects:events];
+                                                        NSArray *stationaryObjects = @[participant];
+                                                        self.stationaryObjectsCount = stationaryObjects.count;
+                                                        [self combineWithStationaryObjects:stationaryObjects withNewObjects:events];
                                                     }
                                                     else
                                                     {
@@ -776,6 +789,16 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         
         [self.collectionView reloadData];
     }
+    
+    if (self.collectionData.count - self.stationaryObjectsCount <= 0)
+    {
+        [self.collectionManagerDelegate haveItems:NO withCollectionType:self.collectionType];
+    }
+    else
+    {
+        [self.collectionManagerDelegate haveItems:YES withCollectionType:self.collectionType];
+    }
+    
     [self finishLoading];
 }
 
@@ -784,6 +807,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     NSMutableArray *combined = [NSMutableArray arrayWithCapacity:newObjects.count + stationaryObjects.count];
     [combined addObjectsFromArray:stationaryObjects];
     [combined addObjectsFromArray:newObjects];
+    
     [self combineWithData:[combined copy]];
 }
 
