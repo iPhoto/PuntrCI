@@ -996,11 +996,13 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat categoryImageWidth = 0.0f;
     CGSize categoryImageSize = CGSizeMake(12.0f, 12.0f);
     
+    CGFloat TNMarginCategoryImage = 7.0f;
+    
     if (category.image)
     {
         self.imageViewCategoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(
                                                                                        TNMarginGeneral,
-                                                                                       self.usedHeight + TNMarginGeneral,
+                                                                                       self.usedHeight + TNMarginCategoryImage,
                                                                                        categoryImageSize.width,
                                                                                        categoryImageSize.height
                                                                                    )];
@@ -1010,9 +1012,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
         categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame);
     }
     
+    CGFloat TNMarginCategoryTitle = 4.0f;
+    
     self.labelCategoryTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
     self.labelCategoryTitle.frame = CGRectMake(
-                                               TNMarginGeneral + categoryImageWidth,
+                                               TNMarginCategoryTitle + categoryImageWidth,
                                                self.usedHeight + TNMarginGeneral,
                                                TNWidthCell - TNMarginGeneral * 2.0f - categoryImageWidth,
                                                TNHeightText
