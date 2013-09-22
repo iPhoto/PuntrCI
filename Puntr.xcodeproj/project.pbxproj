@@ -320,6 +320,7 @@
 		AC34683317D00F710077418B /* top_area@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682717D00F710077418B /* top_area@2x.png */; };
 		AC34683417D00F710077418B /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682817D00F710077418B /* unchecked.png */; };
 		AC34683517D00F710077418B /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682917D00F710077418B /* unchecked@2x.png */; };
+		AC6D0E8E17EF9C63007923D8 /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6D0E8D17EF99FB007923D8 /* gradient.png */; };
 		AC7F956417D929CE000F3078 /* ChooseOpponentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */; };
 		AC7F956717D93566000F3078 /* IconShuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956517D93566000F3078 /* IconShuffle.png */; };
 		AC7F956817D93566000F3078 /* IconShuffle@2s.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956617D93566000F3078 /* IconShuffle@2s.png */; };
@@ -802,6 +803,7 @@
 		AC34682717D00F710077418B /* top_area@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_area@2x.png"; sourceTree = "<group>"; };
 		AC34682817D00F710077418B /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		AC34682917D00F710077418B /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
+		AC6D0E8D17EF99FB007923D8 /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
 		AC7F956217D929CE000F3078 /* ChooseOpponentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseOpponentViewController.h; sourceTree = "<group>"; };
 		AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseOpponentViewController.m; sourceTree = "<group>"; };
 		AC7F956517D93566000F3078 /* IconShuffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconShuffle.png; sourceTree = "<group>"; };
@@ -1099,6 +1101,7 @@
 		3180CF74178AE4B5001B2DD1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AC6D0E8D17EF99FB007923D8 /* gradient.png */,
 				9A9A65C117EAEDE400077B0A /* badge_icon_fb_active.png */,
 				9A9A65C217EAEDE400077B0A /* badge_icon_fb_active@2x.png */,
 				9A9A65C317EAEDE400077B0A /* badge_icon_fb.png */,
@@ -1901,6 +1904,7 @@
 				31DC0F3517D0F47F0085BB8C /* IconFilter@2x.png in Resources */,
 				1DD68B8017D379C200EBCBC8 /* icon_fb.png in Resources */,
 				1DD68B8117D379C200EBCBC8 /* icon_fb@2x.png in Resources */,
+				AC6D0E8E17EF9C63007923D8 /* gradient.png in Resources */,
 				1DD68B8217D379C200EBCBC8 /* icon_tw.png in Resources */,
 				9A9A65D517EAEDE400077B0A /* badge_icon_vk_active.png in Resources */,
 				1DD68B8317D379C200EBCBC8 /* icon_tw@2x.png in Resources */,

@@ -13,6 +13,8 @@
 
 
 #define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
+#define MAX_RATE 5
+#define TAG_STAR_BEGIN 100
 
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
@@ -25,6 +27,8 @@ static const CGFloat avatarWidth = 40;
 @interface COTableViewCell : UITableViewCell
 
 @property (nonatomic) BOOL isChecked;
+@property (nonatomic, weak) id someObject;
+@property (nonatomic, weak) UIImageView *avatar;
 
 - (void)setupWithUser:(UserModel *)user;
 
@@ -35,7 +39,8 @@ static const CGFloat avatarWidth = 40;
     UIImageView *_uncheckedImageView;
     UILabel *_rate;
     UILabel *_name;
-    UIImageView *_avatar;
+    UIImage *_starSelected;
+    UIImage *_starUnselected;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -55,10 +60,44 @@ static const CGFloat avatarWidth = 40;
         _name.font = [UIFont systemFontOfSize:12];
         [self addSubview:_name];
         
-        _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, avatarWidth, avatarWidth)];
+        UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(10, (self.frame.size.height - avatarWidth) / 2, avatarWidth, avatarWidth)];
+        _avatar = avatar;
+        _avatar.layer.cornerRadius = 5;
+        _avatar.clipsToBounds = YES;
         [self addSubview:_avatar];
+        
+        _starSelected = [UIImage imageNamed:@"StarSelected"];
+        _starUnselected = [UIImage imageNamed:@"StarUnselected"];
+        
+        [self setupStars];
     }
     return self;
+}
+
+- (void)prepareForReuse
+{
+    [self.avatar cancelImageRequestOperation];
+    self.avatar.image = nil;
+}
+
+- (void)setupStars
+{
+    CGFloat TNSpacingStar = 2.0f;
+    CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
+    
+    CGFloat startStars = CGRectGetMaxX(_name.frame) + 6;
+    for (NSInteger starIndex = 0; starIndex < MAX_RATE; starIndex++)
+    {
+        UIImageView *imageViewStar = [[UIImageView alloc] init];
+        imageViewStar.frame = CGRectMake(
+                                         startStars + ((TNSizeStar.width + TNSpacingStar) * starIndex),
+                                         (self.frame.size.height - TNSizeStar.height) / 2,
+                                         TNSizeStar.width,
+                                         TNSizeStar.height
+                                         );
+        imageViewStar.tag = TAG_STAR_BEGIN + starIndex;
+        [self addSubview:imageViewStar];
+    }
 }
 
 - (void)setIsChecked:(BOOL)isChecked
@@ -76,35 +115,41 @@ static const CGFloat avatarWidth = 40;
 
 - (void)setupWithUser:(UserModel *)user
 {
+    self.someObject = user;
+    
     _name.text = user.username?:@"Hmmm userName";
-    _avatar.image = user.avatarData;
+    //_avatar.image = user.avatarData;
     
-    CGFloat TNSpacingStar = 2.0f;
-    CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
+    __weak COTableViewCell *weakSelf = self;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:user.avatar];
+    [self.avatar setImageWithURLRequest:request
+                        placeholderImage:nil
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+                                 {
+                                     if (weakSelf && weakSelf.someObject)
+                                     {
+                                         if (weakSelf.someObject == user)
+                                         {
+                                             weakSelf.avatar.image = image;
+                                             //[weakSelf setNeedsLayout];
+                                         }
+                                     }
+                                 }
+                                 failure:nil];
     
-    CGFloat startStars = CGRectGetMaxX(_name.frame) + 6;
-    for (NSInteger starIndex = 0; starIndex < 5; starIndex++)
+    for (NSInteger starIndex = 0; starIndex < MAX_RATE; starIndex++)
     {
-        UIImageView *imageViewStar = [[UIImageView alloc] init];
-        imageViewStar.frame = CGRectMake(
-                                         startStars + ((TNSizeStar.width + TNSpacingStar) * starIndex),
-                                         (self.frame.size.height - TNSizeStar.height) / 2,
-                                         TNSizeStar.width,
-                                         TNSizeStar.height
-                                         );
-        UIImage *imageStar = nil;
+        UIImageView *imageViewStar = (UIImageView *)[self viewWithTag:TAG_STAR_BEGIN + starIndex];
         if (starIndex < user.rating.integerValue)
         {
-            imageStar = [UIImage imageNamed:@"StarSelected"];
+            imageViewStar.image = _starSelected;
         }
         else
         {
-            imageStar = [UIImage imageNamed:@"StarUnselected"];
+            imageViewStar.image = _starUnselected;
         }
-        imageViewStar.image = imageStar;
-        [self addSubview:imageViewStar];
     }
-    
+
     _rate.text = [user.rating stringValue];
 }
 
@@ -140,10 +185,12 @@ static const CGFloat avatarWidth = 40;
 {
     [super viewDidLoad];
     
+    self.title = @"Выберите оппонента";
+    
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
     CGFloat navigationBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
-    
+    /*
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:14];
@@ -154,11 +201,11 @@ static const CGFloat avatarWidth = 40;
     [label setShadowOffset:CGSizeMake(0, -0.5)];
     [label sizeToFit];
     self.navigationItem.titleView = label;
-    
+    */
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     //IconShuffle.png
-    UIButton *buttonShuffle = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    UIButton *buttonShuffle = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
     [buttonShuffle setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal];
     [buttonShuffle setImage:[UIImage imageNamed:@"IconShuffle"] forState:UIControlStateNormal];
     [buttonShuffle addTarget:self action:@selector(shuffleButtonTouched) forControlEvents:UIControlEventTouchUpInside];
@@ -169,8 +216,6 @@ static const CGFloat avatarWidth = 40;
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(closeButtonTouched)];
-    
-    //
     
     CGRect tableFrame = self.view.bounds;
     tableFrame = CGRectSetHeight(tableFrame, viewHeight - (tabBarHeight + navigationBarHeight));
@@ -202,6 +247,20 @@ static const CGFloat avatarWidth = 40;
     [buttonPari addTarget:self action:@selector(pariButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPari];
     
+    UIEdgeInsets ei = UIEdgeInsetsMake(1, 1, 1, 1);
+    
+    UIImage *imageDelimiter = [[UIImage imageNamed:@"DelimiterProfile"] resizableImageWithCapInsets:ei];
+    CGRect delimiterFrame = CGRectMake(0, CGRectGetMaxY(self.opponentsTableView.frame) + 2, self.view.bounds.size.width, 1);
+    UIImageView *delimiter = [[UIImageView alloc] initWithFrame:delimiterFrame];
+    delimiter.image = imageDelimiter;
+    [self.view addSubview:delimiter];
+    
+    UIImage *gradientImage = [UIImage imageNamed:@"gradient"]; // resizableImageWithCapInsets:ei];
+    CGFloat gradientHeight = 20;
+    CGRect gradientFrame = CGRectMake(self.opponentsTableView.frame.origin.x, CGRectGetMaxY(self.opponentsTableView.frame) - (gradientHeight * 0.9), self.opponentsTableView.frame.size.width, gradientHeight);
+    UIImageView *gradient = [[UIImageView alloc] initWithFrame:gradientFrame];
+    gradient.image = gradientImage;
+    [self.view addSubview:gradient];
     
     [self loadSubscriptions];
 }
@@ -235,9 +294,9 @@ static const CGFloat avatarWidth = 40;
                                                  paging:self.paging
                                                 success:^(NSArray *subscribers)
      {
-         self.subscribers = [NSArray arrayWithArray:subscribers];
-//         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
-//         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], subscribers[0], nil];
+//         self.subscribers = [NSArray arrayWithArray:subscribers];
+         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
+         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
          [self.opponentsTableView reloadData];
      }
         failure:^
