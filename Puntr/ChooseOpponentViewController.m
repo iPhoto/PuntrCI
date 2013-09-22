@@ -294,9 +294,9 @@ static const CGFloat avatarWidth = 40;
                                                  paging:self.paging
                                                 success:^(NSArray *subscribers)
      {
-//         self.subscribers = [NSArray arrayWithArray:subscribers];
-         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
-         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
+         self.subscribers = [NSArray arrayWithArray:subscribers];
+//         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
+//         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
          [self.opponentsTableView reloadData];
      }
         failure:^
