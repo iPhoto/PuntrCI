@@ -183,11 +183,11 @@
 - (void)start
 {
     INFO_LOG();
-
+/*
 //    установлен ли делегат? если нет, то и запрос выполнять нет смысла
     if (nil == self.delegate)
         return;
-
+    */
 //    перед тем как начать выполнение запроса проверим кэш
     NSUInteger currentUserID = [[[VKUser currentUser] accessToken] userID];
     VKStorageItem *item = [[VKStorage sharedStorage]

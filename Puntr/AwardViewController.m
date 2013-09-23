@@ -178,6 +178,10 @@
     {
         [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeTwitter Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
     }
+    else if ([button isEqual:self.vkShareAwardButton])
+    {
+        [[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeVkontakte Text:self.awardComment.text Image:self.awardImageView.image];
+    }
 }
 
 - (BOOL)becomeFirstResponder {

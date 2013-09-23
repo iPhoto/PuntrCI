@@ -181,7 +181,7 @@
 - (void)loginVk
 {
     [[VKConnector sharedInstance] setDelegate:self];
-    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:@[@"offline", @"wall"]];
+    [[VKConnector sharedInstance] startWithAppID:@"3806903" permissons:@[@"offline", @"wall", @"photos"]];
 }
 
 - (void)VKConnector:(VKConnector *)connector accessTokenRenewalSucceeded:(VKAccessToken *)accessToken
@@ -253,9 +253,10 @@
             
         case SocialNetworkTypeVkontakte:
         {
-            /*
-             NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[[NSString stringWithFormat:@"-%lu", (unsigned long)[VKUser currentUser].accessToken.userID], @"fuck the system"] forKeys:@[@"owner_id", @"message"]];
-             [[[VKUser currentUser] wallPost:dict] start];*/
+            
+             NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[[NSString stringWithFormat:@"%lu", (unsigned long)[VKUser currentUser].accessToken.userID], @"fuck the system"] forKeys:@[@"owner_id", @"message"]];
+             [[[VKUser currentUser] wallPost:dict] start];
+            return nil;
             
         }
             break;
