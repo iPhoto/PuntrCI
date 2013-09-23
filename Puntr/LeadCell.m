@@ -19,7 +19,7 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
-#import "GPUImage/Source/GPUImage.h"
+#import "GPUImage.h"
 
 static const CGFloat TNCornerRadius = 3.75f;
 static const CGFloat TNHeightButton = 31.0f;
@@ -934,7 +934,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat awardImageSide = CGRectGetMinY(self.labelAwardTitle.frame) - TNMarginGeneral;
     CGSize awardImageSize = CGSizeMake(awardImageSide, awardImageSide);
     CGFloat awardImageX = (TNSideBadge - awardImageSide) / 2;
-    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(awardImageX, 0.0f, awardImageSize.height, awardImageSize.width)];
+    self.imageViewAward = [[UIImageView alloc] initWithFrame:CGRectMake(awardImageX, TNMarginGeneral, awardImageSize.height, awardImageSize.width)];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[award.image URLByAppendingSize:awardImageSize]];
     __weak LeadCell *weakSelf = self;
     [self.imageViewAward setImageWithURLRequest:urlRequest
@@ -942,32 +942,20 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                             if (!award.received)
                                             {
-                                                GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:[self screenshot]];
-                                                
-                                                GPUImageTiltShiftFilter *boxBlur = [[GPUImageTiltShiftFilter alloc] init];
-                                                boxBlur.blurSize = 0.5;
-                                                
-                                                [stillImageSource addTarget:boxBlur];
-                                                
-                                                [stillImageSource processImage];
-                                                
-                                                UIImage *processedImage = [stillImageSource imageFromCurrentlyProcessedOutput];
-//                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//                                                    UIImage *blurPhotoImage = [PuntrUtilities blurImage:image];
-//                                                    dispatch_async(dispatch_get_main_queue(), ^{
-//                                                        weakSelf.imageViewAward.image = blurPhotoImage;
-//                                                    });
-//                                                });
+                                                GPUImageFastBlurFilter *blurFilter = [[GPUImageFastBlurFilter alloc] init];
+                                                blurFilter.blurSize = 3;
+                                                weakSelf.imageViewAward.image = [blurFilter imageByFilteringImage:image];
                                             }
                                             else
                                             {
                                                 weakSelf.imageViewAward.image = image;
+                                                
                                             }
+                                            weakSelf.imageViewAward.contentMode = UIViewContentModeScaleToFill;
                                         }
                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                             nil;
                                         }];
-//    [self.imageViewAward setImageWithURL:[award.image URLByAppendingSize:awardImageSize]];
     self.imageViewAward.backgroundColor = [UIColor clearColor];
     [self addSubview:self.imageViewAward];
 }
