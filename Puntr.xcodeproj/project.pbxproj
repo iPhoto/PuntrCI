@@ -14,7 +14,6 @@
 		0F3DB90E179E727F00F9B3AE /* StarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */; };
 		0F3DB90F179E727F00F9B3AE /* StarUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90B179E726700F9B3AE /* StarUnselected.png */; };
 		0F3DB910179E727F00F9B3AE /* StarUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */; };
-		0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */; };
 		0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */; };
 		0F3DB91C17A66A9900F9B3AE /* UIViewController+Puntr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3DB91B17A66A9900F9B3AE /* UIViewController+Puntr.m */; };
 		0F40905117B4F731001CC23F /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40905017B4F731001CC23F /* ActivityModel.m */; };
@@ -141,7 +140,6 @@
 		31752134176F335F007CCD82 /* logoDescription@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752130176F335F007CCD82 /* logoDescription@2x.png */; };
 		31752135176F335F007CCD82 /* logoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752131176F335F007CCD82 /* logoTitle.png */; };
 		31752136176F335F007CCD82 /* logoTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31752132176F335F007CCD82 /* logoTitle@2x.png */; };
-		3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF6B178ABAF4001B2DD1 /* SearchCell.m */; };
 		3180CF6F178AD955001B2DD1 /* CategoriesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3180CF6E178AD955001B2DD1 /* CategoriesManager.m */; };
 		3180CF72178AE489001B2DD1 /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF70178AE489001B2DD1 /* clear.png */; };
 		3180CF73178AE489001B2DD1 /* clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3180CF71178AE489001B2DD1 /* clear@2x.png */; };
@@ -263,7 +261,6 @@
 		31ED083D17B53D1C003FEFA7 /* logo-puntr.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083B17B53D1B003FEFA7 /* logo-puntr.png */; };
 		31ED083E17B53D1C003FEFA7 /* logo-puntr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31ED083C17B53D1C003FEFA7 /* logo-puntr@2x.png */; };
 		31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE217995BFC00F27702 /* StakeElementView.m */; };
-		31EF4AE61799941800F27702 /* AmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EF4AE51799941800F27702 /* AmountView.m */; };
 		31EF4AEB179994E000F27702 /* ButtonMinusSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF4AE7179994E000F27702 /* ButtonMinusSelected.png */; };
 		31EF4AEC179994E000F27702 /* ButtonMinusSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF4AE8179994E000F27702 /* ButtonMinusSelected@2x.png */; };
 		31EF4AED179994E000F27702 /* ButtonPlusSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF4AE9179994E000F27702 /* ButtonPlusSelected.png */; };
@@ -353,7 +350,6 @@
 		D6B1956617B7D9F300D1B352 /* IconLiga@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956417B7D9D600D1B352 /* IconLiga@2x.png */; };
 		D6B1956717B7D9F300D1B352 /* IconLiga.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B1956517B7D9E400D1B352 /* IconLiga.png */; };
 		D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */; };
-		D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B449BC17B658EE000B9F5E /* TournamentCell.m */; };
 		D6B4514A17DE7370002ECADC /* PushContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B4514917DE7370002ECADC /* PushContentViewController.m */; };
 		D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514B17DE766C002ECADC /* QuartzCore.framework */; };
 		D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514D17DE7694002ECADC /* Accelerate.framework */; };
@@ -381,8 +377,6 @@
 		0F3DB90A179E725B00F9B3AE /* StarSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarSelected@2x.png"; sourceTree = "<group>"; };
 		0F3DB90B179E726700F9B3AE /* StarUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarUnselected.png; sourceTree = "<group>"; };
 		0F3DB90C179E727500F9B3AE /* StarUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarUnselected@2x.png"; sourceTree = "<group>"; };
-		0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadButtonCell.h; sourceTree = "<group>"; };
-		0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadButtonCell.m; sourceTree = "<group>"; };
 		0F3DB91717A26BA000F9B3AE /* ParticipantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantViewController.h; sourceTree = "<group>"; };
 		0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantViewController.m; sourceTree = "<group>"; };
 		0F3DB91A17A66A9800F9B3AE /* UIViewController+Puntr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Puntr.h"; sourceTree = "<group>"; };
@@ -561,8 +555,6 @@
 		31752130176F335F007CCD82 /* logoDescription@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoDescription@2x.png"; sourceTree = "<group>"; };
 		31752131176F335F007CCD82 /* logoTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoTitle.png; sourceTree = "<group>"; };
 		31752132176F335F007CCD82 /* logoTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTitle@2x.png"; sourceTree = "<group>"; };
-		3180CF6A178ABAF4001B2DD1 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
-		3180CF6B178ABAF4001B2DD1 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		3180CF6D178AD955001B2DD1 /* CategoriesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesManager.h; sourceTree = "<group>"; };
 		3180CF6E178AD955001B2DD1 /* CategoriesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesManager.m; sourceTree = "<group>"; };
 		3180CF70178AE489001B2DD1 /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -723,8 +715,6 @@
 		31ED083C17B53D1C003FEFA7 /* logo-puntr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-puntr@2x.png"; sourceTree = "<group>"; };
 		31EF4AE117995BFC00F27702 /* StakeElementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeElementView.h; sourceTree = "<group>"; };
 		31EF4AE217995BFC00F27702 /* StakeElementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeElementView.m; sourceTree = "<group>"; };
-		31EF4AE41799941800F27702 /* AmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountView.h; sourceTree = "<group>"; };
-		31EF4AE51799941800F27702 /* AmountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountView.m; sourceTree = "<group>"; };
 		31EF4AE7179994E000F27702 /* ButtonMinusSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonMinusSelected.png; sourceTree = "<group>"; };
 		31EF4AE8179994E000F27702 /* ButtonMinusSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonMinusSelected@2x.png"; sourceTree = "<group>"; };
 		31EF4AE9179994E000F27702 /* ButtonPlusSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonPlusSelected.png; sourceTree = "<group>"; };
@@ -844,8 +834,6 @@
 		D6B1956517B7D9E400D1B352 /* IconLiga.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLiga.png; sourceTree = "<group>"; };
 		D6B1956817B7E0BE00D1B352 /* PuntrUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuntrUtilities.h; sourceTree = "<group>"; };
 		D6B1956917B7E0BE00D1B352 /* PuntrUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuntrUtilities.m; sourceTree = "<group>"; };
-		D6B449BB17B658EE000B9F5E /* TournamentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentCell.h; sourceTree = "<group>"; };
-		D6B449BC17B658EE000B9F5E /* TournamentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentCell.m; sourceTree = "<group>"; };
 		D6B4514817DE7370002ECADC /* PushContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushContentViewController.h; sourceTree = "<group>"; };
 		D6B4514917DE7370002ECADC /* PushContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushContentViewController.m; sourceTree = "<group>"; };
 		D6B4514B17DE766C002ECADC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1485,8 +1473,6 @@
 		31F47E19177307810047ECCF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				31EF4AE41799941800F27702 /* AmountView.h */,
-				31EF4AE51799941800F27702 /* AmountView.m */,
 				D6AA9AA817CBF0CF0003E1A9 /* AwardCell.h */,
 				D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */,
 				3180CF7D178B29EF001B2DD1 /* CategoryCell.h */,
@@ -1500,16 +1486,10 @@
 				3108C19417CF41DC002E2018 /* LeadCellDelegate.h */,
 				31D9F153179EBFFF00C8AC17 /* LinePicker.h */,
 				31D9F154179EBFFF00C8AC17 /* LinePicker.m */,
-				0F3DB914179FD1B300F9B3AE /* LoadButtonCell.h */,
-				0F3DB915179FD1B300F9B3AE /* LoadButtonCell.m */,
-				3180CF6A178ABAF4001B2DD1 /* SearchCell.h */,
-				3180CF6B178ABAF4001B2DD1 /* SearchCell.m */,
 				31EF4AE117995BFC00F27702 /* StakeElementView.h */,
 				31EF4AE217995BFC00F27702 /* StakeElementView.m */,
 				3194031E1771C221009F0DBE /* TextField.h */,
 				3194031F1771C221009F0DBE /* TextField.m */,
-				D6B449BB17B658EE000B9F5E /* TournamentCell.h */,
-				D6B449BC17B658EE000B9F5E /* TournamentCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2023,7 +2003,6 @@
 				D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */,
 				31AD161C1785CE78000D8F2C /* NotificationManager.m in Sources */,
 				31AD161F1785D294000D8F2C /* ParameterModel.m in Sources */,
-				3180CF6C178ABAF5001B2DD1 /* SearchCell.m in Sources */,
 				3180CF6F178AD955001B2DD1 /* CategoriesManager.m in Sources */,
 				3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */,
 				765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */,
@@ -2036,10 +2015,8 @@
 				3127C044179857100056D78A /* CoefficientModel.m in Sources */,
 				3127C0471798576A0056D78A /* MoneyModel.m in Sources */,
 				31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */,
-				31EF4AE61799941800F27702 /* AmountView.m in Sources */,
 				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
-				0F3DB916179FD1B400F9B3AE /* LoadButtonCell.m in Sources */,
 				76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */,
 				0F3DB91917A26BA000F9B3AE /* ParticipantViewController.m in Sources */,
 				0F3DB91C17A66A9900F9B3AE /* UIViewController+Puntr.m in Sources */,
@@ -2074,7 +2051,6 @@
 				0F40905D17B500A7001CC23F /* TournamentModel.m in Sources */,
 				31ED082B17B509D0003FEFA7 /* LeadCell.m in Sources */,
 				ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */,
-				D6B449BD17B658EE000B9F5E /* TournamentCell.m in Sources */,
 				D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */,
 				318D475917B8E0F400A64C6A /* CredentialsModel.m in Sources */,
 				310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */,
