@@ -554,7 +554,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat avatarWidth = 0.0f;
     
     CGFloat TNHeightBackgroundButtons = 50.0f;
-    CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
     
     // Background User
     
