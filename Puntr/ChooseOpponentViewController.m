@@ -10,6 +10,7 @@
 #import "ObjectManager.h"
 #import "PagingModel.h"
 #import "SubscriberModel.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 #define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
