@@ -19,6 +19,8 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
+#import "GPUImage/Source/GPUImage.h"
+
 static const CGFloat TNCornerRadius = 3.75f;
 static const CGFloat TNHeightButton = 31.0f;
 static const CGFloat TNHeightSwitch = 27.0f;
@@ -940,12 +942,22 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                             if (!award.received)
                                             {
-                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                                    UIImage *blurPhotoImage = [PuntrUtilities blurImage:image];
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        weakSelf.imageViewAward.image = blurPhotoImage;
-                                                    });
-                                                });
+                                                GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:[self screenshot]];
+                                                
+                                                GPUImageTiltShiftFilter *boxBlur = [[GPUImageTiltShiftFilter alloc] init];
+                                                boxBlur.blurSize = 0.5;
+                                                
+                                                [stillImageSource addTarget:boxBlur];
+                                                
+                                                [stillImageSource processImage];
+                                                
+                                                UIImage *processedImage = [stillImageSource imageFromCurrentlyProcessedOutput];
+//                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//                                                    UIImage *blurPhotoImage = [PuntrUtilities blurImage:image];
+//                                                    dispatch_async(dispatch_get_main_queue(), ^{
+//                                                        weakSelf.imageViewAward.image = blurPhotoImage;
+//                                                    });
+//                                                });
                                             }
                                             else
                                             {
