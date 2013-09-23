@@ -790,13 +790,16 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         [self.collectionView reloadData];
     }
     
-    if (self.collectionData.count - self.stationaryObjectsCount <= 0)
+    if ([self.collectionManagerDelegate respondsToSelector:@selector(haveItems:withCollectionType:)])
     {
-        [self.collectionManagerDelegate haveItems:NO withCollectionType:self.collectionType];
-    }
-    else
-    {
-        [self.collectionManagerDelegate haveItems:YES withCollectionType:self.collectionType];
+        if (self.collectionData.count - self.stationaryObjectsCount <= 0)
+        {
+            [self.collectionManagerDelegate haveItems:NO withCollectionType:self.collectionType];
+        }
+        else
+        {
+            [self.collectionManagerDelegate haveItems:YES withCollectionType:self.collectionType];
+        }
     }
     
     [self finishLoading];
