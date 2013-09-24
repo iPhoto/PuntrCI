@@ -918,7 +918,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
-    self.labelAwardTitle = [UILabel labelSmallBold:NO black:YES];
+    self.layer.cornerRadius = TNCornerRadius;
+    self.layer.masksToBounds = YES;
+    
+    self.labelAwardTitle = [UILabel labelSmallBold:YES black:YES];
     self.labelAwardTitle.numberOfLines = 0;
     self.labelAwardTitle.lineBreakMode = NSLineBreakByWordWrapping;
     self.labelAwardTitle.contentMode = UIViewContentModeCenter;
