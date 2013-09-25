@@ -289,6 +289,7 @@
 		765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765FCDB8178D0CC100A58B81 /* EventViewController.m */; };
 		76EA3E9117DF1D9000450A55 /* SwitchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA3E9017DF1D9000450A55 /* SwitchModel.m */; };
 		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
+		76F7570A17F0A97D00F081E3 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F7570917F0A97D00F081E3 /* SearchModel.m */; };
 		76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FCB9AE17D62D3900183109 /* LeadManager.m */; };
 		76FCB9B217D636FB00183109 /* LeadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FCB9B117D636FB00183109 /* LeadButton.m */; };
 		9A9A65CD17EAEDE400077B0A /* badge_icon_fb_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A9A65C117EAEDE400077B0A /* badge_icon_fb_active.png */; };
@@ -762,6 +763,8 @@
 		76EA3E9217DF1EA600450A55 /* CollectionManagerTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionManagerTypes.h; sourceTree = "<group>"; };
 		76F6715D17A049570032C9AE /* AFHTTPClientTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClientTweak.h; sourceTree = "<group>"; };
 		76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClientTweak.m; sourceTree = "<group>"; };
+		76F7570817F0A97D00F081E3 /* SearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchModel.h; sourceTree = "<group>"; };
+		76F7570917F0A97D00F081E3 /* SearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchModel.m; sourceTree = "<group>"; };
 		76FCB9AD17D62D3900183109 /* LeadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadManager.h; sourceTree = "<group>"; };
 		76FCB9AE17D62D3900183109 /* LeadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadManager.m; sourceTree = "<group>"; };
 		76FCB9B017D636FB00183109 /* LeadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadButton.h; sourceTree = "<group>"; };
@@ -1554,12 +1557,14 @@
 				0FAFC4F517CB8B2500735D0C /* PrivacySettingsModel.m */,
 				0FAFC4F717CB8B4700735D0C /* PushSettingsModel.h */,
 				0FAFC4F817CB8B4700735D0C /* PushSettingsModel.m */,
+				76F7570817F0A97D00F081E3 /* SearchModel.h */,
+				76F7570917F0A97D00F081E3 /* SearchModel.m */,
+				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
+				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
 				7611C7B8178FA99E00356455 /* StakeModel.h */,
 				7611C7B9178FA99E00356455 /* StakeModel.m */,
 				0F29531A17E0883F0036EE9D /* StatisticModel.h */,
 				0F29531B17E0883F0036EE9D /* StatisticModel.m */,
-				0F559FE217D635EC00BC9EA0 /* SocialModel.h */,
-				0F559FE317D635EC00BC9EA0 /* SocialModel.m */,
 				31EA773417BCB7480060DFCC /* SubscriberModel.h */,
 				31EA773517BCB7480060DFCC /* SubscriberModel.m */,
 				31EA773717BCBA5F0060DFCC /* SubscriptionModel.h */,
@@ -1978,6 +1983,7 @@
 				31E3E79E1754E24800B09DAD /* main.m in Sources */,
 				31E3E7A21754E24900B09DAD /* AppDelegate.m in Sources */,
 				76335D4E17697C3F009F75E2 /* EnterViewController.m in Sources */,
+				76F7570A17F0A97D00F081E3 /* SearchModel.m in Sources */,
 				761D81D81769C7F7009455B1 /* HTTPClient.m in Sources */,
 				764C425D1769CA7800B7FBF2 /* TabBarViewController.m in Sources */,
 				764C42631769CC0D00B7FBF2 /* NewsNavigationController.m in Sources */,
