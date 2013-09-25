@@ -38,6 +38,7 @@
 #import "PasswordModel.h"
 #import "PrivacySettingsModel.h"
 #import "PushSettingsModel.h"
+#import "SearchModel.h"
 #import "SocialModel.h"
 #import "StakeModel.h"
 #import "StatisticModel.h"
