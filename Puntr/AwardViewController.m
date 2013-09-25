@@ -47,7 +47,8 @@
     CGFloat coverMargin = 8.0f;
     
     self.view.frame = CGRectMake(0.0f, 0.0f, 300.0f, 280.0f);
-    self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
+    self.view.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
+//[UIColor colorWithWhite:0.302 alpha:1.000];
     
     NSString *controllerTitle = @"Поздравляем! \nВы получили новый бейдж!";
     NSString *awardTitle = self.award.title;
@@ -136,10 +137,10 @@
     
     CGFloat labelY = CGRectGetMaxY(self.awardTitleLabel.frame);
 
-    UIImage *delimiterImage = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    UIImage *delimiterImage = [[UIImage imageNamed:@"delimiterBlack"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     UIImageView *delimiter = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, labelY + EDGE_VIEWS, self.view.frame.size.width, 2.0f)];
     delimiter.image = delimiterImage;
-    delimiter.backgroundColor = [UIColor redColor];
+    delimiter.backgroundColor = [UIColor clearColor];
     [self.view addSubview:delimiter];
 
     labelY = CGRectGetMaxY(delimiter.frame) + EDGE_VIEWS /2 ;
