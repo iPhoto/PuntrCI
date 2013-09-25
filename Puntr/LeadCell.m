@@ -1444,7 +1444,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else if ([stakeStatus isEqualToString:@"loss"] || [stakeStatus isEqualToString:@"lost"])
     {
         stakeStatusLabel = @"Ваша ставка проиграла!";
-        stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
+        stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
                                                                                   self.usedHeight,
