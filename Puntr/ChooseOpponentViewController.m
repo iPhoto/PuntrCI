@@ -6,11 +6,18 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "ChooseOpponentViewController.h"
 #import "ObjectManager.h"
 #import "PagingModel.h"
 #import "SubscriberModel.h"
-#import <QuartzCore/QuartzCore.h>
+
+#import "UIViewController+Puntr.h"
+#import "MZFormSheetController.h"
+#import "PushContentViewController.h"
+#import "BetViewController.h"
+#import "NotificationManager.h"
 
 
 #define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
@@ -185,6 +192,11 @@ static const CGFloat avatarWidth = 40;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[MZFormSheetController appearance] setCornerRadius:3.75f];
+    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
+    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
+    [[MZFormSheetController appearance] setShouldDismissOnBackgroundViewTap:YES];
     
     self.title = @"Выберите оппонента";
     
@@ -370,7 +382,16 @@ static const CGFloat avatarWidth = 40;
 
 - (void)pariButtonPressed
 {
-    
+    if (self.checkedIndex >= 0) {
+        BetViewController *vc = [BetViewController new];
+        [self presentFormSheetWithViewController:vc
+                                        animated:YES
+                               completionHandler:^(MZFormSheetController *formSheetController) {
+                               }];
+    }
+    else {
+        [NotificationManager showNotificationMessage:@"Выберите оппонента!"]; // чего не показывается то?
+    }
 }
 
 @end

@@ -318,6 +318,7 @@
 		AC34683317D00F710077418B /* top_area@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682717D00F710077418B /* top_area@2x.png */; };
 		AC34683417D00F710077418B /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682817D00F710077418B /* unchecked.png */; };
 		AC34683517D00F710077418B /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682917D00F710077418B /* unchecked@2x.png */; };
+		AC3F6BBE17F36CE60045E458 /* BetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3F6BBD17F36CE60045E458 /* BetViewController.m */; };
 		AC6D0E8E17EF9C63007923D8 /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6D0E8D17EF99FB007923D8 /* gradient.png */; };
 		AC7F956417D929CE000F3078 /* ChooseOpponentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */; };
 		AC7F956717D93566000F3078 /* IconShuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956517D93566000F3078 /* IconShuffle.png */; };
@@ -800,6 +801,8 @@
 		AC34682717D00F710077418B /* top_area@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_area@2x.png"; sourceTree = "<group>"; };
 		AC34682817D00F710077418B /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		AC34682917D00F710077418B /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
+		AC3F6BBC17F36CE60045E458 /* BetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetViewController.h; sourceTree = "<group>"; };
+		AC3F6BBD17F36CE60045E458 /* BetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetViewController.m; sourceTree = "<group>"; };
 		AC6D0E8D17EF99FB007923D8 /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
 		AC7F956217D929CE000F3078 /* ChooseOpponentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseOpponentViewController.h; sourceTree = "<group>"; };
 		AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseOpponentViewController.m; sourceTree = "<group>"; };
@@ -1410,6 +1413,8 @@
 				D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */,
 				D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */,
 				D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */,
+				AC3F6BBC17F36CE60045E458 /* BetViewController.h */,
+				AC3F6BBD17F36CE60045E458 /* BetViewController.m */,
 				31B112A0176B5CD000060EAB /* CatalogueEventsViewController.h */,
 				31B112A1176B5CD000060EAB /* CatalogueEventsViewController.m */,
 				316765E717D7722000634FBE /* CatalogueTournamentsViewController.h */,
@@ -2040,6 +2045,7 @@
 				3127C041179856AE0056D78A /* CriterionModel.m in Sources */,
 				3127C044179857100056D78A /* CoefficientModel.m in Sources */,
 				3127C0471798576A0056D78A /* MoneyModel.m in Sources */,
+				AC3F6BBE17F36CE60045E458 /* BetViewController.m in Sources */,
 				31EF4AE317995BFC00F27702 /* StakeElementView.m in Sources */,
 				31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */,
 				31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */,
