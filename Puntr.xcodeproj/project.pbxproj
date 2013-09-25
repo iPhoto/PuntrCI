@@ -355,6 +355,10 @@
 		D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514B17DE766C002ECADC /* QuartzCore.framework */; };
 		D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514D17DE7694002ECADC /* Accelerate.framework */; };
 		D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */; };
+		D6D4563417F0F982003B31F8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4562E17F0F463003B31F8 /* OpenGLES.framework */; };
+		D6D4563617F0FA08003B31F8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563517F0FA08003B31F8 /* AVFoundation.framework */; };
+		D6D4563817F0FA16003B31F8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563717F0FA16003B31F8 /* CoreMedia.framework */; };
+		D6D4563A17F0FA23003B31F8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563917F0FA23003B31F8 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -843,6 +847,12 @@
 		D6B4514D17DE7694002ECADC /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardModel.h; sourceTree = "<group>"; };
 		D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardModel.m; sourceTree = "<group>"; };
+		D6D4562E17F0F463003B31F8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D6D4563017F0F512003B31F8 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		D6D4563217F0F77A003B31F8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D6D4563517F0FA08003B31F8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D6D4563717F0FA16003B31F8 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D6D4563917F0FA23003B31F8 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,6 +860,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6D4563A17F0FA23003B31F8 /* CoreVideo.framework in Frameworks */,
+				D6D4563817F0FA16003B31F8 /* CoreMedia.framework in Frameworks */,
+				D6D4563617F0FA08003B31F8 /* AVFoundation.framework in Frameworks */,
+				D6D4563417F0F982003B31F8 /* OpenGLES.framework in Frameworks */,
 				9AA0FAF217E82AE5004A2B36 /* CoreImage.framework in Frameworks */,
 				D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */,
 				D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */,
@@ -1300,6 +1314,12 @@
 		31E3E7901754E24800B09DAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6D4563917F0FA23003B31F8 /* CoreVideo.framework */,
+				D6D4563717F0FA16003B31F8 /* CoreMedia.framework */,
+				D6D4563517F0FA08003B31F8 /* AVFoundation.framework */,
+				D6D4563217F0F77A003B31F8 /* GLKit.framework */,
+				D6D4563017F0F512003B31F8 /* OpenAL.framework */,
+				D6D4562E17F0F463003B31F8 /* OpenGLES.framework */,
 				9AA0FAF117E82AE5004A2B36 /* CoreImage.framework */,
 				D6B4514D17DE7694002ECADC /* Accelerate.framework */,
 				D6B4514B17DE766C002ECADC /* QuartzCore.framework */,

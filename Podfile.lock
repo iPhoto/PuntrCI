@@ -16,6 +16,7 @@ PODS:
   - FormatterKit/TimeIntervalFormatter (1.2.1)
   - FormatterKit/UnitOfInformationFormatter (1.2.1)
   - FormatterKit/URLRequestFormatter (1.2.1)
+  - GPUImage (0.1.0)
   - HexColors (2.2.0)
   - libwebp (0.3.0-rc7):
     - libwebp/dec
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - ActionSheetPicker
   - AFNetworking (= 1.3.2)
   - FormatterKit (from `https://github.com/Tulushev/FormatterKit.git`, commit `99c189627c`)
+  - GPUImage
   - Masonry
   - MZFormSheetController
   - PonyDebugger
@@ -84,6 +86,7 @@ SPEC CHECKSUMS:
   ActionSheetPicker: 16e212011d5c2e92b3e38609a58b93919b4056aa
   AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54
   FormatterKit: 43c6567e367a872196747fda0c26395c37bd7dd6
+  GPUImage: 5b902c1df2afe0ac30a8e3e7379f9c0bb25c7c85
   HexColors: 72b7e16c2b42cc3dfb17d4a61f64d218d1ccbba7
   libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
   Masonry: 6ab455cddc0a29be3eebdca923d75207efe99664
@@ -100,4 +103,4 @@ SPEC CHECKSUMS:
   TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
   TSMessages: 5ab92604b02e49a755d2cc2baf114d2248a90977
 
-COCOAPODS: 0.24.0
+COCOAPODS: 0.25.0
