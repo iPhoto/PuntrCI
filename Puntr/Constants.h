@@ -19,9 +19,6 @@ FOUNDATION_EXPORT NSString *const TestFlightApplicationToken;
 FOUNDATION_EXPORT NSString *const APIScheme;
 FOUNDATION_EXPORT NSString *const APIHost;
 
-FOUNDATION_EXPORT NSString *const DevelopmentAPIScheme;
-FOUNDATION_EXPORT NSString *const DevelopmentAPIHost;
-
 FOUNDATION_EXPORT NSString *const APIActivities;
 FOUNDATION_EXPORT NSString *const APIAuthorization;
 FOUNDATION_EXPORT NSString *const APIAwards;
