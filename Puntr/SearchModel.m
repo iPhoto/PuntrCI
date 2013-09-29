@@ -17,4 +17,9 @@
     return search;
 }
 
+- (NSDictionary *)parameters
+{
+    return self.query ? @{KeyQuery: self.query} : @{};
+}
+
 @end

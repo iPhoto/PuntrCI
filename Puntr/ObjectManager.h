@@ -26,6 +26,7 @@
     PrivacySettingsModel,
     PushSettingsModel,
     RegistrationModel,
+    SearchModel,
     StakeModel,
     TournamentModel,
     UserModel;
@@ -96,6 +97,12 @@ typedef void (^User)(UserModel *user);
 
 - (void)eventsWithPaging:(PagingModel *)paging
                   filter:(FilterModel *)filter
+                 success:(Events)success
+                 failure:(EmptyFailure)failure;
+
+- (void)eventsWithPaging:(PagingModel *)paging
+                  filter:(FilterModel *)filter
+                  search:(SearchModel *)search
                  success:(Events)success
                  failure:(EmptyFailure)failure;
 

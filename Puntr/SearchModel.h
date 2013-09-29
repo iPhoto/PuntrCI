@@ -14,4 +14,6 @@
 
 + (SearchModel *)searchWithQuery:(NSString *)query;
 
+- (NSDictionary *)parameters;
+
 @end

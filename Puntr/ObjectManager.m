@@ -9,7 +9,6 @@
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
-#import "RKObjectRequestOperation+HeaderFields.h"
 #import "RKRelationshipMapping+Convenience.h"
 
 @interface ObjectManager ()
@@ -716,6 +715,32 @@
 }
 
 #pragma mark - Events
+
+- (void)eventsWithPaging:(PagingModel *)paging
+                  filter:(FilterModel *)filter
+                  search:(SearchModel *)search
+                 success:(Events)success
+                 failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null],
+                                     KeyFilter: filter ? filter.parameters : [NSNull null],
+                                     KeySearch: search ? search.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:APIEvents
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *events = mappingResult.dictionary[KeyEvents];
+                success(events);
+            } failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
 
 - (void)eventsWithPaging:(PagingModel *)paging
                   filter:(FilterModel *)filter
