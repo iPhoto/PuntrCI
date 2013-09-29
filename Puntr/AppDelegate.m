@@ -96,7 +96,10 @@
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     // Toolbar
     [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"BarDown"] resizableImageWithCapInsets:UIEdgeInsetsZero] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-     // Switch
+    // Search
+    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"clear"]];
+    [[UISearchBar appearance] setSearchFieldBackgroundImage:[[UIImage imageNamed:@"SearchBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)] forState:UIControlStateNormal];
+    // Switch
     [[UISwitch appearance] setOnTintColor:[UIColor colorWithRed:0.202 green:0.638 blue:0.073 alpha:1.000]];
 }
 
