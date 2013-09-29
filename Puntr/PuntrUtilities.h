@@ -14,6 +14,4 @@
 
 + (UIViewController *)topController;
 
-+ (UIImage *)blurImage:(UIImage*)image;
-
 @end
