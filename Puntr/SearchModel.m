@@ -10,4 +10,11 @@
 
 @implementation SearchModel
 
++ (SearchModel *)searchWithQuery:(NSString *)query
+{
+    SearchModel *search = [[self alloc] init];
+    search.query = query;
+    return search;
+}
+
 @end

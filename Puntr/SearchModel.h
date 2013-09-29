@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString *query;
 
++ (SearchModel *)searchWithQuery:(NSString *)query;
+
 @end
