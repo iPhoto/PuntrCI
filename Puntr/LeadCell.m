@@ -109,6 +109,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, strong) UILabel *labelDynamicSelectionDescription;
 @property (nonatomic, strong) UISwitch *switchDynamicSelection;
 
+// Search
+@property (nonatomic, strong) UISearchBar *searchBar;
+
 // Stake
 @property (nonatomic, strong) UIView *viewStakeStatusBackground;
 @property (nonatomic, strong) UILabel *labelStakeStatus;
@@ -234,6 +237,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.labelDynamicSelectionDescription)
     TNRemove(self.switchDynamicSelection)
     
+    // Search
+    TNRemove(self.searchBar)
+    
     // Stake
     TNRemove(self.viewStakeStatusBackground)
     TNRemove(self.labelStakeStatus)
@@ -268,7 +274,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Miscelanouos
     TNRemove(self.imageViewBanner)
     [self cleanArray:self.delimiters];
-    
+ 
+    [self sendDelegateHideKeyboard];
 }
 
 #pragma mark - Size Calculation
@@ -333,6 +340,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else if ([model isMemberOfClass:[PushSettingsModel class]] || [model isMemberOfClass:[PrivacySettingsModel class]])
     {
         [self loadWithDynamicSelection:(DynamicSelectionModel *)model];
+    }
+    else if ([model isMemberOfClass:[SearchModel class]])
+    {
+        [self displaySearch:(SearchModel *)model];
     }
     else if ([model isMemberOfClass:[StakeModel class]])
     {
@@ -1387,6 +1398,23 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self makeFinal:final];
 }
 
+- (void)displaySearch:(SearchModel *)search
+{
+    CGFloat TNHeightSearch = 29.0f;
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(
+                                                                      0.0f,
+                                                                      self.usedHeight,
+                                                                      TNWidthCell,
+                                                                      TNHeightSearch
+                                                                  )];
+    self.searchBar.placeholder = search.query ? : @"Быстрый поиск...";
+    self.searchBar.showsCancelButton = YES;
+    self.searchBar.delegate = self;
+    [self addSubview:self.searchBar];
+    
+    self.usedHeight = CGRectGetMaxY(self.searchBar.frame) - TNMarginGeneral;
+}
+
 - (void)displayStakeButton
 {
     self.buttonEventStake = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1931,7 +1959,32 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - SearchBar Delegate
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchBar.text = @"";
+    if ([self.searchDelegate respondsToSelector:@selector(cancelSearch)])
+    {
+        [self.searchDelegate cancelSearch];
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if ([self.searchDelegate respondsToSelector:@selector(searchFor:)])
+    {
+        [self.searchDelegate searchFor:searchBar.text];
+    }
+}
+
+- (void)sendDelegateHideKeyboard
+{
+    if ([self.searchDelegate respondsToSelector:@selector(hideKeyboard)])
+    {
+        [self.searchDelegate hideKeyboard];
+    }
+}
 
 #pragma mark - Utility
 

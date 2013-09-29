@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "LeadCellDelegate.h"
+#import "SearchDelegate.h"
 
-@interface LeadCell : UICollectionViewCell
+@interface LeadCell : UICollectionViewCell <UISearchBarDelegate>
 
 @property (nonatomic, weak) id <LeadCellDelegate> delegate;
+@property (nonatomic, weak) id <SearchDelegate> searchDelegate;
 
 + (CGSize)sizeForModel:(id)model;
 
