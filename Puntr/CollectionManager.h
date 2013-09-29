@@ -10,8 +10,9 @@
 #import "LeadCellDelegate.h"
 #import "CollectionManagerDelegate.h"
 #import "CollectionManagerTypes.h"
+#import "SearchDelegate.h"
 
-@interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate>
+@interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate, SearchDelegate>
 
 @property (nonatomic, weak) id <CollectionManagerDelegate> collectionManagerDelegate;
 

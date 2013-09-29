@@ -26,6 +26,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *collectionData;
 @property (nonatomic, strong) PagingModel *paging;
+@property (nonatomic, strong) SearchModel *search;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -218,7 +219,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                  if (self.paging.isFirstPage)
                                                  {
                                                      UserModel *user = [self objectInArray:self.modifierObjects ofClass:[UserModel class]];
-                                                     NSArray *stationaryObjects = @[user];
+                                                     SearchModel *search = [[SearchModel alloc] init];
+                                                     NSArray *stationaryObjects = @[user, search];
                                                      self.stationaryObjectsCount = stationaryObjects.count;
                                                      [self combineWithStationaryObjects:stationaryObjects withNewObjects:activities];
                                                  }
@@ -843,6 +845,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     }
     [cell loadWithModel:model];
     cell.delegate = self;
+    cell.searchDelegate = self;
     return cell;
 }
 
@@ -860,6 +863,25 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     {
         [self.collectionManagerDelegate collectionViewDidSelectCellWithModel:model];
     }
+}
+
+#pragma mark - SearchDelegate
+
+- (void)cancelSearch
+{
+    self.search = nil;
+    [self hideKeyboard];
+}
+
+- (void)hideKeyboard
+{
+    [self.collectionView endEditing:YES];
+}
+
+- (void)searchFor:(NSString *)query
+{
+    self.search = [SearchModel searchWithQuery:query];
+    [self reloadData];
 }
 
 #pragma mark - Utility
