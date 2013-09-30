@@ -358,6 +358,7 @@
 		D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514B17DE766C002ECADC /* QuartzCore.framework */; };
 		D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514D17DE7694002ECADC /* Accelerate.framework */; };
 		D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */; };
+		D6B819B217FA235F00070B27 /* UserSocialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B819B117FA235F00070B27 /* UserSocialModel.m */; };
 		D6D4563417F0F982003B31F8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4562E17F0F463003B31F8 /* OpenGLES.framework */; };
 		D6D4563617F0FA08003B31F8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563517F0FA08003B31F8 /* AVFoundation.framework */; };
 		D6D4563817F0FA16003B31F8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563717F0FA16003B31F8 /* CoreMedia.framework */; };
@@ -480,8 +481,8 @@
 		0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unsubscribe@2x.png"; sourceTree = "<group>"; };
 		0FEB2F0717F4630700685FC8 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
 		0FEB2F0817F4630700685FC8 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
-		0FEB2F0D17F5961300685FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0FEB2F0F17F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F0D17F5961300685FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F0F17F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0FEB2F1017F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FEB2F1117F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -857,6 +858,8 @@
 		D6B4514D17DE7694002ECADC /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardModel.h; sourceTree = "<group>"; };
 		D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardModel.m; sourceTree = "<group>"; };
+		D6B819B017FA235F00070B27 /* UserSocialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSocialModel.h; sourceTree = "<group>"; };
+		D6B819B117FA235F00070B27 /* UserSocialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSocialModel.m; sourceTree = "<group>"; };
 		D6D4562E17F0F463003B31F8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D6D4563017F0F512003B31F8 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D6D4563217F0F77A003B31F8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -1610,6 +1613,8 @@
 				31E848C817E0C49C009C943B /* UserDetailsModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
 				3127C037179851850056D78A /* UserModel.m */,
+				D6B819B017FA235F00070B27 /* UserSocialModel.h */,
+				D6B819B117FA235F00070B27 /* UserSocialModel.m */,
 				31CF778317BE5A54009B2FC6 /* VKontakteModel.h */,
 				31CF778417BE5A54009B2FC6 /* VKontakteModel.m */,
 			);
@@ -2081,6 +2086,7 @@
 				0FA5FCA117B237C700352827 /* TWSignedRequest.m in Sources */,
 				0FA5FCCA17B2387200352827 /* NSData+toBase64.m in Sources */,
 				0FA5FCCB17B2387200352827 /* NSString+encodeURL.m in Sources */,
+				D6B819B217FA235F00070B27 /* UserSocialModel.m in Sources */,
 				0FA5FCCC17B2387200352827 /* NSString+MD5.m in Sources */,
 				0FA5FCCD17B2387200352827 /* NSString+toBase64.m in Sources */,
 				0FA5FCCE17B2387200352827 /* KGModal.m in Sources */,

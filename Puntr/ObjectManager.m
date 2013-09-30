@@ -79,6 +79,7 @@
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
+    RKObjectMapping *userSocialMapping = [RKObjectMapping mappingForClass:[UserSocialModel class]];
     
     // Mapping
     
@@ -385,6 +386,18 @@
                                                                                                       keyPath:nil
                                                                                                   statusCodes:statusCodeNoContent];
     
+    
+    // User
+    [userSocialMapping addAttributeMappingsFromArray:@[KeyTag, KeyUsername, KeyAvatar, KeySocialType]];
+    RKRelationshipMapping *userSocialSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
+    [userSocialMapping addPropertyMapping:userSocialSocialsRelationship];
+    RKResponseDescriptor *userSocialResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userSocialMapping
+                                                                                                method:RKRequestMethodGET
+                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
+                                                                                               keyPath:KeyUser
+                                                                                           statusCodes:statusCodeOK];
+    
+    
     // Response Descriptors
     [self addResponseDescriptorsFromArray:
         @[
@@ -418,6 +431,7 @@
             userCreateResponseDescriptor,
             userPassordResponseDescriptor,
             userResponseDescriptor,
+            userSocialResponseDescriptor,
             userUpdateResponseDescriptor
          ]
     ];

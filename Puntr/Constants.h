@@ -114,6 +114,7 @@ FOUNDATION_EXPORT NSString *const KeySelectedCriterion;
 FOUNDATION_EXPORT NSString *const KeySID;
 FOUNDATION_EXPORT NSString *const KeySlug;
 FOUNDATION_EXPORT NSString *const KeySocials;
+FOUNDATION_EXPORT NSString *const KeySocialType;
 FOUNDATION_EXPORT NSString *const KeyStake;
 FOUNDATION_EXPORT NSString *const KeyStakes;
 FOUNDATION_EXPORT NSString *const KeyStakesCount;

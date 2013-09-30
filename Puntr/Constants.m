@@ -114,6 +114,7 @@ NSString *const KeySelectedCriterion = @"selectedCriterion";
 NSString *const KeySID = @"sid";
 NSString *const KeySlug = @"slug";
 NSString *const KeySocials = @"socials";
+NSString *const KeySocialType = @"socialType";
 NSString *const KeyStake = @"stake";
 NSString *const KeyStakes = @"stakes";
 NSString *const KeyStakesCount = @"stakesCount";
