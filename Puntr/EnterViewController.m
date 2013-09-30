@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(13.0f, 215.0f, 142.0f, 40.0f);
-    [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
+    [self.buttonRegistration setTitle:NSLocalizedString(@"Registration", nil) forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
