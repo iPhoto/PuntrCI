@@ -159,12 +159,6 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - Tournaments
 
-
-- (void)tournamentsWithPaging:(PagingModel *)paging
-                       filter:(FilterModel *)filter
-                      success:(Tournaments)success
-                      failure:(EmptyFailure)failure;
-
 - (void)tournamentsWithPaging:(PagingModel *)paging
                        filter:(FilterModel *)filter
                        search:(SearchModel *)search
