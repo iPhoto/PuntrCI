@@ -108,7 +108,7 @@
     }
     if (NO == self.hideCancel)
     {
-        UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"Отмена"
+        UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIBarButtonItemStyleBordered
                                                                     target:self
                                                                     action:@selector(actionPickerCancel:)];
@@ -122,7 +122,7 @@
         [barItems addObject:labelButton];
         [barItems addObject:flexSpace];
     }
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Далее"
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Next", nil)
                                                                   style:UIBarButtonItemStyleDone
                                                                  target:self
                                                                  action:@selector(actionPickerDone:)];

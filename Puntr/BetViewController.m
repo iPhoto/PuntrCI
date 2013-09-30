@@ -49,7 +49,7 @@
     controllerTitleLabel.numberOfLines = 0;
     controllerTitleLabel.contentMode = UIViewContentModeCenter;
     controllerTitleLabel.textAlignment = NSTextAlignmentCenter;
-    controllerTitleLabel.text = @"Пари";
+    controllerTitleLabel.text = NSLocalizedString(@"Bet", nil);
     [self.view addSubview:controllerTitleLabel];
 }
 

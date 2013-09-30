@@ -250,10 +250,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadBets
 {
     SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
-                                                     firstTitle:@"Ставки"
+                                                     firstTitle:NSLocalizedString(@"Stakes", nil)
                                                         firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
                                                      secondType:CollectionTypeBets
-                                                    secondTitle:@"Пари"
+                                                    secondTitle:NSLocalizedString(@"Bets", nil)
                                                        secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
     NSArray *stationaryObjects = @[switchModel];
     self.stationaryObjectsCount = stationaryObjects.count;
@@ -274,7 +274,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     // Tournaments
     GroupModel *groupTournaments = [GroupModel group];
     groupTournaments.slug = KeyTournaments;
-    groupTournaments.title = @"Турниры";
+    groupTournaments.title = NSLocalizedString(@"Tournaments", nil);
     groupTournaments.imageHardcode = [UIImage imageNamed:@"sectionTournaments"];
     [groupsData addObject:groupTournaments];
     
@@ -306,10 +306,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                 if (self.paging.isFirstPage)
                                                 {
                                                     SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
-                                                                                                     firstTitle:@"Комментарии"
+                                                                                                     firstTitle:NSLocalizedString(@"Comments", nil)
                                                                                                         firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
                                                                                                      secondType:CollectionTypeEventStakes
-                                                                                                    secondTitle:@"Ставки"
+                                                                                                    secondTitle:NSLocalizedString(@"Stakes", nil)
                                                                                                        secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
                                                     NSArray *stationaryObjects = @[switchModel];
                                                     self.stationaryObjectsCount = stationaryObjects.count;
@@ -359,10 +359,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               if (self.paging.isFirstPage)
                                               {
                                                   SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
-                                                                                                   firstTitle:@"Комментарии"
+                                                                                                   firstTitle:NSLocalizedString(@"Comments", nil)
                                                                                                       firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
                                                                                                    secondType:CollectionTypeEventStakes
-                                                                                                  secondTitle:@"Ставки"
+                                                                                                  secondTitle:NSLocalizedString(@"Stakes", nil)
                                                                                                      secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
                                                   NSArray *stationaryObjects = @[switchModel];
                                                   self.stationaryObjectsCount = stationaryObjects.count;
@@ -487,10 +487,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             if (self.paging.isFirstPage)
             {
                 SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
-                                                                 firstTitle:@"Ставки"
+                                                                 firstTitle:NSLocalizedString(@"Stakes", nil)
                                                                     firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
                                                                  secondType:CollectionTypeBets
-                                                                secondTitle:@"Пари"
+                                                                secondTitle:NSLocalizedString(@"Bets", nil)
                                                                    secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
                 NSArray *stationaryObjects = @[switchModel];
                 self.stationaryObjectsCount = stationaryObjects.count;

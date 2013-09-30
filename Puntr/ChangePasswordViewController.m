@@ -37,7 +37,7 @@
     [super viewDidLoad];
     self.passwordModel = [[PasswordModel alloc] init];
 	
-    self.title = @"Пароль";
+    self.title = NSLocalizedString(@"Password", nil);
 
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f,
@@ -56,7 +56,7 @@
     self.textFields = [NSArray array];
     
     self.textFieldOldPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0, 19.0f, 282.0f, 38.0f)];
-    self.textFieldOldPassword.placeholder = @"Старый пароль...";
+    self.textFieldOldPassword.placeholder = NSLocalizedString(@"Old password...", nil);
     self.textFieldOldPassword.secureTextEntry = YES;
     self.textFieldOldPassword.returnKeyType = UIReturnKeyNext;
     self.textFieldOldPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -65,7 +65,7 @@
     [self.view addSubview:self.textFieldOldPassword];
     
     self.textFieldNewPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0, 66.0f, 282.0f, 38.0f)];
-    self.textFieldNewPassword.placeholder = @"Новый пароль...";
+    self.textFieldNewPassword.placeholder = NSLocalizedString(@"New password...", nil);
     self.textFieldNewPassword.secureTextEntry = YES;
     self.textFieldNewPassword.returnKeyType = UIReturnKeyNext;
     self.textFieldNewPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -74,7 +74,7 @@
     [self.view addSubview:self.textFieldNewPassword];
 
     self.textFieldConfirmPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];
-    self.textFieldConfirmPassword.placeholder = @"Подтверждение...";
+    self.textFieldConfirmPassword.placeholder = NSLocalizedString(@"Confirm...", nil);
     self.textFieldConfirmPassword.secureTextEntry = YES;
     self.textFieldConfirmPassword.returnKeyType = UIReturnKeyDone;
     self.textFieldConfirmPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -93,7 +93,7 @@
     
     self.buttonChangePassword = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonChangePassword.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    [self.buttonChangePassword setTitle:@"Сменить пароль" forState:UIControlStateNormal];
+    [self.buttonChangePassword setTitle:NSLocalizedString(@"Change Password", nil) forState:UIControlStateNormal];
     self.buttonChangePassword.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonChangePassword.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonChangePassword.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -114,19 +114,19 @@
 {
     if (!self.passwordModel.password || self.passwordModel.password.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите пароль"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter password", nil)];
         return NO;
     }
     
     if (!self.passwordModel.passwordNew || self.passwordModel.passwordNew.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите новый пароль"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter new password", nil)];
         return NO;
     }
     
     if (!self.passwordModel.passwordNewConfirmation || self.passwordModel.passwordNewConfirmation.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите подтверждение нового пароля"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter confirm of new password", nil)];
         return NO;
     }
     
@@ -140,7 +140,7 @@
     {
         [[ObjectManager sharedManager] changePassord:self.passwordModel success:^
             {
-                [NotificationManager showSuccessMessage:@"Пароль успешно изменен!"];
+                [NotificationManager showSuccessMessage:NSLocalizedString(@"The password was successfully changed!", nil)];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             failure:nil

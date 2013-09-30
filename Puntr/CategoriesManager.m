@@ -69,7 +69,7 @@ static NSString * const TNCategoryCellReuseIdentifier = @"CategoryCellReuseIdent
         {
             CategoryModel *categoryAll = [[CategoryModel alloc] init];
             categoryAll.tag = @0;
-            categoryAll.title = @"Все";
+            categoryAll.title = NSLocalizedString(@"All", nil);
             NSMutableArray *consolidatedCategories = [NSMutableArray arrayWithCapacity:includedCategories.count + 1];
             [consolidatedCategories addObject:categoryAll];
             [consolidatedCategories addObjectsFromArray:includedCategories];

@@ -6,4 +6,32 @@
   Copyright (c) 2013 2Nova Interactive. All rights reserved.
 */
 
+"All" = "Все";
+"Award didn't get yet!" = "Награда еще не получена!";
+"Awards" = "Награды";
+"Bet" = "Пари";
+"Bets" = "Пари";
+"Cancel" = "Отмена";
+"Catalogue" = "Каталог";
+"Change Password" = "Сменить пароль";
+"Close" = "Закрыть";
+"Comments" = "Комментарии";
+"Confirm..." = "Подтверждение...";
+"Congratulations! You got a new badge!" = "Поздравляем! \nВы получили новый бейдж!";
+"Enter confirm of new password" = "Введите подтверждение нового пароля";
+"Enter new password" = "Введите новый пароль";
+"Enter password" = "Введите пароль";
+"New password..." = "Новый пароль...";
+"Next" = "Далее";
+"Offer" = "Оферта";
+"Old password..." = "Старый пароль...";
+"Password" = "Пароль";
+"The password was successfully changed!" = "Пароль успешно изменен!";
 "Registration" = "Регистрация";
+"Select opponent" = "Выберите оппонента";
+"Select opponent!" = "Выберите оппонента!";
+"Send" = "Отправить";
+"Stakes" = "Ставки";
+"Terms" = "Условия";
+"Tournaments" = "Турниры";
+"User" = "Пользователь";
