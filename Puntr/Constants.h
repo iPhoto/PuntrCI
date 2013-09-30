@@ -45,6 +45,7 @@ FOUNDATION_EXPORT NSString *const APIUsers;
 
 #pragma mark - Parameters
 
+FOUNDATION_EXPORT NSString *const KeyAccepted;
 FOUNDATION_EXPORT NSString *const KeyAccessToken;
 FOUNDATION_EXPORT NSString *const KeyActivities;
 FOUNDATION_EXPORT NSString *const KeyAmount;
@@ -64,6 +65,7 @@ FOUNDATION_EXPORT NSString *const KeyComments;
 FOUNDATION_EXPORT NSString *const KeyComponents;
 FOUNDATION_EXPORT NSString *const KeyCopyright;
 FOUNDATION_EXPORT NSString *const KeyCreatedAt;
+FOUNDATION_EXPORT NSString *const KeyCreator;
 FOUNDATION_EXPORT NSString *const KeyCredentials;
 FOUNDATION_EXPORT NSString *const KeyCriteria;
 FOUNDATION_EXPORT NSString *const KeyDescription;
@@ -93,6 +95,7 @@ FOUNDATION_EXPORT NSString *const KeyMoney;
 FOUNDATION_EXPORT NSString *const KeyNews;
 FOUNDATION_EXPORT NSString *const KeyOffer;
 FOUNDATION_EXPORT NSString *const KeyOffset;
+FOUNDATION_EXPORT NSString *const KeyOpponent;
 FOUNDATION_EXPORT NSString *const KeyPaging;
 FOUNDATION_EXPORT NSString *const KeyParameters;
 FOUNDATION_EXPORT NSString *const KeyParticipant;
@@ -140,5 +143,6 @@ FOUNDATION_EXPORT NSString *const KeyValue;
 FOUNDATION_EXPORT NSString *const KeyVKontakte;
 FOUNDATION_EXPORT NSString *const KeyWinCount;
 FOUNDATION_EXPORT NSString *const KeyWinMoney;
+FOUNDATION_EXPORT NSString *const KeyWinnerTag;
 
 @end
