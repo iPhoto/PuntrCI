@@ -282,13 +282,6 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadCatalogueEvents
 {
     [self clearGroups];
-    NSMutableArray *groupsData = [NSMutableArray array];
-    for (NSArray *data in self.groupsData)
-    {
-        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
-        [groupsData addObject:group];
-        [groupsData addObjectsFromArray:data];
-    }
     
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
         {
@@ -371,9 +364,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadCatalogueTournaments
 {
-    // Groups with Tournaments
     [self clearGroups];
-    self.collectionData = [groupsData copy];
     
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
         {
@@ -567,105 +558,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
-- (void)loadEventsWithFilter:(FilterModel *)filter
-{
-    [self loadEventsWithGroup:nil groups:nil paging:nil filter:filter];
-}
-
-- (void)loadEventsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
-{
-    [[ObjectManager sharedManager] eventsWithPaging:paging ? paging : self.paging
-                                             filter:filter
-                                            success:^(NSArray *events)
-                                            {
-                                                if (groups)
-                                                {
-                                                    self.groupsLoaded++;
-                                                    [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
-                                                    if (self.groupsLoaded == self.groupsCount)
-                                                    {
-                                                        [self loadCatalogueEvents];
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    [self combineWithData:events];
-                                                }
-                                            }
-                                            failure:^
-                                            {
-                                                [self finishLoading];
-                                            }
 #pragma mark - My Stakes
-}
-
-- (void)loadGroups
-{
-    self.groupsLoaded = 0;
-    self.groupsCount = 0;
-    self.groups = nil;
-    [self.groupsData removeAllObjects];
-    
-    [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
-        {
-            self.groupsCount = groups.count;
-            self.groups = groups;
-            [self.groupsData addObjectsFromArray:groups];
-            
-            PagingModel *paging = [PagingModel paging];
-            [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
-            [paging firstPage];
-            
-            for (GroupModel *group in groups)
-            {
-                FilterModel *filter = [FilterModel filter];
-                filter.group = group;
-                CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
-                if (![category.tag isEqualToNumber:@0])
-                {
-                    filter.categories = @[category];
-                    if (self.collectionType == CollectionTypeCatalogueTournaments)
-                    {
-                        [self loadTournamentsWithGroup:group groups:groups paging:paging filter:filter];
-                    }
-                    else if (self.collectionType == CollectionTypeTournament)
-                    {
-                        [self loadTournamentEventsWithGroup:group groups:groups paging:paging filter:filter];
-                    }
-                    else
-                    {
-                        [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
-                    }
-                }
-                else
-                {
-                    [CategoryModel includedCategoriesWithSuccess:^(NSArray *includedCategories)
-                        {
-                            filter.categories = includedCategories;
-                            if (self.collectionType == CollectionTypeCatalogueTournaments)
-                            {
-                                [self loadTournamentsWithGroup:group groups:groups paging:paging filter:filter];
-                            }
-                            else if (self.collectionType == CollectionTypeTournament)
-                            {
-                                [self loadTournamentEventsWithGroup:group groups:groups paging:paging filter:filter];
-                            }
-                            else
-                            {
-                                [self loadEventsWithGroup:group groups:groups paging:paging filter:filter];
-                            }
-                        }
-                    ];
-                }
-                    
-            }
-        }
-        failure:^
-        {
-            [self finishLoading];
-        }
-    ];
-}
 
 - (void)loadMyStakes
 {
@@ -843,10 +736,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadTournament
 {
-    // Groups with Events
     [self clearGroups];
-    TournamentModel *tournament = [self objectInArray:self.modifierObjects ofClass:[TournamentModel class]];
-    [groupsWithEvents insertObject:tournament atIndex:0];
     
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
      {
@@ -957,29 +847,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadTournamentEventsWithFilter:(FilterModel *)filter
 {
-    [self loadTournamentEventsWithGroup:nil groups:nil paging:nil filter:filter];
-}
-         
-- (void)loadTournamentEventsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
-{
     [[ObjectManager sharedManager] eventsForTournament:[self modifierOfClass:[TournamentModel class]]
                                                 paging:self.paging
                                                 filter:filter
                                                success:^(NSArray *events)
                                                {
                                                    [self combineWithObjects:events];
-                                                   {
-                                                       self.groupsLoaded++;
-                                                       [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:events];
-                                                       if (self.groupsLoaded == self.groupsCount)
-                                                       {
-                                                           [self loadTournament];
-                                                       }
-                                                   }
-                                                   else
-                                                   {
-                                                       [self combineWithData:events];
-                                                   }
                                                }
                                                failure:^
                                                {
@@ -1017,28 +890,11 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadTournamentsWithFilter:(FilterModel *)filter
 {
-    [self loadTournamentsWithGroup:nil groups:nil paging:nil filter:filter];
-}
-
-- (void)loadTournamentsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
-{   
     [[ObjectManager sharedManager] tournamentsWithPaging:self.paging
                                                   filter:filter
                                                  success:^(NSArray *tournaments)
                                                  {
                                                      [self combineWithObjects:tournaments];
-                                                     {
-                                                         self.groupsLoaded++;
-                                                         [self.groupsData replaceObjectAtIndex:[groups indexOfObjectIdenticalTo:group] withObject:tournaments];
-                                                         if (self.groupsLoaded == self.groupsCount)
-                                                         {
-                                                             [self loadCatalogueTournaments];
-                                                         }
-                                                     }
-                                                     else
-                                                     {
-                                                         [self combineWithData:tournaments];
-                                                     }
                                                  }
                                                  failure:^
                                                  {
@@ -1236,13 +1092,6 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (id)modifierOfClass:(Class)class
 {
     return [self objectInArray:self.modifierObjects ofClass:class];
-    for (NSArray *data in self.groupsData)
-    {
-        GroupModel *group = self.groups[[self.groupsData indexOfObjectIdenticalTo:data]];
-        [groupsWithEvents addObject:group];
-        [groupsWithEvents addObjectsFromArray:data];
-    }
-    return groupsWithEvents;
 }
 
 - (id)objectInArray:(NSArray *)array ofClass:(Class)class
