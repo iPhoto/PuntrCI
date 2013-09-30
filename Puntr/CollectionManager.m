@@ -410,10 +410,14 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
-- (void)loadCatalogueTournamentsWithGroup:(GroupModel *)group groups:(NSArray *)groups paging:(PagingModel *)paging filter:(FilterModel *)filter
+- (void)loadCatalogueTournamentsWithGroup:(GroupModel *)group
+                                   groups:(NSArray *)groups
+                                   paging:(PagingModel *)paging
+                                   filter:(FilterModel *)filter
 {   
     [[ObjectManager sharedManager] tournamentsWithPaging:paging
                                                   filter:filter
+                                                  search:self.search
                                                  success:^(NSArray *tournaments)
                                                  {
                                                      [self anotherGroupLoaded];
@@ -432,7 +436,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)combineCatalogueTournaments
 {
-    NSMutableArray *combinedObjects = [self combinedGroupsWithObjects];
+    NSMutableArray *combinedObjects = [NSMutableArray arrayWithObject:self.search ? : [SearchModel searchWithQuery:nil]];
+    
+    [combinedObjects addObjectsFromArray:[[self combinedGroupsWithObjects] copy]];
     
     self.collectionObjects = [combinedObjects copy];
     
