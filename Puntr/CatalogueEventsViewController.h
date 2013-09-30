@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SearchModel;
+
 @interface CatalogueEventsViewController : UIViewController
+
+@property (nonatomic, strong, readonly) SearchModel *search;
 
 @end

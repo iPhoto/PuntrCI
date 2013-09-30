@@ -12,7 +12,11 @@
 #import "CollectionManagerTypes.h"
 #import "SearchDelegate.h"
 
+@class SearchModel;
+
 @interface CollectionManager : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, LeadCellDelegate, SearchDelegate>
+
+@property (nonatomic, strong, readonly) SearchModel *search;
 
 @property (nonatomic, weak) id <CollectionManagerDelegate> collectionManagerDelegate;
 

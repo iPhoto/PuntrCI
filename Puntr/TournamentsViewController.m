@@ -8,12 +8,14 @@
 
 #import "CollectionManager.h"
 #import "GroupModel.h"
+#import "SearchModel.h"
 #import "TournamentsViewController.h"
 #import "UIViewController+Puntr.h"
 
 @interface TournamentsViewController ()
 
 @property (nonatomic, strong, readonly) GroupModel *group;
+@property (nonatomic, strong, readonly) SearchModel *search;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -21,17 +23,18 @@
 
 @implementation TournamentsViewController
 
-+ (TournamentsViewController *)tournamentsForGroup:(GroupModel *)group
++ (TournamentsViewController *)tournamentsForGroup:(GroupModel *)group search:(SearchModel *)search
 {
-    return [[self alloc] initWithGroup:group];
+    return [[self alloc] initWithGroup:group search:search];
 }
 
-- (id)initWithGroup:(GroupModel *)group
+- (id)initWithGroup:(GroupModel *)group search:(SearchModel *)search
 {
     self = [super init];
     if (self)
     {
         _group = group;
+        _search = search;
     }
     return self;
 }
@@ -45,7 +48,7 @@
     
     [self addBalanceButton];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournaments modifierObjects:@[self.group]];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournaments modifierObjects:self.search ? @[self.group, self.search] : @[self.group]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];
