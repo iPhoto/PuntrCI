@@ -331,6 +331,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     [[ObjectManager sharedManager] eventsWithPaging:paging
                                              filter:filter
+                                             search:self.search
                                             success:^(NSArray *events)
                                             {
                                                 [self anotherGroupLoaded];
@@ -349,7 +350,9 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)combineCatalogueEvents
 {
-    NSMutableArray *combinedObjects = [self combinedGroupsWithObjects];
+    NSMutableArray *combinedObjects = [NSMutableArray arrayWithObject:self.search ? : [SearchModel searchWithQuery:nil]];
+    
+    [combinedObjects addObjectsFromArray:[[self combinedGroupsWithObjects] copy]];
     
     [combinedObjects addObject:[self groupTournaments]];
     
