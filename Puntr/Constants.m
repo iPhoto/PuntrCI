@@ -45,6 +45,7 @@ NSString *const APIUsers = @"users";
 
 #pragma mark - Parameters
 
+NSString *const KeyAccepted = @"accepted";
 NSString *const KeyAccessToken = @"accessToken";
 NSString *const KeyActivities = @"activities";
 NSString *const KeyAmount = @"amount";
@@ -64,6 +65,7 @@ NSString *const KeyComments = @"comments";
 NSString *const KeyComponents = @"components";
 NSString *const KeyCopyright = @"copyright";
 NSString *const KeyCreatedAt = @"createdAt";
+NSString *const KeyCreator = @"creator";
 NSString *const KeyCredentials = @"credentials";
 NSString *const KeyCriteria = @"criteria";
 NSString *const KeyDescription = @"description";
@@ -93,6 +95,7 @@ NSString *const KeyMoney = @"money";
 NSString *const KeyNews = @"news";
 NSString *const KeyOffer = @"offer";
 NSString *const KeyOffset = @"offset";
+NSString *const KeyOpponent = @"opponent";
 NSString *const KeyPaging = @"paging";
 NSString *const KeyParameters = @"parameters";
 NSString *const KeyParticipant = @"participant";
@@ -141,5 +144,6 @@ NSString *const KeyValue = @"value";
 NSString *const KeyVKontakte = @"vk";
 NSString *const KeyWinCount = @"winCount";
 NSString *const KeyWinMoney = @"winMoney";
+NSString *const KeyWinnerTag = @"winnerTag";
 
 @end

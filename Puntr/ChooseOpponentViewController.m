@@ -77,7 +77,7 @@ static const CGFloat avatarWidth = 40;
         _starSelected = [UIImage imageNamed:@"StarSelected"];
         _starUnselected = [UIImage imageNamed:@"StarUnselected"];
         
-        [self setupStars];
+        //[self initStars];
     }
     return self;
 }
@@ -88,7 +88,7 @@ static const CGFloat avatarWidth = 40;
     self.avatar.image = nil;
 }
 
-- (void)setupStars
+- (void)initStars
 {
     CGFloat TNSpacingStar = 2.0f;
     CGSize TNSizeStar = CGSizeMake(14.0f, 13.0f);
@@ -145,10 +145,16 @@ static const CGFloat avatarWidth = 40;
                                  }
                                  failure:nil];
     
+    //[self setupStarsWithRate:user.rating.integerValue];
+    _rate.text = [user.rating stringValue];
+}
+
+- (void)setupStarsWithRate:(NSInteger)rate
+{
     for (NSInteger starIndex = 0; starIndex < MAX_RATE; starIndex++)
     {
         UIImageView *imageViewStar = (UIImageView *)[self viewWithTag:TAG_STAR_BEGIN + starIndex];
-        if (starIndex < user.rating.integerValue)
+        if (starIndex < rate)
         {
             imageViewStar.image = _starSelected;
         }
@@ -157,8 +163,6 @@ static const CGFloat avatarWidth = 40;
             imageViewStar.image = _starUnselected;
         }
     }
-
-    _rate.text = [user.rating stringValue];
 }
 
 @end
@@ -204,6 +208,7 @@ static const CGFloat avatarWidth = 40;
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
     CGFloat navigationBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
     /*
+    // custom header
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:14];

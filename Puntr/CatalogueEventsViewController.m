@@ -68,4 +68,9 @@ static const CGFloat TNHeightCategories = 35.0f;
     [self.categoriesManager reloadData];
 }
 
+- (SearchModel *)search
+{
+    return self.collectionManager.search;
+}
+
 @end

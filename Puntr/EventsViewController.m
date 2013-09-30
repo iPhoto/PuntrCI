@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong, readonly) GroupModel *group;
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
+@property (nonatomic, strong, readonly) SearchModel *search;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -23,18 +24,19 @@
 
 @implementation EventsViewController
 
-+ (EventsViewController *)eventsForGroup:(GroupModel *)group tournament:(TournamentModel *)tournament
++ (EventsViewController *)eventsForGroup:(GroupModel *)group tournament:(TournamentModel *)tournament search:(SearchModel *)search
 {
-    return [[self alloc] initWithGroup:group tournament:tournament];
+    return [[self alloc] initWithGroup:group tournament:tournament search:search];
 }
 
-- (id)initWithGroup:(GroupModel *)group tournament:(TournamentModel *)tournament
+- (id)initWithGroup:(GroupModel *)group tournament:(TournamentModel *)tournament search:(SearchModel *)search
 {
     self = [super init];
     if (self)
     {
         _group = group;
         _tournament = tournament;
+        _search = search;
     }
     return self;
 }
@@ -50,6 +52,13 @@
     
     CollectionType type = self.tournament ? CollectionTypeTournamentEvents : CollectionTypeEvents;
     NSArray *modifierObjects = self.tournament ? @[self.group, self.tournament] : @[self.group];
+    
+    if (self.search)
+    {
+        NSMutableArray *objects = [NSMutableArray arrayWithArray:modifierObjects];
+        [objects addObject:self.search];
+        modifierObjects = [objects copy];
+    }
     
     self.collectionManager = [CollectionManager managerWithType:type modifierObjects:modifierObjects];
     UICollectionView *collectionView = self.collectionManager.collectionView;

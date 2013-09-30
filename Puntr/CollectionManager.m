@@ -60,6 +60,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         _groupObjects = [NSMutableArray array];
         _collectionType = collectionType;
         _modifierObjects = objects;
+        _search = [self objectInArray:objects ofClass:[SearchModel class]];
         [self prepareCollectionView];
     }
     return self;

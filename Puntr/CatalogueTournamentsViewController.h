@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class SearchModel;
+
 @interface CatalogueTournamentsViewController : UIViewController
 
 + (CatalogueTournamentsViewController *)tournaments;
+
+@property (nonatomic, strong, readonly) SearchModel *search;
 
 @end
