@@ -262,8 +262,8 @@ static const CGFloat avatarWidth = 40;
     
     UIEdgeInsets ei = UIEdgeInsetsMake(1, 1, 1, 1);
     
-    UIImage *imageDelimiter = [[UIImage imageNamed:@"DelimiterProfile"] resizableImageWithCapInsets:ei];
-    CGRect delimiterFrame = CGRectMake(0, CGRectGetMaxY(self.opponentsTableView.frame) + 2, self.view.bounds.size.width, 1);
+    UIImage *imageDelimiter = [[UIImage imageNamed:@"delimiter"] resizableImageWithCapInsets:ei];
+    CGRect delimiterFrame = CGRectMake(0, CGRectGetMaxY(self.opponentsTableView.frame) + 2, self.view.bounds.size.width, 2);
     UIImageView *delimiter = [[UIImageView alloc] initWithFrame:delimiterFrame];
     delimiter.image = imageDelimiter;
     [self.view addSubview:delimiter];
