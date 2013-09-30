@@ -70,6 +70,8 @@
 		0FAFC4FD17D09FFA00735D0C /* puntrIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */; };
 		0FAFC50417D5D5A900735D0C /* unsubscribe.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC50217D5D5A900735D0C /* unsubscribe.png */; };
 		0FAFC50517D5D5A900735D0C /* unsubscribe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */; };
+		0FEB2F0917F4630700685FC8 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEB2F0817F4630700685FC8 /* FriendsViewController.m */; };
+		0FEB2F0C17F5961300685FC8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FEB2F0E17F5961300685FC8 /* Localizable.strings */; };
 		1DD68B8017D379C200EBCBC8 /* icon_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7A17D379C200EBCBC8 /* icon_fb.png */; };
 		1DD68B8117D379C200EBCBC8 /* icon_fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7B17D379C200EBCBC8 /* icon_fb@2x.png */; };
 		1DD68B8217D379C200EBCBC8 /* icon_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD68B7C17D379C200EBCBC8 /* icon_tw.png */; };
@@ -476,6 +478,12 @@
 		0FAFC4FC17D09FFA00735D0C /* puntrIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = puntrIcon.png; path = ../puntrIcon.png; sourceTree = "<group>"; };
 		0FAFC50217D5D5A900735D0C /* unsubscribe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unsubscribe.png; sourceTree = "<group>"; };
 		0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unsubscribe@2x.png"; sourceTree = "<group>"; };
+		0FEB2F0717F4630700685FC8 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		0FEB2F0817F4630700685FC8 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		0FEB2F0D17F5961300685FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F0F17F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F1017F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0FEB2F1117F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1DD68B7A17D379C200EBCBC8 /* icon_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_fb.png; sourceTree = "<group>"; };
 		1DD68B7B17D379C200EBCBC8 /* icon_fb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fb@2x.png"; sourceTree = "<group>"; };
@@ -1351,6 +1359,7 @@
 		31E3E7981754E24800B09DAD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0FEB2F0E17F5961300685FC8 /* Localizable.strings */,
 				0FA5FC8717B2374C00352827 /* ThirdParty */,
 				3180CF74178AE4B5001B2DD1 /* Images */,
 				31E3E79A1754E24800B09DAD /* InfoPlist.strings */,
@@ -1433,6 +1442,8 @@
 				765FCDB8178D0CC100A58B81 /* EventViewController.m */,
 				AC34681717CFDA420077418B /* FilterViewController.h */,
 				AC34681817CFDA420077418B /* FilterViewController.m */,
+				0FEB2F0717F4630700685FC8 /* FriendsViewController.h */,
+				0FEB2F0817F4630700685FC8 /* FriendsViewController.m */,
 				31B112A6176B5DAD00060EAB /* MyStakesViewController.h */,
 				31B112A7176B5DAD00060EAB /* MyStakesViewController.m */,
 				31B112A3176B5D6100060EAB /* NewsViewController.h */,
@@ -1719,6 +1730,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = 31E3E7851754E24800B09DAD;
 			productRefGroup = 31E3E78F1754E24800B09DAD /* Products */;
@@ -1947,6 +1959,7 @@
 				0F559FE817D7540400BC9EA0 /* top_active@2x.png in Resources */,
 				0F559FEB17D7541C00BC9EA0 /* middle_active.png in Resources */,
 				0F559FEC17D7541C00BC9EA0 /* middle_active@2x.png in Resources */,
+				0FEB2F0C17F5961300685FC8 /* Localizable.strings in Resources */,
 				0F559FEF17D7543000BC9EA0 /* bottom_active.png in Resources */,
 				0F559FF017D7543000BC9EA0 /* bottom_active@2x.png in Resources */,
 				31E848C517E0A9DB009C943B /* DelimiterProfile.png in Resources */,
@@ -2127,6 +2140,7 @@
 				3180DD9017DE009E008AD97E /* SubscribersViewController.m in Sources */,
 				0F29531617DF4BD10036EE9D /* CopyrightModel.m in Sources */,
 				0F29531917DF5F020036EE9D /* CopyrightViewController.m in Sources */,
+				0FEB2F0917F4630700685FC8 /* FriendsViewController.m in Sources */,
 				0F29531C17E0883F0036EE9D /* StatisticModel.m in Sources */,
 				76EA3E9117DF1D9000450A55 /* SwitchModel.m in Sources */,
 				31E848C917E0C49C009C943B /* UserDetailsModel.m in Sources */,
@@ -2153,10 +2167,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0FEB2F0E17F5961300685FC8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0FEB2F0D17F5961300685FC8 /* en */,
+				0FEB2F0F17F5970600685FC8 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		31E3E79A1754E24800B09DAD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				31E3E79B1754E24800B09DAD /* en */,
+				0FEB2F1017F5970600685FC8 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2165,6 +2189,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				31E3E7B91754E24900B09DAD /* en */,
+				0FEB2F1117F5970600685FC8 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

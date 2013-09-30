@@ -28,7 +28,7 @@ static const CGFloat TNHeightCategories = 35.0f;
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.title = @"Каталог";
+    self.title = NSLocalizedString(@"Catalogue", nil);
     
     [self addBalanceButton];
     [self addFilterButton];

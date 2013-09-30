@@ -51,10 +51,10 @@ static const CGFloat TNItemSpacing = 12.0f;
                                             CGRectGetWidth(applicationFrame),
                                             CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds) - CGRectGetHeight(self.tabBarController.tabBar.bounds)
                                             );
-    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTouched)];
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTouched)];
     self.navigationItem.leftBarButtonItem = buttonCancel;
     
-    UIBarButtonItem *buttonSend = [[UIBarButtonItem alloc] initWithTitle:@"Отправить" style:UIBarButtonItemStyleBordered target:self action:@selector(sendButtonTouched)];
+    UIBarButtonItem *buttonSend = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Send", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(sendButtonTouched)];
     [buttonSend setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     self.navigationItem.rightBarButtonItem = buttonSend;
     

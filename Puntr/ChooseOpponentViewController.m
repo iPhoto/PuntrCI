@@ -125,7 +125,7 @@ static const CGFloat avatarWidth = 40;
 {
     self.someObject = user;
     
-    _name.text = user.username?:@"Hmmm userName";
+    _name.text = user.username?:NSLocalizedString(@"User", nil);
     //_avatar.image = user.avatarData;
     
     __weak COTableViewCell *weakSelf = self;
@@ -198,7 +198,7 @@ static const CGFloat avatarWidth = 40;
     [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
     [[MZFormSheetController appearance] setShouldDismissOnBackgroundViewTap:YES];
     
-    self.title = @"Выберите оппонента";
+    self.title = NSLocalizedString(@"Select opponent", nil);
     
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
@@ -209,7 +209,7 @@ static const CGFloat avatarWidth = 40;
     label.font = [UIFont systemFontOfSize:14];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
-    label.text = @"Выберите оппонента";
+    label.text = NSLocalizedString(@"Select opponent", nil);
     [label setShadowColor:[UIColor darkGrayColor]];
     [label setShadowOffset:CGSizeMake(0, -0.5)];
     [label sizeToFit];
@@ -225,7 +225,7 @@ static const CGFloat avatarWidth = 40;
     UIBarButtonItem *shuffleItem = [[UIBarButtonItem alloc] initWithCustomView:buttonShuffle];
     self.navigationItem.leftBarButtonItem = shuffleItem;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(closeButtonTouched)];
@@ -251,7 +251,7 @@ static const CGFloat avatarWidth = 40;
     CGFloat buttonWidth = (screenWidth - coverMargin * 5.0f) / 2.0f;
     UIButton *buttonPari = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonPari.frame = CGRectMake((screenWidth - buttonWidth) / 2, screenHeight - coverMargin - buttonHeight, buttonWidth, buttonHeight);
-    [buttonPari setTitle:@"Пари" forState:UIControlStateNormal];
+    [buttonPari setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
     buttonPari.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     buttonPari.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     buttonPari.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -262,8 +262,8 @@ static const CGFloat avatarWidth = 40;
     
     UIEdgeInsets ei = UIEdgeInsetsMake(1, 1, 1, 1);
     
-    UIImage *imageDelimiter = [[UIImage imageNamed:@"DelimiterProfile"] resizableImageWithCapInsets:ei];
-    CGRect delimiterFrame = CGRectMake(0, CGRectGetMaxY(self.opponentsTableView.frame) + 2, self.view.bounds.size.width, 1);
+    UIImage *imageDelimiter = [[UIImage imageNamed:@"delimiter"] resizableImageWithCapInsets:ei];
+    CGRect delimiterFrame = CGRectMake(0, CGRectGetMaxY(self.opponentsTableView.frame) + 2, self.view.bounds.size.width, 2);
     UIImageView *delimiter = [[UIImageView alloc] initWithFrame:delimiterFrame];
     delimiter.image = imageDelimiter;
     [self.view addSubview:delimiter];
@@ -390,7 +390,7 @@ static const CGFloat avatarWidth = 40;
                                }];
     }
     else {
-        [NotificationManager showNotificationMessage:@"Выберите оппонента!"]; // чего не показывается то?
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select opponent!", nil)]; // чего не показывается то?
     }
 }
 

@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(13.0f, 215.0f, 142.0f, 40.0f);
-    [self.buttonRegistration setTitle:@"Регистрация" forState:UIControlStateNormal];
+    [self.buttonRegistration setTitle:NSLocalizedString(@"Registration", nil) forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -223,12 +223,16 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)fbButtonTouched
 {
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeFacebook
                                                         success:^(AccessModel *accessModel)
                                                         {
                                                             [self loginWithSocialModel:accessModel];
                                                         }
-                                                        failure:nil
+                                                        failure:^
+                                                        {
+                                                            [SVProgressHUD dismiss];
+                                                        }
      ];
 }
 
@@ -240,7 +244,7 @@ typedef NS_ENUM(NSInteger, Direction)
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter
                                                         success:^(AccessModel *accessModel)
                                                         {
-                                                            [SVProgressHUD dismiss];
+                                                            //[SVProgressHUD dismiss];
                                                             [self loginWithSocialModel:accessModel];
                                                         }
                                                         failure:^
@@ -252,6 +256,7 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)vkButtonTouched
 {
+    //[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte
                                                         success:^(AccessModel *accessModel)
                                                         {
@@ -397,9 +402,11 @@ typedef NS_ENUM(NSInteger, Direction)
     [self bufferData];
     if ([self dataIsValid])
     {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
         [[ObjectManager sharedManager] logInWithAccess:self.credentials success:^(AuthorizationModel *authorization, UserModel *user)
             {
                 TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+                [SVProgressHUD dismiss];
                 [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
                                   duration:0.3f
                                    options:UIViewAnimationOptionTransitionFlipFromRight
@@ -409,15 +416,21 @@ typedef NS_ENUM(NSInteger, Direction)
                                 }
                                 completion:nil];
             }
-            failure:nil];
+            failure:^
+            {
+                [SVProgressHUD dismiss];
+            }
+        ];
     }
 }
 
 - (void)loginWithSocialModel:(AccessModel *)socialModel
 {
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [[ObjectManager sharedManager] logInWithAccess:socialModel success:^(AuthorizationModel *authorization, UserModel *user)
      {
          TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+         [SVProgressHUD dismiss];
          [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
                            duration:0.3f
                             options:UIViewAnimationOptionTransitionFlipFromRight
@@ -427,7 +440,11 @@ typedef NS_ENUM(NSInteger, Direction)
           }
                          completion:nil];
      }
-                                           failure:nil];
+                                           failure:^
+                                           {
+                                               [SVProgressHUD dismiss];
+                                           }
+    ];
 }
 
 - (void)resignAllResponders

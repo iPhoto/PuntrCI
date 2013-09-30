@@ -50,7 +50,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
 //[UIColor colorWithWhite:0.302 alpha:1.000];
     
-    NSString *controllerTitle = @"Поздравляем! \nВы получили новый бейдж!";
+    NSString *controllerTitle = NSLocalizedString(@"Congratulations! You got a new badge!", nil);
     NSString *awardTitle = self.award.title;
     NSString *awardDescripton = self.award.description;
     

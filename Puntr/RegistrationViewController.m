@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "TabBarViewController.h"
 #import "NotificationManager.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface RegistrationViewController ()
 
@@ -332,9 +333,11 @@
     [self bufferData];
     if ([self dataIsValid])
     {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
         [[ObjectManager sharedManager] registerWithUser:self.user success:^(AuthorizationModel *authorization, UserModel *user)
             {
                 TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+                [SVProgressHUD dismiss];
                 [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
                                   duration:0.3f
                                    options:UIViewAnimationOptionTransitionFlipFromRight
@@ -345,7 +348,10 @@
                                 completion:nil
                 ];
             }
-            failure:nil
+                                                failure:^
+                                                {
+                                                    [SVProgressHUD dismiss];
+                                                }
         ];
     }
 }

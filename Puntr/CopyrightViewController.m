@@ -38,12 +38,12 @@ static const CGFloat TNItemSpacing = 12.0f;
     {
         case CopyrightSelectionOffer:
         {
-            self.title = @"Оферта";
+            self.title = NSLocalizedString(@"Offer", nil);
         }
             break;
         case CopyrightSelectionTerms:
         {
-            self.title = @"Условия";
+            self.title = NSLocalizedString(@"Terms", nil);
         }
             break;
             

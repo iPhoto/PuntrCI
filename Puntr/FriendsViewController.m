@@ -1,20 +1,12 @@
 //
-//  SettingsViewController.m
+//  FriendsViewController.m
 //  Puntr
 //
-//  Created by Artem on 8/14/13.
+//  Created by Alexander Lebedev on 9/26/13.
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "EnterViewController.h"
-#import "ChangePasswordViewController.h"
-#import "CopyrightViewController.h"
 #import "FriendsViewController.h"
-#import "ObjectManager.h"
-#import "PrivacySettingsViewController.h"
-#import "SettingsViewController.h"
-#import "StatisticViewController.h"
-#import "UpdateProfileViewController.h"
 #import "UIViewController+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -27,11 +19,11 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 #pragma mark - TableViewCell
 
-@interface SettingsTableViewCell : UITableViewCell
+@interface FriendsTableViewCell : UITableViewCell
 
 @end
 
-@implementation SettingsTableViewCell
+@implementation FriendsTableViewCell
 
 - (void)layoutSubviews
 {
@@ -44,7 +36,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 #pragma mark - ViewController
 
-@interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface FriendsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UITableView *tableViewSettings;
 
@@ -54,7 +46,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 @end
 
-@implementation SettingsViewController
+@implementation FriendsViewController
 
 - (void)viewDidLoad
 {
@@ -65,7 +57,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     [self setupSettingsArray];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.title = @"Настройки";
+    self.title = @"Друзья";
     
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
@@ -109,7 +101,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     NSString *fileNameSimple = [reuseIdFileName stringByAppendingString:@".png"];
     NSString *fileNameSelected = [reuseIdFileName stringByAppendingString:@"_active.png"];
     
-    SettingsTableViewCell *cell = [[SettingsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+    FriendsTableViewCell *cell = [[FriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                                reuseIdentifier:reuseIdFileName];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fileNameSimple]];
     cell.backgroundColor = [UIColor clearColor];
@@ -191,35 +183,16 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)setupSettingsArray
 {
     self.settingsArray = @[
-                             @[
-                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched", @"isAccessory": @(YES) },
-                              ],
-                             @[
-                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"performSelector": @"socialsTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"performSelector": @"friendsTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched", @"isAccessory": @(YES)},
-                                 @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
-                              ],
-                             @[
-                                 @{ @"pictureName": @"9.png", @"title": @"Оферта", @"performSelector": @"offerTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"performSelector": @"termsTouched", @"isAccessory": @(YES) },
-                              ],
-                          ];
+                           @[
+                               @{ @"pictureName": @"icon_vk", @"title": @"ВКонтакте", @"performSelector": @"vkTouched", @"isAccessory": @(YES) },
+                               @{ @"pictureName": @"icon_fb", @"title": @"Facebook", @"performSelector": @"fbTouched", @"isAccessory": @(YES) },
+                               @{ @"pictureName": @"icon_tw", @"title": @"Twitter", @"performSelector": @"twTouched", @"isAccessory": @(YES) },
+                               ],
+                           ];
     
     self.sectionHeadersArray = @[
-                                   @{ @"text": @"Профиль", @"font": TNFontHeader },
-                                   @{ @"text": @"Аккаунт", @"font": TNFontHeader },
-                                   @{ @"text": @"Условия", @"font": TNFontHeader },
-                                ];
-    
-    /*self.sectionFootersArray = @[
-                                   @{ @"text": @"" },
-                                   @{ @"text": @"Установите настройку конфиденциальности в \"Да\", если хотите, чтоб ваши действия были невидимыми всем пользователям, кроме тех, на кого вы подписались. Если другой пользователь захочет подписаться на ваши действия, вы получите запрос", @"font": TNFontFooter },
-                                   @{ @"text": @"" },
-                                ];*/
+                                 @{ @"text": @"Соц. сети", @"font": TNFontHeader }
+                                 ];
 }
 
 - (CGFloat)heightForHeader:(BOOL)isHeader inSection:(NSInteger)section
@@ -275,14 +248,14 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                                                               0.0f,
                                                               settingsWidth,
                                                               TNHeaderFooterTopPadding + headerSize.height + 5.0f
-                                                             )];
+                                                              )];
         
         UILabel *headerViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(
                                                                              TNHeaderFooterSidePadding,
                                                                              TNHeaderFooterTopPadding,
                                                                              settingsWidth - (TNHeaderFooterSidePadding * 2.0f),
                                                                              headerSize.height
-                                                                            )];
+                                                                             )];
         headerViewLabel.text = header;
         headerViewLabel.font = (UIFont *)settings[@"font"];
         headerViewLabel.backgroundColor = [UIColor clearColor];
@@ -293,87 +266,24 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     }
     return headerView;
 }
+
 #pragma mark - Actions
 
-- (void)changePasswordTouched
+- (void)vkTouched
 {
-    [self.navigationController pushViewController:[[ChangePasswordViewController alloc] init] animated:YES];
+    NSLog(@"vk touched");
 }
 
-- (void)friendsTouched
+- (void)fbTouched
 {
-    [self.navigationController pushViewController:[[FriendsViewController alloc] init] animated:YES];
+    NSLog(@"fb touched");
 }
 
-- (void)profileUpdateTouched
+- (void)twTouched
 {
-    [self.navigationController pushViewController:[[UpdateProfileViewController alloc] init] animated:YES];
+    NSLog(@"tw touched");
 }
 
-- (void)statisticTouched
-{
-    [self.navigationController pushViewController:[[StatisticViewController alloc] init] animated:YES];
-}
 
-- (void)privacyTouched
-{
-    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPrivacy] animated:YES];
-}
-
-- (void)pushTouched
-{
-    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionPush] animated:YES];
-}
-
-- (void)socialsTouched
-{
-    [self.navigationController pushViewController:[[PrivacySettingsViewController alloc] initWithDynamicSelection: DynamicSelctionSocials] animated:YES];
-}
-
-- (void)offerTouched
-{
-    [self.navigationController pushViewController:[[CopyrightViewController alloc] initWithCopyrightSelection:CopyrightSelectionOffer] animated:YES];
-}
-
-- (void)termsTouched
-{
-    [self.navigationController pushViewController:[[CopyrightViewController alloc] initWithCopyrightSelection:CopyrightSelectionTerms] animated:YES];
-}
-
-#pragma mark - ActionSheet
-
-- (void)showExitDialog
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Вы уверены?"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Отмена"
-                                               destructiveButtonTitle:@"Выйти"
-                                                    otherButtonTitles:nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (0 == buttonIndex)
-    {
-        [[ObjectManager sharedManager] logOutWithSuccess:^
-            {
-                EnterViewController *enterViewController = [[EnterViewController alloc] init];
-                UINavigationController *enterNavigationController = [[UINavigationController alloc] initWithRootViewController:enterViewController];
-                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                                  duration:0.3f
-                                   options:UIViewAnimationOptionTransitionFlipFromRight
-                                animations:^
-                                {
-                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:enterNavigationController];
-                                }
-                                completion:nil];
-            }
-            failure:nil
-        ];
-    }
-}
 
 @end
