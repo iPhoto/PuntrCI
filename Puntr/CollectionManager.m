@@ -901,9 +901,20 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     [[ObjectManager sharedManager] tournamentsWithPaging:self.paging
                                                   filter:filter
+                                                  search:self.search
                                                  success:^(NSArray *tournaments)
                                                  {
-                                                     [self combineWithObjects:tournaments];
+                                                     if (self.paging.isFirstPage)
+                                                     {
+                                                         SearchModel *search = self.search ? : [SearchModel searchWithQuery:nil];
+                                                         NSArray *stationaryObjects = @[search];
+                                                         self.stationaryObjectsCount = stationaryObjects.count;
+                                                         [self combineStationaryObjects:stationaryObjects withNewObjects:tournaments];
+                                                     }
+                                                     else
+                                                     {
+                                                         [self combineWithObjects:tournaments];
+                                                     }
                                                  }
                                                  failure:^
                                                  {
