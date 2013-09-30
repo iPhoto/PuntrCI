@@ -1407,7 +1407,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                       TNWidthCell,
                                                                       TNHeightSearch
                                                                   )];
-    self.searchBar.placeholder = search.query ? : @"Быстрый поиск...";
+    self.searchBar.placeholder = @"Быстрый поиск...";
+    self.searchBar.text = search.query ? : nil;
     self.searchBar.showsCancelButton = YES;
     self.searchBar.delegate = self;
     [self addSubview:self.searchBar];
