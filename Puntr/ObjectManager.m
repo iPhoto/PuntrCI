@@ -987,6 +987,33 @@
     ];
 }
 
+- (void)tournamentsWithPaging:(PagingModel *)paging
+                       filter:(FilterModel *)filter
+                       search:(SearchModel *)search
+                      success:(Tournaments)success
+                      failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null],
+                                    KeyFilter: filter ? filter.parameters : [NSNull null],
+                                    KeySearch: search ? search.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:APITournaments
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *tournaments = mappingResult.dictionary[KeyTournaments];
+                success(tournaments);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (void)eventsForTournament:(TournamentModel *)tournament
                      paging:(PagingModel *)paging
                      filter:(FilterModel *)filter
