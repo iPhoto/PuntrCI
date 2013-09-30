@@ -1039,13 +1039,22 @@
 
 #pragma mark - User
 
-- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+- (void)profileWithSuccess:(User)success failure:(EmptyFailure)failure
 {
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@", APIUsers, self.user.tag.stringValue]
          parameters:self.authorization.wrappedParameters
-            success:success
-            failure:failure];
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                UserModel *user = (UserModel *)mappingResult.dictionary[KeyUser];
+                self.user = user;
+                success(user);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure

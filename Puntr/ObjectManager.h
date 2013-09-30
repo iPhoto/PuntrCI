@@ -178,7 +178,7 @@ typedef void (^User)(UserModel *user);
 
 #pragma mark - User
 
-- (void)profileWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)profileWithSuccess:(User)success failure:(EmptyFailure)failure;
 
 - (void)updateProfileWithUser:(UserModel *)user success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
