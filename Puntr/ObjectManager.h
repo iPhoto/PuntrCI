@@ -49,6 +49,7 @@ typedef void (^Events)(NSArray *events);
 typedef void (^Groups)(NSArray *groups);
 typedef void (^Money)(MoneyModel *money);
 typedef void (^News)(NSArray *news);
+typedef void (^Participants)(NSArray *participants);
 typedef void (^Privacy)(NSArray *privacy);
 typedef void (^Push)(NSArray *push);
 typedef void (^Stake)(StakeModel *stake);
@@ -71,6 +72,13 @@ typedef void (^Users)(NSArray *users);
 - (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
+
+#pragma mark - Awards
+
+- (void)awardsForUser:(UserModel *)user
+               paging:(PagingModel *)paging
+              success:(Subscriptions)success
+              failure:(EmptyFailure)failure;
 
 #pragma mark - Categories
 
@@ -102,14 +110,22 @@ typedef void (^Users)(NSArray *users);
                  success:(Events)success
                  failure:(EmptyFailure)failure;
 
+#pragma mark - Groups
+
+- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure;
+
+#pragma mark - Participants
+
+- (void)participantsWithPaging:(PagingModel *)paging
+                        filter:(FilterModel *)filter
+                        search:(SearchModel *)search
+                       success:(Participants)success
+                       failure:(EmptyFailure)failure;
+
 - (void)eventsForParticipant:(ParticipantModel *)participant
                       paging:(PagingModel *)paging
                      success:(Events)success
                      failure:(EmptyFailure)failure;
-
-#pragma mark - Groups
-
-- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure;
 
 #pragma mark - Stakes
 
@@ -150,13 +166,6 @@ typedef void (^Users)(NSArray *users);
                       paging:(PagingModel *)paging
                      success:(Subscriptions)success
                      failure:(EmptyFailure)failure;
-
-#pragma mark - Awards
-
-- (void)awardsForUser:(UserModel *)user
-               paging:(PagingModel *)paging
-              success:(Subscriptions)success
-              failure:(EmptyFailure)failure;
 
 #pragma mark - Tournaments
 

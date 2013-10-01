@@ -769,6 +769,54 @@
     ];
 }
 
+#pragma mark - Groups
+
+- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:APIGroups
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *groups = mappingResult.dictionary[KeyGroups];
+                success(groups);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
+#pragma mark - Participants
+
+- (void)participantsWithPaging:(PagingModel *)paging
+                        filter:(FilterModel *)filter
+                        search:(SearchModel *)search
+                       success:(Participants)success
+                       failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null],
+                                     KeyFilter: filter ? filter.parameters : [NSNull null],
+                                     KeySearch: search ? search.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:APIParticipants
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *participants = mappingResult.dictionary[KeyParticipants];
+                success(participants);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
 - (void)eventsForParticipant:(ParticipantModel *)participant
                       paging:(PagingModel *)paging
                      success:(Events)success
@@ -785,25 +833,6 @@
             {
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
-            }
-            failure:^(RKObjectRequestOperation *operation, NSError *error)
-            {
-                [self reportWithFailure:failure error:error];
-            }
-    ];
-}
-
-#pragma mark - Groups
-
-- (void)groupsWithSuccess:(Groups)success failure:(EmptyFailure)failure
-{
-    [self getObject:nil
-               path:APIGroups
-         parameters:self.authorization.wrappedParameters
-            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-            {
-                NSArray *groups = mappingResult.dictionary[KeyGroups];
-                success(groups);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
