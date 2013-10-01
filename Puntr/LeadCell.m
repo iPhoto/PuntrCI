@@ -955,7 +955,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                              TNWidthLabel,
                                              TNHeightText
                                          );
-    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName ? : user.username, user.lastName ? : @""];
     [self addSubview:self.labelUserName];
     
     // Top Position
@@ -971,6 +971,17 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     self.userBackgroundProfile.layer.cornerRadius = TNCornerRadius;
     self.userBackgroundProfile.layer.masksToBounds = YES;
+    
+    BOOL loginedUser = [user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
+    if (!loginedUser)
+    {
+        self.submodel = user;
+        [self displaySubscribedForObject:user];
+        self.labelUserName.frame = CGRectSetWidth(
+                                                     self.labelUserName.frame,
+                                                     CGRectGetWidth(self.labelUserName.frame) - CGRectGetWidth(self.buttonSubscribe.frame) - TNMarginGeneral
+                                                 );
+    }
     
     CGFloat maxY = CGRectGetMaxY(self.userBackgroundProfile.frame);
     
