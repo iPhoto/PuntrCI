@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypeSubscriptions,
     CollectionTypeTournament,
     CollectionTypeTournamentEvents,
-    CollectionTypeTournaments
+    CollectionTypeTournaments,
+    CollectionTypeUsers
 };
 
 #endif
