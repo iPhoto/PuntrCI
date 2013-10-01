@@ -37,6 +37,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) NSArray *groups;
 @property (nonatomic, strong) NSMutableArray *groupObjects;
 @property (nonatomic, strong) NSArray *catalogueEventsTournaments;
+@property (nonatomic, strong) NSArray *catalogueEventsUsers;
 
 @property (nonatomic) NSUInteger stationaryObjectsCount;
 
@@ -288,17 +289,23 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
         {
             [self loadGroups:groups];
-            [self addHardcodedGroupsWithQuantity:1];
+            [self addHardcodedGroupsWithQuantity:2];
             
             PagingModel *paging = [PagingModel paging];
             [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
             [paging firstPage];
+            
+            // Users
+            
+            [self loadCatalogueEventsUsersWithPaging:paging];
             
             FilterModel *filter = [FilterModel filter];
             
             CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
             
             NSNumber *TNCategoryAll = @0;
+            
+            // Tournaments
             
             if (![category.tag isEqualToNumber:TNCategoryAll])
             {
@@ -314,6 +321,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                     }
                 ];
             }
+            
+            // Events
             
             for (GroupModel *group in groups)
             {
@@ -367,6 +376,26 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
+- (void)loadCatalogueEventsUsersWithPaging:(PagingModel *)paging
+{
+    [[ObjectManager sharedManager] usersWithPaging:paging
+                                            search:self.search
+                                           success:^(NSArray *users)
+                                           {
+                                               [self anotherGroupLoaded];
+                                               self.catalogueEventsUsers = users;
+                                               if ([self allGroupsLoaded])
+                                               {
+                                                   [self combineCatalogueEvents];
+                                               }
+                                           }
+                                           failure:^
+                                           {
+                                               [self finishLoading];
+                                           }
+    ];
+}
+
 - (void)loadCatalogueEventsTournamentsWithPaging:(PagingModel *)paging filter:(FilterModel *)filter
 {
     [[ObjectManager sharedManager] tournamentsWithPaging:paging
@@ -397,6 +426,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [combinedObjects addObject:[self groupTournaments]];
     
     [combinedObjects addObjectsFromArray:self.catalogueEventsTournaments];
+    
+    [combinedObjects addObject:[self groupUsers]];
+    
+    [combinedObjects addObjectsFromArray:self.catalogueEventsUsers];
     
     self.collectionObjects = [combinedObjects copy];
 
@@ -1167,6 +1200,15 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     groupTournaments.title = @"Турниры";
     groupTournaments.imageHardcode = [UIImage imageNamed:@"sectionTournaments"];
     return groupTournaments;
+}
+
+- (GroupModel *)groupUsers
+{
+    GroupModel *groupUsers = [GroupModel group];
+    groupUsers.slug = KeyUsers;
+    groupUsers.title = @"Пользователи";
+    groupUsers.imageHardcode = [UIImage imageNamed:@"IconExperts"];
+    return groupUsers;
 }
 
 #pragma mark - Utility
