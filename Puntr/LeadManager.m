@@ -39,29 +39,29 @@
     else if ([model isMemberOfClass:[GroupModel class]])
     {
         GroupModel *group = (GroupModel *)model;
-        if ([group.slug isEqualToString:KeyTournaments] && ![self isVisible:[CatalogueTournamentsViewController class]])
+        if ([self isVisible:[CatalogueEventsViewController class]] && [group.slug isEqualToString:KeyTournaments])
         {
-            [[PuntrUtilities mainNavigationController] pushViewController:[CatalogueTournamentsViewController tournaments] animated:YES];
+            CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueEventsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[CatalogueTournamentsViewController tournamentsWithSearch:search] animated:YES];
         }
-        else
+        else if ([self isVisible:[CatalogueEventsViewController class]])
         {
-            if ([self isVisible:[CatalogueEventsViewController class]] && ![self isVisible:[EventsViewController class]])
-            {
-                CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
-                SearchModel *search = catalogueEventsViewController.search;
-                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:nil search:search] animated:YES];
-            }
-            else if ([self isVisible:[CatalogueTournamentsViewController class]] && ![self isVisible:[TournamentsViewController class]])
-            {
-                CatalogueTournamentsViewController *catalogueTournamentsViewController = (CatalogueTournamentsViewController *)[PuntrUtilities topController];
-                SearchModel *search = catalogueTournamentsViewController.search;
-                [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournamentsForGroup:(GroupModel *)model search:search] animated:YES];
-            }
-            else if ([self isVisible:[TournamentViewController class]] && ![self isVisible:[EventsViewController class]])
-            {
-                TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
-                [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:tournamentViewController.tournament search:nil] animated:YES];
-            }
+            CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueEventsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:nil search:search] animated:YES];
+        }
+        else if ([self isVisible:[CatalogueTournamentsViewController class]])
+        {
+            CatalogueTournamentsViewController *catalogueTournamentsViewController = (CatalogueTournamentsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueTournamentsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentsViewController tournamentsForGroup:(GroupModel *)model search:search] animated:YES];
+        }
+        else if ([self isVisible:[TournamentViewController class]])
+        {
+            TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
+            SearchModel *search = tournamentViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[EventsViewController eventsForGroup:(GroupModel *)model tournament:tournamentViewController.tournament search:search] animated:YES];
         }
     }
     else if ([model isMemberOfClass:[ParticipantModel class]])
@@ -116,9 +116,48 @@
     }
     else if ([model isMemberOfClass:[TournamentModel class]])
     {
-        if (![self isVisible:[TournamentViewController class]])
+        if (![self isVisible:[TournamentsViewController class]] &&
+            ![self isVisible:[CatalogueTournamentsViewController class]] &&
+            ![self isVisible:[TournamentViewController class]] &&
+            ![self isVisible:[CatalogueEventsViewController class]] &&
+            ![self isVisible:[EventsViewController class]])
         {
-            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model] animated:YES];
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:nil] animated:YES];
+        }
+        else if ([self isVisible:[TournamentsViewController class]])
+        {
+            TournamentsViewController *tournamentsViewController = (TournamentsViewController *)[PuntrUtilities topController];
+            SearchModel *search = tournamentsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
+        }
+        else if ([self isVisible:[CatalogueTournamentsViewController class]])
+        {
+            CatalogueTournamentsViewController *catalogueTournamentsViewController = (CatalogueTournamentsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueTournamentsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
+        }
+        else if ([self isVisible:[TournamentViewController class]])
+        {
+            TournamentViewController *tournamentViewController = (TournamentViewController *)[PuntrUtilities topController];
+            SearchModel *search = tournamentViewController.search;
+            
+            TournamentModel *tournament = (TournamentModel *)model;
+            if (![tournamentViewController.tournament.tag isEqualToNumber:tournament.tag])
+            {
+                [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
+            }
+        }
+        else if ([self isVisible:[CatalogueEventsViewController class]])
+        {
+            CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueEventsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
+        }
+        else if ([self isVisible:[EventsViewController class]])
+        {
+            EventsViewController *eventsViewController = (EventsViewController *)[PuntrUtilities topController];
+            SearchModel *search = eventsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
         }
     }
 }

@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class TournamentModel;
+@class SearchModel, TournamentModel;
 
 @interface TournamentViewController : UIViewController
 
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
+@property (nonatomic, strong, readonly) SearchModel *search;
 
-+ (TournamentViewController *)controllerForTournament:(TournamentModel *)tournament;
++ (TournamentViewController *)controllerForTournament:(TournamentModel *)tournament search:(SearchModel *)search;
 
 @end

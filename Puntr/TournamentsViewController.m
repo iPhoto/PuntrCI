@@ -15,7 +15,7 @@
 @interface TournamentsViewController ()
 
 @property (nonatomic, strong, readonly) GroupModel *group;
-@property (nonatomic, strong, readonly) SearchModel *search;
+@property (nonatomic, strong, readonly) SearchModel *searchParent;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -34,7 +34,7 @@
     if (self)
     {
         _group = group;
-        _search = search;
+        _searchParent = search;
     }
     return self;
 }
@@ -48,7 +48,7 @@
     
     [self addBalanceButton];
     
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournaments modifierObjects:self.search ? @[self.group, self.search] : @[self.group]];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournaments modifierObjects:self.searchParent ? @[self.group, self.searchParent] : @[self.group]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
     [self.view addSubview:collectionView];
@@ -59,6 +59,11 @@
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
+}
+
+- (SearchModel *)search
+{
+    return self.collectionManager.search;
 }
 
 @end

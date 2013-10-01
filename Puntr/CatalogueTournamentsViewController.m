@@ -16,6 +16,8 @@ static const CGFloat TNHeightCategories = 35.0f;
 
 @interface CatalogueTournamentsViewController ()
 
+@property (nonatomic, strong, readonly) SearchModel *searchParent;
+
 @property (nonatomic, strong) CategoriesManager *categoriesManager;
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -23,9 +25,19 @@ static const CGFloat TNHeightCategories = 35.0f;
 
 @implementation CatalogueTournamentsViewController
 
-+ (CatalogueTournamentsViewController *)tournaments
++ (CatalogueTournamentsViewController *)tournamentsWithSearch:(SearchModel *)search
 {
-    return [[self alloc] init];
+    return [[self alloc] initWithSearch:search];
+}
+
+- (id)initWithSearch:(SearchModel *)search
+{
+    self = [super init];
+    if (self)
+    {
+        _searchParent = search;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -49,7 +61,7 @@ static const CGFloat TNHeightCategories = 35.0f;
     [self.view addSubview:collectionViewCategories];
     
     // Groups & Tournaments
-    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueTournaments modifierObjects:nil];
+    self.collectionManager = [CollectionManager managerWithType:CollectionTypeCatalogueTournaments modifierObjects:self.searchParent ? @[self.searchParent] : nil];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = CGRectMake(
                                          0.0f,

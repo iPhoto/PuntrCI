@@ -15,8 +15,8 @@
 @interface EventsViewController ()
 
 @property (nonatomic, strong, readonly) GroupModel *group;
+@property (nonatomic, strong, readonly) SearchModel *searchParent;
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
-@property (nonatomic, strong, readonly) SearchModel *search;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 
@@ -36,7 +36,7 @@
     {
         _group = group;
         _tournament = tournament;
-        _search = search;
+        _searchParent = search;
     }
     return self;
 }
@@ -53,10 +53,10 @@
     CollectionType type = self.tournament ? CollectionTypeTournamentEvents : CollectionTypeEvents;
     NSArray *modifierObjects = self.tournament ? @[self.group, self.tournament] : @[self.group];
     
-    if (self.search)
+    if (self.searchParent)
     {
         NSMutableArray *objects = [NSMutableArray arrayWithArray:modifierObjects];
-        [objects addObject:self.search];
+        [objects addObject:self.searchParent];
         modifierObjects = [objects copy];
     }
     
@@ -71,6 +71,11 @@
     [super viewDidAppear:animated];
     [self updateBalance];
     [self.collectionManager reloadData];
+}
+
+- (SearchModel *)search
+{
+    return self.collectionManager.search;
 }
 
 @end

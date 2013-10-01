@@ -12,8 +12,8 @@
 
 @interface CatalogueTournamentsViewController : UIViewController
 
-+ (CatalogueTournamentsViewController *)tournaments;
-
 @property (nonatomic, strong, readonly) SearchModel *search;
+
++ (CatalogueTournamentsViewController *)tournamentsWithSearch:(SearchModel *)search;
 
 @end

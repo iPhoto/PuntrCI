@@ -12,6 +12,8 @@
 
 @interface TournamentsViewController : UIViewController
 
+@property (nonatomic, strong, readonly) SearchModel *search;
+
 + (TournamentsViewController *)tournamentsForGroup:(GroupModel *)group search:(SearchModel *)search;
 
 @end

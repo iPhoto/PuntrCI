@@ -992,13 +992,15 @@
 - (void)eventsForTournament:(TournamentModel *)tournament
                      paging:(PagingModel *)paging
                      filter:(FilterModel *)filter
+                     search:(SearchModel *)search
                     success:(Events)success
                     failure:(EmptyFailure)failure
 {
     NSDictionary *parameters = @{
                                      KeyAuthorization: self.authorization.parameters,
                                      KeyPaging: paging ? paging.parameters : [NSNull null],
-                                     KeyFilter: filter ? filter.parameters : [NSNull null]
+                                     KeyFilter: filter ? filter.parameters : [NSNull null],
+                                     KeySearch: search ? search.parameters : [NSNull null]
                                 };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APITournaments, tournament.tag.stringValue, APIEvents]

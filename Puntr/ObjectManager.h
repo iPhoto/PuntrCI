@@ -168,6 +168,7 @@ typedef void (^User)(UserModel *user);
 - (void)eventsForTournament:(TournamentModel *)tournament
                      paging:(PagingModel *)paging
                      filter:(FilterModel *)filter
+                     search:(SearchModel *)search
                     success:(Events)success
                     failure:(EmptyFailure)failure;
 
