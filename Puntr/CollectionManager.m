@@ -206,6 +206,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 [self loadTournaments];
                 break;
                 
+            case CollectionTypeUsers:
+                [self loadUsers];
+                break;
+                
             default:
                 break;
         }
@@ -1010,6 +1014,33 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                  {
                                                      [self finishLoading];
                                                  }
+    ];
+}
+
+#pragma mark - Users
+
+- (void)loadUsers
+{
+    [[ObjectManager sharedManager] usersWithPaging:self.paging
+                                            search:self.search
+                                           success:^(NSArray *users)
+                                           {
+                                               if (self.paging.isFirstPage)
+                                               {
+                                                   SearchModel *search = self.search ? : [SearchModel searchWithQuery:nil];
+                                                   NSArray *stationaryObjects = @[search];
+                                                   self.stationaryObjectsCount = stationaryObjects.count;
+                                                   [self combineStationaryObjects:stationaryObjects withNewObjects:users];
+                                               }
+                                               else
+                                               {
+                                                   [self combineWithObjects:users];
+                                               }
+                                           }
+                                           failure:^
+                                           {
+                                               [self finishLoading];
+                                           }
     ];
 }
 
