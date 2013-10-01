@@ -269,6 +269,11 @@
     
     // Participant
     [participantMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyLogo, KeySubscribersCount, KeySubscribed]];
+    RKResponseDescriptor *participantCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:participantMapping
+                                                                                                                 method:RKRequestMethodGET
+                                                                                                            pathPattern:APIParticipants
+                                                                                                                keyPath:KeyParticipants
+                                                                                                            statusCodes:statusCodeOK];
     
     // Privacy
     [privacyMapping addAttributeMappingsFromArray:@[KeySlug, KeyStatus, KeyTitle, KeyDescription]];
@@ -423,6 +428,7 @@
             groupCollectionResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
+            participantCollectionResponseDescriptor,
             privacyCollectionResponseDescriptor,
             pushCollectionResponseDescriptor,
             stakeEventsCollectionResponseDescriptor,
