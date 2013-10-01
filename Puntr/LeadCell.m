@@ -872,7 +872,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         self.user = subscription.user;
         self.submodel = subscription.user;
-        [self displaySubscribedForObject:self.submodel];
+        BOOL loginedUser = [self.user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
+        if (!loginedUser)
+        {
+            [self displaySubscribedForObject:self.submodel];
+        }
         [self displayUser:self.submodel message:nil final:YES];
     }
 }
