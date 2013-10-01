@@ -749,7 +749,8 @@
             {
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
-            } failure:^(RKObjectRequestOperation *operation, NSError *error)
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
                 [self reportWithFailure:failure error:error];
             }
@@ -1032,6 +1033,31 @@
 }
 
 #pragma mark - User
+
+- (void)usersWithPaging:(PagingModel *)paging
+                 search:(SearchModel *)search
+                success:(Users)success
+                failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null],
+                                     KeySearch: search ? search.parameters : [NSNull null]
+                                };
+    [self getObject:nil
+               path:APIUsers
+         parameters:parameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *users = mappingResult.dictionary[KeyUsers];
+                success(users);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
 
 - (void)profileWithSuccess:(User)success failure:(EmptyFailure)failure
 {

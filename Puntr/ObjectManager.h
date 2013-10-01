@@ -58,6 +58,7 @@ typedef void (^Subscriptions)(NSArray *subscriptions);
 typedef void (^Tag)(NSNumber *tag);
 typedef void (^Tournaments)(NSArray *tournaments);
 typedef void (^User)(UserModel *user);
+typedef void (^Users)(NSArray *users);
 
 @interface ObjectManager : RKObjectManager
 
@@ -173,6 +174,11 @@ typedef void (^User)(UserModel *user);
                     failure:(EmptyFailure)failure;
 
 #pragma mark - User
+
+- (void)usersWithPaging:(PagingModel *)paging
+                 search:(SearchModel *)search
+                success:(Users)success
+                failure:(EmptyFailure)failure;
 
 - (void)profileWithSuccess:(User)success failure:(EmptyFailure)failure;
 
