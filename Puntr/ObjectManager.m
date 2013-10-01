@@ -360,6 +360,11 @@
     [userMapping addPropertyMapping:userStatisticsRelationship];
     RKRelationshipMapping *userSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
     [userMapping addPropertyMapping:userSocialsRelationship];
+    RKResponseDescriptor *userCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
+                                                                                                          method:RKRequestMethodGET
+                                                                                                     pathPattern:APIUsers
+                                                                                                         keyPath:KeyUsers
+                                                                                                     statusCodes:statusCodeOK];
     RKResponseDescriptor *userResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
                                                                                                 method:RKRequestMethodGET
                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
@@ -387,7 +392,7 @@
                                                                                                   statusCodes:statusCodeNoContent];
     
     
-    // User
+    // User 
     [userSocialMapping addAttributeMappingsFromArray:@[KeyTag, KeyUsername, KeyAvatar, KeySocialType]];
     RKRelationshipMapping *userSocialSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
     [userSocialMapping addPropertyMapping:userSocialSocialsRelationship];
@@ -428,6 +433,7 @@
             subscriptionCreateAndDeleteResponseDescriptor,
             tournamentCollectionResponseDescriptor,
             userAuthorizationCreateResponseDescriptor,
+            userCollectionResponseDescriptor,
             userCreateResponseDescriptor,
             userPassordResponseDescriptor,
             userResponseDescriptor,
