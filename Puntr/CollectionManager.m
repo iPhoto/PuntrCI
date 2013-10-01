@@ -99,6 +99,8 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     self.collectionObjects = nil;
     self.paging = nil;
+    self.catalogueEventsTournaments = nil;
+    self.catalogueEventsUsers = nil;
     [self loadData];
 }
 
@@ -427,13 +429,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     
     [combinedObjects addObjectsFromArray:[[self combinedGroupsWithObjects] copy]];
     
-    [combinedObjects addObject:[self groupTournaments]];
+    if (self.catalogueEventsTournaments.count != 0)
+    {
+        [combinedObjects addObject:[self groupTournaments]];
+        [combinedObjects addObjectsFromArray:self.catalogueEventsTournaments];
+    }
     
-    [combinedObjects addObjectsFromArray:self.catalogueEventsTournaments];
-    
-    [combinedObjects addObject:[self groupUsers]];
-    
-    [combinedObjects addObjectsFromArray:self.catalogueEventsUsers];
+    if (self.catalogueEventsUsers.count != 0)
+    {
+        [combinedObjects addObject:[self groupUsers]];
+        [combinedObjects addObjectsFromArray:self.catalogueEventsUsers];
+    }
     
     self.collectionObjects = [combinedObjects copy];
 
@@ -1217,6 +1223,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     NSMutableArray *combinedObjects = [NSMutableArray array];
     for (NSArray *objects in self.groupObjects)
     {
+        if (objects.count == 0)
+        {
+            continue;
+        }
         GroupModel *group = [self groupOfObjects:objects];
         [combinedObjects addObject:group];
         [combinedObjects addObjectsFromArray:objects];
