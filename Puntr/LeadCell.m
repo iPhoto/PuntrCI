@@ -374,7 +374,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else if ([model isMemberOfClass:[UserModel class]])
     {
         self.user = (UserModel *)model;
-        [self loadWithProfile:self.user];
+        if ([PuntrUtilities isProfileVisible])
+        {
+            [self loadWithProfile:self.user];
+        }
+        else
+        {
+            [self loadWithUser:self.user];
+        }
     }
 }
 
@@ -572,11 +579,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     self.userBackgroundProfile = [[UIView alloc] init];
     self.userBackgroundProfile.frame = CGRectMake(
-                                          0.0f,
-                                          0.0f,
-                                          TNWidthCell,
-                                          TNSideImageLarge + TNMarginGeneral + 2.0f + TNHeightBackgroundButtons
-                                      );
+                                                     0.0f,
+                                                     0.0f,
+                                                     TNWidthCell,
+                                                     TNSideImageLarge + TNMarginGeneral * 2.0f + TNHeightBackgroundButtons
+                                                 );
     self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.userBackgroundProfile];
     
@@ -902,6 +909,74 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self displayCategory:tournament.category];
     [self displayTournament:tournament arrow:NO final:NO];
     [self displayStartTime:tournament.startTime endTime:tournament.endTime stakesCount:tournament.stakesCount final:YES];
+}
+
+- (void)loadWithUser:(UserModel *)user
+{
+    CGFloat avatarWidth = 0.0f;
+    
+    // Background User
+    
+    self.userBackgroundProfile = [[UIView alloc] init];
+    self.userBackgroundProfile.frame = CGRectMake(
+                                                     0.0f,
+                                                     0.0f,
+                                                     TNWidthCell,
+                                                     TNSideImageLarge + TNMarginGeneral * 2.0f
+                                                 );
+    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.userBackgroundProfile];
+    
+    // Avatar
+    if (user.avatar)
+    {
+        self.imageViewUserAvatar = [[UIImageView alloc] init];
+        self.imageViewUserAvatar.frame = CGRectMake(
+                                                       TNMarginGeneral,
+                                                       TNMarginGeneral,
+                                                       TNSideImageLarge,
+                                                       TNSideImageLarge
+                                                   );
+        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
+        [self addSubview:self.imageViewUserAvatar];
+        
+        avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
+    }
+    
+    CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
+    
+    // Name
+    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName.frame = CGRectMake(
+                                             avatarWidth + TNMarginGeneral,
+                                             TNMarginGeneral,
+                                             TNWidthLabel,
+                                             TNHeightText
+                                         );
+    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    [self addSubview:self.labelUserName];
+    
+    // Top Position
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserTopPosition.frame = CGRectMake(
+                                                    avatarWidth + TNMarginGeneral,
+                                                    CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
+                                                    TNWidthLabel,
+                                                    TNHeightText
+                                                );
+    self.labelUserTopPosition.text = [NSString stringWithFormat:@"ROI: %@", user.rating.stringValue];
+    [self addSubview:self.labelUserTopPosition];
+    
+    self.userBackgroundProfile.layer.cornerRadius = TNCornerRadius;
+    self.userBackgroundProfile.layer.masksToBounds = YES;
+    
+    CGFloat maxY = CGRectGetMaxY(self.userBackgroundProfile.frame);
+    
+    [self placeButtonForObject:user maxY:maxY];
+    
+    self.usedHeight = maxY - TNMarginGeneral;
 }
 
 #pragma mark - Lead Components

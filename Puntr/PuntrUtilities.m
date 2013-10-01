@@ -7,6 +7,7 @@
 //
 
 #import "PuntrUtilities.h"
+#import "UserViewController.h"
 #import <CoreImage/CoreImage.h>
 
 @implementation PuntrUtilities
@@ -41,6 +42,11 @@
         topController = [(UINavigationController *)topController visibleViewController];
     }
     return topController;
+}
+
++ (BOOL)isProfileVisible
+{
+    return [[self topController] isMemberOfClass:[UserViewController class]] ? : NO;
 }
 
 @end

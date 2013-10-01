@@ -14,4 +14,6 @@
 
 + (UIViewController *)topController;
 
++ (BOOL)isProfileVisible;
+
 @end
