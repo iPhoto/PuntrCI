@@ -139,6 +139,7 @@ FOUNDATION_EXPORT NSString *const KeyTournaments;
 FOUNDATION_EXPORT NSString *const KeyTwitter;
 FOUNDATION_EXPORT NSString *const KeyType;
 FOUNDATION_EXPORT NSString *const KeyUser;
+FOUNDATION_EXPORT NSString *const KeyUsers;
 FOUNDATION_EXPORT NSString *const KeyUsername;
 FOUNDATION_EXPORT NSString *const KeyValue;
 FOUNDATION_EXPORT NSString *const KeyVKontakte;

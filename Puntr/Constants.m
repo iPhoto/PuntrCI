@@ -139,6 +139,7 @@ NSString *const KeyTournaments = @"tournaments";
 NSString *const KeyTwitter = @"twitter";
 NSString *const KeyType = @"type";
 NSString *const KeyUser = @"user";
+NSString *const KeyUsers = @"users";
 NSString *const KeyUsername = @"username";
 NSString *const KeyValue = @"value";
 NSString *const KeyVKontakte = @"vk";
