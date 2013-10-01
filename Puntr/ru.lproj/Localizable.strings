@@ -6,9 +6,11 @@
   Copyright (c) 2013 2Nova Interactive. All rights reserved.
 */
 
+"Activities" = "Активность";
 "All" = "Все";
 "Award didn't get yet!" = "Награда еще не получена!";
 "Awards" = "Награды";
+"Awards number" = "Наград";
 "Bet" = "Пари";
 "Bets" = "Пари";
 "Cancel" = "Отмена";
@@ -30,30 +32,38 @@
 "Enter password" = "Введите пароль";
 "Event" = "Событие";
 "Facebook not" = "Вы не подключили пока Facebook! Войдите через Facebook, чтобы иметь возможность пригласить друзей!";
+"Fans" = "Болельщиков";
 "Filter" = "Фильтр";
+"Friends" = "Друзья";
 "Login" = "Вход";
 "Login with Facebook" = "Войти через Facebook";
 "Login with Twitter" = "Войти через Twitter";
 "Login with VKontakte" = "Войти через ВКонтакте";
 "New password..." = "Новый пароль...";
 "Next" = "Далее";
+"Odds" = "Коэффициент";
 "Offer" = "Оферта";
 "Old password..." = "Старый пароль...";
 "Password" = "Пароль";
 "Password..." = "Пароль...";
 "The password was successfully changed!" = "Пароль успешно изменен!";
+"Quick search..." = "Быстрый поиск...";
 "Registration" = "Регистрация";
 "Select opponent" = "Выберите оппонента";
 "Select opponent!" = "Выберите оппонента!";
 "Send" = "Отправить";
+"Social networks" = "Социальные сети";
 "Stake" = "Ставить";
 "Stakes" = "Ставки";
 "Subscribe" = "Подписаться";
+"Subscribers" = "Подписчиков";
+"Subscriptions" = "Подписок";
 "Terms" = "Условия";
 "Tournaments" = "Турниры";
 "Uncheck all" = "Снять все";
 "Unsubscribe" = "Отписаться";
 "User" = "Пользователь";
 "Users" = "Пользователи";
+"VKontakte" = "ВКонтакте";
 "You subscribed for the event!" = "Вы подписались на событие!";
 "You unsubscribed from the event!" = "Вы отписались от события!";
