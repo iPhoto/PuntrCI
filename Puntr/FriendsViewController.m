@@ -8,8 +8,12 @@
 
 #import "FriendsViewController.h"
 #import "UIViewController+Puntr.h"
-#import <QuartzCore/QuartzCore.h>
 
+#import "ObjectManager.h"
+#import "Models.h"
+#import "NotificationManager.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 #define TNFontHeader [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
 #define TNFontFooter [UIFont boldSystemFontOfSize:11.0f]
@@ -276,7 +280,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)fbTouched
 {
-    NSLog(@"fb touched");
+    UserModel *user =  [ObjectManager sharedManager].loginedUser;
+    if (![user.socials.facebook boolValue]) {
+        [NotificationManager showNotificationMessage: NSLocalizedString(@"Facebook not", nil)];
+        return;
+    }
+
 }
 
 - (void)twTouched

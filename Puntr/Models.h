@@ -49,6 +49,7 @@
 #import "TwitterModel.h"
 #import "UserDetailsModel.h"
 #import "UserModel.h"
+#import "UserSocialModel.h"
 #import "VKontakteModel.h"
 
 #endif

@@ -321,6 +321,7 @@
 		AC34683417D00F710077418B /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682817D00F710077418B /* unchecked.png */; };
 		AC34683517D00F710077418B /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC34682917D00F710077418B /* unchecked@2x.png */; };
 		AC3F6BBE17F36CE60045E458 /* BetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3F6BBD17F36CE60045E458 /* BetViewController.m */; };
+		AC43F7CD17FA1B7500D0E813 /* BetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC43F7CC17FA1B7500D0E813 /* BetModel.m */; };
 		AC6D0E8E17EF9C63007923D8 /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6D0E8D17EF99FB007923D8 /* gradient.png */; };
 		AC7F956417D929CE000F3078 /* ChooseOpponentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */; };
 		AC7F956717D93566000F3078 /* IconShuffle.png in Resources */ = {isa = PBXBuildFile; fileRef = AC7F956517D93566000F3078 /* IconShuffle.png */; };
@@ -358,6 +359,7 @@
 		D6B4514C17DE766C002ECADC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514B17DE766C002ECADC /* QuartzCore.framework */; };
 		D6B4514E17DE7694002ECADC /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B4514D17DE7694002ECADC /* Accelerate.framework */; };
 		D6B61B6E17CEA5AB00E17AF4 /* AwardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */; };
+		D6B819B217FA235F00070B27 /* UserSocialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B819B117FA235F00070B27 /* UserSocialModel.m */; };
 		D6D4563417F0F982003B31F8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4562E17F0F463003B31F8 /* OpenGLES.framework */; };
 		D6D4563617F0FA08003B31F8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563517F0FA08003B31F8 /* AVFoundation.framework */; };
 		D6D4563817F0FA16003B31F8 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D4563717F0FA16003B31F8 /* CoreMedia.framework */; };
@@ -480,8 +482,8 @@
 		0FAFC50317D5D5A900735D0C /* unsubscribe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unsubscribe@2x.png"; sourceTree = "<group>"; };
 		0FEB2F0717F4630700685FC8 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
 		0FEB2F0817F4630700685FC8 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
-		0FEB2F0D17F5961300685FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0FEB2F0F17F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F0D17F5961300685FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0FEB2F0F17F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0FEB2F1017F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FEB2F1117F5970600685FC8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		16732AE590B6482B8D26A179 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -810,6 +812,8 @@
 		AC34682917D00F710077418B /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		AC3F6BBC17F36CE60045E458 /* BetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetViewController.h; sourceTree = "<group>"; };
 		AC3F6BBD17F36CE60045E458 /* BetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetViewController.m; sourceTree = "<group>"; };
+		AC43F7CB17FA1B7500D0E813 /* BetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetModel.h; sourceTree = "<group>"; };
+		AC43F7CC17FA1B7500D0E813 /* BetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetModel.m; sourceTree = "<group>"; };
 		AC6D0E8D17EF99FB007923D8 /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
 		AC7F956217D929CE000F3078 /* ChooseOpponentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseOpponentViewController.h; sourceTree = "<group>"; };
 		AC7F956317D929CE000F3078 /* ChooseOpponentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseOpponentViewController.m; sourceTree = "<group>"; };
@@ -857,6 +861,8 @@
 		D6B4514D17DE7694002ECADC /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardModel.h; sourceTree = "<group>"; };
 		D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardModel.m; sourceTree = "<group>"; };
+		D6B819B017FA235F00070B27 /* UserSocialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSocialModel.h; sourceTree = "<group>"; };
+		D6B819B117FA235F00070B27 /* UserSocialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSocialModel.m; sourceTree = "<group>"; };
 		D6D4562E17F0F463003B31F8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D6D4563017F0F512003B31F8 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D6D4563217F0F77A003B31F8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -1541,6 +1547,8 @@
 				31F47E28177351FE0047ECCF /* AuthorizationModel.m */,
 				D6B61B6C17CEA5AB00E17AF4 /* AwardModel.h */,
 				D6B61B6D17CEA5AB00E17AF4 /* AwardModel.m */,
+				AC43F7CB17FA1B7500D0E813 /* BetModel.h */,
+				AC43F7CC17FA1B7500D0E813 /* BetModel.m */,
 				31F47E21177324B30047ECCF /* CategoryModel.h */,
 				31F47E22177324B30047ECCF /* CategoryModel.m */,
 				3127C0421798570F0056D78A /* CoefficientModel.h */,
@@ -1610,6 +1618,8 @@
 				31E848C817E0C49C009C943B /* UserDetailsModel.m */,
 				3127C036179851850056D78A /* UserModel.h */,
 				3127C037179851850056D78A /* UserModel.m */,
+				D6B819B017FA235F00070B27 /* UserSocialModel.h */,
+				D6B819B117FA235F00070B27 /* UserSocialModel.m */,
 				31CF778317BE5A54009B2FC6 /* VKontakteModel.h */,
 				31CF778417BE5A54009B2FC6 /* VKontakteModel.m */,
 			);
@@ -2027,6 +2037,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E3E79E1754E24800B09DAD /* main.m in Sources */,
+				AC43F7CD17FA1B7500D0E813 /* BetModel.m in Sources */,
 				31E3E7A21754E24900B09DAD /* AppDelegate.m in Sources */,
 				76335D4E17697C3F009F75E2 /* EnterViewController.m in Sources */,
 				76F7570A17F0A97D00F081E3 /* SearchModel.m in Sources */,
@@ -2081,6 +2092,7 @@
 				0FA5FCA117B237C700352827 /* TWSignedRequest.m in Sources */,
 				0FA5FCCA17B2387200352827 /* NSData+toBase64.m in Sources */,
 				0FA5FCCB17B2387200352827 /* NSString+encodeURL.m in Sources */,
+				D6B819B217FA235F00070B27 /* UserSocialModel.m in Sources */,
 				0FA5FCCC17B2387200352827 /* NSString+MD5.m in Sources */,
 				0FA5FCCD17B2387200352827 /* NSString+toBase64.m in Sources */,
 				0FA5FCCE17B2387200352827 /* KGModal.m in Sources */,
