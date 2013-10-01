@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, Direction)
 {
     [super viewDidLoad];
     
-    self.title = @"Вход";
+    self.title = NSLocalizedString(@"Enter", nil);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:self.view.window];
@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.textFieldLogin = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0, 278.0, 35.0)];
     self.textFieldLogin.font = [UIFont fontWithName:@"ArialMT" size:13.0f];
-    self.textFieldLogin.placeholder = @"Email или никнейм...";
+    self.textFieldLogin.placeholder = NSLocalizedString(@"Email or nickname...", nil);
     self.textFieldLogin.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textFieldLogin.keyboardType = UIKeyboardTypeEmailAddress;
     self.textFieldLogin.returnKeyType = UIReturnKeyNext;
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.textFieldPassword = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0 + 38.0, 278.0, 36.0)];
     self.textFieldPassword.font = [UIFont fontWithName:@"ArialMT" size:13.0f];
-    self.textFieldPassword.placeholder = @"Пароль...";
+    self.textFieldPassword.placeholder = NSLocalizedString(@"Password...", nil);
     self.textFieldPassword.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textFieldPassword.secureTextEntry = YES;
     self.textFieldPassword.keyboardType = UIKeyboardTypeEmailAddress;
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, Direction)
     
     self.buttonEnter = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonEnter.frame = CGRectMake(13.0f + 142.0f + 9.0f, 215.0f, 142.0f, 40.0f);
-    [self.buttonEnter setTitle:@"Вход" forState:UIControlStateNormal];
+    [self.buttonEnter setTitle:NSLocalizedString(@"Login", nil) forState:UIControlStateNormal];
     self.buttonEnter.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonEnter.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonEnter.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -155,7 +155,7 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonFb setBackgroundImage:[UIImage imageNamed:@"middle_active"] forState:UIControlStateHighlighted];
     [self.buttonFb setImage:[UIImage imageNamed:@"icon_fb"] forState:UIControlStateNormal];
     [self.buttonFb setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
-    [self.buttonFb setTitle:@"Войти через Facebook" forState:UIControlStateNormal];
+    [self.buttonFb setTitle:NSLocalizedString(@"Login with Facebook", nil) forState:UIControlStateNormal];
     self.buttonFb.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonFb.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonFb.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonTw setBackgroundImage:[UIImage imageNamed:@"bottom_active"] forState:UIControlStateHighlighted];
     [self.buttonTw setImage:[UIImage imageNamed:@"icon_tw"] forState:UIControlStateNormal];
     [self.buttonTw setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
-    [self.buttonTw setTitle:@"Войти через Twitter" forState:UIControlStateNormal];
+    [self.buttonTw setTitle:NSLocalizedString(@"Login with Twitter", nil) forState:UIControlStateNormal];
     self.buttonTw.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonTw.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonTw.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -197,7 +197,7 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonVk setBackgroundImage:[UIImage imageNamed:@"top_active"] forState:UIControlStateHighlighted];
     [self.buttonVk setImage:[UIImage imageNamed:@"icon_vk"] forState:UIControlStateNormal];
     [self.buttonVk setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 255)];
-    [self.buttonVk setTitle:@"Войти через ВКонтакте" forState:UIControlStateNormal];
+    [self.buttonVk setTitle:NSLocalizedString(@"Login with VKontakte", nil) forState:UIControlStateNormal];
     self.buttonVk.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonVk.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonVk.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -238,7 +238,6 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)twButtonTouched
 {
-    NSLog(@"tw touched");
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [SocialManager sharedManager].delegate = self;
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeTwitter
@@ -268,7 +267,7 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose an Account", nil)
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -277,7 +276,7 @@ typedef NS_ENUM(NSInteger, Direction)
     {
         [sheet addButtonWithTitle:name];
     }
-    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
+    sheet.cancelButtonIndex = [sheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [sheet showInView:self.view];
 }
 
@@ -386,12 +385,12 @@ typedef NS_ENUM(NSInteger, Direction)
 {
     if (!self.credentials.login || self.credentials.login.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите Email или никнейм"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter Email or nickname", nil)];
         return NO;
     }
     if (!self.credentials.password || self.credentials.password.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите пароль"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter password", nil)];
         return NO;
     }
     return YES;

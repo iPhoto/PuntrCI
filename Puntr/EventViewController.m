@@ -54,11 +54,11 @@ static const CGFloat TNItemSpacing = 12.0f;
 {
     [super viewDidLoad];
     
-    self.title = @"Событие";
+    self.title = NSLocalizedString(@"Event", nil);
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    UIBarButtonItem *buttonComment = [[UIBarButtonItem alloc] initWithTitle:@"Коммент." style:UIBarButtonItemStyleBordered target:self action:@selector(rightNavButtonTouched)];
+    UIBarButtonItem *buttonComment = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Comment", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(rightNavButtonTouched)];
     self.navigationItem.rightBarButtonItem = buttonComment;
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -131,7 +131,7 @@ static const CGFloat TNItemSpacing = 12.0f;
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, coverMargin + participantSize.height + 15.0f, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    [self.buttonStake setTitle:@"Ставить" forState:UIControlStateNormal];
+    [self.buttonStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -197,7 +197,7 @@ static const CGFloat TNItemSpacing = 12.0f;
                                         success:^
      {
          [self updateToSubscribed:YES];
-         [NotificationManager showSuccessMessage:@"Вы подписались на событие!"];
+         [NotificationManager showSuccessMessage:NSLocalizedString(@"You subscribed for the event!", nil)];
      }
                                         failure:nil
      ];
@@ -209,7 +209,7 @@ static const CGFloat TNItemSpacing = 12.0f;
                                            success:^
      {
          [self updateToSubscribed:NO];
-         [NotificationManager showSuccessMessage:@"Вы отписались от события!"];
+         [NotificationManager showSuccessMessage:NSLocalizedString(@"You unsubscribed from the event!", nil)];
      }
                                            failure:nil];
 }
@@ -218,7 +218,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 {
     SEL subscribeMethod = subscribed ? @selector(unsubscribe) : @selector(subscribe);
     SEL previuosMethod = subscribed ? @selector(subscribe) : @selector(unsubscribe);
-    NSString *subscribeTitle = subscribed ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeTitle = subscribed ? NSLocalizedString(@"Unsubscribe", nil) : NSLocalizedString(@"Subscribe", nil);
     
     NSString *subscribeImage = subscribed ? @"unsubscribe" : @"ButtonDark";
     CGFloat subscribeImageInset = subscribed ? 7.0f : 8.0f;

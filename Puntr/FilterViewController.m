@@ -13,10 +13,6 @@
 
 #define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
 
-static NSString * const TNTableHeader = @"Выберите интересующие вас виды спорта:";
-static NSString * const TNButtonTitleCheckAll = @"Выбрать все";
-static NSString * const TNButtonTitleUncheckAll = @"Снять все";
-
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
@@ -137,7 +133,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.title = @"Фильтр";
+    self.title = NSLocalizedString(@"Filter", nil);
     
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
@@ -206,7 +202,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (NSString *)checkUncheckButtonTitle
 {
-    NSString *retVal = ([self isAllSportsChecked]) ? TNButtonTitleUncheckAll : TNButtonTitleCheckAll;
+    NSString *retVal = ([self isAllSportsChecked]) ? NSLocalizedString(@"Uncheck all", nil) : NSLocalizedString(@"Check all", nil);
     return retVal;
 }
 
@@ -305,7 +301,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     
     CGFloat settingsWidth = CGRectGetWidth(self.filtersTableView.frame);
     
-    CGSize headerSize = [TNTableHeader sizeWithFont:TNFont
+    CGSize headerSize = [NSLocalizedString(@"Choose sport types", nil) sizeWithFont:TNFont
                            constrainedToSize:CGSizeMake(settingsWidth - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
                                lineBreakMode:NSLineBreakByClipping];
     headerHeight = TNHeaderFooterTopPadding + headerSize.height + 5.0f;
@@ -333,7 +329,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
                                                                             settingsWidth - (TNHeaderFooterSidePadding * 2.0f),
                                                                             headerHeight - (TNHeaderFooterTopPadding * 2.0f)
                                                                         )];
-    headerViewLabel.text = TNTableHeader;
+    headerViewLabel.text = NSLocalizedString(@"Choose sport types", nil);
     headerViewLabel.font = TNFont;
     headerViewLabel.backgroundColor = [UIColor clearColor];
     headerViewLabel.textColor = [UIColor whiteColor];
