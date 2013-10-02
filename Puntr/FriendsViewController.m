@@ -275,7 +275,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)vkTouched
 {
-    NSLog(@"vk touched");
+    [NotificationManager showNotificationMessage:@"Приглашение через ВКонтакте еще не реализовано"];
 }
 
 - (void)fbTouched
@@ -290,7 +290,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)twTouched
 {
-    NSLog(@"tw touched");
+    [NotificationManager showNotificationMessage:@"Приглашение через Twitter еще не реализовано"];
 }
 
 
