@@ -469,7 +469,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     if (event.banner) {
         [self displayBanner:event.banner];
     }
-    [self displayTournament:event.tournament arrow:YES final:NO];
+    if (![PuntrUtilities isTournamentVisible])
+    {
+        [self displayTournament:event.tournament arrow:YES final:NO];
+    }
     if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
     {
         [self displayStakeButton];
