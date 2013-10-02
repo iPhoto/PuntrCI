@@ -10,7 +10,9 @@
 #import <TSMessages/TSMessage.h>
 #import "ErrorModel.h"
 
-static const NSTimeInterval TNDuration = 1.5f;
+static const NSTimeInterval TNDurationShort = 1.5f;
+static const NSTimeInterval TNDurationMedium = 3.0f;
+static const NSTimeInterval TNDurationLong = 5.0f;
 
 @implementation NotificationManager
 
@@ -45,11 +47,17 @@ static const NSTimeInterval TNDuration = 1.5f;
     {
         errorMessage = [error localizedDescription];
     }
-
+    
     [TSMessage showNotificationInViewController:viewController
                                           title:errorTitle
                                        subtitle:errorMessage
-                                           type:TSMessageNotificationTypeError];
+                                           type:TSMessageNotificationTypeError
+                                       duration:TNDurationLong
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 #pragma mark - Notification
@@ -67,7 +75,13 @@ static const NSTimeInterval TNDuration = 1.5f;
     [TSMessage showNotificationInViewController:viewController
                                           title:@"Внимание"
                                        subtitle:message
-                                           type:TSMessageNotificationTypeWarning];
+                                           type:TSMessageNotificationTypeMessage
+                                       duration:TNDurationMedium
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 #pragma mark - Success
@@ -83,7 +97,7 @@ static const NSTimeInterval TNDuration = 1.5f;
                                           title:@"Поздравляем!"
                                        subtitle:message
                                            type:TSMessageNotificationTypeSuccess
-                                       duration:TNDuration
+                                       duration:TNDurationShort
                                        callback:nil
                                     buttonTitle:nil
                                  buttonCallback:nil
