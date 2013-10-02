@@ -564,7 +564,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Fans", nil), participant.subscribersCount.stringValue];
     [self addSubview:self.labelParticipantSubscribersCount];
     
-    self.usedHeight = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    CGFloat maxY = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    
+    [self placeButtonForObject:participant maxY:maxY];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:YES];
 }
