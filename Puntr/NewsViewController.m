@@ -28,7 +28,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 {
     [super viewDidLoad];
     
-    self.title = @"Новости";
+    self.title = NSLocalizedString(@"News", nil);
     [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     

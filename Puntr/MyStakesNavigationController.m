@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Мои ставки" image:nil tag:3];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"My stakes", nil) image:nil tag:3];
     [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBarStakesSelected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBarStakes"]];
 }
 

@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Мои ставки";
+    self.title = NSLocalizedString(@"My stakes", nil);
     [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     

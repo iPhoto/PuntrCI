@@ -9,12 +9,6 @@
 #import "NoDataManager.h"
 #import "ObjectManager.h"
 
-static NSString * const TNCopyrightNews = @"Чтобы у вас появились новости, подпишитесь на событие, команду, турнир или сделайте ставку в каталоге";
-static NSString * const TNCopyrightStakes = @"Вы можете сделать ставку выбрав событие из каталога";
-static NSString * const TNCopyrightBets = @"Вы можете создать пари выбрав событие из каталога";
-static NSString * const TNCopyrightProfile = @"Здесь будет отображаться ваша активность: ставки, статусы ставок, подписки";
-static NSString * const TNCopyrightOtherUser = @"Здесь будет отображаться активность пользователя: ставки, статусы ставок, подписки";
-
 @interface NoDataManager ()
 
 @property (nonatomic) CollectionType collectionType;
@@ -63,11 +57,11 @@ static NSString * const TNCopyrightOtherUser = @"Здесь будет отоб�
         
         if (self.collectionType == CollectionTypeActivitiesSelf)
         {
-            self.labelSorryText.text = TNCopyrightProfile;
+            self.labelSorryText.text = NSLocalizedString(@"Here will appear your activity: rates, status rates, subscriptions", nil);
         }
         else if (self.collectionType == CollectionTypeActivities)
         {
-            self.labelSorryText.text = TNCopyrightOtherUser;
+            self.labelSorryText.text = NSLocalizedString(@"Here will appear user's activity: rates, status rates, subscriptions", nil);
         }
         else
         {
@@ -80,15 +74,15 @@ static NSString * const TNCopyrightOtherUser = @"Здесь будет отоб�
             switch (self.collectionType)
             {
                 case CollectionTypeNews:
-                    self.labelSorryText.text = TNCopyrightNews;
+                    self.labelSorryText.text = NSLocalizedString(@"To have any news, you should to subscribe on event, team, tournament, or place a bet in catalogue", nil);
                     break;
                     
                 case CollectionTypeBets:
-                    self.labelSorryText.text = TNCopyrightBets;
+                    self.labelSorryText.text = NSLocalizedString(@"You can create a bet by selecting the event from the catalogue", nil);
                     break;
                     
                 case CollectionTypeMyStakes:
-                    self.labelSorryText.text = TNCopyrightStakes;
+                    self.labelSorryText.text = NSLocalizedString(@"You can do a stake by selecting the event from the catalogue", nil);
                     break;
                     
                 default:

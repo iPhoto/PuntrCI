@@ -1545,7 +1545,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                         )];
     if ([stakeStatus isEqualToString:@"won"])
     {
-        stakeStatusLabel = @"Ваша ставка выиграла!";
+        stakeStatusLabel = NSLocalizedString(@"Your stake won!", nil);
         stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
@@ -1562,7 +1562,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([stakeStatus isEqualToString:@"loss"] || [stakeStatus isEqualToString:@"lost"])
     {
-        stakeStatusLabel = @"Ваша ставка проиграла!";
+        stakeStatusLabel = NSLocalizedString(@"Your stake lost!", nil);
         stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
@@ -1579,7 +1579,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([stakeStatus isEqualToString:@"create"] || !stakeStatus)
     {
-        stakeStatusLabel = @"Ваша ставка";
+        stakeStatusLabel = NSLocalizedString(@"Your stake", nil);
         stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:money.amount]];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavkaGrey"];
@@ -1626,7 +1626,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                    TNHeightText
                                                    );
     NSString *timeString = nil;
-    NSString * const liveString = @"Уже идет!";
+    NSString * const liveString = NSLocalizedString(@"Live!", nil);
     TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
     timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
     // Event will begin later
@@ -1642,7 +1642,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Event is completed
     else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
     {
-        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
+        timeString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Played", nil), [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
     }
     self.labelEventStartEndTime.text = timeString;
     [self addSubview:self.labelEventStartEndTime];
@@ -1679,7 +1679,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                   TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
                                                   TNHeightText
                                                   );
-    self.labelEventStakesCount.text = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
+    self.labelEventStakesCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Stakes count", nil), stakesCount.stringValue];
     self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
     [self addSubview:self.labelEventStakesCount];
     
@@ -1907,7 +1907,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
      {
          [self updateToSubscribed:@YES];
          [self.submodel performSelector:@selector(setSubscribed:) withObject:@YES];
-         [NotificationManager showSuccessMessage:@"Вы успешно подписались!"];
+         [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully subscribed!", nil)];
      }
                                         failure:nil
      ];
@@ -1937,7 +1937,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [[ObjectManager sharedManager] setPrivacy:privacyModel
                                           success:^(NSArray *privacy)
                                           {
-                                              [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                              [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                               [self.delegate reloadData];
                                           }
                                           failure:nil
@@ -1951,7 +1951,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [[ObjectManager sharedManager] setPush:pushModel
                                        success:^(NSArray *push)
                                        {
-                                           [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                           [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                            [self.delegate reloadData];
                                        }
                                        failure:^
@@ -1989,7 +1989,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                    [[ObjectManager sharedManager] setSocialsWithAccess:accessModel
                                                                                                                success:^
                                                                                                                {
-                                                                                                                   [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                                                                   [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                                                                                                    [self.delegate reloadData];
                                                                                                                }
                                                                                                                failure:^
@@ -2010,7 +2010,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
             [[ObjectManager sharedManager] disconnectSocialsWithName:socialModel.slug
                                                              success:^
                                                              {
-                                                                 [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                 [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                                                  [self.delegate reloadData];
                                                              }
                                                              failure:^
@@ -2030,7 +2030,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                            {
                                                [self updateToSubscribed:@NO];
                                                [self.submodel performSelector:@selector(setSubscribed:) withObject:@NO];
-                                               [NotificationManager showSuccessMessage:@"Вы успешно отписались!"];
+                                               [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully unsubscribed!", nil)];
                                            }
                                            failure:nil
     ];
@@ -2040,7 +2040,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     SEL subscribeMethod = subscribed.boolValue ? @selector(unsubscribe) : @selector(subscribe);
     SEL previuosMethod = subscribed.boolValue ? @selector(subscribe) : @selector(unsubscribe);
-    NSString *subscribeTitle = subscribed.boolValue ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeTitle = subscribed.boolValue ? NSLocalizedString(@"Unsubscribe", nil) : NSLocalizedString(@"Subscribe", nil);
     NSString *subscribeImage = subscribed.boolValue ? @"ButtonRed" : @"ButtonBar";
     CGFloat subscribeImageInset = subscribed.boolValue ? 5.0f : 7.0f;
     
