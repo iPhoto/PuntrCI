@@ -1998,8 +1998,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                                                }
                                                                    ];
                                                                }
-                                                               failure:^
+                                                               failure:^(NSError *error)
                                                                {
+                                                                   [NotificationManager showError:error];
                                                                    [self.delegate reloadData];
                                                                }
              
