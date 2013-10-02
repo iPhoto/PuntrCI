@@ -1338,7 +1338,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     GroupModel *groupTournaments = [GroupModel group];
     groupTournaments.slug = KeyTournaments;
-    groupTournaments.title = @"Турниры";
+    groupTournaments.title = NSLocalizedString(@"Tournaments", nil);
     groupTournaments.imageHardcode = [UIImage imageNamed:@"sectionTournaments"];
     return groupTournaments;
 }
@@ -1347,7 +1347,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     GroupModel *groupUsers = [GroupModel group];
     groupUsers.slug = KeyUsers;
-    groupUsers.title = @"Пользователи";
+    groupUsers.title = NSLocalizedString(@"Users", nil);
     groupUsers.imageHardcode = [UIImage imageNamed:@"IconExperts"];
     return groupUsers;
 }

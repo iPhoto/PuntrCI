@@ -561,7 +561,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                 TNWidthLabel,
                                                                 TNHeightText
                                                             );
-    self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"Болельщиков: %@", participant.subscribersCount.stringValue];
+    self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Fans", nil), participant.subscribersCount.stringValue];
     [self addSubview:self.labelParticipantSubscribersCount];
     
     self.usedHeight = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
@@ -673,7 +673,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        );
     self.labelUserSubscriptionsTitle.shadowColor = [UIColor whiteColor];
     self.labelUserSubscriptionsTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
-    self.labelUserSubscriptionsTitle.text = @"Подписок";
+    self.labelUserSubscriptionsTitle.text = NSLocalizedString(@"Subscriptions", nil);
     self.labelUserSubscriptionsTitle.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.labelUserSubscriptionsTitle];
     
@@ -715,7 +715,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      );
     self.labelUserSubscribersTitle.shadowColor = [UIColor whiteColor];
     self.labelUserSubscribersTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
-    self.labelUserSubscribersTitle.text = @"Подписчиков";
+    self.labelUserSubscribersTitle.text = NSLocalizedString(@"Subscribers", nil);
     self.labelUserSubscribersTitle.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.labelUserSubscribersTitle];
     
@@ -754,7 +754,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                 );
     self.labelUserAwardsTitle.shadowColor = [UIColor whiteColor];
     self.labelUserAwardsTitle.shadowOffset = CGSizeMake(0.0f, 1.5f);
-    self.labelUserAwardsTitle.text = @"Наград";
+    self.labelUserAwardsTitle.text = NSLocalizedString(@"Awards number", nil);
     self.labelUserAwardsTitle.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.labelUserAwardsTitle];
     
@@ -804,7 +804,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                  TNWidthCell - TNMarginGeneral,
                                                  TNHeightText
                                              );
-    self.labelUserActivity.text = @"Активность";
+    self.labelUserActivity.text = NSLocalizedString(@"Activities", nil);
     [self addSubview:self.labelUserActivity];
     
     self.usedHeight = CGRectGetMaxY(self.labelUserActivity.frame) - TNMarginGeneral;
@@ -1280,7 +1280,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
     [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
     [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-    NSString *coefficientString = [NSString stringWithFormat:@"Коэффициент: %@", [twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
+    NSString *coefficientString = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Odds", nil),[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
     CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLineTitle.frame) + TNMarginGeneral);
     CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
     if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponentCombined.frame) - TNMarginGeneral * 2.0f)
@@ -1497,7 +1497,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                       TNWidthCell,
                                                                       TNHeightSearch
                                                                   )];
-    self.searchBar.placeholder = @"Быстрый поиск...";
+    self.searchBar.placeholder = NSLocalizedString(@"Quick search...", nil);
     self.searchBar.text = search.query ? : nil;
     self.searchBar.showsCancelButton = YES;
     self.searchBar.delegate = self;
@@ -1521,7 +1521,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
     [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
                                      forState:UIControlStateNormal];
-    [self.buttonEventStake setTitle:@"Ставить" forState:UIControlStateNormal];
+    [self.buttonEventStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
     [self.buttonEventStake addTarget:self action:@selector(openStake) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.buttonEventStake];
 }

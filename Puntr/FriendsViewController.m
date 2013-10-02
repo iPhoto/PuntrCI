@@ -61,7 +61,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     [self setupSettingsArray];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.title = @"Друзья";
+    self.title = NSLocalizedString(@"Friends", nil);
     
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
@@ -188,15 +188,15 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     self.settingsArray = @[
                            @[
-                               @{ @"pictureName": @"icon_vk", @"title": @"ВКонтакте", @"performSelector": @"vkTouched", @"isAccessory": @(YES) },
+                               @{ @"pictureName": @"icon_vk", @"title": NSLocalizedString(@"VKontakte", nil), @"performSelector": @"vkTouched", @"isAccessory": @(YES) },
                                @{ @"pictureName": @"icon_fb", @"title": @"Facebook", @"performSelector": @"fbTouched", @"isAccessory": @(YES) },
                                @{ @"pictureName": @"icon_tw", @"title": @"Twitter", @"performSelector": @"twTouched", @"isAccessory": @(YES) },
                                ],
                            ];
     
     self.sectionHeadersArray = @[
-                                 @{ @"text": @"Соц. сети", @"font": TNFontHeader }
-                                 ];
+                                 @{ @"text": NSLocalizedString(@"Social networks", nil), @"font": TNFontHeader }
+                                ];
 }
 
 - (CGFloat)heightForHeader:(BOOL)isHeader inSection:(NSInteger)section
