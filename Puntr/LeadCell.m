@@ -836,8 +836,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.event = stake.event;
     self.tournament = stake.event.tournament;
     [self displayTournament:stake.event.tournament arrow:YES final:NO];
-    [self displayCategory:stake.event.tournament.category];
-    [self displayParticipants:stake.event.participants final:NO];
+    if (![PuntrUtilities isEventVisible])
+    {
+        [self displayCategory:stake.event.tournament.category];
+        [self displayParticipants:stake.event.participants final:NO];
+    }
     if (loginedUser)
     {
         [self displayLine:stake.line
