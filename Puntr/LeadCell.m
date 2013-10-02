@@ -438,7 +438,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.event = comment.event;
     self.tournament = comment.event.tournament;
     self.user = comment.user;
-    [self displayUser:comment.user message:comment.message final:YES];
+    if (![PuntrUtilities isEventVisible])
+    {
+        [self displayUser:comment.user message:comment.message final:NO];
+        [self displayTournament:comment.event.tournament arrow:YES final:NO];
+        [self displayCategory:comment.event.tournament.category];
+        [self displayParticipants:comment.event.participants final:NO];
+        [self displayStartTime:comment.event.startTime endTime:comment.event.endTime stakesCount:comment.event.stakesCount final:YES];
+    }
+    else
+    {
+        [self displayUser:comment.user message:comment.message final:YES];
+    }
 }
 
 - (void)loadWithDynamicSelection:(DynamicSelectionModel *)dynamicSelection
