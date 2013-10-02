@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong, readonly) GroupModel *group;
 @property (nonatomic, strong, readonly) SearchModel *searchParent;
-@property (nonatomic, strong, readonly) TournamentModel *tournament;
 
 @property (nonatomic, strong) CollectionManager *collectionManager;
 

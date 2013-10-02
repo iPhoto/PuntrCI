@@ -13,6 +13,7 @@
 @interface EventsViewController : UIViewController
 
 @property (nonatomic, strong, readonly) SearchModel *search;
+@property (nonatomic, strong, readonly) TournamentModel *tournament;
 
 + (EventsViewController *)eventsForGroup:(GroupModel *)group tournament:(TournamentModel *)tournament search:(SearchModel *)search;
 

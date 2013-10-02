@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "EventsViewController.h"
 #import "EventViewController.h"
 #import "PuntrUtilities.h"
+#import "TournamentViewController.h"
 #import "UserViewController.h"
 #import <CoreImage/CoreImage.h>
 
@@ -47,19 +49,38 @@
 
 #pragma mark - Visability
 
++ (BOOL)isEventVisible
+{
+    return [self isVisibleViewController:[EventViewController class]];
+}
+
 + (BOOL)isProfileVisible
 {
     return [self isVisibleViewController:[UserViewController class]];
 }
 
-+ (BOOL)isEventVisible
++ (BOOL)isTournamentVisible
 {
-    return [self isVisibleViewController:[EventViewController class]];
+    if ([self isVisibleViewController:[TournamentViewController class]])
+    {
+        return YES;
+    }
+    else if ([self isVisibleViewController:[EventsViewController class]])
+    {
+        EventsViewController *eventsViewController = (EventsViewController *)[self topController];
+        if (eventsViewController.tournament)
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 + (BOOL)isVisibleViewController:(Class)viewControllerClass
 {
     return [[self topController] isMemberOfClass:viewControllerClass] ? : NO;
 }
+
+
 
 @end

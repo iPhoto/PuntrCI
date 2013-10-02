@@ -16,8 +16,10 @@
 
 #pragma mark - Visability
 
++ (BOOL)isEventVisible;
+
 + (BOOL)isProfileVisible;
 
-+ (BOOL)isEventVisible;
++ (BOOL)isTournamentVisible;
 
 @end
