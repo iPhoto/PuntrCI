@@ -14,6 +14,10 @@
 
 + (UIViewController *)topController;
 
+#pragma mark - Visability
+
 + (BOOL)isProfileVisible;
+
++ (BOOL)isEventVisible;
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "EventViewController.h"
 #import "PuntrUtilities.h"
 #import "UserViewController.h"
 #import <CoreImage/CoreImage.h>
@@ -44,9 +45,21 @@
     return topController;
 }
 
+#pragma mark - Visability
+
 + (BOOL)isProfileVisible
 {
-    return [[self topController] isMemberOfClass:[UserViewController class]] ? : NO;
+    return [self isVisibleViewController:[UserViewController class]];
+}
+
++ (BOOL)isEventVisible
+{
+    return [self isVisibleViewController:[EventViewController class]];
+}
+
++ (BOOL)isVisibleViewController:(Class)viewControllerClass
+{
+    return [[self topController] isMemberOfClass:viewControllerClass] ? : NO;
 }
 
 @end
