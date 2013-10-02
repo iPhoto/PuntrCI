@@ -315,7 +315,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[EventModel class]])
     {
-        [self whiteCell];
+        [self blackCell];
         [self loadWithEvent:(EventModel *)model];
     }
     else if ([model isMemberOfClass:[GroupModel class]])
@@ -368,7 +368,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[TournamentModel class]])
     {
-        [self whiteCell];
+        [self blackCell];
         [self loadWithTournament:(TournamentModel *)model];
     }
     else if ([model isMemberOfClass:[UserModel class]])
@@ -506,7 +506,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     self.submodel = participant;
     
-    [self whiteCell];
+    [self blackCell];
     [self displaySubscribedForObject:participant];
     
     // Logo
@@ -564,7 +564,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Fans", nil), participant.subscribersCount.stringValue];
     [self addSubview:self.labelParticipantSubscribersCount];
     
-    self.usedHeight = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    CGFloat maxY = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    
+    [self placeButtonForObject:participant maxY:maxY];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:YES];
 }
@@ -1072,7 +1076,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else
     {
-        [self whiteCell];
+        [self blackCell];
     }
 }
 
@@ -1844,12 +1848,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self placeButtonForObject:object frame:frame];
 }
 
-- (void)whiteCell
-{
-    self.backgroundColor = [UIColor whiteColor];
-    self.blackBackground = NO;
-}
-
 #pragma mark - Finilize
 
 - (void)makeFinal:(BOOL)final
@@ -1998,8 +1996,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                                                }
                                                                    ];
                                                                }
-                                                               failure:^
+                                                               failure:^(NSError *error)
                                                                {
+                                                                   [NotificationManager showError:error];
                                                                    [self.delegate reloadData];
                                                                }
              

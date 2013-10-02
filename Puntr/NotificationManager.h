@@ -18,9 +18,11 @@
 #pragma mark - Notification
 
 + (void)showNotificationMessage:(NSString *)message;
++ (void)showNotificationMessage:(NSString *)message forViewController:(UIViewController *)viewController;
 
 #pragma mark - Success
 
 + (void)showSuccessMessage:(NSString *)message;
++ (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController;
 
 @end

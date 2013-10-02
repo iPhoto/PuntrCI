@@ -6,18 +6,21 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "SocialManager.h"
-#import <Social/Social.h>
-#import <Accounts/Accounts.h>
 #import "FacebookModel.h"
+#import "NotificationManager.h"
 #import "OAuth+Additions.h"
+#import "PuntrUtilities.h"
+#import "SocialManager.h"
 #import "TWAPIManager.h"
 #import "TwitterModel.h"
-#import "TWSignedRequest.h"
 #import "TwitterReverseOAuthResponse.h"
+#import "TWSignedRequest.h"
 #import "VKAccessToken.h"
 #import "VKontakteModel.h"
 #import "VKUser.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface SocialManager ()
 
@@ -39,10 +42,10 @@
     static SocialManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^
-                  {
-                      sharedManager = [[self alloc] init];
-                  }
-                  );
+                     {
+                         sharedManager = [[self alloc] init];
+                     }
+                 );
     return sharedManager;
 }
 
@@ -65,9 +68,9 @@
             break;
             
         default:
-            if(self.failure)
+            if (self.failure)
             {
-                self.failure();
+                self.failure([NSError errorWithDomain:@"Puntr" code:0 userInfo:@{NSLocalizedDescriptionKey: @"Неизвестная ошибка"}]);
             }
             break;
     }
@@ -89,18 +92,14 @@
                                                 if (granted)
                                                 {
                                                     NSArray *accounts = [self.accountStore accountsWithAccountType:facebookTypeAccount];
-                                                    self.facebookAccount = [accounts lastObject];
-                                                    NSLog(@"Success");
-                                                    NSLog(@"acces token %@", [[self.facebookAccount credential] oauthToken]);
+                                                    self.facebookAccount = [accounts lastObject];;
                                                     [self userFbData];
                                                 }
                                                 else
                                                 {
-                                                    NSLog(@"Fail");
-                                                    NSLog(@"Error: %@", error);
-                                                    if(self.failure)
+                                                    if (self.failure)
                                                     {
-                                                        self.failure();
+                                                        self.failure(error);
                                                     }
                                                 }
                                             }
@@ -131,10 +130,9 @@
                                                 }
                                                 else
                                                 {
-                                                    NSLog(@"no access");
-                                                    if(self.failure)
+                                                    if (self.failure)
                                                     {
-                                                        self.failure();
+                                                        self.failure(error);
                                                     }
                                                 }
                                             }
@@ -151,27 +149,21 @@
         {
              if (responseData)
              {
-                 NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                 
-                 NSLog(@"Reverse Auth process returned: %@", responseStr);
-                 
                  TwitterReverseOAuthResponse *twitterUserData = [TwitterReverseOAuthResponse oauthResponseForResponseData:responseData];
-                 NSLog(@"tw user token: %@; token_secret: %@; name: %@; id: %@;", twitterUserData.oauth_token, twitterUserData.oauth_token_secret, twitterUserData.screen_name, twitterUserData.user_id);
                  TwitterModel *twModel = [[TwitterModel alloc]init];
                  twModel.tag = twitterUserData.user_id;
                  twModel.accessToken = twitterUserData.oauth_token;
                  twModel.secretToken = twitterUserData.oauth_token_secret;
-                 if(self.success)
+                 if (self.success)
                  {
                      self.success(twModel);
                  }
              }
              else
              {
-                 NSLog(@"Reverse Auth process failed. Error returned was: %@\n", [error localizedDescription]);
-                 if(self.failure)
+                 if (self.failure)
                  {
-                     self.failure();
+                     self.failure(error);
                  }
              }
         }
@@ -189,7 +181,7 @@
     VKontakteModel *vkModel = [[VKontakteModel alloc]init];
     vkModel.tag = [NSString stringWithFormat:@"%lu", (unsigned long)[VKUser currentUser].accessToken.userID];
     vkModel.accessToken = [VKUser currentUser].accessToken.token;
-    if(self.success)
+    if (self.success)
     {
         self.success(vkModel);
     }
@@ -208,13 +200,23 @@
     
     [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
         {
-            NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            FacebookModel *fbModel = [[FacebookModel alloc]init];
-            fbModel.tag = [fbDictionary objectForKey:@"id"];
-            fbModel.accessToken = [[self.facebookAccount credential] oauthToken];
-            if(self.success)
+            if (error)
             {
-                self.success(fbModel);
+                if (self.failure)
+                {
+                    self.failure(error);
+                }
+            }
+            else
+            {
+                NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+                FacebookModel *fbModel = [[FacebookModel alloc]init];
+                fbModel.tag = [fbDictionary objectForKey:@"id"];
+                fbModel.accessToken = [[self.facebookAccount credential] oauthToken];
+                if (self.success)
+                {
+                    self.success(fbModel);
+                }
             }
         }
     ];

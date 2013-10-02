@@ -11,7 +11,7 @@
 #import "VKRequest.h"
 
 typedef void (^SocialManagerSuccess)();
-typedef void (^SocialManagerFailure)();
+typedef void (^SocialManagerFailure)(NSError *error);
 
 typedef NS_ENUM(NSInteger, SocialNetworkType)
 {
