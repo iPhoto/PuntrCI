@@ -38,6 +38,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
+#define TNColorOrange [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f]
 #define TNRemove(property) [property removeFromSuperview]; property = nil;
 
 @interface LeadCell ()
@@ -602,7 +603,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      TNWidthCell,
                                                      TNSideImageLarge + TNMarginGeneral * 2.0f + TNHeightBackgroundButtons
                                                  );
-    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    self.userBackgroundProfile.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     [self addSubview:self.userBackgroundProfile];
     
     // Avatar
@@ -626,7 +627,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
     
     // Name
-    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName = [UILabel labelSmallBold:YES black:YES];
     self.labelUserName.frame = CGRectMake(
                                              avatarWidth + TNMarginGeneral,
                                              TNMarginGeneral,
@@ -637,7 +638,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelUserName];
     
     // Top Position
-    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:YES];
     self.labelUserTopPosition.frame = CGRectMake(
                                                     avatarWidth + TNMarginGeneral,
                                                     CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
@@ -949,7 +950,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      TNWidthCell,
                                                      TNSideImageLarge + TNMarginGeneral * 2.0f
                                                  );
-    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    self.userBackgroundProfile.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     [self addSubview:self.userBackgroundProfile];
     
     // Avatar
@@ -973,7 +974,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
     
     // Name
-    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName = [UILabel labelSmallBold:YES black:YES];
     self.labelUserName.frame = CGRectMake(
                                              avatarWidth + TNMarginGeneral,
                                              TNMarginGeneral,
@@ -984,7 +985,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelUserName];
     
     // Top Position
-    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:YES];
     self.labelUserTopPosition.frame = CGRectMake(
                                                     avatarWidth + TNMarginGeneral,
                                                     CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
@@ -1573,7 +1574,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                   TNWidthCell,
                                                                                   TNHeightText + TNMarginGeneral * 2.0f
                                                                                   )];
-        self.viewStakeStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f];
+        self.viewStakeStatusBackground.backgroundColor = TNColorOrange;
         [self addSubview:self.viewStakeStatusBackground];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
