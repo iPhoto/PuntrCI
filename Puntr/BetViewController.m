@@ -8,9 +8,12 @@
 
 #import "BetViewController.h"
 #import "UILabel+Puntr.h"
+#import "BetModel.h"
 
 
 @interface BetViewController ()
+
+@property (nonatomic, strong) BetModel *bet;
 
 @end
 
@@ -34,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    CGFloat coverMargin = 8.0f;
+    //CGFloat coverMargin = 8.0f;
     
     self.view.frame = CGRectMake(0.0f, 0.0f, 300.0f, 280.0f);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
@@ -51,6 +54,13 @@
     controllerTitleLabel.textAlignment = NSTextAlignmentCenter;
     controllerTitleLabel.text = NSLocalizedString(@"Bet", nil);
     [self.view addSubview:controllerTitleLabel];
+    
+    
+}
+
+- (void)setupWithBet:(BetModel *)bet
+{
+    self.bet = bet;
 }
 
 @end
