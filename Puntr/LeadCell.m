@@ -1503,7 +1503,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                   )];
     self.searchBar.placeholder = NSLocalizedString(@"Quick search...", nil);
     self.searchBar.text = search.query ? : nil;
-    self.searchBar.showsCancelButton = YES;
     self.searchBar.delegate = self;
     [self addSubview:self.searchBar];
     
@@ -2074,6 +2073,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self.searchDelegate hideKeyboard];
     }
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    return YES;
 }
 
 #pragma mark - Utility
