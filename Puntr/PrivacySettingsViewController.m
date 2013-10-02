@@ -44,7 +44,7 @@
     {
         case DynamicSelctionPrivacy:
         {
-            self.title = @"Приватность";
+            self.title = NSLocalizedString(@"Privacy", nil);
             
             self.collectionManager = [CollectionManager managerWithType:CollectionTypePrivacySettings modifierObjects:nil];
         }
@@ -59,7 +59,7 @@
             
         case DynamicSelctionSocials:
         {
-            self.title = @"Соц. сети";
+            self.title = NSLocalizedString(@"Social networks", nil);
             [SocialManager sharedManager].delegate = self;
             self.collectionManager = [CollectionManager managerWithType:CollectionTypeSocialsSettings modifierObjects:nil];
         }
@@ -87,7 +87,7 @@
 
 - (void)socialManager:(SocialManager *)sender twitterAccounts:(NSArray *)array
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Choose an Account"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose an Account", nil)
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -96,7 +96,7 @@
     {
         [sheet addButtonWithTitle:name];
     }
-    sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
+    sheet.cancelButtonIndex = [sheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [sheet showInView:self.view];
 }
 

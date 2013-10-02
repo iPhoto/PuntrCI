@@ -188,7 +188,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     self.settingsArray = @[
                            @[
-                               @{ @"pictureName": @"icon_vk", @"title": NSLocalizedString(@"VKontakte", nil), @"performSelector": @"vkTouched", @"isAccessory": @(YES) },
+                               //@{ @"pictureName": @"icon_vk", @"title": NSLocalizedString(@"VKontakte", nil), @"performSelector": @"vkTouched", @"isAccessory": @(YES) },
                                @{ @"pictureName": @"icon_fb", @"title": @"Facebook", @"performSelector": @"fbTouched", @"isAccessory": @(YES) },
                                @{ @"pictureName": @"icon_tw", @"title": @"Twitter", @"performSelector": @"twTouched", @"isAccessory": @(YES) },
                                ],
@@ -272,12 +272,12 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 }
 
 #pragma mark - Actions
-
+/*
 - (void)vkTouched
 {
-    NSLog(@"vk touched");
+    [NotificationManager showNotificationMessage:@"Приглашение через ВКонтакте еще не реализовано"];
 }
-
+*/
 - (void)fbTouched
 {
     UserModel *user =  [ObjectManager sharedManager].loginedUser;
@@ -290,7 +290,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)twTouched
 {
-    NSLog(@"tw touched");
+    [NotificationManager showNotificationMessage:@"Приглашение через Twitter еще не реализовано"];
 }
 
 

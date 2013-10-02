@@ -38,6 +38,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 #define TNFontSmall [UIFont fontWithName:@"ArialMT" size:10.4f]
 #define TNFontSmallBold [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
+#define TNColorOrange [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f]
 #define TNRemove(property) [property removeFromSuperview]; property = nil;
 
 @interface LeadCell ()
@@ -315,7 +316,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[EventModel class]])
     {
-        [self whiteCell];
+        [self blackCell];
         [self loadWithEvent:(EventModel *)model];
     }
     else if ([model isMemberOfClass:[GroupModel class]])
@@ -368,7 +369,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([model isMemberOfClass:[TournamentModel class]])
     {
-        [self whiteCell];
+        [self blackCell];
         [self loadWithTournament:(TournamentModel *)model];
     }
     else if ([model isMemberOfClass:[UserModel class]])
@@ -438,7 +439,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.event = comment.event;
     self.tournament = comment.event.tournament;
     self.user = comment.user;
-    [self displayUser:comment.user message:comment.message final:YES];
+    if (![PuntrUtilities isEventVisible])
+    {
+        [self displayUser:comment.user message:comment.message final:NO];
+        [self displayTournament:comment.event.tournament arrow:YES final:NO];
+        [self displayCategory:comment.event.tournament.category];
+        [self displayParticipants:comment.event.participants final:NO];
+        [self displayStartTime:comment.event.startTime endTime:comment.event.endTime stakesCount:comment.event.stakesCount final:YES];
+    }
+    else
+    {
+        [self displayUser:comment.user message:comment.message final:YES];
+    }
 }
 
 - (void)loadWithDynamicSelection:(DynamicSelectionModel *)dynamicSelection
@@ -458,7 +470,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     if (event.banner) {
         [self displayBanner:event.banner];
     }
-    [self displayTournament:event.tournament arrow:YES final:NO];
+    if (![PuntrUtilities isTournamentVisible])
+    {
+        [self displayTournament:event.tournament arrow:YES final:NO];
+    }
     if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
     {
         [self displayStakeButton];
@@ -506,7 +521,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     self.submodel = participant;
     
-    [self whiteCell];
+    [self blackCell];
     [self displaySubscribedForObject:participant];
     
     // Logo
@@ -564,7 +579,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelParticipantSubscribersCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Fans", nil), participant.subscribersCount.stringValue];
     [self addSubview:self.labelParticipantSubscribersCount];
     
-    self.usedHeight = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    CGFloat maxY = participant.logo ? TNMarginGeneral + TNSideImageLarge : CGRectGetMaxY(self.labelParticipantSubscribersCount.frame);
+    
+    [self placeButtonForObject:participant maxY:maxY];
+    
+    self.usedHeight = maxY;
     
     [self makeFinal:YES];
 }
@@ -584,7 +603,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      TNWidthCell,
                                                      TNSideImageLarge + TNMarginGeneral * 2.0f + TNHeightBackgroundButtons
                                                  );
-    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    self.userBackgroundProfile.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     [self addSubview:self.userBackgroundProfile];
     
     // Avatar
@@ -608,7 +627,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
     
     // Name
-    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName = [UILabel labelSmallBold:YES black:YES];
     self.labelUserName.frame = CGRectMake(
                                              avatarWidth + TNMarginGeneral,
                                              TNMarginGeneral,
@@ -619,7 +638,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelUserName];
     
     // Top Position
-    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:YES];
     self.labelUserTopPosition.frame = CGRectMake(
                                                     avatarWidth + TNMarginGeneral,
                                                     CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
@@ -821,8 +840,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.event = stake.event;
     self.tournament = stake.event.tournament;
     [self displayTournament:stake.event.tournament arrow:YES final:NO];
-    [self displayCategory:stake.event.tournament.category];
-    [self displayParticipants:stake.event.participants final:NO];
+    if (![PuntrUtilities isEventVisible])
+    {
+        [self displayCategory:stake.event.tournament.category];
+        [self displayParticipants:stake.event.participants final:NO];
+    }
     if (loginedUser)
     {
         [self displayLine:stake.line
@@ -928,7 +950,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      TNWidthCell,
                                                      TNSideImageLarge + TNMarginGeneral * 2.0f
                                                  );
-    self.userBackgroundProfile.backgroundColor = [UIColor whiteColor];
+    self.userBackgroundProfile.backgroundColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     [self addSubview:self.userBackgroundProfile];
     
     // Avatar
@@ -952,7 +974,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     CGFloat TNWidthLabel = TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth;
     
     // Name
-    self.labelUserName = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserName = [UILabel labelSmallBold:YES black:YES];
     self.labelUserName.frame = CGRectMake(
                                              avatarWidth + TNMarginGeneral,
                                              TNMarginGeneral,
@@ -963,7 +985,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelUserName];
     
     // Top Position
-    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelUserTopPosition = [UILabel labelSmallBold:YES black:YES];
     self.labelUserTopPosition.frame = CGRectMake(
                                                     avatarWidth + TNMarginGeneral,
                                                     CGRectGetMaxY(self.labelUserName.frame) + TNHeightText,
@@ -1072,7 +1094,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else
     {
-        [self whiteCell];
+        [self blackCell];
     }
 }
 
@@ -1499,7 +1521,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                   )];
     self.searchBar.placeholder = NSLocalizedString(@"Quick search...", nil);
     self.searchBar.text = search.query ? : nil;
-    self.searchBar.showsCancelButton = YES;
     self.searchBar.delegate = self;
     [self addSubview:self.searchBar];
     
@@ -1545,7 +1566,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                         )];
     if ([stakeStatus isEqualToString:@"won"])
     {
-        stakeStatusLabel = @"Ваша ставка выиграла!";
+        stakeStatusLabel = NSLocalizedString(@"Your stake won!", nil);
         stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
@@ -1553,7 +1574,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                   TNWidthCell,
                                                                                   TNHeightText + TNMarginGeneral * 2.0f
                                                                                   )];
-        self.viewStakeStatusBackground.backgroundColor = [UIColor colorWithRed:0.80f green:0.60f blue:0.20f alpha:1.00f];
+        self.viewStakeStatusBackground.backgroundColor = TNColorOrange;
         [self addSubview:self.viewStakeStatusBackground];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavka"];
@@ -1562,7 +1583,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([stakeStatus isEqualToString:@"loss"] || [stakeStatus isEqualToString:@"lost"])
     {
-        stakeStatusLabel = @"Ваша ставка проиграла!";
+        stakeStatusLabel = NSLocalizedString(@"Your stake lost!", nil);
         stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
@@ -1579,7 +1600,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([stakeStatus isEqualToString:@"create"] || !stakeStatus)
     {
-        stakeStatusLabel = @"Ваша ставка";
+        stakeStatusLabel = NSLocalizedString(@"Your stake", nil);
         stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:money.amount]];
         
         self.imageViewMoney.image = [UIImage imageNamed:@"IconMoneyStavkaGrey"];
@@ -1626,7 +1647,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                    TNHeightText
                                                    );
     NSString *timeString = nil;
-    NSString * const liveString = @"Уже идет!";
+    NSString * const liveString = NSLocalizedString(@"Live!", nil);
     TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
     timeIntervalFormatter.usesAbbreviatedCalendarUnits = YES;
     // Event will begin later
@@ -1642,7 +1663,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     // Event is completed
     else if ([endTime isEqualToDate:[endTime earlierDate:[NSDate date]]])
     {
-        timeString = [NSString stringWithFormat:@"Сыграно %@", [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
+        timeString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Played", nil), [timeIntervalFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:endTime]];
     }
     self.labelEventStartEndTime.text = timeString;
     [self addSubview:self.labelEventStartEndTime];
@@ -1679,7 +1700,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                   TNWidthCell - TNMarginGeneral * 3.0f - sizeSubscribers.width,
                                                   TNHeightText
                                                   );
-    self.labelEventStakesCount.text = [NSString stringWithFormat:@"Ставок: %@", stakesCount.stringValue];
+    self.labelEventStakesCount.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Stakes count", nil), stakesCount.stringValue];
     self.labelEventStakesCount.textAlignment = NSTextAlignmentRight;
     [self addSubview:self.labelEventStakesCount];
     
@@ -1844,12 +1865,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self placeButtonForObject:object frame:frame];
 }
 
-- (void)whiteCell
-{
-    self.backgroundColor = [UIColor whiteColor];
-    self.blackBackground = NO;
-}
-
 #pragma mark - Finilize
 
 - (void)makeFinal:(BOOL)final
@@ -1907,7 +1922,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
      {
          [self updateToSubscribed:@YES];
          [self.submodel performSelector:@selector(setSubscribed:) withObject:@YES];
-         [NotificationManager showSuccessMessage:@"Вы успешно подписались!"];
+         [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully subscribed!", nil)];
      }
                                         failure:nil
      ];
@@ -1937,7 +1952,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [[ObjectManager sharedManager] setPrivacy:privacyModel
                                           success:^(NSArray *privacy)
                                           {
-                                              [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                              [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                               [self.delegate reloadData];
                                           }
                                           failure:nil
@@ -1951,7 +1966,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [[ObjectManager sharedManager] setPush:pushModel
                                        success:^(NSArray *push)
                                        {
-                                           [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                           [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                            [self.delegate reloadData];
                                        }
                                        failure:^
@@ -1989,7 +2004,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                    [[ObjectManager sharedManager] setSocialsWithAccess:accessModel
                                                                                                                success:^
                                                                                                                {
-                                                                                                                   [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                                                                   [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                                                                                                    [self.delegate reloadData];
                                                                                                                }
                                                                                                                failure:^
@@ -1998,8 +2013,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                                                }
                                                                    ];
                                                                }
-                                                               failure:^
+                                                               failure:^(NSError *error)
                                                                {
+                                                                   [NotificationManager showError:error];
                                                                    [self.delegate reloadData];
                                                                }
              
@@ -2010,7 +2026,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
             [[ObjectManager sharedManager] disconnectSocialsWithName:socialModel.slug
                                                              success:^
                                                              {
-                                                                 [NotificationManager showSuccessMessage:@"Вы успешно изменили настройки!"];
+                                                                 [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
                                                                  [self.delegate reloadData];
                                                              }
                                                              failure:^
@@ -2030,7 +2046,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                            {
                                                [self updateToSubscribed:@NO];
                                                [self.submodel performSelector:@selector(setSubscribed:) withObject:@NO];
-                                               [NotificationManager showSuccessMessage:@"Вы успешно отписались!"];
+                                               [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully unsubscribed!", nil)];
                                            }
                                            failure:nil
     ];
@@ -2040,7 +2056,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     SEL subscribeMethod = subscribed.boolValue ? @selector(unsubscribe) : @selector(subscribe);
     SEL previuosMethod = subscribed.boolValue ? @selector(subscribe) : @selector(unsubscribe);
-    NSString *subscribeTitle = subscribed.boolValue ? @"Отписаться" : @"Подписаться";
+    NSString *subscribeTitle = subscribed.boolValue ? NSLocalizedString(@"Unsubscribe", nil) : NSLocalizedString(@"Subscribe", nil);
     NSString *subscribeImage = subscribed.boolValue ? @"ButtonRed" : @"ButtonBar";
     CGFloat subscribeImageInset = subscribed.boolValue ? 5.0f : 7.0f;
     
@@ -2075,6 +2091,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self.searchDelegate hideKeyboard];
     }
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    return YES;
 }
 
 #pragma mark - Utility

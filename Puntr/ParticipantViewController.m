@@ -40,7 +40,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Участник";
+    self.title = NSLocalizedString(@"Participant", nil);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     [self addBalanceButton];

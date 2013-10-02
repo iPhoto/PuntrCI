@@ -229,9 +229,16 @@ typedef NS_ENUM(NSInteger, Direction)
                                                         {
                                                             [self loginWithSocialModel:accessModel];
                                                         }
-                                                        failure:^
+                                                        failure:^(NSError *error)
                                                         {
-                                                            [SVProgressHUD dismiss];
+                                                            if (error)
+                                                            {
+                                                                [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+                                                            }
+                                                            else
+                                                            {
+                                                                [SVProgressHUD dismiss];
+                                                            }
                                                         }
      ];
 }
@@ -246,9 +253,16 @@ typedef NS_ENUM(NSInteger, Direction)
                                                             //[SVProgressHUD dismiss];
                                                             [self loginWithSocialModel:accessModel];
                                                         }
-                                                        failure:^
+                                                        failure:^(NSError *error)
                                                         {
-                                                            [SVProgressHUD dismiss];
+                                                            if (error)
+                                                            {
+                                                                [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+                                                            }
+                                                            else
+                                                            {
+                                                                [SVProgressHUD dismiss];
+                                                            }
                                                         }
      ];
 }

@@ -15,6 +15,7 @@
 #import "LeadManager.h"
 #import "Models.h"
 #import "ParticipantViewController.h"
+#import "ParticipantsViewController.h"
 #import "SubscribersViewController.h"
 #import "SubscriptionsViewController.h"
 #import "TournamentsViewController.h"
@@ -51,6 +52,12 @@
             CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
             SearchModel *search = catalogueEventsViewController.search;
             [[PuntrUtilities mainNavigationController] pushViewController:[UsersViewController usersWithSearch:search] animated:YES];
+        }
+        else if ([self isVisible:[CatalogueEventsViewController class]] && [group.slug isEqualToString:KeyParticipants])
+        {
+            CatalogueEventsViewController *catalogueEventsViewController = (CatalogueEventsViewController *)[PuntrUtilities topController];
+            SearchModel *search = catalogueEventsViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[ParticipantsViewController participantsWithSearch:search] animated:YES];
         }
         else if ([self isVisible:[CatalogueEventsViewController class]])
         {
@@ -128,7 +135,8 @@
             ![self isVisible:[TournamentViewController class]] &&
             ![self isVisible:[CatalogueEventsViewController class]] &&
             ![self isVisible:[EventsViewController class]] &&
-            ![self isVisible:[UsersViewController class]])
+            ![self isVisible:[UsersViewController class]] &&
+            ![self isVisible:[ParticipantsViewController class]])
         {
             [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:nil] animated:YES];
         }
@@ -171,6 +179,12 @@
         {
             UsersViewController *usersViewController = (UsersViewController *)[PuntrUtilities topController];
             SearchModel *search = usersViewController.search;
+            [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
+        }
+        else if ([self isVisible:[ParticipantsViewController class]])
+        {
+            ParticipantsViewController *participantsViewController = (ParticipantsViewController *)[PuntrUtilities topController];
+            SearchModel *search = participantsViewController.search;
             [[PuntrUtilities mainNavigationController] pushViewController:[TournamentViewController controllerForTournament:(TournamentModel *)model search:search] animated:YES];
         }
     }

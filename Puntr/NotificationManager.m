@@ -10,7 +10,9 @@
 #import <TSMessages/TSMessage.h>
 #import "ErrorModel.h"
 
-static const NSTimeInterval TNDuration = 1.5f;
+static const NSTimeInterval TNDurationShort = 1.5f;
+static const NSTimeInterval TNDurationMedium = 3.0f;
+static const NSTimeInterval TNDurationLong = 5.0f;
 
 @implementation NotificationManager
 
@@ -23,7 +25,7 @@ static const NSTimeInterval TNDuration = 1.5f;
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController
 {
-    NSString *errorTitle = @"Ошибка";
+    NSString *errorTitle = NSLocalizedString(@"Error", nil);
     NSString *errorMessage = @"";
     if ([error.userInfo objectForKey:@"RKObjectMapperErrorObjectsKey"])
     {
@@ -45,11 +47,17 @@ static const NSTimeInterval TNDuration = 1.5f;
     {
         errorMessage = [error localizedDescription];
     }
-
+    
     [TSMessage showNotificationInViewController:viewController
                                           title:errorTitle
                                        subtitle:errorMessage
-                                           type:TSMessageNotificationTypeError];
+                                           type:TSMessageNotificationTypeError
+                                       duration:TNDurationLong
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 #pragma mark - Notification
@@ -65,9 +73,15 @@ static const NSTimeInterval TNDuration = 1.5f;
 + (void)showNotificationMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                          title:@"Внимание"
+                                          title:NSLocalizedString(@"Attention", nil)
                                        subtitle:message
-                                           type:TSMessageNotificationTypeWarning];
+                                           type:TSMessageNotificationTypeMessage
+                                       duration:TNDurationMedium
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 #pragma mark - Success
@@ -80,10 +94,10 @@ static const NSTimeInterval TNDuration = 1.5f;
 + (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                          title:@"Поздравляем!"
+                                          title:NSLocalizedString(@"Congratulations!", nil)
                                        subtitle:message
                                            type:TSMessageNotificationTypeSuccess
-                                       duration:TNDuration
+                                       duration:TNDurationShort
                                        callback:nil
                                     buttonTitle:nil
                                  buttonCallback:nil

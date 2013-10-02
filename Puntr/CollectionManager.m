@@ -37,6 +37,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 @property (nonatomic, strong) NSArray *groups;
 @property (nonatomic, strong) NSMutableArray *groupObjects;
 @property (nonatomic, strong) NSArray *catalogueEventsTournaments;
+@property (nonatomic, strong) NSArray *catalogueEventsParticipants;
 @property (nonatomic, strong) NSArray *catalogueEventsUsers;
 
 @property (nonatomic) NSUInteger stationaryObjectsCount;
@@ -99,6 +100,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     self.collectionObjects = nil;
     self.paging = nil;
+    self.catalogueEventsParticipants = nil;
     self.catalogueEventsTournaments = nil;
     self.catalogueEventsUsers = nil;
     [self loadData];
@@ -174,6 +176,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                 
             case CollectionTypeParticipant:
                 [self loadParticipant];
+                break;
+                
+            case CollectionTypeParticipants:
+                [self loadParticipants];
                 break;
                 
             case CollectionTypePrivacySettings:
@@ -295,7 +301,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
         {
             [self loadGroups:groups];
-            [self addHardcodedGroupsWithQuantity:2];
+            [self addHardcodedGroupsWithQuantity:self.search.query ? 3 : 2];
             
             PagingModel *paging = [PagingModel paging];
             [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
@@ -311,12 +317,16 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             
             NSNumber *TNCategoryAll = @0;
             
-            // Tournaments
+            // Tournaments & Participants
             
             if (![category.tag isEqualToNumber:TNCategoryAll])
             {
                 filter.categories = @[category];
                 [self loadCatalogueEventsTournamentsWithPaging:paging filter:filter];
+                if (self.search.query)
+                {
+                    [self loadCatalogueEventsParticipantsWithPaging:paging filter:filter];
+                }
             }
             else
             {
@@ -324,6 +334,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                     {
                         filter.categories = includedCategories;
                         [self loadCatalogueEventsTournamentsWithPaging:paging filter:filter];
+                        if (self.search.query)
+                        {
+                            [self loadCatalogueEventsParticipantsWithPaging:paging filter:filter];
+                        }
                     }
                 ];
             }
@@ -402,6 +416,27 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
+- (void)loadCatalogueEventsParticipantsWithPaging:(PagingModel *)paging filter:(FilterModel *)filter
+{
+    [[ObjectManager sharedManager] participantsWithPaging:paging
+                                                   filter:filter
+                                                   search:self.search
+                                                  success:^(NSArray *participants)
+                                                  {
+                                                      [self anotherGroupLoaded];
+                                                      self.catalogueEventsParticipants = participants;
+                                                      if ([self allGroupsLoaded])
+                                                      {
+                                                          [self combineCatalogueEvents];
+                                                      }
+                                                  }
+                                                  failure:^
+                                                  {
+                                                      [self finishLoading];
+                                                  }
+    ];
+}
+
 - (void)loadCatalogueEventsTournamentsWithPaging:(PagingModel *)paging filter:(FilterModel *)filter
 {
     [[ObjectManager sharedManager] tournamentsWithPaging:paging
@@ -439,6 +474,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     {
         [combinedObjects addObject:[self groupUsers]];
         [combinedObjects addObjectsFromArray:self.catalogueEventsUsers];
+    }
+    
+    if (self.catalogueEventsParticipants.count != 0)
+    {
+        [combinedObjects addObject:[self groupParticipants]];
+        [combinedObjects addObjectsFromArray:self.catalogueEventsParticipants];
     }
     
     self.collectionObjects = [combinedObjects copy];
@@ -726,6 +767,56 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     ];
 }
 
+#pragma mark - Participants
+
+- (void)loadParticipants
+{
+    FilterModel *filter = [FilterModel filter];
+    
+    CategoryModel *category = [CategoryModel categoryWithTag:[DefaultsManager sharedManager].defaultCategoryTag];
+    NSNumber *TNCategoryAll = @0;
+    if (![category.tag isEqualToNumber:TNCategoryAll])
+    {
+        filter.categories = @[category];
+        [self loadParticipantsWithFilter:filter];
+    }
+    else
+    {
+        [CategoryModel includedCategoriesWithSuccess:^(NSArray *includedCategories)
+            {
+                filter.categories = includedCategories;
+                [self loadParticipantsWithFilter:filter];
+            }
+        ];
+    }
+}
+
+- (void)loadParticipantsWithFilter:(FilterModel *)filter
+{
+    [[ObjectManager sharedManager] participantsWithPaging:self.paging
+                                                   filter:filter
+                                                   search:self.search
+                                                  success:^(NSArray *participants)
+                                                  {
+                                                      if (self.paging.isFirstPage)
+                                                      {
+                                                          SearchModel *search = self.search ? : [SearchModel searchWithQuery:nil];
+                                                          NSArray *stationaryObjects = @[search];
+                                                          self.stationaryObjectsCount = stationaryObjects.count;
+                                                          [self combineStationaryObjects:stationaryObjects withNewObjects:participants];
+                                                      }
+                                                      else
+                                                      {
+                                                          [self combineWithObjects:participants];
+                                                      }
+                                                  }
+                                                  failure:^
+                                                  {
+                                                      [self finishLoading];
+                                                  }
+    ];
+}
+
 #pragma mark - Privacy Settings
 
 - (void)loadPrivacySettings
@@ -777,7 +868,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
          DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
          vkDynamicModel.slug = KeyVKontakte;
          vkDynamicModel.status = profile.socials.vk;
-         vkDynamicModel.title = @"VKontakte";
+         vkDynamicModel.title = NSLocalizedString(@"VKontakte", nil);
          
          [self combineWithObjects:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
      }
@@ -1232,6 +1323,15 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         [combinedObjects addObjectsFromArray:objects];
     }
     return combinedObjects;
+}
+
+- (GroupModel *)groupParticipants
+{
+    GroupModel *groupParticipants = [GroupModel group];
+    groupParticipants.slug = KeyParticipants;
+    groupParticipants.title = NSLocalizedString(@"Participants", nil);
+    groupParticipants.imageHardcode = [UIImage imageNamed:@"IconLiga"];
+    return groupParticipants;
 }
 
 - (GroupModel *)groupTournaments

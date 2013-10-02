@@ -292,6 +292,7 @@
 		76CEFF8A17FAA02F006A0169 /* IconExperts.png in Resources */ = {isa = PBXBuildFile; fileRef = 76CEFF8817FAA02F006A0169 /* IconExperts.png */; };
 		76CEFF8B17FAA02F006A0169 /* IconExperts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76CEFF8917FAA02F006A0169 /* IconExperts@2x.png */; };
 		76CEFF8E17FAA24A006A0169 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CEFF8D17FAA24A006A0169 /* UsersViewController.m */; };
+		76CEFF9117FAD06C006A0169 /* ParticipantsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CEFF9017FAD06C006A0169 /* ParticipantsViewController.m */; };
 		76EA3E9117DF1D9000450A55 /* SwitchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA3E9017DF1D9000450A55 /* SwitchModel.m */; };
 		76F6715F17A049570032C9AE /* AFHTTPClientTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F6715E17A049570032C9AE /* AFHTTPClientTweak.m */; };
 		76F7570A17F0A97D00F081E3 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F7570917F0A97D00F081E3 /* SearchModel.m */; };
@@ -779,6 +780,8 @@
 		76CEFF8917FAA02F006A0169 /* IconExperts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconExperts@2x.png"; sourceTree = "<group>"; };
 		76CEFF8C17FAA24A006A0169 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
 		76CEFF8D17FAA24A006A0169 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
+		76CEFF8F17FAD06C006A0169 /* ParticipantsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantsViewController.h; sourceTree = "<group>"; };
+		76CEFF9017FAD06C006A0169 /* ParticipantsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantsViewController.m; sourceTree = "<group>"; };
 		76EA3E8F17DF1D9000450A55 /* SwitchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchModel.h; sourceTree = "<group>"; };
 		76EA3E9017DF1D9000450A55 /* SwitchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchModel.m; sourceTree = "<group>"; };
 		76EA3E9217DF1EA600450A55 /* CollectionManagerTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionManagerTypes.h; sourceTree = "<group>"; };
@@ -1463,6 +1466,8 @@
 				31B112A7176B5DAD00060EAB /* MyStakesViewController.m */,
 				31B112A3176B5D6100060EAB /* NewsViewController.h */,
 				31B112A4176B5D6100060EAB /* NewsViewController.m */,
+				76CEFF8F17FAD06C006A0169 /* ParticipantsViewController.h */,
+				76CEFF9017FAD06C006A0169 /* ParticipantsViewController.m */,
 				0F3DB91717A26BA000F9B3AE /* ParticipantViewController.h */,
 				0F3DB91817A26BA000F9B3AE /* ParticipantViewController.m */,
 				0FAFC4E817C4E1FF00735D0C /* PrivacySettingsViewController.h */,
@@ -2103,6 +2108,7 @@
 				0FA5FC9D17B237C700352827 /* OAuthCore.m in Sources */,
 				0FA5FC9F17B237C700352827 /* TWAPIManager.m in Sources */,
 				0FA5FCA017B237C700352827 /* TwitterReverseOAuthResponse.m in Sources */,
+				76CEFF9117FAD06C006A0169 /* ParticipantsViewController.m in Sources */,
 				0FA5FCA117B237C700352827 /* TWSignedRequest.m in Sources */,
 				0FA5FCCA17B2387200352827 /* NSData+toBase64.m in Sources */,
 				0FA5FCCB17B2387200352827 /* NSString+encodeURL.m in Sources */,
