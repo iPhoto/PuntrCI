@@ -25,7 +25,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController
 {
-    NSString *errorTitle = @"Ошибка";
+    NSString *errorTitle = NSLocalizedString(@"Error", nil);
     NSString *errorMessage = @"";
     if ([error.userInfo objectForKey:@"RKObjectMapperErrorObjectsKey"])
     {
@@ -73,7 +73,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 + (void)showNotificationMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                          title:@"Внимание"
+                                          title:NSLocalizedString(@"Attention", nil)
                                        subtitle:message
                                            type:TSMessageNotificationTypeMessage
                                        duration:TNDurationMedium
@@ -94,7 +94,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 + (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
 {
     [TSMessage showNotificationInViewController:viewController
-                                          title:@"Поздравляем!"
+                                          title:NSLocalizedString(@"Congratulations!", nil)
                                        subtitle:message
                                            type:TSMessageNotificationTypeSuccess
                                        duration:TNDurationShort

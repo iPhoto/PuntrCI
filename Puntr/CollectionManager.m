@@ -868,7 +868,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
          DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
          vkDynamicModel.slug = KeyVKontakte;
          vkDynamicModel.status = profile.socials.vk;
-         vkDynamicModel.title = @"VKontakte";
+         vkDynamicModel.title = NSLocalizedString(@"VKontakte", nil);
          
          [self combineWithObjects:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
      }
@@ -1329,7 +1329,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     GroupModel *groupParticipants = [GroupModel group];
     groupParticipants.slug = KeyParticipants;
-    groupParticipants.title = @"Участники";
+    groupParticipants.title = NSLocalizedString(@"Participants", nil);
     groupParticipants.imageHardcode = [UIImage imageNamed:@"IconLiga"];
     return groupParticipants;
 }

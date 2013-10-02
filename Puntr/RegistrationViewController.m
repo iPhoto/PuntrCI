@@ -59,7 +59,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Регистрация";
+    self.title = NSLocalizedString(@"Registration", nil);
     
     // Frame
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -90,7 +90,7 @@
     self.textFields = [NSArray array];
     
     self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 19.0f, 188.0f, 38.0f)];//(18.0, 160.0f, 282.0f, 38.0f)
-    self.textFieldFirstName.placeholder = @"Имя...";
+    self.textFieldFirstName.placeholder = NSLocalizedString(@"Firstname...", nil);
     self.textFieldFirstName.returnKeyType = UIReturnKeyNext;
     self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.textFieldFirstName.delegate = self;
@@ -98,7 +98,7 @@
     [self.scrollView addSubview:self.textFieldFirstName];
     
     self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];//(18.0, 207.0f, 282.0f, 38.0f)
-    self.textFieldLastName.placeholder = @"Фамилия...";
+    self.textFieldLastName.placeholder = NSLocalizedString(@"Lastname...", nil);
     self.textFieldLastName.returnKeyType = UIReturnKeyNext;
     self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.textFieldLastName.delegate = self;
@@ -116,7 +116,7 @@
     [self.scrollView addSubview:self.textFieldEmail];
     
     self.textFieldPassword = [[TextField alloc] initWithFrame:CGRectMake(18.0, 160.0f, 282.0f, 38.0f)];//(18.0, 66.0f, 282.0f, 38.0f)
-    self.textFieldPassword.placeholder = @"Пароль...";
+    self.textFieldPassword.placeholder = NSLocalizedString(@"Password...", nil);
     self.textFieldPassword.secureTextEntry = YES;
     self.textFieldPassword.keyboardType = UIKeyboardTypeDefault;
     self.textFieldPassword.returnKeyType = UIReturnKeyNext;
@@ -126,7 +126,7 @@
     [self.scrollView addSubview:self.textFieldPassword];
     
     self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0, 207.0f, 282.0f, 38.0f)];//(18.0, 113.0f, 282.0f, 38.0f)
-    self.textFieldUsername.placeholder = @"Никнейм...";
+    self.textFieldUsername.placeholder = NSLocalizedString(@"Nickname...", nil);
     self.textFieldUsername.returnKeyType = UIReturnKeyDone;
     self.textFieldUsername.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldUsername.delegate = self;
@@ -142,7 +142,7 @@
     [self.buttonPhoto setTitleColor:[UIColor colorWithRed:0.773 green:0.769 blue:0.769 alpha:1] forState:UIControlStateNormal];
     [self.buttonPhoto.titleLabel setNumberOfLines:0];
     [self.buttonPhoto.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.buttonPhoto setTitle:@"ЗАГРУЗИТЬ\nФОТО" forState:UIControlStateNormal];
+    [self.buttonPhoto setTitle:NSLocalizedString(@"Upload photo", nil) forState:UIControlStateNormal];
     [self.buttonPhoto setTitleEdgeInsets:UIEdgeInsetsMake(47.0, 0.0, 0, 0.0)];
     [self.buttonPhoto addTarget:self action:@selector(buttonPhotoTouched) forControlEvents:UIControlEventTouchUpInside];
     self.buttonPhoto.layer.cornerRadius = 5;
@@ -160,7 +160,7 @@
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    [self.buttonRegistration setTitle:@"Зарегистрироваться" forState:UIControlStateNormal];
+    [self.buttonRegistration setTitle:NSLocalizedString(@"Registration", nil) forState:UIControlStateNormal];
     self.buttonRegistration.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonRegistration.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonRegistration.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -292,31 +292,31 @@
 {
     if (!self.user.firstName || self.user.firstName.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите имя"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter firstname", nil)];
         return NO;
     }
     
     if (!self.user.lastName || self.user.lastName.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите фамилию"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter lastname", nil)];
         return NO;
     }
     
     if (!self.user.email || self.user.email.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите Email"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter Email", nil)];
         return NO;
     }
     
     if (!self.user.password || self.user.password.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите пароль"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter password", nil)];
         return NO;
     }
     
     if (!self.user.username || self.user.username.length == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите никнейм"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter nickname", nil)];
         return NO;
     }
     
@@ -359,7 +359,7 @@
 - (void)buttonPhotoTouched{
     UIActionSheet *actionSheet;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Выберите источник" delegate:self cancelButtonTitle:@"Отмена" destructiveButtonTitle:nil otherButtonTitles:@"Камера", @"Галерея", nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select source", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Gallery", nil), nil];
         [actionSheet showInView:self.view];
     } else {
         [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
