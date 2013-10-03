@@ -298,7 +298,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     {
         if (error)
         {
-            [NotificationManager showNotificationMessage:[NSString stringWithFormat:@"Ошибка получения списка друзей! \n%@", error.localizedDescription]];
+            [NotificationManager showNotificationMessage:[NSString stringWithFormat:@"%@ \n%@", NSLocalizedString(@"Failure to get a list of friends!", nil), error.localizedDescription]];
         }
     }];
 }

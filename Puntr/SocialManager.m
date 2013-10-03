@@ -72,7 +72,7 @@
         default:
             if (self.failure)
             {
-                self.failure([NSError errorWithDomain:@"Puntr" code:0 userInfo:@{NSLocalizedDescriptionKey: @"Неизвестная ошибка"}]);
+                self.failure([NSError errorWithDomain:@"Puntr" code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown error", nil)}]);
             }
             break;
     }
@@ -284,7 +284,7 @@
     {
         text = @"";
     }
-    NSString *comment = [NSString stringWithFormat:@"some awesom words about puntr\n%@", text] ;
+    NSString *comment = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"Sharing text", nil), text] ;
     switch (socialNetworkType)
     {
         case SocialNetworkTypeFacebook:

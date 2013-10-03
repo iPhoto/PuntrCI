@@ -65,7 +65,7 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     [self setupSettingsArray];
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.title = @"Настройки";
+    self.title = NSLocalizedString(@"Settings", nil);
     
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
@@ -192,27 +192,27 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 {
     self.settingsArray = @[
                              @[
-                                 @{ @"pictureName": @"1.png", @"title": @"Данные пользователя", @"performSelector": @"profileUpdateTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"2.png", @"title": @"Сменить пароль", @"performSelector": @"changePasswordTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"3.png", @"title": @"Статистика", @"performSelector": @"statisticTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"1.png", @"title": NSLocalizedString(@"User profile", nil), @"performSelector": @"profileUpdateTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"2.png", @"title": NSLocalizedString(@"Change Password", nil), @"performSelector": @"changePasswordTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"3.png", @"title": NSLocalizedString(@"Statistics", nil), @"performSelector": @"statisticTouched", @"isAccessory": @(YES) },
                               ],
                              @[
-                                 @{ @"pictureName": @"4.png", @"title": @"Аккаунты соц. сетей", @"performSelector": @"socialsTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"5.png", @"title": @"Пригласить друзей из соц. сетей", @"performSelector": @"friendsTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"6.png", @"title": @"Push-уведомления", @"performSelector": @"pushTouched", @"isAccessory": @(YES)},
-                                 @{ @"pictureName": @"7.png", @"title": @"Приватность", @"performSelector": @"privacyTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"8.png", @"title": @"Выйти", @"performSelector": @"showExitDialog" },
+                                 @{ @"pictureName": @"4.png", @"title": NSLocalizedString(@"Soc. networks accounts", nil), @"performSelector": @"socialsTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"5.png", @"title": NSLocalizedString(@"Invite friends from social networks", nil), @"performSelector": @"friendsTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"6.png", @"title": NSLocalizedString(@"Push Notifications", nil), @"performSelector": @"pushTouched", @"isAccessory": @(YES)},
+                                 @{ @"pictureName": @"7.png", @"title": NSLocalizedString(@"Privacy", nil), @"performSelector": @"privacyTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"8.png", @"title": NSLocalizedString(@"Log out", nil), @"performSelector": @"showExitDialog" },
                               ],
                              @[
-                                 @{ @"pictureName": @"9.png", @"title": @"Оферта", @"performSelector": @"offerTouched", @"isAccessory": @(YES) },
-                                 @{ @"pictureName": @"10.png", @"title": @"Условия использования", @"performSelector": @"termsTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"9.png", @"title": NSLocalizedString(@"Offer", nil), @"performSelector": @"offerTouched", @"isAccessory": @(YES) },
+                                 @{ @"pictureName": @"10.png", @"title": NSLocalizedString(@"Terms of usage", nil), @"performSelector": @"termsTouched", @"isAccessory": @(YES) },
                               ],
                           ];
     
     self.sectionHeadersArray = @[
-                                   @{ @"text": @"Профиль", @"font": TNFontHeader },
-                                   @{ @"text": @"Аккаунт", @"font": TNFontHeader },
-                                   @{ @"text": @"Условия", @"font": TNFontHeader },
+                                   @{ @"text": NSLocalizedString(@"Profile", nil), @"font": TNFontHeader },
+                                   @{ @"text": NSLocalizedString(@"Account", nil), @"font": TNFontHeader },
+                                   @{ @"text": NSLocalizedString(@"Terms", nil), @"font": TNFontHeader },
                                 ];
     
     /*self.sectionFootersArray = @[
@@ -344,10 +344,10 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 
 - (void)showExitDialog
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Вы уверены?"
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure?", nil)
                                                              delegate:self
-                                                    cancelButtonTitle:@"Отмена"
-                                               destructiveButtonTitle:@"Выйти"
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                               destructiveButtonTitle:NSLocalizedString(@"Log out", nil)
                                                     otherButtonTitles:nil];
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }

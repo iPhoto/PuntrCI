@@ -68,9 +68,9 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Ставка";
+    self.title = NSLocalizedString(@"Stake noun", nil);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(close)];
@@ -95,7 +95,7 @@
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelTitle.textAlignment = NSTextAlignmentCenter;
     self.labelTitle.textColor = [UIColor whiteColor];
-    self.labelTitle.text = [NSString stringWithFormat:@"Ставка на %@", self.event.tournament.category.title];
+    self.labelTitle.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Stake on", nil), self.event.tournament.category.title];
     [self.view addSubview:self.labelTitle];
     
     UIView *backgroundCover = [[UIView alloc] initWithFrame:CGRectMake(coverMargin, descriptionPadding, screenWidth - coverMargin * 2.0f, screenHeight - coverMargin - descriptionPadding)];
@@ -150,7 +150,7 @@
                                                                                        screenWidth - coverMargin * 4.0f,
                                                                                        stakeElementHeight
                                                                                        )];
-    [self.elementViewLineSelection loadWithTitle:@"Ставка на:" target:self action:@selector(showLineSelection:)];
+    [self.elementViewLineSelection loadWithTitle:NSLocalizedString(@"Stake on:", nil) target:self action:@selector(showLineSelection:)];
     [self.view addSubview:self.elementViewLineSelection];
     
     self.elementViewCriterionSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -159,7 +159,7 @@
                                                                                             screenWidth - coverMargin * 4.0f,
                                                                                             stakeElementHeight
                                                                                             )];
-    [self.elementViewCriterionSelection loadWithTitle:@"Текущий выбор:" target:self action:@selector(showCriterionSelection:)];
+    [self.elementViewCriterionSelection loadWithTitle:NSLocalizedString(@"Current selection:", nil) target:self action:@selector(showCriterionSelection:)];
     [self.view addSubview:self.elementViewCriterionSelection];
     
     
@@ -177,7 +177,7 @@
     self.labelAmount.backgroundColor = [UIColor clearColor];
     self.labelAmount.textAlignment = NSTextAlignmentCenter;
     self.labelAmount.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelAmount.text = @"Сумма ставки:";
+    self.labelAmount.text = NSLocalizedString(@"Stake amount:", nil);
     [self.view addSubview:self.labelAmount];
     
     CGFloat buttonOperationPadding = 4.0f;
@@ -230,7 +230,7 @@
                                                                                      screenWidth - coverMargin * 4.0f,
                                                                                      stakeElementHeight
                                                                                      )];
-    [self.elementViewCoefficient loadWithTitle:@"Коэффициент:" target:nil action:nil];
+    [self.elementViewCoefficient loadWithTitle:NSLocalizedString(@"Odds:", nil) target:nil action:nil];
     [self.view addSubview:self.elementViewCoefficient];
     
     CGFloat buttonHeight = 40.0f;
@@ -245,7 +245,7 @@
     self.labelReward.backgroundColor = [UIColor clearColor];
     self.labelReward.textColor = [UIColor colorWithRed:0.20f green:0.20f blue:0.20f alpha:1.00f];
     self.labelReward.textAlignment = NSTextAlignmentCenter;
-    self.labelReward.text = @"Выигрыш: ";
+    self.labelReward.text = NSLocalizedString(@"Prize: ", nil);
     [self.view addSubview:self.labelReward];
     
     self.imageViewBottomDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, screenHeight - 3.0f * coverMargin - buttonHeight, screenWidth - coverMargin * 2.0f, 1.0f)];
@@ -254,7 +254,7 @@
     
     self.buttonBet = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonBet.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, buttonHeight);
-    [self.buttonBet setTitle:@"Пари" forState:UIControlStateNormal];
+    [self.buttonBet setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
     self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -265,7 +265,7 @@
     
     self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    [self.buttonStake setTitle:@"Ставить" forState:UIControlStateNormal];
+    [self.buttonStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
     self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -359,17 +359,17 @@
 {
     if ([self selectedAmount] == 0)
     {
-        [NotificationManager showNotificationMessage:@"Задайте сумму ставки"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Set amount of stake", nil)];
         return NO;
     }
     if (!self.selectedLine)
     {
-        [NotificationManager showNotificationMessage:@"Выберите линию ставки"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the line of stake", nil)];
         return NO;
     }
     if (!self.coefficient)
     {
-        [NotificationManager showNotificationMessage:@"Выберите критерии ставки"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the criteria of stake", nil)];
         return NO;
     }
     return YES;
@@ -438,7 +438,7 @@
     NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
     [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
     [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-    self.labelReward.text = [NSString stringWithFormat:@"Выигрыш: %@ Р", [twoDecimalPlacesFormatter stringFromNumber:@(self.textFieldAmount.text.integerValue * self.coefficient.value.floatValue)]];
+    self.labelReward.text = [NSString stringWithFormat:@"%@%@ P", NSLocalizedString(@"Prize: ", nil), [twoDecimalPlacesFormatter stringFromNumber:@(self.textFieldAmount.text.integerValue * self.coefficient.value.floatValue)]];
 }
 
 - (void)updateCoefficient

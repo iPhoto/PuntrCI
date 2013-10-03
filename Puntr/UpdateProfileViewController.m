@@ -41,7 +41,7 @@
     self.user = [[ObjectManager sharedManager] loginedUser];
     [self loadProfile];
     
-    self.title = @"Профиль";
+    self.title = NSLocalizedString(@"Profile", nil);
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f,
@@ -57,21 +57,21 @@
     [self.view addSubview:self.viewTextFieldsBackground];
     
     self.textFieldFirstName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 19.0f, 188.0f, 38.0f)];
-    self.textFieldFirstName.placeholder = @"Имя...";
+    self.textFieldFirstName.placeholder = NSLocalizedString(@"Firstname...", nil);
     self.textFieldFirstName.returnKeyType = UIReturnKeyDone;
     self.textFieldFirstName.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldFirstName.delegate = self;
     [self.view addSubview:self.textFieldFirstName];
     
     self.textFieldLastName = [[TextField alloc] initWithFrame:CGRectMake(112.0, 66.0f, 188.0f, 38.0f)];
-    self.textFieldLastName.placeholder = @"Фамилия...";
+    self.textFieldLastName.placeholder = NSLocalizedString(@"Lastname...", nil);
     self.textFieldLastName.returnKeyType = UIReturnKeyDone;
     self.textFieldLastName.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldLastName.delegate = self;
     [self.view addSubview:self.textFieldLastName];
     
     self.textFieldUsername = [[TextField alloc] initWithFrame:CGRectMake(18.0f, 113.0f, 282.0f, 38.0f)];
-    self.textFieldUsername.placeholder = @"Ник...";
+    self.textFieldUsername.placeholder = NSLocalizedString(@"Nickname...", nil);
     self.textFieldUsername.returnKeyType = UIReturnKeyDone;
     self.textFieldUsername.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldUsername.delegate = self;
@@ -110,7 +110,7 @@
     
     self.buttonSaveData = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonSaveData.frame = CGRectMake(10.0f, CGRectGetHeight(viewControllerFrame) - 50.0f, 300.0f, 40.0f);
-    [self.buttonSaveData setTitle:@"Сохранить" forState:UIControlStateNormal];
+    [self.buttonSaveData setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
     self.buttonSaveData.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     self.buttonSaveData.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     self.buttonSaveData.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -128,7 +128,7 @@
          {
              
              [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
-             [self.buttonPhoto setTitle:@"ЗАГРУЗИТЬ\nФОТО" forState:UIControlStateNormal];
+             [self.buttonPhoto setTitle:NSLocalizedString(@"Upload photo", nil) forState:UIControlStateNormal];
          }
          else
          {
@@ -149,7 +149,7 @@
 - (void)buttonPhotoTouched{
     UIActionSheet *actionSheet;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Выберите источник" delegate:self cancelButtonTitle:@"Отмена" destructiveButtonTitle:nil otherButtonTitles:@"Камера", @"Галерея", nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Select source", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Gallery", nil), nil];
         [actionSheet showFromTabBar:self.tabBarController.tabBar];
     } else {
         [self startCameraControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
@@ -172,19 +172,19 @@
 {
     if (!self.user.firstName || self.user.firstName == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите имя"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter firstname", nil)];
         return NO;
     }
     
     if (!self.user.lastName || self.user.lastName == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите фамилию"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter lastname", nil)];
         return NO;
     }
     
     if (!self.user.username || self.user.username == 0)
     {
-        [NotificationManager showNotificationMessage:@"Введите ник"];
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter nickname", nil)];
         return NO;
     }
     
@@ -200,7 +200,7 @@
         [[ObjectManager sharedManager] updateProfileWithUser:self.user
                                                      success:^
                                                      {
-                                                         [NotificationManager showSuccessMessage:@"Профиль успешно изменен!"];
+                                                         [NotificationManager showSuccessMessage:NSLocalizedString(@"Profile has been successfully modified!", nil)];
                                                          [self.navigationController popViewControllerAnimated:YES];
                                                      }
                                                      failure:nil
