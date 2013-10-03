@@ -135,6 +135,9 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = NSLocalizedString(@"Filter", nil);
     
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonTouched)];
+    self.navigationItem.leftBarButtonItem = buttonCancel;
+
     CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
     CGFloat navigationBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
@@ -157,6 +160,11 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     [self addCheckButton];
     
     [self requestData];
+}
+
+- (void)cancelButtonTouched
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Utility
