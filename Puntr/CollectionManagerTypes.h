@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, CollectionType)
     CollectionTypeEventComments,
     CollectionTypeEvents,
     CollectionTypeEventStakes,
+    CollectionTypeInviteFriends,
     CollectionTypeMyStakes,
     CollectionTypeNews,
     CollectionTypeParticipant,

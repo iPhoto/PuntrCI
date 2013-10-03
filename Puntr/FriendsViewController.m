@@ -7,11 +7,13 @@
 //
 
 #import "FriendsViewController.h"
+#import "InviteFriendsViewController.h"
 #import "UIViewController+Puntr.h"
 
 #import "ObjectManager.h"
 #import "Models.h"
 #import "NotificationManager.h"
+#import "SocialManager.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -285,7 +287,20 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
         [NotificationManager showNotificationMessage: NSLocalizedString(@"Facebook not", nil)];
         return;
     }
-
+    [[PuntrUtilities mainNavigationController] pushViewController:[InviteFriendsViewController friendsForSocialNetworkType:SocialNetworkTypeFacebook] animated:YES];
+    
+    [[SocialManager sharedManager] getUserFriendsWithSocialNetworkOfType:SocialNetworkTypeFacebook
+    success:^(AccessModel *accessModel)
+    {
+        
+    }
+    failure:^(NSError *error)
+    {
+        if (error)
+        {
+            [NotificationManager showNotificationMessage:[NSString stringWithFormat:@"Ошибка получения списка друзей! \n%@", error.localizedDescription]];
+        }
+    }];
 }
 
 - (void)twTouched

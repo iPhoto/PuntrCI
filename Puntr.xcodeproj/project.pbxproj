@@ -353,6 +353,9 @@
 		ACA2647C17BD87AD006DE0FD /* settingsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647A17BD87AD006DE0FD /* settingsBackground.png */; };
 		ACA2647D17BD87AD006DE0FD /* settingsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2647B17BD87AD006DE0FD /* settingsBackground@2x.png */; };
 		ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */; };
+		D682EC0317FCC94900B5375D /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D682EC0217FCC94900B5375D /* InviteFriendsViewController.m */; };
+		D682EC0617FCE13000B5375D /* FacebookFriendsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D682EC0517FCE13000B5375D /* FacebookFriendsListModel.m */; };
+		D682EC0917FCE32700B5375D /* FacebookFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D682EC0817FCE32700B5375D /* FacebookFriendModel.m */; };
 		D6AA9AA417CBE4890003E1A9 /* AwardsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */; };
 		D6AA9AA717CBE8E50003E1A9 /* AwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA617CBE8E50003E1A9 /* AwardViewController.m */; };
 		D6AA9AAA17CBF0CF0003E1A9 /* AwardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA9AA917CBF0CF0003E1A9 /* AwardCell.m */; };
@@ -854,6 +857,12 @@
 		ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		BB61E77802DE4F2BAA561855 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D682EC0117FCC94900B5375D /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteFriendsViewController.h; sourceTree = "<group>"; };
+		D682EC0217FCC94900B5375D /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteFriendsViewController.m; sourceTree = "<group>"; };
+		D682EC0417FCE13000B5375D /* FacebookFriendsListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookFriendsListModel.h; sourceTree = "<group>"; };
+		D682EC0517FCE13000B5375D /* FacebookFriendsListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookFriendsListModel.m; sourceTree = "<group>"; };
+		D682EC0717FCE32700B5375D /* FacebookFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookFriendModel.h; sourceTree = "<group>"; };
+		D682EC0817FCE32700B5375D /* FacebookFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookFriendModel.m; sourceTree = "<group>"; };
 		D6AA9AA217CBE4890003E1A9 /* AwardsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardsCollectionViewController.h; sourceTree = "<group>"; };
 		D6AA9AA317CBE4890003E1A9 /* AwardsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardsCollectionViewController.m; sourceTree = "<group>"; };
 		D6AA9AA517CBE8E50003E1A9 /* AwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardViewController.h; sourceTree = "<group>"; };
@@ -1462,6 +1471,8 @@
 				AC34681817CFDA420077418B /* FilterViewController.m */,
 				0FEB2F0717F4630700685FC8 /* FriendsViewController.h */,
 				0FEB2F0817F4630700685FC8 /* FriendsViewController.m */,
+				D682EC0117FCC94900B5375D /* InviteFriendsViewController.h */,
+				D682EC0217FCC94900B5375D /* InviteFriendsViewController.m */,
 				31B112A6176B5DAD00060EAB /* MyStakesViewController.h */,
 				31B112A7176B5DAD00060EAB /* MyStakesViewController.m */,
 				31B112A3176B5D6100060EAB /* NewsViewController.h */,
@@ -1587,6 +1598,10 @@
 				31F47E1F17731A910047ECCF /* EventModel.m */,
 				31CF777D17BE5925009B2FC6 /* FacebookModel.h */,
 				31CF777E17BE5925009B2FC6 /* FacebookModel.m */,
+				D682EC0417FCE13000B5375D /* FacebookFriendsListModel.h */,
+				D682EC0517FCE13000B5375D /* FacebookFriendsListModel.m */,
+				D682EC0717FCE32700B5375D /* FacebookFriendModel.h */,
+				D682EC0817FCE32700B5375D /* FacebookFriendModel.m */,
 				315A60F917B287AA0010756F /* FilterModel.h */,
 				315A60FA17B287AA0010756F /* FilterModel.m */,
 				3109279E17B8E55E0030C3E4 /* GroupModel.h */,
@@ -2127,6 +2142,7 @@
 				0FA5FCD517B2387200352827 /* VKStorageItem.m in Sources */,
 				0FA5FCD617B2387200352827 /* VKUser.m in Sources */,
 				0FA5FCD917B23ED800352827 /* SocialManager.m in Sources */,
+				D682EC0317FCC94900B5375D /* InviteFriendsViewController.m in Sources */,
 				315A60FB17B287AA0010756F /* FilterModel.m in Sources */,
 				315A60FE17B2898C0010756F /* PagingModel.m in Sources */,
 				0F40905117B4F731001CC23F /* ActivityModel.m in Sources */,
@@ -2137,6 +2153,7 @@
 				ACDFDB7B17BADBA500E124F5 /* SettingsViewController.m in Sources */,
 				D6B1956A17B7E0BE00D1B352 /* PuntrUtilities.m in Sources */,
 				318D475917B8E0F400A64C6A /* CredentialsModel.m in Sources */,
+				D682EC0617FCE13000B5375D /* FacebookFriendsListModel.m in Sources */,
 				310927A017B8E55E0030C3E4 /* GroupModel.m in Sources */,
 				31C1858317BA3489003049D0 /* RKRelationshipMapping+Convenience.m in Sources */,
 				314E8DF217BB95D90046E1A1 /* CGGeometry+Convenience.m in Sources */,
@@ -2163,6 +2180,7 @@
 				3164F99717CE4C3500AB0673 /* UILabel+Puntr.m in Sources */,
 				76FCB9AF17D62D3900183109 /* LeadManager.m in Sources */,
 				76FCB9B217D636FB00183109 /* LeadButton.m in Sources */,
+				D682EC0917FCE32700B5375D /* FacebookFriendModel.m in Sources */,
 				0F559FE417D635EC00BC9EA0 /* SocialModel.m in Sources */,
 				316765E617D7628600634FBE /* EventsViewController.m in Sources */,
 				316765E917D7722000634FBE /* CatalogueTournamentsViewController.m in Sources */,

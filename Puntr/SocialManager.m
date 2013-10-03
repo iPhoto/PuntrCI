@@ -7,6 +7,8 @@
 //
 
 #import "FacebookModel.h"
+#import "FacebookFriendModel.h"
+#import "FacebookFriendsListModel.h"
 #import "NotificationManager.h"
 #import "OAuth+Additions.h"
 #import "PuntrUtilities.h"
@@ -220,6 +222,60 @@
             }
         }
     ];
+}
+
+- (void)getUserFriendsWithSocialNetworkOfType:(SocialNetworkType)socialNetworkType success:(SocialManagerSuccess)success failure:(SocialManagerFailure)failure
+{
+    self.success = success;
+    self.failure = failure;
+    switch (socialNetworkType)
+    {
+        case SocialNetworkTypeFacebook:
+        {
+            [self userFbFriends];
+            break;
+        }
+        case SocialNetworkTypeTwitter:
+        {
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)userFbFriends
+{
+    NSURL *friendsUrl = [NSURL URLWithString:@"https://graph.facebook.com/me/friends?fields=id,name,picture"];
+    
+    SLRequest *friendsRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                   requestMethod:SLRequestMethodGET
+                                                             URL:friendsUrl
+                                                      parameters:nil];
+    
+    friendsRequest.account = self.facebookAccount;
+    
+    [friendsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
+    {
+        if (error)
+        {
+            if (self.failure)
+            {
+                self.failure(error);
+            }
+        }
+        else
+        {
+            NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+            FacebookFriendsListModel *fbModel = [[FacebookFriendsListModel alloc]init];
+            fbModel.friendsList = [fbDictionary objectForKey:@"data"];
+            fbModel.pagingNext = fbDictionary[@"paging"][@"next"];
+            if (self.success)
+            {
+                self.success(fbModel);
+            }
+         }
+     }];
 }
 
 - (UIViewController *)shareWithSocialNetwork:(SocialNetworkType)socialNetworkType Text:(NSString *)text Image:(UIImage *)image
