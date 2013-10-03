@@ -40,7 +40,7 @@
     [super viewDidLoad];
 	CGRect frame = self.frame;
     
-    self.title = @"Подписки";
+    self.title = NSLocalizedString(@"Subscriptions title", nil);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeSubscriptions modifierObjects:@[self.user]];

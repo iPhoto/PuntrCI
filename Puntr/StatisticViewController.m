@@ -43,7 +43,7 @@ static const CGFloat TNItemSpacing = 8.0f;
 {
     [super viewDidLoad];
     
-    self.title = @"Статистика";
+    self.title = NSLocalizedString(@"Statistics", nil);
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     CGRect viewControllerFrame = CGRectMake(0.0f,
@@ -67,7 +67,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                          screenWidth - TNItemSpacing * 4.0f,
                                                                          stakeElementHeight
                                                                         )];
-    [self.stakeCount loadWithTitle:@"Сделал ставок:" target:nil action:nil];
+    [self.stakeCount loadWithTitle:NSLocalizedString(@"Stakes done", nil) target:nil action:nil];
     [self.view addSubview:self.stakeCount];
     
 	self.wins = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -76,7 +76,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                          screenWidth - TNItemSpacing * 4.0f,
                                                                          stakeElementHeight
                                                                         )];
-    [self.wins loadWithTitle:@"Выиграл:" target:nil action:nil];
+    [self.wins loadWithTitle:NSLocalizedString(@"Win:", nil) target:nil action:nil];
     [self.view addSubview:self.wins];
     
     self.loose = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -85,7 +85,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                    screenWidth - TNItemSpacing * 4.0f,
                                                                    stakeElementHeight
                                                                    )];
-    [self.loose loadWithTitle:@"Проиграл:" target:nil action:nil];
+    [self.loose loadWithTitle:NSLocalizedString(@"Lost:", nil) target:nil action:nil];
     [self.view addSubview:self.loose];
     
     self.maxWin = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -94,7 +94,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                    screenWidth - TNItemSpacing * 4.0f,
                                                                    stakeElementHeight
                                                                    )];
-    [self.maxWin loadWithTitle:@"Максимальный выигрыш:" target:nil action:nil];
+    [self.maxWin loadWithTitle:NSLocalizedString(@"Top award:", nil) target:nil action:nil];
     [self.view addSubview:self.maxWin];
     
     self.winMoney = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -103,7 +103,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                    screenWidth - TNItemSpacing * 4.0f,
                                                                    stakeElementHeight
                                                                    )];
-    [self.winMoney loadWithTitle:@"Суммарный выигрыш:" target:nil action:nil];
+    [self.winMoney loadWithTitle:NSLocalizedString(@"Total prize:", nil) target:nil action:nil];
     [self.view addSubview:self.winMoney];
     
     self.lossMoney = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -112,7 +112,7 @@ static const CGFloat TNItemSpacing = 8.0f;
                                                                        screenWidth - TNItemSpacing * 4.0f,
                                                                        stakeElementHeight
                                                                        )];
-    [self.lossMoney loadWithTitle:@"Суммарный проигрыш:" target:nil action:nil];
+    [self.lossMoney loadWithTitle:NSLocalizedString(@"Total loss:", nil) target:nil action:nil];
     [self.view addSubview:self.lossMoney];
     
     self.viewTextFieldsBackground.frame = CGRectSetHeight(

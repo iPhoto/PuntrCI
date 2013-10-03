@@ -57,7 +57,7 @@
 - (void)touchedButtonFilter
 {
     FilterViewController *filterViewController = [FilterViewController new];
-    [self.navigationController pushViewController:filterViewController animated:YES];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:filterViewController] animated:YES completion:nil];
 }
 
 - (void)updateBalance

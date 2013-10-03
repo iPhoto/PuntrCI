@@ -165,7 +165,10 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
             case CollectionTypeEventStakes:
                 [self loadEventStakes];
                 break;
-                
+            case CollectionTypeInviteFriends:
+                [self loadFriendToInvite];
+                break;
+            
             case CollectionTypeMyStakes:
                 [self loadMyStakes];
                 break;
@@ -691,6 +694,16 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               [self finishLoading];
                                           }
     ];
+}
+
+#pragma mark - Invite Friends
+
+- (void)loadFriendToInvite
+{
+    // Запрос к пунтр сереру на сравнение друзей полученных от FB
+//    [ObjectManager sharedManager] loadFriendsToInvite
+    
+    
 }
 
 #pragma mark - My Stakes

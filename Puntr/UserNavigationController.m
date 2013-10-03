@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Профиль" image:nil tag:4];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Profile", nil) image:nil tag:4];
     [self.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"tabBarProfileSelected"] withFinishedUnselectedImage:[UIImage imageNamed:@"tabBarProfile"]];
 }
 

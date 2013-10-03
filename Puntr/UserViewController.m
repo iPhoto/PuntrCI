@@ -46,7 +46,7 @@
     if (!self.user)
     {
         collectionType = CollectionTypeActivitiesSelf;
-        self.title = @"Профиль";
+        self.title = NSLocalizedString(@"Profile", nil);
         [self addSettingsButton];
         self.user = [[ObjectManager sharedManager] loginedUser];
         self.noDataManager = [NoDataManager managerWithType:collectionType];
@@ -54,7 +54,7 @@
     else
     {
         collectionType = CollectionTypeActivities;
-        self.title = @"Игрок";
+        self.title = NSLocalizedString(@"Player", nil);
         self.noDataManager = [NoDataManager managerWithType:collectionType];
     }
     self.noDataManager.view = self.view;
