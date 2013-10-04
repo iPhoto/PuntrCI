@@ -203,8 +203,7 @@
     [eventMapping addAttributeMappingsFromArray:@[KeyTag, KeyStakesCount, KeySubscribersCount, KeyCreatedAt, KeyStartTime, KeyEndTime, KeyStatus, KeyBanner, KeySubscribed]];
     RKRelationshipMapping *eventTournamentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyTournament mapping:tournamentMapping];
     RKRelationshipMapping *eventParticipantRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyParticipants mapping:participantMapping];
-    RKRelationshipMapping *eventLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLines mapping:lineMapping];
-    [eventMapping addPropertyMappingsFromArray:@[eventTournamentRelationship, eventParticipantRelationship, eventLineRelationship]];
+    [eventMapping addPropertyMappingsFromArray:@[eventTournamentRelationship, eventParticipantRelationship]];
     RKResponseDescriptor *eventCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping
                                                                                                            method:RKRequestMethodGET
                                                                                                     pathPattern:APIEvents
