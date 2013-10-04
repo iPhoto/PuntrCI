@@ -12,6 +12,6 @@
 
 @interface StakeViewController : UIViewController
 
-- (id)initWithEvent:(EventModel *)event;
++ (StakeViewController *)stakeWithEvent:(EventModel *)event;
 
 @end
