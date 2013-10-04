@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSNumber *subscribed;
 @property (nonatomic, strong, readonly) TournamentModel *tournament;
 @property (nonatomic, strong, readonly) NSArray *participants;
-@property (nonatomic, strong, readonly) NSArray *scores;
+@property (nonatomic, strong) NSArray *scores;
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;
