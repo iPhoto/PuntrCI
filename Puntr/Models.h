@@ -51,5 +51,6 @@
 #import "UserModel.h"
 #import "UserSocialModel.h"
 #import "VKontakteModel.h"
+#import "BetModel.h"
 
 #endif

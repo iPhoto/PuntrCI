@@ -23,6 +23,7 @@ NSString *const APIActivities = @"activities";
 NSString *const APIAuthorization = @"authorization";
 NSString *const APIAwards = @"awards";
 NSString *const APIBalance = @"balance";
+NSString *const APIBets = @"bets";
 NSString *const APICategories = @"categories";
 NSString *const APICoefficient = @"coefficient";
 NSString *const APIComments = @"comments";

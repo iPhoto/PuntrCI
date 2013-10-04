@@ -303,6 +303,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         [self loadWithAward:(AwardModel *)model];
     }
+    else if ([model isMemberOfClass:[BetModel class]])
+    {
+        [self loadWithBet:(BetModel *)model];
+    }
     else if ([model isMemberOfClass:[CommentModel class]])
     {
         CommentModel *comment = (CommentModel *)model;
@@ -433,6 +437,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.usedWidth = TNSideBadge;
     [self displayAward:award];
 }
+
+- (void)loadWithBet:(BetModel *)bet
+{
+    [self displayCategory:bet.event.tournament.category];
+    [self displayParticipants:bet.event.participants final:NO];
+    //[self displayUser:bet.opponent message:nil final:NO];
+    //[self displayLine:bet.line components:bet. coefficient:stake.coefficient final:NO];
+}
+
 
 - (void)loadWithComment:(CommentModel *)comment
 {

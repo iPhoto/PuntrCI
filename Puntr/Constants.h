@@ -23,6 +23,7 @@ FOUNDATION_EXPORT NSString *const APIActivities;
 FOUNDATION_EXPORT NSString *const APIAuthorization;
 FOUNDATION_EXPORT NSString *const APIAwards;
 FOUNDATION_EXPORT NSString *const APIBalance;
+FOUNDATION_EXPORT NSString *const APIBets;
 FOUNDATION_EXPORT NSString *const APICategories;
 FOUNDATION_EXPORT NSString *const APICoefficient;
 FOUNDATION_EXPORT NSString *const APIComments;

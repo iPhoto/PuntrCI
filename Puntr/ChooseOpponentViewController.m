@@ -389,6 +389,9 @@ static const CGFloat avatarWidth = 40;
 {
     if (self.checkedIndex >= 0) {
         BetViewController *vc = [BetViewController new];
+        BetModel *bet = [BetModel new];
+//        bet.event =
+        [vc setupWithBet:bet];
         [self presentFormSheetWithViewController:vc
                                         animated:YES
                                completionHandler:^(MZFormSheetController *formSheetController) {

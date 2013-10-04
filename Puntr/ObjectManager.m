@@ -632,6 +632,25 @@
      ];
 }
 
+
+#pragma mark - Bets
+
+- (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self putObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBets, bet.tag.stringValue]
+         parameters:nil
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         success();
+     }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         [self reportWithFailure:failure error:error];
+     }
+     ];
+}
+
 #pragma mark - Categories
 
 - (void)categoriesWithSuccess:(Categories)success failure:(EmptyFailure)failure

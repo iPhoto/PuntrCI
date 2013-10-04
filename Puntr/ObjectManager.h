@@ -12,6 +12,7 @@
 @class
     AccessModel,
     AuthorizationModel,
+    BetModel,
     CoefficientModel,
     CommentModel,
     CopyrightModel,
@@ -79,6 +80,10 @@ typedef void (^Users)(NSArray *users);
                paging:(PagingModel *)paging
               success:(Subscriptions)success
               failure:(EmptyFailure)failure;
+
+#pragma mark - Bets
+
+- (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 #pragma mark - Categories
 

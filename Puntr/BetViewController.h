@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BetModel.h"
+
 
 @interface BetViewController : UIViewController
+
+- (void)setupWithBet:(BetModel *)bet;
 
 @end
