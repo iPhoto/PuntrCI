@@ -72,6 +72,7 @@
     RKObjectMapping *participantMapping = [RKObjectMapping mappingForClass:[ParticipantModel class]];
     RKObjectMapping *privacyMapping = [RKObjectMapping mappingForClass:[PrivacySettingsModel class]];
     RKObjectMapping *pushMapping = [RKObjectMapping mappingForClass:[PushSettingsModel class]];
+    RKObjectMapping *scoreMapping = [RKObjectMapping mappingForClass:[ScoreModel class]];
     RKObjectMapping *socialsMaping = [RKObjectMapping mappingForClass:[SocialModel class]];
     RKObjectMapping *stakeMapping = [RKObjectMapping mappingForClass:[StakeModel class]];
     RKObjectMapping *statisticsMaping = [RKObjectMapping mappingForClass:[StatisticModel class]];
@@ -290,6 +291,14 @@
                                                                                                              keyPath:KeyPush
                                                                                                          statusCodes:statusCodeOK];
     
+    // Score
+    [scoreMapping addAttributeMappingsFromArray:@[KeyTime, KeyParticipantTag, KeyName, KeyStatus]];
+    RKResponseDescriptor *scoreCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:scoreMapping
+                                                                                                           method:RKRequestMethodGET
+                                                                                                      pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, KeyScores]
+                                                                                                          keyPath:KeyScores
+                                                                                                      statusCodes:statusCodeOK];
+    
     // Stake
     [stakeMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyStatus]];
     RKRelationshipMapping *stakeUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
@@ -430,6 +439,7 @@
             participantCollectionResponseDescriptor,
             privacyCollectionResponseDescriptor,
             pushCollectionResponseDescriptor,
+            scoreCollectionResponseDescriptor,
             stakeEventsCollectionResponseDescriptor,
             stakeResponseDescriptor,
             stakeUsersCollectionResponseDescriptor,
@@ -779,6 +789,23 @@
             {
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
+- (void)scoresForEvent:(EventModel *)event success:(Scores)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIEvents, event.tag.stringValue, KeyScores]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *scores = mappingResult.dictionary[KeyScores];
+                success(scores);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {

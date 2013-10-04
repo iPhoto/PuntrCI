@@ -53,6 +53,7 @@ typedef void (^News)(NSArray *news);
 typedef void (^Participants)(NSArray *participants);
 typedef void (^Privacy)(NSArray *privacy);
 typedef void (^Push)(NSArray *push);
+typedef void (^Scores)(NSArray *scores);
 typedef void (^Stake)(StakeModel *stake);
 typedef void (^Stakes)(NSArray *stakes);
 typedef void (^Subscribers)(NSArray *subscribers);
@@ -114,6 +115,8 @@ typedef void (^Users)(NSArray *users);
                   search:(SearchModel *)search
                  success:(Events)success
                  failure:(EmptyFailure)failure;
+
+- (void)scoresForEvent:(EventModel *)event success:(Scores)success failure:(EmptyFailure)failure;
 
 #pragma mark - Groups
 
