@@ -20,7 +20,7 @@
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, copy, readonly) NSString *status;
 @property (nonatomic, strong, readonly) UserModel *user;
-@property (nonatomic, strong, readonly) EventModel *event;
+@property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong, readonly) LineModel *line;
 @property (nonatomic, strong, readonly) NSArray *components;
 @property (nonatomic, strong, readonly) CoefficientModel *coefficient;
