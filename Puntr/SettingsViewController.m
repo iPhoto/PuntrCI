@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "DefaultsManager.h"
 #import "EnterViewController.h"
 #import "ChangePasswordViewController.h"
 #import "CopyrightViewController.h"
@@ -239,9 +240,23 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
     if (settings[@"text"] && (![settings[@"text"] isEqualToString:@""]))
     {
         NSString *header = settings[@"text"];
-        CGSize headerSize = [header sizeWithFont:(UIFont *)settings[@"font"]
-                               constrainedToSize:CGSizeMake(CGRectGetWidth(self.tableViewSettings.frame) - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
-                                   lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize headerSize;
+        if ([DefaultsManager sharedManager].isIos6)
+        {
+            //6
+            headerSize = [header sizeWithFont:(UIFont *)settings[@"font"]
+                            constrainedToSize:CGSizeMake(CGRectGetWidth(self.tableViewSettings.frame) - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
+                                lineBreakMode:NSLineBreakByWordWrapping];
+        }
+        else
+        {
+            //7
+            CGRect tempRect = [header boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.tableViewSettings.frame) - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
+                                                   options:0
+                                                attributes:@{ NSFontAttributeName : (UIFont *)settings[@"font"] }
+                                                   context:nil];
+            headerSize = tempRect.size;
+        }
         headerHeight = TNHeaderFooterTopPadding + headerSize.height + 5.0f;
     }
     return headerHeight;
@@ -266,9 +281,23 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
         NSString *header = settings[@"text"];
         CGFloat settingsWidth = CGRectGetWidth(self.tableViewSettings.frame);
         
-        CGSize headerSize = [header sizeWithFont:(UIFont *)settings[@"font"]
-                               constrainedToSize:CGSizeMake(settingsWidth - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
-                                   lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize headerSize;
+        if ([DefaultsManager sharedManager].isIos6)
+        {
+            //6
+            headerSize = [header sizeWithFont:(UIFont *)settings[@"font"]
+                            constrainedToSize:CGSizeMake(settingsWidth - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
+                                lineBreakMode:NSLineBreakByWordWrapping];
+        }
+        else
+        {
+            //7
+            CGRect tempRect = [header boundingRectWithSize:CGSizeMake(settingsWidth - (TNHeaderFooterSidePadding * 2.0f), MAXFLOAT)
+                                                   options:0
+                                                attributes:@{ NSFontAttributeName : (UIFont *)settings[@"font"] }
+                                                   context:nil];
+            headerSize = tempRect.size;
+        }
         
         headerView = [[UIView alloc] initWithFrame:CGRectMake(
                                                               0.0f,

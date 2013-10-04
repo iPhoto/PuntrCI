@@ -32,6 +32,7 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
     dispatch_once(&onceToken, ^
                      {
                          sharedManager = [[self alloc] init];
+                         sharedManager.isIos6 = ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] == NSOrderedAscending);
                      }
                  );
     return sharedManager;
