@@ -528,6 +528,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 - (void)loadwithEventMaster:(EventModel *)event
 {
     self.event = event;
+    self.submodel = self.event;
     if (event.banner)
     {
         [self displayBanner:event.banner];
