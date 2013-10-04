@@ -16,6 +16,7 @@
 #import "Models.h"
 #import "ParticipantViewController.h"
 #import "ParticipantsViewController.h"
+#import "StakeViewController.h"
 #import "SubscribersViewController.h"
 #import "SubscriptionsViewController.h"
 #import "TournamentsViewController.h"
@@ -84,6 +85,12 @@
         {
             [[PuntrUtilities mainNavigationController] pushViewController:[ParticipantViewController controllerWithParticipant:(ParticipantModel *)model] animated:YES];
         }
+    }
+    else if ([model isMemberOfClass:[StakeModel class]])
+    {
+        StakeModel *stake = (StakeModel *)model;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[StakeViewController stakeWithEvent:stake.event]];
+        [[PuntrUtilities mainNavigationController] presentViewController:navigationController animated:YES completion:nil];
     }
     else if ([model isMemberOfClass:[UserDetailsModel class]])
     {

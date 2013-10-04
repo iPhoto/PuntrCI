@@ -54,6 +54,11 @@
 
 @implementation StakeViewController
 
++ (StakeViewController *)stakeWithEvent:(EventModel *)event
+{
+    return [[self alloc] initWithEvent:event];
+}
+
 - (id)initWithEvent:(EventModel *)event
 {
     self = [super init];

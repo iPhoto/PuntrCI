@@ -581,6 +581,22 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 - (void)loadEventComments
 {
     EventModel *event = [self modifierOfClass:[EventModel class]];
+    
+    [[ObjectManager sharedManager] scoresForEvent:event
+                                          success:^(NSArray *scores)
+                                          {
+                                              event.scores = scores;
+                                              [self combineEventCommentsWithEvent:event];
+                                          }
+                                          failure:^
+                                          {
+                                              [self finishLoading];
+                                          }
+    ];
+}
+
+- (void)combineEventCommentsWithEvent:(EventModel *)event
+{
     [[ObjectManager sharedManager] commentsForEvent:event
                                              paging:self.paging
                                             success:^(NSArray *comments)
@@ -593,7 +609,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                                                      secondType:CollectionTypeEventStakes
                                                                                                     secondTitle:NSLocalizedString(@"Stakes", nil)
                                                                                                        secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                    NSArray *stationaryObjects = @[switchModel];
+                                                    NSArray *stationaryObjects = @[event, switchModel];
                                                     self.stationaryObjectsCount = stationaryObjects.count;
                                                     [self combineStationaryObjects:stationaryObjects withNewObjects:comments];
                                                 }
@@ -668,6 +684,23 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 {
     EventModel *event = [self modifierOfClass:[EventModel class]];
     
+    [[ObjectManager sharedManager] scoresForEvent:event
+                                          success:^(NSArray *scores)
+                                          {
+                                              event.scores = scores;
+                                              [self combineEventStakesWithEvent:event];
+                                          }
+                                          failure:^
+                                          {
+                                              [self finishLoading];
+                                          }
+    ];
+    
+    
+}
+
+- (void)combineEventStakesWithEvent:(EventModel *)event
+{
     [[ObjectManager sharedManager] stakesForEvent:event
                                            paging:self.paging
                                           success:^(NSArray *stakes)
@@ -680,7 +713,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                                                                                    secondType:CollectionTypeEventStakes
                                                                                                   secondTitle:NSLocalizedString(@"Stakes", nil)
                                                                                                      secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                  NSArray *stationaryObjects = @[switchModel];
+                                                  NSArray *stationaryObjects = @[event, switchModel];
                                                   self.stationaryObjectsCount = stationaryObjects.count;
                                                   [self combineStationaryObjects:stationaryObjects withNewObjects:stakes];
                                               }

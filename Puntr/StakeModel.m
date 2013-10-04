@@ -11,7 +11,6 @@
 @interface StakeModel ()
 
 @property (nonatomic, copy) NSString *status;
-@property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong) LineModel *line;
 @property (nonatomic, strong) NSArray *components;
 @property (nonatomic, strong) CoefficientModel *coefficient;
