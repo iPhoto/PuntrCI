@@ -648,7 +648,7 @@
 {
     [self putObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBets, bet.tag.stringValue]
-         parameters:nil
+         parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
      {
          success();

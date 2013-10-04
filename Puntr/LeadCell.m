@@ -19,6 +19,8 @@
 #import <TTTTimeIntervalFormatter.h>
 #import <UIImageView+AFNetworking.h>
 
+#import "GPUImage.h"
+
 static const CGFloat TNCornerRadius = 3.75f;
 static const CGFloat TNHeightButton = 31.0f;
 static const CGFloat TNHeightSwitch = 27.0f;
@@ -54,6 +56,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, retain) UIImageView *imageViewAward;
 @property (nonatomic, retain) UILabel *labelAwardPointsCount;
 @property (nonatomic, retain) UILabel *labelAwardTitle;
+//@property (nonatomic, retain) UILabel *labelAwardDescription;
+//@property (nonatomic, retain) UIButton *buttonAwardShare;
 
 // Category
 @property (nonatomic, strong) UILabel *labelCategoryTitle;
@@ -606,8 +610,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        TNSideImageLarge,
                                                        TNSideImageLarge
                                                    );
-        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
-        [self roundCornersForView:imageViewParticipantLogo];
+        [imageViewParticipantLogo imageWithUrl:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        imageViewParticipantLogo.layer.cornerRadius = TNCornerRadius;
+        imageViewParticipantLogo.layer.masksToBounds = YES;
         [self.participantLogos addObject:imageViewParticipantLogo];
         [self addSubview:imageViewParticipantLogo];
         
@@ -686,8 +691,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        TNSideImageLarge,
                                                        TNSideImageLarge
                                                    );
-        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
-        [self roundCornersForView:self.imageViewUserAvatar];
+        [self.imageViewUserAvatar imageWithUrl:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
         [self addSubview:self.imageViewUserAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
@@ -731,7 +737,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.userBackgroundButtons.backgroundColor = [UIColor colorWithWhite:0.900 alpha:1.000];
     [self.userBackgroundProfile addSubview:self.userBackgroundButtons];
     
-    [self roundCornersForView:self.userBackgroundProfile];
+    self.userBackgroundProfile.layer.cornerRadius = TNCornerRadius;
+    self.userBackgroundProfile.layer.masksToBounds = YES;
     
     CGFloat TNMarginBackgroundButtons = 1.0f;
     NSUInteger TNNumberBackgroundButtons = 3;
@@ -1031,8 +1038,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                        TNSideImageLarge,
                                                        TNSideImageLarge
                                                    );
-        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
-        [self roundCornersForView:self.imageViewUserAvatar];
+        [self.imageViewUserAvatar imageWithUrl:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
         [self addSubview:self.imageViewUserAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
@@ -1062,7 +1070,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.labelUserTopPosition.text = [NSString stringWithFormat:@"ROI: %@", user.rating.stringValue];
     [self addSubview:self.labelUserTopPosition];
     
-    [self roundCornersForView:self.userBackgroundProfile];
+    self.userBackgroundProfile.layer.cornerRadius = TNCornerRadius;
+    self.userBackgroundProfile.layer.masksToBounds = YES;
     
     BOOL loginedUser = [user isEqualToUser:[[ObjectManager sharedManager] loginedUser]];
     if (!loginedUser)
@@ -1107,7 +1116,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)displayAward:(AwardModel *)award
 {
-    [self roundCornersForView:self];
+    self.layer.cornerRadius = TNCornerRadius;
+    self.layer.masksToBounds = YES;
     
     self.labelAwardTitle = [UILabel labelSmallBold:YES black:YES];
     self.labelAwardTitle.numberOfLines = 0;
@@ -1163,7 +1173,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                sizeBanner.width,
                                                sizeBanner.height
                                            );
-    [self.imageViewBanner setImageWithURL:[banner URLByAppendingSize:sizeBanner]];
+    [self.imageViewBanner imageWithUrl:[banner URLByAppendingSize:sizeBanner]];
     [self addSubview:self.imageViewBanner];
     
     [self placeButtonForObject:[self tournamentOrEvent] frame:self.imageViewBanner.frame];
@@ -1269,7 +1279,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                        categoryImageSize.width,
                                                                                        categoryImageSize.height
                                                                                    )];
-        [self.imageViewCategoryImage setImageWithURL:[category.image URLByAppendingSize:categoryImageSize]];
+        [self.imageViewCategoryImage imageWithUrl:[category.image URLByAppendingSize:categoryImageSize]];
         [self addSubview:self.imageViewCategoryImage];
         
         categoryImageWidth = CGRectGetMaxX(self.imageViewCategoryImage.frame);
@@ -1368,7 +1378,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                    );
         if (group.image)
         {
-            [self.imageViewGroupImage setImageWithURL:group.image];
+            [self.imageViewGroupImage imageWithUrl:group.image];
         }
         else
         {
@@ -1493,7 +1503,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                     TNSideImage,
                                                     TNSideImage
                                                     );
-        [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+        [imageViewParticipantLogo imageWithUrl:[participant.logo URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
         [self.participantLogos addObject:imageViewParticipantLogo];
         [self addSubview:imageViewParticipantLogo];
         marginImage = TNSideImage + TNMarginGeneral;
@@ -1625,7 +1635,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
             {
                 UIImageView *imageViewParticipantLogo = [[UIImageView alloc] init];
                 imageViewParticipantLogo.frame = frameLogo;
-                [imageViewParticipantLogo setImageWithURL:[participant.logo URLByAppendingSize:sizeLogo]];
+                [imageViewParticipantLogo imageWithUrl:[participant.logo URLByAppendingSize:sizeLogo]];
                 [self.participantLogos addObject:imageViewParticipantLogo];
                 [self addSubview:imageViewParticipantLogo];
             }
@@ -2119,8 +2129,9 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                     TNSideImage,
                                                     TNSideImage
                                                     );
-        [self.imageViewUserAvatar setImageWithURL:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
-        [self roundCornersForView:self.imageViewUserAvatar];
+        [self.imageViewUserAvatar imageWithUrl:[user.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+        self.imageViewUserAvatar.layer.cornerRadius = TNCornerRadius;
+        self.imageViewUserAvatar.layer.masksToBounds = YES;
         [self addSubview:self.imageViewUserAvatar];
         
         avatarWidth = CGRectGetWidth(self.imageViewUserAvatar.frame) + TNMarginGeneral;
@@ -2199,7 +2210,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     if (final)
     {
-        [self roundCornersForView:self];
+        self.layer.cornerRadius = TNCornerRadius;
+        self.layer.masksToBounds = YES;
     }
     else
     {

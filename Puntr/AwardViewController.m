@@ -82,7 +82,7 @@
     self.awardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(EDGE_VIEWS, EDGE_VIEWS, imageSide, imageSide)];
     self.awardImageView.backgroundColor = [UIColor clearColor];
     CGSize awardImageSize = CGSizeMake(imageSide, imageSide);
-    [self.awardImageView setImageWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
+    [self.awardImageView imageWithUrl:[self.award.image URLByAppendingSize:awardImageSize]];
 //    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
 //    __weak AwardViewController *weakSelf = self;
 //    [self.awardImageView setImageWithURLRequest:urlRequest

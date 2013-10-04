@@ -46,7 +46,7 @@
                                                   TNSideCategoryImage,
                                                   TNSideCategoryImage
                                               );
-        [self.imageViewImage setImageWithURL:[category.image URLByAppendingSize:CGSizeMake(TNSideCategoryImage, TNSideCategoryImage)]];
+        [self.imageViewImage imageWithUrl:[category.image URLByAppendingSize:CGSizeMake(TNSideCategoryImage, TNSideCategoryImage)]];
         [self addSubview:self.imageViewImage];
     }
     else
