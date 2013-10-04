@@ -284,7 +284,7 @@
 
 - (void)showLineSelection:(UIControl *)sender
 {
-    [LinePicker showPickerWithLines:self.event.lines selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line)
+    [LinePicker showPickerWithLines:@[] selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line)
         {
             self.selectedLine = line;
             [self.elementViewLineSelection updateResult:line.title];
