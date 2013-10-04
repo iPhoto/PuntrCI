@@ -12,7 +12,6 @@
 #import "TextField.h"
 #import "UserModel.h"
 #import <QuartzCore/QuartzCore.h>
-#import <UIImageView+AFNetworking.h>
 
 @interface UpdateProfileViewController ()
 
@@ -132,8 +131,7 @@
          }
          else
          {
-             [self.imageViewAvatar setImageWithURL:self.user.avatar];
-             [self.imageViewAvatar setImageWithURL:[self.user.avatar URLByAppendingSize:CGSizeMake(85, 85)]];
+             [self.imageViewAvatar imageWithUrl:[self.user.avatar URLByAppendingSize:CGSizeMake(85, 85)]];
              [self.imageViewAvatar setContentMode:UIViewContentModeScaleAspectFill];
          }
          [self.textFieldUsername setText:self.user.username];
