@@ -18,11 +18,15 @@
 #import "PushContentViewController.h"
 #import "BetViewController.h"
 #import "NotificationManager.h"
+#import "FriendsViewController.h"
 
 
 #define TNFont [UIFont fontWithName:@"Arial-BoldMT" size:12.0f]
 #define MAX_RATE 5
 #define TAG_STAR_BEGIN 100
+#define TAG_BUTTON_BET 101
+#define TAG_BUTTON_INVITE 102
+
 
 static const CGFloat TNHeaderFooterSidePadding = 14.0f;
 static const CGFloat TNHeaderFooterTopPadding = 8.0f;
@@ -177,6 +181,7 @@ static const CGFloat avatarWidth = 40;
 @property (nonatomic, strong) NSArray *subscribers;
 @property (nonatomic) NSInteger checkedIndex;
 @property (nonatomic, weak) UITableView *opponentsTableView;
+@property (nonatomic, weak) UIButton *buttonBet;
 
 @end
 
@@ -255,8 +260,9 @@ static const CGFloat avatarWidth = 40;
     CGFloat screenHeight = self.view.bounds.size.height - (tabBarHeight + navigationBarHeight);
     CGFloat buttonWidth = (screenWidth - coverMargin * 5.0f) / 2.0f;
     UIButton *buttonPari = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonPari.frame = CGRectMake((screenWidth - buttonWidth) / 2, screenHeight - coverMargin - buttonHeight, buttonWidth, buttonHeight);
+    self.buttonBet = buttonPari;
     [buttonPari setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
+    buttonPari.frame = CGRectMake((screenWidth - buttonWidth) / 2, screenHeight - coverMargin - buttonHeight, buttonWidth, buttonHeight);
     buttonPari.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     buttonPari.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     buttonPari.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -301,6 +307,20 @@ static const CGFloat avatarWidth = 40;
     }
 }
 
+- (void)makeBetInviteButton
+{
+    if (self.subscribers.count > 0)
+    {
+        [self.buttonBet setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
+        self.buttonBet.tag = TAG_BUTTON_BET;
+    }
+    else
+    {
+        [self.buttonBet setTitle:NSLocalizedString(@"Invite friends", nil) forState:UIControlStateNormal];
+        self.buttonBet.tag = TAG_BUTTON_INVITE;
+    }
+}
+
 - (void)loadSubscriptions
 {
     self.paging = [PagingModel paging];
@@ -316,6 +336,7 @@ static const CGFloat avatarWidth = 40;
 //         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
 //         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
          [self.opponentsTableView reloadData];
+         [self makeBetInviteButton];
      }
         failure:^
      {
@@ -387,18 +408,23 @@ static const CGFloat avatarWidth = 40;
 
 - (void)pariButtonPressed
 {
-    if (self.checkedIndex >= 0) {
-        BetViewController *vc = [BetViewController new];
-        BetModel *bet = [BetModel new];
-//        bet.event =
-        [vc setupWithBet:bet];
-        [self presentFormSheetWithViewController:vc
-                                        animated:YES
-                               completionHandler:^(MZFormSheetController *formSheetController) {
-                               }];
+    if (TAG_BUTTON_BET == self.buttonBet.tag) {
+        if (self.checkedIndex >= 0) {
+            BetViewController *vc = [BetViewController new];
+            BetModel *bet = [BetModel new];
+            //        bet.event =
+            [vc setupWithBet:bet];
+            [self presentFormSheetWithViewController:vc
+                                            animated:YES
+                                   completionHandler:^(MZFormSheetController *formSheetController) {
+                                   }];
+        }
+        else {
+            [NotificationManager showNotificationMessage:NSLocalizedString(@"Select opponent!", nil)]; // чего не показывается то?
+        }
     }
     else {
-        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select opponent!", nil)]; // чего не показывается то?
+        [self.navigationController pushViewController:[[FriendsViewController alloc] init] animated:YES];
     }
 }
 
