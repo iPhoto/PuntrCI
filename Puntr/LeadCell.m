@@ -26,6 +26,7 @@ static const CGFloat TNHeightButton = 31.0f;
 static const CGFloat TNHeightSwitch = 27.0f;
 static const CGFloat TNHeightText = 12.0f;
 static const CGFloat TNMarginGeneral = 8.0f;
+static const CGFloat TNPuntrBetCoefficient = 1.9f;
 static const CGFloat TNSideBadge = 136.0f;
 static const CGFloat TNSideImage = 28.0f;
 static const CGFloat TNSideImageLarge = 60.0f;
@@ -58,6 +59,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
 @property (nonatomic, retain) UILabel *labelAwardTitle;
 //@property (nonatomic, retain) UILabel *labelAwardDescription;
 //@property (nonatomic, retain) UIButton *buttonAwardShare;
+
+// Bet
+@property (nonatomic, strong) BetModel *bet;
+@property (nonatomic, strong) UIImageView *imageViewBetAvatarCreator;
+@property (nonatomic, strong) UIImageView *imageViewBetAvatarOpponent;
+@property (nonatomic, strong) UILabel *labelBetNameCreator;
+@property (nonatomic, strong) UILabel *labelBetNameOpponent;
+@property (nonatomic, strong) UIImageView *imageViewBetSwords;
+@property (nonatomic, strong) UIButton *buttonBet;
 
 // Category
 @property (nonatomic, strong) UILabel *labelCategoryTitle;
@@ -198,6 +208,15 @@ static const CGFloat TNWidthSwitch = 78.0f;
     TNRemove(self.imageViewAward)
     TNRemove(self.labelAwardPointsCount)
     TNRemove(self.labelAwardTitle)
+    
+    // Bet
+    self.bet = nil;
+    TNRemove(self.imageViewBetAvatarCreator)
+    TNRemove(self.imageViewBetAvatarOpponent)
+    TNRemove(self.labelBetNameCreator)
+    TNRemove(self.labelBetNameOpponent)
+    TNRemove(self.imageViewBetSwords)
+    TNRemove(self.buttonBet)
     
     // Category
     TNRemove(self.labelCategoryTitle)
@@ -472,10 +491,50 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithBet:(BetModel *)bet
 {
+    self.bet = bet;
+    if (bet.event.banner)
+    {
+        [self displayBanner:bet.event.banner];
+    }
+    [self displayTopRightTime:bet.createdAt];
+    [self displayTournament:bet.event.tournament arrow:YES final:NO];
     [self displayCategory:bet.event.tournament.category];
     [self displayParticipants:bet.event.participants final:NO];
-    //[self displayUser:bet.opponent message:nil final:NO];
-    //[self displayLine:bet.line components:bet. coefficient:stake.coefficient final:NO];
+    [self displayCreator:bet.creator opponent:bet.opponent final:NO];
+    
+    UserModel *loginedUser = [[ObjectManager sharedManager] loginedUser];
+    BOOL isCreator = [bet.creator isEqualToUser:loginedUser];
+    BOOL isOpponent = [bet.opponent isEqualToUser:loginedUser];
+    BOOL isLoginedUser = isCreator || isOpponent;
+    if (isLoginedUser)
+    {
+        NSString *status;
+        if (bet.winnerTag)
+        {
+            if ([bet.winnerTag isEqualToNumber:loginedUser.tag])
+            {
+                status = @"won";
+            }
+            else
+            {
+                status = @"loss";
+            }
+            [self displayLine:bet.line components:bet.line.components coefficient:nil final:NO];
+            [self displayStakeStatus:status
+                               money:bet.money
+                         coefficient:nil
+                               final:YES];
+        }
+        else
+        {
+            [self displayLine:bet.line components:bet.line.components coefficient:nil final:YES];
+        }
+        
+    }
+    else
+    {
+        [self displayLine:bet.line components:bet.line.components coefficient:nil final:YES];
+    }
 }
 
 
@@ -712,7 +771,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                              TNWidthLabel,
                                              TNHeightText
                                          );
-    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.labelUserName.text = [self nameFromUser:user];
     [self addSubview:self.labelUserName];
     
     // Top Position
@@ -1057,7 +1116,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                              TNWidthLabel,
                                              TNHeightText
                                          );
-    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName ? : user.username, user.lastName ? : @""];
+    self.labelUserName.text = [self nameFromUser:user];
     [self addSubview:self.labelUserName];
     
     // Top Position
@@ -1178,6 +1237,26 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self placeButtonForObject:[self tournamentOrEvent] frame:self.imageViewBanner.frame];
     
     self.usedHeight = CGRectGetMaxY(self.imageViewBanner.frame);
+}
+
+- (void)displayButtonBet
+{
+    self.buttonBet = [LeadButton buttonWithType:UIButtonTypeCustom];
+    self.buttonBet.frame = CGRectMake(
+                                         TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
+                                         self.usedHeight + TNMarginGeneral,
+                                         TNWidthButtonSmall,
+                                         TNHeightButton
+                                     );
+    [self.buttonBet.titleLabel setFont:TNFontSmallBold];
+    self.buttonBet.titleLabel.shadowColor = [UIColor blackColor];
+    self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonBet.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)]
+                                     forState:UIControlStateNormal];
+    [self.buttonBet setTitle:NSLocalizedString(@"Accept", nil) forState:UIControlStateNormal];
+    [self.buttonBet addTarget:self action:@selector(buttonBetTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.buttonBet];
 }
 
 - (void)displayButtonsEventFinal:(BOOL)final
@@ -1308,6 +1387,103 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.usedHeight = maxY;
 }
 
+- (void)displayCreator:(UserModel *)creator opponent:(UserModel *)opponent final:(BOOL)final
+{
+    CGFloat widthAvatarCreator = 0.0f;
+    CGFloat sideSwords = 21.0f;
+    
+    if (creator.avatar)
+    {
+        self.imageViewBetAvatarCreator = [[UIImageView alloc] init];
+        self.imageViewBetAvatarCreator.frame = CGRectMake(
+                                                             TNMarginGeneral,
+                                                             self.usedHeight + TNMarginGeneral,
+                                                             TNSideImage,
+                                                             TNSideImage
+                                                         );
+        [self.imageViewBetAvatarCreator imageWithUrl:[creator.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+        [self roundCornersForView:self.imageViewBetAvatarCreator];
+        [self addSubview:self.imageViewBetAvatarCreator];
+        
+        widthAvatarCreator = CGRectGetWidth(self.imageViewBetAvatarCreator.frame) + TNMarginGeneral;
+    }
+    
+    self.labelBetNameCreator = [UILabel labelSmallBold:YES black:self.blackBackground];
+    self.labelBetNameCreator.frame = CGRectMake(
+                                                   TNMarginGeneral + widthAvatarCreator,
+                                                   self.usedHeight + TNMarginGeneral,
+                                                   TNWidthCell / 2.0f - TNMarginGeneral + widthAvatarCreator - sideSwords,
+                                                   TNSideImage
+                                               );
+    self.labelBetNameCreator.textAlignment = NSTextAlignmentLeft;
+    self.labelBetNameCreator.text = [self nameFromUser:creator];
+    [self addSubview:self.labelBetNameCreator];
+    
+    [self placeButtonForObject:creator frame:CGRectMake(
+                                                           0.0f,
+                                                           self.usedHeight,
+                                                           TNWidthCell / 2.0f,
+                                                           TNSideImage + TNMarginGeneral * 2.0f
+                                                       )];
+    
+    if (self.bet.accepted)
+    {
+        self.imageViewBetSwords = [[UIImageView alloc] init];
+        self.imageViewBetSwords.frame = CGRectMake(
+                                                      TNWidthCell / 2.0f - floorf(sideSwords / 2.0f),
+                                                      self.usedHeight + TNMarginGeneral + (TNSideImage / 2.0f - floorf(sideSwords / 2.0f)),
+                                                      sideSwords,
+                                                      sideSwords
+                                                  );
+        self.imageViewBetSwords.image = [UIImage imageNamed:@"IconPari"];
+        [self addSubview:self.imageViewBetSwords];
+        
+        CGFloat widthAvatarOpponent = 0.0f;
+        
+        if (opponent.avatar)
+        {
+            self.imageViewBetAvatarOpponent = [[UIImageView alloc] init];
+            self.imageViewBetAvatarOpponent.frame = CGRectMake(
+                                                                  TNWidthCell - TNMarginGeneral - TNSideImage,
+                                                                  self.usedHeight + TNMarginGeneral,
+                                                                  TNSideImage,
+                                                                  TNSideImage
+                                                              );
+            [self.imageViewBetAvatarOpponent imageWithUrl:[opponent.avatar URLByAppendingSize:CGSizeMake(TNSideImage, TNSideImage)]];
+            [self roundCornersForView:self.imageViewBetAvatarOpponent];
+            [self addSubview:self.imageViewBetAvatarOpponent];
+            
+            widthAvatarOpponent = CGRectGetWidth(self.imageViewBetAvatarOpponent.frame) + TNMarginGeneral;
+        }
+        
+        self.labelBetNameOpponent = [UILabel labelSmallBold:YES black:self.blackBackground];
+        self.labelBetNameOpponent.frame = CGRectMake(
+                                                        TNWidthCell / 2.0f + sideSwords,
+                                                        self.usedHeight + TNMarginGeneral,
+                                                        TNWidthCell / 2.0f - sideSwords - TNMarginGeneral - widthAvatarCreator,
+                                                        TNSideImage
+                                                    );
+        self.labelBetNameOpponent.textAlignment = NSTextAlignmentRight;
+        self.labelBetNameOpponent.text = [self nameFromUser:opponent];
+        [self addSubview:self.labelBetNameOpponent];
+        
+        [self placeButtonForObject:creator frame:CGRectMake(
+                                                               TNWidthCell / 2.0f,
+                                                               self.usedHeight,
+                                                               TNWidthCell / 2.0f,
+                                                               TNSideImage + TNMarginGeneral * 2.0f
+                                                           )];
+    }
+    else
+    {
+        [self displayButtonBet];
+    }
+    
+    self.usedHeight = CGRectGetMaxY(self.labelBetNameCreator.frame);
+    
+    [self makeFinal:final];
+}
+
 - (void)displayDynamicSelection:(DynamicSelectionModel *)dynamicSelection
 {
     self.switchDynamicSelection = [[UISwitch alloc] initWithFrame:CGRectMake(
@@ -1420,14 +1596,30 @@ static const CGFloat TNWidthSwitch = 78.0f;
         coefficient:(CoefficientModel *)coefficient
               final:(BOOL)final
 {
+    CGFloat widthMoney = 0.0f;
+    if (!coefficient)
+    {
+        self.labelCoefficientValue = [UILabel labelSmallBold:YES black:self.blackBackground];
+        self.labelCoefficientValue.frame = CGRectMake(
+                                                         TNMarginGeneral,
+                                                         self.usedHeight + TNMarginGeneral,
+                                                         TNWidthCell - TNMarginGeneral * 2.0f,
+                                                         TNHeightText
+                                                     );
+        self.labelCoefficientValue.text = [NSString stringWithFormat:@"+%@", self.bet.money.amount.stringValue];
+        [self.labelCoefficientValue sizeToFit];
+        [self addSubview:self.labelCoefficientValue];
+        widthMoney = TNMarginGeneral + CGRectGetWidth(self.labelCoefficientValue.frame);
+    }
+    
     // Line
     self.labelLineTitle = [UILabel labelSmallBold:NO black:self.blackBackground];
     self.labelLineTitle.frame = CGRectMake(
-                                          TNMarginGeneral,
-                                          self.usedHeight + TNMarginGeneral,
-                                          TNWidthCell - TNMarginGeneral * 2.0f,
-                                          TNHeightText
-                                     );
+                                               TNMarginGeneral + widthMoney,
+                                               self.usedHeight + TNMarginGeneral,
+                                               TNWidthCell - TNMarginGeneral * 2.0f,
+                                               TNHeightText
+                                          );
     NSString *capitalisedLine = [[line.title lowercaseString] stringByReplacingCharactersInRange:NSMakeRange(0,1)
                                                                                       withString:[[line.title  substringToIndex:1] capitalizedString]];
     self.labelLineTitle.text = [NSString stringWithFormat:@"%@:", capitalisedLine];
@@ -1452,30 +1644,37 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.labelComponentCombined];
     
     // Coefficient
-    NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
-    [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
-    [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-    NSString *coefficientString = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Odds", nil),[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
-    CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLineTitle.frame) + TNMarginGeneral);
-    CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
-    if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponentCombined.frame) - TNMarginGeneral * 2.0f)
+    if (coefficient)
     {
-        coefficientOrigin = CGPointMake(
-                                        CGRectGetMaxX(self.labelComponentCombined.frame) + TNMarginGeneral,
-                                        self.usedHeight + TNMarginGeneral
-                                       );
+        NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
+        [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
+        [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
+        NSString *coefficientString = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Odds", nil),[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
+        CGPoint coefficientOrigin = CGPointMake(TNMarginGeneral, CGRectGetMaxY(self.labelLineTitle.frame) + TNMarginGeneral);
+        CGSize coefficientSize = [coefficientString sizeWithFont:TNFontSmall constrainedToSize:CGSizeMake(TNWidthCell - TNMarginGeneral * 2.0f, TNHeightText)];
+        if (coefficientSize.width <= TNWidthCell - CGRectGetMaxX(self.labelComponentCombined.frame) - TNMarginGeneral * 2.0f)
+        {
+            coefficientOrigin = CGPointMake(
+                                            CGRectGetMaxX(self.labelComponentCombined.frame) + TNMarginGeneral,
+                                            self.usedHeight + TNMarginGeneral
+                                           );
+        }
+        self.labelCoefficientValue = [UILabel labelSmallBold:NO black:self.blackBackground];
+        self.labelCoefficientValue.frame = CGRectMake(
+                                                 coefficientOrigin.x,
+                                                 coefficientOrigin.y,
+                                                 coefficientSize.width,
+                                                 coefficientSize.height
+                                                );
+        self.labelCoefficientValue.text = coefficientString;
+        [self addSubview:self.labelCoefficientValue];
+        
+        self.usedHeight = CGRectGetMaxY(self.labelCoefficientValue.frame);
     }
-    self.labelCoefficientValue = [UILabel labelSmallBold:NO black:self.blackBackground];
-    self.labelCoefficientValue.frame = CGRectMake(
-                                             coefficientOrigin.x,
-                                             coefficientOrigin.y,
-                                             coefficientSize.width,
-                                             coefficientSize.height
-                                            );
-    self.labelCoefficientValue.text = coefficientString;
-    [self addSubview:self.labelCoefficientValue];
-    
-    self.usedHeight = CGRectGetMaxY(self.labelCoefficientValue.frame);
+    else
+    {
+        self.usedHeight = CGRectGetMaxY(self.labelComponentCombined.frame);
+    }
     
     [self makeFinal:final];
 }
@@ -1912,8 +2111,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                         )];
     if ([stakeStatus isEqualToString:@"won"])
     {
-        stakeStatusLabel = NSLocalizedString(@"Your stake won!", nil);
-        stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue)]];
+        stakeStatusLabel = coefficient ? NSLocalizedString(@"Your stake won!", nil) : NSLocalizedString(@"Your bet won!", nil);
+        stakeMoney = [NSString stringWithFormat:@"+%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue * coefficient.value.doubleValue ? : TNPuntrBetCoefficient)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
                                                                                   self.usedHeight,
@@ -1929,7 +2128,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else if ([stakeStatus isEqualToString:@"loss"] || [stakeStatus isEqualToString:@"lost"])
     {
-        stakeStatusLabel = NSLocalizedString(@"Your stake lost!", nil);
+        stakeStatusLabel = coefficient ? NSLocalizedString(@"Your stake lost!", nil) : NSLocalizedString(@"Your bet lost!", nil);
         stakeMoney = [NSString stringWithFormat:@"-%@", [twoDecimalPlacesFormatter stringFromNumber:@(money.amount.integerValue)]];
         self.viewStakeStatusBackground = [[UIView alloc] initWithFrame:CGRectMake(
                                                                                   0.0f,
@@ -2152,7 +2351,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                           TNWidthCell - TNMarginGeneral * 2.0f - avatarWidth,
                                           userNameHeight
                                           );
-    self.labelUserName.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.labelUserName.text = [self nameFromUser:user];
     [self addSubview:self.labelUserName];
     
     CGFloat minY = self.usedHeight;
@@ -2245,6 +2444,16 @@ static const CGFloat TNWidthSwitch = 78.0f;
 }
 
 #pragma mark - Actions
+
+- (void)buttonBetTouched:(LeadButton *)button
+{
+    [ObjectManager sharedManager] acceptBet:self.bet
+        success:^
+        {
+            [self.delegate reloadData];
+        }
+        failure:nil
+    ];
 
 - (void)buttonLeadTouched:(LeadButton *)button
 {
@@ -2455,6 +2664,11 @@ CGRect CGRectBetween(CGFloat minY, CGFloat maxY)
         [view removeFromSuperview];
     }
     [array removeAllObjects];
+}
+
+- (NSString *)nameFromUser:(UserModel *)user
+{
+    return [NSString stringWithFormat:@"%@ %@", user.firstName ? : user.username, user.lastName ? : @""];
 }
 
 - (void)roundCornersForView:(UIView *)view
