@@ -11,4 +11,6 @@
 
 @interface EnterViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, SocialManagerDelegate>
 
++ (EnterViewController *)enterWithValidation:(BOOL)validate;
+
 @end

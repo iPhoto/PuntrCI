@@ -14,7 +14,6 @@
 #import "RegistrationViewController.h"
 #import "SocialManager.h"
 #import "TabBarViewController.h"
-#import "TabBarViewController.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -26,6 +25,8 @@ typedef NS_ENUM(NSInteger, Direction)
 };
 
 @interface EnterViewController ()
+
+@property (nonatomic) BOOL validate;
 
 @property (nonatomic, strong) UITextField *textFieldLogin;
 @property (nonatomic, strong) UITextField *textFieldPassword;
@@ -54,6 +55,21 @@ typedef NS_ENUM(NSInteger, Direction)
 @end
 
 @implementation EnterViewController
+
++ (EnterViewController *)enterWithValidation:(BOOL)validate
+{
+    return [[self alloc] initWithValidation:validate];
+}
+
+- (id)initWithValidation:(BOOL)validate
+{
+    self = [super init];
+    if (self)
+    {
+        _validate = validate;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -206,9 +222,28 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonVk setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 86 + fbTextSize.width - vkTextSize.width)];
     [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonVk];
+    
+    if (self.validate)
+    {
+        [self validateAuthorization];
+    }
 }
 
 #pragma mark - Actions
+
+- (void)validateAuthorization
+{
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Autologin", nil)];
+    [[ObjectManager sharedManager] validateAuthorizationWithSuccess:^
+        {
+            [self transitionToTabBar];
+        }
+        failure:^
+        {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Autologin failed", nil)];
+        }
+    ];
+}
 
 - (void)registrationButtonTouched
 {
@@ -418,16 +453,7 @@ typedef NS_ENUM(NSInteger, Direction)
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
         [[ObjectManager sharedManager] logInWithAccess:self.credentials success:^(AuthorizationModel *authorization, UserModel *user)
             {
-                TabBarViewController *tabBar = [[TabBarViewController alloc] init];
-                [SVProgressHUD dismiss];
-                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                                  duration:0.3f
-                                   options:UIViewAnimationOptionTransitionFlipFromRight
-                                animations:^
-                                {
-                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-                                }
-                                completion:nil];
+                [self transitionToTabBar];
             }
             failure:^
             {
@@ -440,19 +466,11 @@ typedef NS_ENUM(NSInteger, Direction)
 - (void)loginWithSocialModel:(AccessModel *)socialModel
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    [[ObjectManager sharedManager] logInWithAccess:socialModel success:^(AuthorizationModel *authorization, UserModel *user)
-     {
-         TabBarViewController *tabBar = [[TabBarViewController alloc] init];
-         [SVProgressHUD dismiss];
-         [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                           duration:0.3f
-                            options:UIViewAnimationOptionTransitionFlipFromRight
-                         animations:^
-          {
-              [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-          }
-                         completion:nil];
-     }
+    [[ObjectManager sharedManager] logInWithAccess:socialModel
+                                           success:^(AuthorizationModel *authorization, UserModel *user)
+                                           {
+                                               [self transitionToTabBar];
+                                           }
                                            failure:^
                                            {
                                                [SVProgressHUD dismiss];
@@ -479,6 +497,20 @@ typedef NS_ENUM(NSInteger, Direction)
             view.frame = CGRectOffset(view.frame, 0.0f, points);
         }
     }
+}
+
+- (void)transitionToTabBar
+{
+    TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+    [SVProgressHUD dismiss];
+    [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
+                      duration:0.3f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^
+                    {
+                        [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
+                    }
+                    completion:nil];
 }
 
 @end
