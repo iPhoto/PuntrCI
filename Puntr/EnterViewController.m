@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.textFieldLogin.delegate = self;
     [self.textFieldLogin setClearButtonMode:UITextFieldViewModeWhileEditing];
     [self.view addSubview:self.textFieldLogin];
-    //self.textFieldLogin.text = @"qqq@gmail.com";
+    self.textFieldLogin.text = @"qqq@gmail.com";
     
     self.textFieldPassword = [[UITextField alloc] initWithFrame:CGRectMake(21.0, 130.0 + 38.0, 278.0, 36.0)];
     self.textFieldPassword.font = [UIFont fontWithName:@"ArialMT" size:13.0f];
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.textFieldPassword.delegate = self;
     [self.textFieldPassword setClearButtonMode:UITextFieldViewModeWhileEditing];
     [self.view addSubview:self.textFieldPassword];
-    //self.textFieldPassword.text = @"qqqqqq";
+    self.textFieldPassword.text = @"qqqqqq";
     
     self.buttonRegistration = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonRegistration.frame = CGRectMake(13.0f, 215.0f, 142.0f, 40.0f);

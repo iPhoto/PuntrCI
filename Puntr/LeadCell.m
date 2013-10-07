@@ -2447,13 +2447,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)buttonBetTouched:(LeadButton *)button
 {
-    [ObjectManager sharedManager] acceptBet:self.bet
+    [[ObjectManager sharedManager] acceptBet:self.bet
         success:^
         {
             [self.delegate reloadData];
         }
         failure:nil
     ];
+}
 
 - (void)buttonLeadTouched:(LeadButton *)button
 {
