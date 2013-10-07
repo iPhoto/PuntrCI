@@ -6,13 +6,16 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "AuthorizationModel.h"
 #import "DefaultsManager.h"
 
+static NSString * const TNDefaultAuthorization = @"TNDefaultAuthorization";
 static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
 static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
 
 @interface DefaultsManager ()
 
+@property (nonatomic) NSDictionary *authorizationLoaded;
 @property (nonatomic) BOOL defaultCategoryTagLoaded;
 @property (nonatomic) BOOL excludedCategoryTagsLoaded;
 
@@ -36,6 +39,32 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
                      }
                  );
     return sharedManager;
+}
+
+#pragma mark - Saved Authorization
+
+- (AuthorizationModel *)authorization
+{
+    if (!self.authorizationLoaded)
+    {
+        self.authorizationLoaded = [[NSUserDefaults standardUserDefaults] objectForKey:TNDefaultAuthorization];
+    }
+    return [AuthorizationModel authorizationWithDictionary:self.authorizationLoaded];
+}
+
+- (void)setAuthorization:(AuthorizationModel *)authorization
+{
+    if (authorization)
+    {
+        self.authorizationLoaded = authorization.saveParameters;
+        [[NSUserDefaults standardUserDefaults] setObject:self.authorizationLoaded forKey:TNDefaultAuthorization];
+    }
+    else
+    {
+        self.authorizationLoaded = nil;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TNDefaultAuthorization];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Default Catagory Tag
