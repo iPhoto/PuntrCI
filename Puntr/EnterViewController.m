@@ -105,6 +105,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.textFieldLogin.returnKeyType = UIReturnKeyNext;
     self.textFieldLogin.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldLogin.delegate = self;
+    [self.textFieldLogin setClearButtonMode:UITextFieldViewModeWhileEditing];
     [self.view addSubview:self.textFieldLogin];
     //self.textFieldLogin.text = @"qqq@gmail.com";
     
@@ -117,6 +118,7 @@ typedef NS_ENUM(NSInteger, Direction)
     self.textFieldPassword.returnKeyType = UIReturnKeySend;
     self.textFieldPassword.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textFieldPassword.delegate = self;
+    [self.textFieldPassword setClearButtonMode:UITextFieldViewModeWhileEditing];
     [self.view addSubview:self.textFieldPassword];
     //self.textFieldPassword.text = @"qqqqqq";
     
