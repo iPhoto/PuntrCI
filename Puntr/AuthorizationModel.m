@@ -10,6 +10,16 @@
 
 @implementation AuthorizationModel
 
++ (AuthorizationModel *)authorizationWithDictionary:(NSDictionary *)dictionary
+{
+    AuthorizationModel *authorization = [[self alloc] init];
+    authorization.sid = dictionary[KeySID];
+    authorization.secret = dictionary[KeySecret];
+    authorization.pushToken = dictionary[KeyPushToken];
+    authorization.expires = dictionary[KeyExpires];
+    return authorization;
+}
+
 - (NSDictionary *)parameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -31,6 +41,13 @@
 - (NSDictionary *)wrappedParameters
 {
     return @{ KeyAuthorization: [self parameters] };
+}
+
+- (NSDictionary *)saveParameters
+{
+    NSMutableDictionary *saveParameters = [NSMutableDictionary dictionaryWithDictionary:[self parameters]];
+    [saveParameters setObject:self.expires forKey:KeyExpires];
+    return [saveParameters copy];
 }
 
 @end

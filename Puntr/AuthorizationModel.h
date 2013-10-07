@@ -13,8 +13,12 @@
 @property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *secret;
 @property (nonatomic, copy) NSString *pushToken;
+@property (nonatomic, strong) NSDate *expires;
+
++ (AuthorizationModel *)authorizationWithDictionary:(NSDictionary *)dictionary;
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;
+- (NSDictionary *)saveParameters;
 
 @end
