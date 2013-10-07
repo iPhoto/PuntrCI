@@ -231,6 +231,8 @@
     
     // Line
     [lineMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
+    RKRelationshipMapping *lineComponentsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComponents mapping:componentMapping];
+    [lineMapping addPropertyMapping:lineComponentsRelationship];
     
     // Money
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
@@ -650,14 +652,14 @@
                path:[NSString stringWithFormat:@"%@/%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBets, bet.tag.stringValue]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         success();
-     }
+            {
+                success();
+            }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - Categories
