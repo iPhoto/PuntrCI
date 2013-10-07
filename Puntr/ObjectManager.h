@@ -48,6 +48,7 @@ typedef void (^Components)(NSArray *components);
 typedef void (^Copyright)(CopyrightModel *copyright);
 typedef void (^Events)(NSArray *events);
 typedef void (^Groups)(NSArray *groups);
+typedef void (^Lines)(NSArray *lines);
 typedef void (^Money)(MoneyModel *money);
 typedef void (^News)(NSArray *news);
 typedef void (^Participants)(NSArray *participants);
@@ -84,6 +85,7 @@ typedef void (^Users)(NSArray *users);
 
 #pragma mark - Bets
 
+- (void)betLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure;
 - (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 #pragma mark - Categories
@@ -137,14 +139,10 @@ typedef void (^Users)(NSArray *users);
 
 #pragma mark - Stakes
 
-- (void)componentsForEvent:(EventModel *)event
-                      line:(LineModel *)line
-                   success:(ObjectRequestSuccess)success
-                   failure:(ObjectRequestFailure)failure;
+- (void)stakeLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure;
 
 - (void)coefficientForEvent:(EventModel *)event
                        line:(LineModel *)line
-                 components:(NSArray *)components
                     success:(ObjectRequestSuccess)success
                     failure:(ObjectRequestFailure)failure;
 
