@@ -284,7 +284,7 @@
     {
         text = @"";
     }
-    NSString *comment = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"Sharing text", nil), text] ;
+    NSString *comment = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Sharing text", nil), text] ;
     switch (socialNetworkType)
     {
         case SocialNetworkTypeFacebook:
