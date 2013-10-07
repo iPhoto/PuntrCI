@@ -13,7 +13,7 @@
 
 @interface UserModel : NSObject <NSCopying, Parametrization>
 
-@property (nonatomic, strong, readonly) NSNumber *tag;
+@property (nonatomic, strong) NSNumber *tag;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *firstName;
@@ -31,6 +31,8 @@
 @property (nonatomic, strong, readonly) NSNumber *lossCount;
 @property (nonatomic, strong) SocialModel *socials;
 @property (nonatomic, strong) StatisticModel *statistics;
+
++ (UserModel *)userFromDictionary:(NSDictionary *)dictionary;
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;

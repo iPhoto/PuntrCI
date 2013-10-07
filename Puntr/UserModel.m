@@ -10,7 +10,6 @@
 
 @interface UserModel ()
 
-@property (nonatomic, strong) NSNumber *tag;
 @property (nonatomic, strong) NSNumber *topPosition;
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) NSNumber *subscriptionsCount;
@@ -22,6 +21,13 @@
 @end
 
 @implementation UserModel
+
++ (UserModel *)userFromDictionary:(NSDictionary *)dictionary
+{
+    UserModel *user = [[self alloc] init];
+    user.tag = dictionary[KeyTag];
+    return user;
+}
 
 - (NSDictionary *)parameters
 {
