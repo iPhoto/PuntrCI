@@ -283,7 +283,8 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
 - (void)fbTouched
 {
     UserModel *user =  [ObjectManager sharedManager].loginedUser;
-    if (![user.socials.facebook boolValue]) {
+    if (![user.socials.facebook boolValue])
+    {
         [NotificationManager showNotificationMessage: NSLocalizedString(@"Facebook not", nil)];
         return;
     }

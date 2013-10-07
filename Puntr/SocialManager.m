@@ -86,7 +86,6 @@
     }
     
     ACAccountType *facebookTypeAccount = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
     [self.accountStore requestAccessToAccountsWithType:facebookTypeAccount
                                                options:@{ ACFacebookAppIdKey: @"203657029796954", ACFacebookPermissionsKey: @[@"email"] }
                                             completion:^(BOOL granted, NSError *error)
@@ -246,15 +245,16 @@
 
 - (void)userFbFriends
 {
-    NSURL *friendsUrl = [NSURL URLWithString:@"https://graph.facebook.com/me/friends?fields=id,name,picture"];
-    
+    NSString *acessToken = [NSString stringWithFormat:@"%@", self.facebookAccount.credential.oauthToken];
+//    NSDictionary *parameters = @{@"access_token": acessToken};
+    NSURL *friendsUrl = [NSURL URLWithString:[@"https://graph.facebook.com/me/friends?fields=id,name,picture" stringByAppendingString:[NSString stringWithFormat:@"&access_token=%@", acessToken]]];
+
     SLRequest *friendsRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
                                                    requestMethod:SLRequestMethodGET
                                                              URL:friendsUrl
                                                       parameters:nil];
     
-    friendsRequest.account = self.facebookAccount;
-    
+//    friendsRequest.account = self.facebookAccount;
     [friendsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
     {
         if (error)
@@ -267,12 +267,20 @@
         else
         {
             NSDictionary *fbDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-            FacebookFriendsListModel *fbModel = [[FacebookFriendsListModel alloc]init];
-            fbModel.friendsList = [fbDictionary objectForKey:@"data"];
-            fbModel.pagingNext = fbDictionary[@"paging"][@"next"];
-            if (self.success)
+            if (fbDictionary[@"error"])
             {
-                self.success(fbModel);
+                NSString *message = fbDictionary[@"error"][@"message"];
+                [NotificationManager showNotificationMessage:[NSString stringWithFormat:@"%@ \n%@", NSLocalizedString(@"Failure to get a list of friends!", nil), message]];
+            }
+            else
+            {
+                FacebookFriendsListModel *fbModel = [[FacebookFriendsListModel alloc]init];
+                fbModel.friendsList = [fbDictionary objectForKey:@"data"];
+                fbModel.pagingNext = fbDictionary[@"paging"][@"next"];
+                if (self.success)
+                {
+                    self.success(fbModel);
+                }
             }
          }
      }];
