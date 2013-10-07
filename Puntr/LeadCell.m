@@ -921,7 +921,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     if (loginedUser)
     {
         [self displayLine:stake.line
-               components:stake.components
+               components:stake.line.components
               coefficient:stake.coefficient
                     final:NO];
         [self displayStakeStatus:stake.status
@@ -932,7 +932,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else
     {
         [self displayLine:stake.line
-               components:stake.components
+               components:stake.line.components
               coefficient:stake.coefficient
                     final:YES];
     }
