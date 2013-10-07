@@ -16,7 +16,7 @@
 #import "Models.h"
 #import "ParticipantViewController.h"
 #import "ParticipantsViewController.h"
-#import "StakeViewController.h"
+#import "SetViewController.h"
 #import "SubscribersViewController.h"
 #import "SubscriptionsViewController.h"
 #import "TournamentsViewController.h"
@@ -33,7 +33,13 @@
 
 - (void)actionOnModel:(id)model
 {
-    if ([model isMemberOfClass:[EventModel class]])
+    if ([model isMemberOfClass:[BetModel class]])
+    {
+        BetModel *bet = (BetModel *)model;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[SetViewController betWithEvent:bet.event]];
+        [[PuntrUtilities mainNavigationController] presentViewController:navigationController animated:YES completion:nil];
+    }
+    else if ([model isMemberOfClass:[EventModel class]])
     {
         if (![self isVisible:[EventViewController class]]) {
             [[PuntrUtilities mainNavigationController] pushViewController:[[EventViewController alloc] initWithEvent:(EventModel *)model] animated:YES];
@@ -89,7 +95,7 @@
     else if ([model isMemberOfClass:[StakeModel class]])
     {
         StakeModel *stake = (StakeModel *)model;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[StakeViewController stakeWithEvent:stake.event]];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[SetViewController stakeWithEvent:stake.event]];
         [[PuntrUtilities mainNavigationController] presentViewController:navigationController animated:YES completion:nil];
     }
     else if ([model isMemberOfClass:[UserDetailsModel class]])
