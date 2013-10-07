@@ -80,7 +80,6 @@
     
     CGFloat imageSide = 148.0f;
     self.awardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(EDGE_VIEWS, EDGE_VIEWS, imageSide, imageSide)];
-    self.awardImageView.backgroundColor = [UIColor clearColor];
     CGSize awardImageSize = CGSizeMake(imageSide, imageSide);
     [self.awardImageView imageWithUrl:[self.award.image URLByAppendingSize:awardImageSize]];
 //    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[self.award.image URLByAppendingSize:awardImageSize]];
@@ -153,7 +152,7 @@
     [self.facebookShareAwardButton setImage:buttonImageHighlighted forState:UIControlStateHighlighted];
     
     self.facebookShareAwardButton.frame = CGRectMake(0.0f, 0.0f, buttonImage.size.width, buttonImage.size.height);
-    self.facebookShareAwardButton.center = CGPointMake(CGRectGetMinX(self.awardImageView.frame), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));
+    self.facebookShareAwardButton.center = CGPointMake(CGRectGetMinX(self.awardImageView.frame) + (buttonImage.size.width / 2), labelY + EDGE_VIEWS + (buttonImage.size.height / 2)); //CGPointMake(CGRectGetMinX(self.awardImageView.frame), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));
     [self.facebookShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.facebookShareAwardButton];
     
@@ -166,9 +165,9 @@
 
     self.twitterShareAwardButton.frame = CGRectMake(0.0f, 0.0f, buttonImage.size.width, buttonImage.size.height);
     [self.twitterShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.twitterShareAwardButton.center = CGPointMake(CGRectGetMidX(self.awardImageView.frame), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));
+    self.twitterShareAwardButton.center = CGPointMake(CGRectGetMaxX(self.awardImageView.frame) - (buttonImage.size.width / 2), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));//CGPointMake(CGRectGetMidX(self.awardImageView.frame), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));
     [self.view addSubview:self.twitterShareAwardButton];
-
+/*
     buttonImage = [UIImage imageNamed:@"badge_icon_vk"];
     buttonImageHighlighted = [UIImage imageNamed:@"badge_icon_vk_active"];
     self.vkShareAwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -178,21 +177,22 @@
     [self.vkShareAwardButton addTarget:self action:@selector(shareAwardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.vkShareAwardButton.center = CGPointMake(CGRectGetMaxX(self.awardImageView.frame), labelY + EDGE_VIEWS + (buttonImage.size.height / 2));
     [self.view addSubview:self.vkShareAwardButton];
+*/
 }
 
 - (void)shareAwardButtonAction:(UIButton *)button {
     //
     if([button isEqual:self.facebookShareAwardButton])
     {
-        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeFacebook Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
+        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeFacebook Text:self.controllerTitleLabel.text Image:self.awardImageView.image] animated:YES completion:nil];
     }
     else if ([button isEqual:self.twitterShareAwardButton])
     {
-        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeTwitter Text:self.awardComment.text Image:self.awardImageView.image] animated:YES completion:nil];
+        [self presentViewController:[[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeTwitter Text:self.controllerTitleLabel.text Image:self.awardImageView.image] animated:YES completion:nil];
     }
     else if ([button isEqual:self.vkShareAwardButton])
     {
-        [[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeVkontakte Text:self.awardComment.text Image:self.awardImageView.image];
+        [[SocialManager sharedManager] shareWithSocialNetwork:SocialNetworkTypeVkontakte Text:self.controllerTitleLabel.text Image:self.awardImageView.image];
     }
 }
 
