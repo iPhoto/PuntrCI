@@ -382,6 +382,10 @@ static const CGFloat TNWidthSwitch = 78.0f;
     {
         StakeModel *stake = (StakeModel *)model;
         [self displayBackgroundForStake:stake];
+        if (stake.event.banner && ![PuntrUtilities isEventVisible])
+        {
+            [self displayBanner:stake.event.banner];
+        }
         [self displayTopRightTime:stake.createdAt];
         [self loadWithStake:stake];
     }
