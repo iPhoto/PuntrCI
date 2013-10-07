@@ -225,7 +225,7 @@ static BOOL instanceOfFormSheetAnimating = 0;
 + (void)load
 {
     @autoreleasepool {
-        id appearance = [self appearance];
+        MZFormSheetController *appearance = [self appearance];
 
         [appearance setPresentedFormSheetSize:CGSizeMake(MZFormSheetControllerDefaultWidth, MZFormSheetControllerDefaultHeight)];
         [appearance setCornerRadius:MZFormSheetPresentedControllerDefaultCornerRadius];
@@ -1027,17 +1027,17 @@ static BOOL instanceOfFormSheetAnimating = 0;
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return [self.presentedFSViewController supportedInterfaceOrientations];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return YES;
+    return [self.presentedFSViewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return [self.presentedFSViewController shouldAutorotate];
 }
 
 - (void)cleanup

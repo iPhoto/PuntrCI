@@ -13,7 +13,7 @@
 #import "NotificationManager.h"
 #import "ObjectManager.h"
 #import "SocialManager.h"
-#import "StakeViewController.h"
+#import "SetViewController.h"
 #import "UILabel+Puntr.h"
 #import <QuartzCore/QuartzCore.h>
 #import <TTTTimeIntervalFormatter.h>
@@ -921,7 +921,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     if (loginedUser)
     {
         [self displayLine:stake.line
-               components:stake.components
+               components:stake.line.components
               coefficient:stake.coefficient
                     final:NO];
         [self displayStakeStatus:stake.status
@@ -932,7 +932,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     else
     {
         [self displayLine:stake.line
-               components:stake.components
+               components:stake.line.components
               coefficient:stake.coefficient
                     final:YES];
     }
@@ -1240,6 +1240,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
     self.buttonEventStake.model = stake;
     [self.buttonEventStake addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.buttonEventStake];
+    
+    if ([self.event.endTime isEqualToDate:[self.event.endTime earlierDate:[NSDate date]]])
+    {
+        self.buttonEventBet.enabled = NO;
+        self.buttonEventStake.enabled = NO;
+    }
     
     UIImageView *imageViewDelimiterSecond = [[UIImageView alloc] init];
     imageViewDelimiterSecond.frame = CGRectMake(

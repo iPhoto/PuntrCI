@@ -231,6 +231,18 @@
     
     // Line
     [lineMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle]];
+    RKRelationshipMapping *lineComponentsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComponents mapping:componentMapping];
+    [lineMapping addPropertyMapping:lineComponentsRelationship];
+    RKResponseDescriptor *lineCollectionForBetResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:lineMapping
+                                                                                                                method:RKRequestMethodGET
+                                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIBetLines]
+                                                                                                               keyPath:KeyLines
+                                                                                                           statusCodes:statusCodeOK];
+    RKResponseDescriptor *lineCollectionForStakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:lineMapping
+                                                                                                                  method:RKRequestMethodGET
+                                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakeLines]
+                                                                                                                 keyPath:KeyLines
+                                                                                                             statusCodes:statusCodeOK];
     
     // Money
     [moneyMapping addAttributeMappingsFromArray:@[KeyAmount]];
@@ -304,15 +316,14 @@
     RKRelationshipMapping *stakeUserRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyUser mapping:userMapping];
     RKRelationshipMapping *stakeEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
     RKRelationshipMapping *stakeLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLine mapping:lineMapping];
-    RKRelationshipMapping *stakeComponentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyComponents mapping:componentMapping];
     RKRelationshipMapping *stakeCoefficientRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCoefficient mapping:coefficientMapping];
     RKRelationshipMapping *stakeMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
-    [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeComponentRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
-    RKResponseDescriptor *stakeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
-                                                                                                 method:RKRequestMethodGET
-                                                                                            pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
-                                                                                                keyPath:KeyStake
-                                                                                            statusCodes:statusCodeCreated];
+    [stakeMapping addPropertyMappingsFromArray:@[stakeUserRelationship, stakeEventRelationship, stakeLineRelationship, stakeCoefficientRelationship, stakeMoneyRelationship]];
+    RKResponseDescriptor *stakeCreationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
+                                                                                                 method:RKRequestMethodPOST
+                                                                                                    pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
+                                                                                                        keyPath:nil
+                                                                                                    statusCodes:statusCodeCreated];
     RKResponseDescriptor *stakeEventsCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:stakeMapping
                                                                                                                  method:RKRequestMethodGET
                                                                                                             pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIStakes]
@@ -434,6 +445,8 @@
             eventParticipantResponseDescriptor,
             eventTournamentCollectionResponseDescriptor,
             groupCollectionResponseDescriptor,
+            lineCollectionForBetResponseDescriptor,
+            lineCollectionForStakeResponseDescriptor,
             moneyResponseDescriptor,
             newsCollectionResponseDescriptor,
             participantCollectionResponseDescriptor,
@@ -441,7 +454,7 @@
             pushCollectionResponseDescriptor,
             scoreCollectionResponseDescriptor,
             stakeEventsCollectionResponseDescriptor,
-            stakeResponseDescriptor,
+            stakeCreationResponseDescriptor,
             stakeUsersCollectionResponseDescriptor,
             subscriberCollectionResponseDescriptor,
             subscriptionCollectionResponseDescriptor,
@@ -526,7 +539,6 @@
     RKObjectMapping *stakeSerialization = [RKObjectMapping requestMapping];
     [stakeSerialization addPropertyMappingsFromArray:@[
      [stakeLineRelationship copy],
-     [stakeComponentRelationship copy],
      [stakeCoefficientRelationship copy],
      [stakeMoneyRelationship copy]]];
     RKRequestDescriptor *stakeRequestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[stakeMapping inverseMapping]
@@ -623,26 +635,44 @@
               failure:(EmptyFailure)failure
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (paging) {
+    if (paging)
+    {
         [parameters setObject:paging.parameters forKey:KeyPaging];
     }
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIAwards]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         NSArray *awards = mappingResult.dictionary[KeyAwards];
-         return success(awards);
-     }
+            {
+                NSArray *awards = mappingResult.dictionary[KeyAwards];
+                return success(awards);
+            }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 
 #pragma mark - Bets
+
+- (void)betLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIEvents, event.tag.stringValue, APIBetLines]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *lines = mappingResult.dictionary[KeyLines];
+                success(lines);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
 
 - (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
@@ -650,14 +680,14 @@
                path:[NSString stringWithFormat:@"%@/%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBets, bet.tag.stringValue]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         success();
-     }
+            {
+                success();
+            }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - Categories
@@ -888,31 +918,35 @@
 
 #pragma mark - Stakes
 
-- (void)componentsForEvent:(EventModel *)event
-                      line:(LineModel *)line
-                   success:(ObjectRequestSuccess)success
-                   failure:(ObjectRequestFailure)failure
+- (void)stakeLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure
 {
     [self getObject:nil
-               path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APIComponents]
-         parameters:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{ KeyTag: line.tag } }
-            success:success
-            failure:failure];
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIEvents, event.tag.stringValue, APIStakeLines]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                NSArray *lines = mappingResult.dictionary[KeyLines];
+                success(lines);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)coefficientForEvent:(EventModel *)event
                        line:(LineModel *)line
-                 components:(NSArray *)components
                     success:(ObjectRequestSuccess)success
                     failure:(ObjectRequestFailure)failure
 {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{ KeyTag: line.tag } }];
-    NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:components.count];
-    for (ComponentModel *component in components)
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{  } }];
+    NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:line.components.count];
+    for (ComponentModel *component in line.components)
     {
         [componentsParamenters addObject:@{ KeyPosition: component.position, KeySelectedCriterion: component.selectedCriterion }];
     }
-    [parameters setObject:[componentsParamenters copy] forKey:KeyComponents];
+    [parameters setObject:@{ KeyTag: line.tag, KeyComponents: [componentsParamenters copy] } forKey:KeyLine];
     
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APICoefficient]
@@ -930,8 +964,8 @@
           parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
-                 [NotificationManager showSuccessMessage:@"Ура! Ставка сделана!"];
-                 success(mappingResult.firstObject);
+                 StakeModel *stake = mappingResult.dictionary[KeyStake];
+                 success(stake);
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {

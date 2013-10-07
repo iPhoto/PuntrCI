@@ -12,14 +12,21 @@
 
 - (NSDictionary *)parameters
 {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (self.tag)
     {
-        return @{ KeyTag: self.tag };
+        [parameters setObject:self.tag forKey:KeyTag];
     }
-    else
+    if (self.components)
     {
-        return @{};
+        NSMutableArray *components = [NSMutableArray arrayWithCapacity:self.components.count];
+        for (ComponentModel *component in self.components)
+        {
+            [components addObject:component.parameters];
+        }
+        [parameters setObject:[components copy] forKey:KeyComponents];
     }
+    return parameters;
 }
 
 @end

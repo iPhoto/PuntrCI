@@ -76,25 +76,31 @@
 #define COCOAPODS_POD_AVAILABLE_HexColors
 #define COCOAPODS_VERSION_MAJOR_HexColors 2
 #define COCOAPODS_VERSION_MINOR_HexColors 2
-#define COCOAPODS_VERSION_PATCH_HexColors 0
+#define COCOAPODS_VERSION_PATCH_HexColors 1
+
+// ISO8601DateFormatterValueTransformer
+#define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
+#define COCOAPODS_VERSION_MAJOR_ISO8601DateFormatterValueTransformer 0
+#define COCOAPODS_VERSION_MINOR_ISO8601DateFormatterValueTransformer 5
+#define COCOAPODS_VERSION_PATCH_ISO8601DateFormatterValueTransformer 0
 
 // MZAppearance
 #define COCOAPODS_POD_AVAILABLE_MZAppearance
 #define COCOAPODS_VERSION_MAJOR_MZAppearance 1
-#define COCOAPODS_VERSION_MINOR_MZAppearance 0
+#define COCOAPODS_VERSION_MINOR_MZAppearance 1
 #define COCOAPODS_VERSION_PATCH_MZAppearance 0
 
 // MZFormSheetController
 #define COCOAPODS_POD_AVAILABLE_MZFormSheetController
 #define COCOAPODS_VERSION_MAJOR_MZFormSheetController 1
-#define COCOAPODS_VERSION_MINOR_MZFormSheetController 2
-#define COCOAPODS_VERSION_PATCH_MZFormSheetController 3
+#define COCOAPODS_VERSION_MINOR_MZFormSheetController 3
+#define COCOAPODS_VERSION_PATCH_MZFormSheetController 0
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
 #define COCOAPODS_VERSION_MINOR_Masonry 2
-#define COCOAPODS_VERSION_PATCH_Masonry 3
+#define COCOAPODS_VERSION_PATCH_Masonry 4
 
 // PonyDebugger
 #define COCOAPODS_POD_AVAILABLE_PonyDebugger
@@ -102,41 +108,47 @@
 #define COCOAPODS_VERSION_MINOR_PonyDebugger 3
 #define COCOAPODS_VERSION_PATCH_PonyDebugger 0
 
+// RKValueTransformers
+#define COCOAPODS_POD_AVAILABLE_RKValueTransformers
+#define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
+#define COCOAPODS_VERSION_MINOR_RKValueTransformers 0
+#define COCOAPODS_VERSION_PATCH_RKValueTransformers 0
+
 // RestKit
 #define COCOAPODS_POD_AVAILABLE_RestKit
 #define COCOAPODS_VERSION_MAJOR_RestKit 0
-#define COCOAPODS_VERSION_MINOR_RestKit 20
-#define COCOAPODS_VERSION_PATCH_RestKit 3
+#define COCOAPODS_VERSION_MINOR_RestKit 21
+#define COCOAPODS_VERSION_PATCH_RestKit 0
 
 // RestKit/Core
 #define COCOAPODS_POD_AVAILABLE_RestKit_Core
 #define COCOAPODS_VERSION_MAJOR_RestKit_Core 0
-#define COCOAPODS_VERSION_MINOR_RestKit_Core 20
-#define COCOAPODS_VERSION_PATCH_RestKit_Core 3
+#define COCOAPODS_VERSION_MINOR_RestKit_Core 21
+#define COCOAPODS_VERSION_PATCH_RestKit_Core 0
 
 // RestKit/CoreData
 #define COCOAPODS_POD_AVAILABLE_RestKit_CoreData
 #define COCOAPODS_VERSION_MAJOR_RestKit_CoreData 0
-#define COCOAPODS_VERSION_MINOR_RestKit_CoreData 20
-#define COCOAPODS_VERSION_PATCH_RestKit_CoreData 3
+#define COCOAPODS_VERSION_MINOR_RestKit_CoreData 21
+#define COCOAPODS_VERSION_PATCH_RestKit_CoreData 0
 
 // RestKit/Network
 #define COCOAPODS_POD_AVAILABLE_RestKit_Network
 #define COCOAPODS_VERSION_MAJOR_RestKit_Network 0
-#define COCOAPODS_VERSION_MINOR_RestKit_Network 20
-#define COCOAPODS_VERSION_PATCH_RestKit_Network 3
+#define COCOAPODS_VERSION_MINOR_RestKit_Network 21
+#define COCOAPODS_VERSION_PATCH_RestKit_Network 0
 
 // RestKit/ObjectMapping
 #define COCOAPODS_POD_AVAILABLE_RestKit_ObjectMapping
 #define COCOAPODS_VERSION_MAJOR_RestKit_ObjectMapping 0
-#define COCOAPODS_VERSION_MINOR_RestKit_ObjectMapping 20
-#define COCOAPODS_VERSION_PATCH_RestKit_ObjectMapping 3
+#define COCOAPODS_VERSION_MINOR_RestKit_ObjectMapping 21
+#define COCOAPODS_VERSION_PATCH_RestKit_ObjectMapping 0
 
 // RestKit/Support
 #define COCOAPODS_POD_AVAILABLE_RestKit_Support
 #define COCOAPODS_VERSION_MAJOR_RestKit_Support 0
-#define COCOAPODS_VERSION_MINOR_RestKit_Support 20
-#define COCOAPODS_VERSION_PATCH_RestKit_Support 3
+#define COCOAPODS_VERSION_MINOR_RestKit_Support 21
+#define COCOAPODS_VERSION_PATCH_RestKit_Support 0
 
 // Reveal-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Reveal_iOS_SDK
@@ -150,11 +162,11 @@
 #define COCOAPODS_VERSION_MINOR_SDWebImage 4
 #define COCOAPODS_VERSION_PATCH_SDWebImage 0
 
-// SDWebImage/MapKit
-#define COCOAPODS_POD_AVAILABLE_SDWebImage_MapKit
-#define COCOAPODS_VERSION_MAJOR_SDWebImage_MapKit 3
-#define COCOAPODS_VERSION_MINOR_SDWebImage_MapKit 4
-#define COCOAPODS_VERSION_PATCH_SDWebImage_MapKit 0
+// SDWebImage/Core
+#define COCOAPODS_POD_AVAILABLE_SDWebImage_Core
+#define COCOAPODS_VERSION_MAJOR_SDWebImage_Core 3
+#define COCOAPODS_VERSION_MINOR_SDWebImage_Core 4
+#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 0
 
 // SOCKit
 #define COCOAPODS_POD_AVAILABLE_SOCKit
@@ -184,41 +196,11 @@
 #define COCOAPODS_POD_AVAILABLE_TestFlightSDK
 #define COCOAPODS_VERSION_MAJOR_TestFlightSDK 2
 #define COCOAPODS_VERSION_MINOR_TestFlightSDK 0
-#define COCOAPODS_VERSION_PATCH_TestFlightSDK 0
+#define COCOAPODS_VERSION_PATCH_TestFlightSDK 2
 
 // TransitionKit
 #define COCOAPODS_POD_AVAILABLE_TransitionKit
 #define COCOAPODS_VERSION_MAJOR_TransitionKit 1
 #define COCOAPODS_VERSION_MINOR_TransitionKit 1
 #define COCOAPODS_VERSION_PATCH_TransitionKit 1
-
-// libwebp
-#define COCOAPODS_POD_AVAILABLE_libwebp
-#define COCOAPODS_VERSION_MAJOR_libwebp 0
-#define COCOAPODS_VERSION_MINOR_libwebp 3
-#define COCOAPODS_VERSION_PATCH_libwebp 0
-
-// libwebp/dec
-#define COCOAPODS_POD_AVAILABLE_libwebp_dec
-#define COCOAPODS_VERSION_MAJOR_libwebp_dec 0
-#define COCOAPODS_VERSION_MINOR_libwebp_dec 3
-#define COCOAPODS_VERSION_PATCH_libwebp_dec 0
-
-// libwebp/dsp
-#define COCOAPODS_POD_AVAILABLE_libwebp_dsp
-#define COCOAPODS_VERSION_MAJOR_libwebp_dsp 0
-#define COCOAPODS_VERSION_MINOR_libwebp_dsp 3
-#define COCOAPODS_VERSION_PATCH_libwebp_dsp 0
-
-// libwebp/utils
-#define COCOAPODS_POD_AVAILABLE_libwebp_utils
-#define COCOAPODS_VERSION_MAJOR_libwebp_utils 0
-#define COCOAPODS_VERSION_MINOR_libwebp_utils 3
-#define COCOAPODS_VERSION_PATCH_libwebp_utils 0
-
-// libwebp/webp
-#define COCOAPODS_POD_AVAILABLE_libwebp_webp
-#define COCOAPODS_VERSION_MAJOR_libwebp_webp 0
-#define COCOAPODS_VERSION_MINOR_libwebp_webp 3
-#define COCOAPODS_VERSION_PATCH_libwebp_webp 0
 

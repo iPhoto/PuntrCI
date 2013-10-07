@@ -56,6 +56,8 @@
 "Invite friends" = "Пригласить друзей";
 "Invite friends from social networks" = "Пригласить друзей из соц. сетей";
 "Lastname..." = "Фамилия...";
+"Lines loaded" = "Линии загружены";
+"Lines not loaded" = "Can't load lines";
 "Live!" = "Уже идет!";
 "Log out" = "Выйти";
 "Login" = "Вход";
