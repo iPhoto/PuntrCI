@@ -49,7 +49,7 @@
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    EnterViewController *enter = [[EnterViewController alloc] init];
+    EnterViewController *enter = [EnterViewController enterWithValidation:YES];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:enter];
     [self.window makeKeyAndVisible];
     
