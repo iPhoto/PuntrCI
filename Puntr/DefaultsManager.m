@@ -8,14 +8,17 @@
 
 #import "AuthorizationModel.h"
 #import "DefaultsManager.h"
+#import "UserModel.h"
 
 static NSString * const TNDefaultAuthorization = @"TNDefaultAuthorization";
 static NSString * const TNDefaultCategoryTag = @"TNDefaultCategoryTag";
+static NSString * const TNDefaultUser = @"TNDefaultUser";
 static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
 
 @interface DefaultsManager ()
 
 @property (nonatomic) NSDictionary *authorizationLoaded;
+@property (nonatomic) NSDictionary *userLoaded;
 @property (nonatomic) BOOL defaultCategoryTagLoaded;
 @property (nonatomic) BOOL excludedCategoryTagsLoaded;
 
@@ -63,6 +66,32 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
     {
         self.authorizationLoaded = nil;
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:TNDefaultAuthorization];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Saved User
+
+- (UserModel *)user
+{
+    if (!self.userLoaded)
+    {
+        self.userLoaded = [[NSUserDefaults standardUserDefaults] objectForKey:TNDefaultUser];
+    }
+    return [UserModel userFromDictionary:self.userLoaded];
+}
+
+- (void)setUser:(UserModel *)user
+{
+    if (user)
+    {
+        self.userLoaded = user.parameters;
+        [[NSUserDefaults standardUserDefaults] setObject:self.userLoaded forKey:TNDefaultUser];
+    }
+    else
+    {
+        self.userLoaded = nil;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TNDefaultUser];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class AuthorizationModel;
+@class AuthorizationModel, UserModel;
 
 @interface DefaultsManager : NSObject
 
 @property (nonatomic) BOOL isIos6;
 @property (nonatomic, strong) AuthorizationModel *authorization;
+@property (nonatomic, strong) UserModel *user;
 @property (nonatomic, strong) NSNumber *defaultCategoryTag;
 @property (nonatomic, strong) NSArray *excludedCategoryTags;
 
