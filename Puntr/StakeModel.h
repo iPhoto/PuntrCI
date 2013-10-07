@@ -29,7 +29,6 @@
 
 + (StakeModel *)stakeWithEvent:(EventModel *)event
                           line:(LineModel *)line
-                    components:(NSArray *)components
                    coefficient:(CoefficientModel *)coefficient
                          money:(MoneyModel *)money;
 
@@ -37,7 +36,7 @@
 
 // Coefficient Query
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components;
++ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line;
 
 - (NSDictionary *)parameters;
 

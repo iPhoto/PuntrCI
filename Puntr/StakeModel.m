@@ -12,7 +12,6 @@
 
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic, strong) LineModel *line;
-@property (nonatomic, strong) NSArray *components;
 @property (nonatomic, strong) CoefficientModel *coefficient;
 @property (nonatomic, strong) MoneyModel *money;
 
@@ -22,7 +21,6 @@
 
 + (StakeModel *)stakeWithEvent:(EventModel *)event
                           line:(LineModel *)line
-                    components:(NSArray *)components
                    coefficient:(CoefficientModel *)coefficient
                          money:(MoneyModel *)money
 {
@@ -30,7 +28,6 @@
     
     stake.event = event;
     stake.line = line;
-    stake.components = components;
     stake.coefficient = coefficient;
     stake.money = money;
     
@@ -42,13 +39,12 @@
     self.event = nil;
 }
 
-+ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line components:(NSArray *)components
++ (StakeModel *)stakeWithEvent:(EventModel *)event line:(LineModel *)line
 {
     StakeModel *stake = [[StakeModel alloc] init];
     
     stake.event = event;
     stake.line = line;
-    stake.components = components;
     
     return stake;
 }
