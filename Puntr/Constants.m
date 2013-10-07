@@ -76,6 +76,7 @@ NSString *const KeyEmail = @"email";
 NSString *const KeyEndTime = @"endTime";
 NSString *const KeyEvent = @"event";
 NSString *const KeyEvents = @"events";
+NSString *const KeyExpires = @"expires";
 NSString *const KeyFacebook = @"facebook";
 NSString *const KeyFeed = @"feed";
 NSString *const KeyFilter = @"filter";

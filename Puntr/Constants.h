@@ -76,6 +76,7 @@ FOUNDATION_EXPORT NSString *const KeyEmail;
 FOUNDATION_EXPORT NSString *const KeyEndTime;
 FOUNDATION_EXPORT NSString *const KeyEvent;
 FOUNDATION_EXPORT NSString *const KeyEvents;
+FOUNDATION_EXPORT NSString *const KeyExpires;
 FOUNDATION_EXPORT NSString *const KeyFacebook;
 FOUNDATION_EXPORT NSString *const KeyFeed;
 FOUNDATION_EXPORT NSString *const KeyFilter;
