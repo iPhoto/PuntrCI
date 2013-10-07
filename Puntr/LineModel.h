@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, strong, readonly) NSArray *components;
+@property (nonatomic, strong) NSArray *components;
 
 - (NSDictionary *)parameters;
 
