@@ -46,7 +46,10 @@
 - (NSDictionary *)saveParameters
 {
     NSMutableDictionary *saveParameters = [NSMutableDictionary dictionaryWithDictionary:[self parameters]];
-    [saveParameters setObject:self.expires forKey:KeyExpires];
+    if (self.expires)
+    {
+        [saveParameters setObject:self.expires forKey:KeyExpires];
+    }
     return [saveParameters copy];
 }
 
