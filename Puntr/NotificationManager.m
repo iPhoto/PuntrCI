@@ -20,7 +20,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 
 + (void)showError:(NSError *)error
 {
-    [self showError:error forViewController:[PuntrUtilities mainNavigationController]];
+    [self showError:error forViewController:[PuntrUtilities topController]];
 }
 
 + (void)showError:(NSError *)error forViewController:(UIViewController *)viewController
@@ -66,7 +66,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 {
     if (message)
     {
-        [self showNotificationMessage:message forViewController:[PuntrUtilities mainNavigationController]];
+        [self showNotificationMessage:message forViewController:[PuntrUtilities topController]];
     }
 }
 
@@ -88,7 +88,7 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 
 + (void)showSuccessMessage:(NSString *)message
 {
-    [self showSuccessMessage:message forViewController:[PuntrUtilities mainNavigationController]];
+    [self showSuccessMessage:message forViewController:[PuntrUtilities topController]];
 }
 
 + (void)showSuccessMessage:(NSString *)message forViewController:(UIViewController *)viewController
