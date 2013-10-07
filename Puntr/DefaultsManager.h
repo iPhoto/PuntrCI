@@ -10,6 +10,7 @@
 
 @interface DefaultsManager : NSObject
 
+@property (nonatomic) BOOL isIos6;
 @property (nonatomic, strong) NSNumber *defaultCategoryTag;
 @property (nonatomic, strong) NSArray *excludedCategoryTags;
 
