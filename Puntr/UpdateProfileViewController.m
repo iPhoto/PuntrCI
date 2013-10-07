@@ -120,29 +120,25 @@
 
 - (void)loadProfile
 {
-    [[ObjectManager sharedManager] userWithTag:self.user.tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         self.user = (UserModel *)mappingResult.firstObject;
-         if(!self.user.avatar)
-         {
-             
-             [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
-             [self.buttonPhoto setTitle:NSLocalizedString(@"Upload photo", nil) forState:UIControlStateNormal];
-         }
-         else
-         {
-             [self.imageViewAvatar imageWithUrl:[self.user.avatar URLByAppendingSize:CGSizeMake(85, 85)]];
-             [self.imageViewAvatar setContentMode:UIViewContentModeScaleAspectFill];
-         }
-         [self.textFieldUsername setText:self.user.username];
-         [self.textFieldLastName setText:self.user.lastName];
-         [self.textFieldFirstName setText:self.user.firstName];
-     }
-                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [NotificationManager showError:error];
-     }
-     ];
+    [[ObjectManager sharedManager] profileWithSuccess:^(UserModel *user)
+        {
+            if(!self.user.avatar)
+            {
+                
+                [self.buttonPhoto setBackgroundImage:[UIImage imageNamed:@"reg_avatar"] forState:UIControlStateNormal];
+                [self.buttonPhoto setTitle:NSLocalizedString(@"Upload photo", nil) forState:UIControlStateNormal];
+            }
+            else
+            {
+                [self.imageViewAvatar imageWithUrl:[self.user.avatar URLByAppendingSize:CGSizeMake(85, 85)]];
+                [self.imageViewAvatar setContentMode:UIViewContentModeScaleAspectFill];
+            }
+            [self.textFieldUsername setText:self.user.username];
+            [self.textFieldLastName setText:self.user.lastName];
+            [self.textFieldFirstName setText:self.user.firstName];
+        }
+        failure:nil
+    ];
 }
 - (void)buttonPhotoTouched{
     UIActionSheet *actionSheet;

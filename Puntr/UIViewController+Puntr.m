@@ -62,9 +62,8 @@
 
 - (void)updateBalance
 {
-    [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+    [[ObjectManager sharedManager] balanceWithSuccess:^(MoneyModel *money)
         {
-            MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
             int ballance = money.amount.intValue;
             NSString *stringBallance;
             if(ballance > 999999)

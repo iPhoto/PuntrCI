@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "AuthorizationModel.h"
 #import "CredentialsModel.h"
+#import "DefaultsManager.h"
 #import "EnterViewController.h"
 #import "HTTPClient.h"
 #import "NotificationManager.h"
@@ -14,6 +16,7 @@
 #import "RegistrationViewController.h"
 #import "SocialManager.h"
 #import "TabBarViewController.h"
+#import "UserModel.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -222,27 +225,47 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.buttonVk setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 86 + fbTextSize.width - vkTextSize.width)];
     [self.buttonVk addTarget:self action:@selector(vkButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonVk];
-    
+}
+
+#pragma mark - Actions
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (self.validate)
     {
         [self validateAuthorization];
     }
 }
 
-#pragma mark - Actions
-
 - (void)validateAuthorization
 {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Autologin", nil)];
-    [[ObjectManager sharedManager] validateAuthorizationWithSuccess:^
-        {
-            [self transitionToTabBar];
-        }
-        failure:^
-        {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Autologin failed", nil)];
-        }
-    ];
+    [SVProgressHUD show];
+    AuthorizationModel *authorization = [DefaultsManager sharedManager].authorization;
+    UserModel *user = [DefaultsManager sharedManager].user;
+    if ([self authorizationModelValid:authorization] && [self userModelValid:user] && ![self expired:authorization.expires])
+    {
+        [self transitionToTabBar];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
+- (BOOL)authorizationModelValid:(AuthorizationModel *)authorization
+{
+    return authorization && authorization.sid && authorization.secret && authorization.expires;
+}
+
+- (BOOL)userModelValid:(UserModel *)user
+{
+    return user && user.tag;
+}
+
+- (BOOL)expired:(NSDate *)date
+{
+    return [date compare:[NSDate date]] == NSOrderedAscending;
 }
 
 - (void)registrationButtonTouched
@@ -304,7 +327,6 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)vkButtonTouched
 {
-    //[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [[SocialManager sharedManager] loginWithSocialNetworkOfType:SocialNetworkTypeVkontakte
                                                         success:^(AccessModel *accessModel)
                                                         {

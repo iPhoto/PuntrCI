@@ -231,15 +231,17 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadActivities
 {
-    UserModel *user = [self modifierOfClass:[UserModel class]];
+    UserModel *userModel = [self modifierOfClass:[UserModel class]];
     
-    [[ObjectManager sharedManager] activitiesForUser:user
+    [[ObjectManager sharedManager] userWithModel:userModel
+                                         success:^(UserModel *user)
+        {
+            [[ObjectManager sharedManager] activitiesForUser:user
                                               paging:self.paging
                                              success:^(NSArray *activities)
                                              {
                                                  if (self.paging.isFirstPage)
                                                  {
-                                                     UserModel *user = [self modifierOfClass:[UserModel class]];
                                                      NSArray *stationaryObjects = @[user];
                                                      self.stationaryObjectsCount = stationaryObjects.count;
                                                      [self combineStationaryObjects:stationaryObjects withNewObjects:activities];
@@ -253,6 +255,12 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                              {
                                                  [self finishLoading];
                                              }
+            ];
+        }
+        failure:^
+        {
+            [self finishLoading];
+        }
     ];
 }
 
@@ -897,31 +905,31 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadSocialsSettings
 {
-    [[ObjectManager sharedManager] userWithTag:[[ObjectManager sharedManager] loginedUser].tag success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         UserModel *profile = (UserModel *)mappingResult.firstObject;
-         
-         DynamicSelectionModel *fbDynamicModel = [[DynamicSelectionModel alloc] init];
-         fbDynamicModel.slug = KeyFacebook;
-         fbDynamicModel.status = profile.socials.facebook;
-         fbDynamicModel.title = @"Facebook";
-         
-         DynamicSelectionModel *twDynamicModel = [[DynamicSelectionModel alloc] init];
-         twDynamicModel.slug = KeyTwitter;
-         twDynamicModel.status = profile.socials.twitter;
-         twDynamicModel.title = @"Twitter";
-         
-         DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
-         vkDynamicModel.slug = KeyVKontakte;
-         vkDynamicModel.status = profile.socials.vk;
-         vkDynamicModel.title = NSLocalizedString(@"VKontakte", nil);
-         
-         [self combineWithObjects:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
-     }
-                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self finishLoading];
-     }
+    [[ObjectManager sharedManager] profileWithSuccess:^(UserModel *user)
+        {
+            UserModel *profile = user;
+
+            DynamicSelectionModel *fbDynamicModel = [[DynamicSelectionModel alloc] init];
+            fbDynamicModel.slug = KeyFacebook;
+            fbDynamicModel.status = profile.socials.facebook;
+            fbDynamicModel.title = @"Facebook";
+
+            DynamicSelectionModel *twDynamicModel = [[DynamicSelectionModel alloc] init];
+            twDynamicModel.slug = KeyTwitter;
+            twDynamicModel.status = profile.socials.twitter;
+            twDynamicModel.title = @"Twitter";
+
+            DynamicSelectionModel *vkDynamicModel = [[DynamicSelectionModel alloc] init];
+            vkDynamicModel.slug = KeyVKontakte;
+            vkDynamicModel.status = profile.socials.vk;
+            vkDynamicModel.title = NSLocalizedString(@"VKontakte", nil);
+
+            [self combineWithObjects:@[fbDynamicModel, twDynamicModel, vkDynamicModel]];
+        }
+        failure:^
+        {
+            [self finishLoading];
+        }
     ];
 }
 

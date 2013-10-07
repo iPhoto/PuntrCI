@@ -29,7 +29,7 @@
     if (self)
     {
         _authorization = [DefaultsManager sharedManager].authorization;
-        _user = [[UserModel alloc] init];
+        _user = [DefaultsManager sharedManager].user;
         [self setRequestSerializationMIMEType:RKMIMETypeJSON];
         [self setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
     }
@@ -81,7 +81,7 @@
     RKObjectMapping *subscriptionMapping = [RKObjectMapping mappingForClass:[SubscriptionModel class]];
     RKObjectMapping *tournamentMapping = [RKObjectMapping mappingForClass:[TournamentModel class]];
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[UserModel class]];
-    RKObjectMapping *userSocialMapping = [RKObjectMapping mappingForClass:[UserSocialModel class]];
+//    RKObjectMapping *userSocialMapping = [RKObjectMapping mappingForClass:[UserSocialModel class]];
     
     // Mapping
     
@@ -108,7 +108,7 @@
                                                                                                statusCodes:statusCodeOK];
     
     // Authorization
-    [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret, KeyPushToken]];
+    [authorizationMapping addAttributeMappingsFromArray:@[KeySID, KeySecret, KeyPushToken, KeyExpires]];
     RKResponseDescriptor *authorizationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
                                                                                                          method:RKRequestMethodPOST
                                                                                                     pathPattern:APIAuthorization
@@ -120,10 +120,10 @@
                                                                                                                   keyPath:KeyAuthorization
                                                                                                               statusCodes:statusCodeCreated];
     RKResponseDescriptor *authorizationValidationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
-                                                                                                                   method:RKRequestMethodPUT
+                                                                                                                   method:RKRequestMethodAny
                                                                                                               pathPattern:APIAuthorization
                                                                                                                   keyPath:nil
-                                                                                                              statusCodes:statusCodeNoContent];
+                                                                                                              statusCodes:statusCodeOK];
     
     // Award
     [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage, KeyReceived]];
@@ -422,15 +422,15 @@
                                                                                                   statusCodes:statusCodeNoContent];
     
     
-    // User 
-    [userSocialMapping addAttributeMappingsFromArray:@[KeyTag, KeyUsername, KeyAvatar, KeySocialType]];
-    RKRelationshipMapping *userSocialSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
-    [userSocialMapping addPropertyMapping:userSocialSocialsRelationship];
-    RKResponseDescriptor *userSocialResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userSocialMapping
-                                                                                                method:RKRequestMethodGET
-                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
-                                                                                               keyPath:KeyUser
-                                                                                           statusCodes:statusCodeOK];
+//    // User 
+//    [userSocialMapping addAttributeMappingsFromArray:@[KeyTag, KeyUsername, KeyAvatar, KeySocialType]];
+//    RKRelationshipMapping *userSocialSocialsRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeySocials mapping:socialsMaping];
+//    [userSocialMapping addPropertyMapping:userSocialSocialsRelationship];
+//    RKResponseDescriptor *userSocialResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userSocialMapping
+//                                                                                                method:RKRequestMethodGET
+//                                                                                           pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
+//                                                                                               keyPath:KeyUser
+//                                                                                           statusCodes:statusCodeOK];
     
     
     // Response Descriptors
@@ -472,7 +472,7 @@
             userCreateResponseDescriptor,
             userPassordResponseDescriptor,
             userResponseDescriptor,
-            userSocialResponseDescriptor,
+//            userSocialResponseDescriptor,
             userUpdateResponseDescriptor
          ]
     ];
@@ -601,20 +601,15 @@
 {
     [self postObject:access
                 path:APIAuthorization
-          parameters:self.authorization.pushToken ? @{KeyPushToken: self.authorization.pushToken} : nil
+          parameters:self.authorization.pushToken ? @{ KeyPushToken: self.authorization.pushToken } : nil
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
-                 NSDictionary *response = mappingResult.dictionary;
-                 AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
-                 UserModel *user = (UserModel *)response[KeyUser];
-                 self.authorization.sid = authorization.sid;
-                 self.authorization.secret = authorization.secret;
-                 if (authorization.expires)
-                 {
-                     self.authorization.expires = authorization.expires;
-                 }
-                 [DefaultsManager sharedManager].authorization = self.authorization;
-                 self.user = user;
+                 AuthorizationModel *authorization = (AuthorizationModel *)mappingResult.dictionary[KeyAuthorization];
+                 [self updateAuthorization:authorization];
+                 
+                 UserModel *user = (UserModel *)mappingResult.dictionary[KeyUser];
+                 [self updateUser:user];
+                 
                  success(authorization, user);
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -630,34 +625,14 @@
                      parameters:self.authorization.wrappedParameters
                         success:^(AFHTTPRequestOperation *operation, id responseObject)
                         {
+                            [DefaultsManager sharedManager].authorization = nil;
+                            [DefaultsManager sharedManager].user = nil;
                             success();
                         }
                         failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
                             [self reportWithFailure:failure error:error];
                         }
-    ];
-}
-
-- (void)validateAuthorizationWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure
-{
-    [self putObject:nil
-               path:APIAuthorization
-         parameters:self.authorization.wrappedParameters
-            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-            {
-                AuthorizationModel *authorization = (AuthorizationModel *)mappingResult.dictionary[KeyAuthorization];
-                if (authorization.expires)
-                {
-                    self.authorization.expires = authorization.expires;
-                }
-                [DefaultsManager sharedManager].authorization = self.authorization;
-                success();
-            }
-            failure:^(RKObjectRequestOperation *operation, NSError *error)
-            {
-                failure();
-            }
     ];
 }
 
@@ -668,16 +643,17 @@
               success:(Awards)success
               failure:(EmptyFailure)failure
 {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (paging)
-    {
-        [parameters setObject:paging.parameters forKey:KeyPaging];
-    }
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIAwards]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *awards = mappingResult.dictionary[KeyAwards];
                 return success(awards);
             }
@@ -698,6 +674,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *lines = mappingResult.dictionary[KeyLines];
                 success(lines);
             }
@@ -715,6 +693,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 success();
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -739,6 +719,8 @@
              parameters:self.authorization.wrappedParameters
                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                 {
+                    [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                    
                     NSArray *categories = mappingResult.dictionary[KeyCategories];
                     self.categories = categories;
                     success(categories);
@@ -767,6 +749,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *comments = mappingResult.dictionary[KeyComments];
                 success(comments);
             }
@@ -787,6 +771,8 @@
           parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
+                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                 
                  success();
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -804,15 +790,17 @@
                path:[NSString stringWithFormat:@"%@/%@", APICopyright, APITerms]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         CopyrightModel *copyright = mappingResult.firstObject;
-         success(copyright);
-     }
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                CopyrightModel *copyright = mappingResult.firstObject;
+                success(copyright);
+            }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)offerWithSuccess:(Copyright)success failure:(EmptyFailure)failure
@@ -821,15 +809,17 @@
                path:[NSString stringWithFormat:@"%@/%@", APICopyright, APIOffer]
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         CopyrightModel *copyright = mappingResult.firstObject;
-         success(copyright);
-     }
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                CopyrightModel *copyright = mappingResult.firstObject;
+                success(copyright);
+            }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         [self reportWithFailure:failure error:error];
-     }
-     ];
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 #pragma mark - Events
@@ -851,6 +841,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
             }
@@ -868,6 +860,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *scores = mappingResult.dictionary[KeyScores];
                 success(scores);
             }
@@ -887,6 +881,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *groups = mappingResult.dictionary[KeyGroups];
                 success(groups);
             }
@@ -916,6 +912,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *participants = mappingResult.dictionary[KeyParticipants];
                 success(participants);
             }
@@ -940,6 +938,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
             }
@@ -959,6 +959,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *lines = mappingResult.dictionary[KeyLines];
                 success(lines);
             }
@@ -971,8 +973,8 @@
 
 - (void)coefficientForEvent:(EventModel *)event
                        line:(LineModel *)line
-                    success:(ObjectRequestSuccess)success
-                    failure:(ObjectRequestFailure)failure
+                    success:(Coefficient)success
+                    failure:(EmptyFailure)failure
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{ KeyAuthorization: self.authorization.parameters, KeyLine: @{  } }];
     NSMutableArray *componentsParamenters = [NSMutableArray arrayWithCapacity:line.components.count];
@@ -985,8 +987,18 @@
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%i/%@", APIEvents, event.tag.integerValue, APICoefficient]
          parameters:[parameters copy]
-            success:success
-            failure:failure];
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                CoefficientModel *coefficient = mappingResult.dictionary[KeyCoefficient];
+                success(coefficient);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)setStake:(StakeModel *)stake success:(Stake)success failure:(EmptyFailure)failure
@@ -998,6 +1010,8 @@
           parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
+                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                 
                  StakeModel *stake = mappingResult.dictionary[KeyStake];
                  success(stake);
              }
@@ -1031,6 +1045,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *stakes = mappingResult.dictionary[KeyStakes];
                 success(stakes);
             }
@@ -1048,15 +1064,17 @@
                    success:(Subscribers)success
                    failure:(EmptyFailure)failure
 {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (paging) {
-        [parameters setObject:paging.parameters forKey:KeyPaging];
-    }
+    NSDictionary *parameters = @{
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APISubscribers]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *subscribers = mappingResult.dictionary[KeySubscribers];
                 success(subscribers);
             }
@@ -1078,6 +1096,8 @@
           parameters:parameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
+                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                 
                  success();
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1096,6 +1116,8 @@
             parameters:parameters
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                {
+                   [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                   
                    success();
                }
                failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1110,15 +1132,17 @@
                      success:(Subscriptions)success
                      failure:(EmptyFailure)failure
 {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:self.authorization.wrappedParameters];
-    if (paging) {
-        [parameters setObject:paging.parameters forKey:KeyPaging];
-    }
+    NSDictionary *parameters = @{
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APISubscriptions]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *subscriptions = mappingResult.dictionary[KeySubscriptions];
                 return success(subscriptions);
             }
@@ -1148,6 +1172,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *tournaments = mappingResult.dictionary[KeyTournaments];
                 success(tournaments);
             }
@@ -1176,6 +1202,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *events = mappingResult.dictionary[KeyEvents];
                 success(events);
             }
@@ -1203,6 +1231,8 @@
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *users = mappingResult.dictionary[KeyUsers];
                 success(users);
             }
@@ -1220,6 +1250,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 UserModel *user = (UserModel *)mappingResult.dictionary[KeyUser];
                 self.user = user;
                 success(user);
@@ -1255,6 +1287,8 @@
     RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request
                                                                           success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                                                                           {
+                                                                              [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                                                                              
                                                                               success();
                                                                           }
                                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1272,6 +1306,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 success();
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1281,13 +1317,23 @@
     ];
 }
 
-- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+- (void)userWithModel:(UserModel *)user success:(User)success failure:(EmptyFailure)failure
 {
     [self getObject:nil
-               path:[NSString stringWithFormat:@"%@/%@", APIUsers, userTag.stringValue]
+               path:[NSString stringWithFormat:@"%@/%@", APIUsers, user.tag.stringValue]
          parameters:self.authorization.wrappedParameters
-            success:success
-            failure:failure];
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                UserModel *user = mappingResult.dictionary[KeyUser];
+                success(user);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure
@@ -1313,17 +1359,12 @@
     
     RKObjectRequestOperation *operation = [self objectRequestOperationWithRequest:request success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
-            NSDictionary *response = mappingResult.dictionary;
-            AuthorizationModel *authorization = (AuthorizationModel *)response[KeyAuthorization];
-            UserModel *user = (UserModel *)response[KeyUser];
-            self.authorization.sid = authorization.sid;
-            self.authorization.secret = authorization.secret;
-            if (authorization.expires)
-            {
-                self.authorization.expires = authorization.expires;
-            }
-            [DefaultsManager sharedManager].authorization = self.authorization;
-            self.user = user;
+            AuthorizationModel *authorization = (AuthorizationModel *)mappingResult.dictionary[KeyAuthorization];
+            [self updateAuthorization:authorization];
+            
+            UserModel *user = (UserModel *)mappingResult.dictionary[KeyUser];
+            [self updateUser:user];
+            
             success(authorization, user);
         }
         failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1337,15 +1378,17 @@
 - (void)newsWithPaging:(PagingModel *)paging success:(News)success failure:(EmptyFailure)failure
 {
     NSDictionary *parameters = @{
-                                 KeyAuthorization: self.authorization.parameters,
-                                 KeyPaging: paging ? paging.parameters : [NSNull null]
-                                 };
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APINews]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
-                NSArray *news = mappingResult.array;
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                NSArray *news = mappingResult.dictionary[KeyNews];
                 success(news);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1361,15 +1404,17 @@
                   failure:(EmptyFailure)failure
 {
     NSDictionary *parameters = @{
-                                 KeyAuthorization: self.authorization.parameters,
-                                 KeyPaging: paging ? paging.parameters : [NSNull null]
-                                 };
+                                    KeyAuthorization: self.authorization.parameters,
+                                    KeyPaging: paging ? paging.parameters : [NSNull null]
+                                };
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, user.tag.stringValue, APIActivities]
          parameters:parameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
-                NSArray *activities = mappingResult.array;
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                NSArray *activities = mappingResult.dictionary[KeyActivities];
                 success(activities);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1379,13 +1424,23 @@
     ];
 }
 
-- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure
+- (void)balanceWithSuccess:(Money)success failure:(EmptyFailure)failure
 {
     [self getObject:nil
                path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBalance]
          parameters:self.authorization.wrappedParameters
-            success:success
-            failure:failure];
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                MoneyModel *money = mappingResult.dictionary[KeyBalance];
+                success(money);
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
 }
 
 - (void)privacyWithSuccess:(Privacy)success failure:(EmptyFailure)failure
@@ -1395,6 +1450,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *privacy = mappingResult.dictionary[KeyPrivacy];
                 success(privacy);
             }
@@ -1412,6 +1469,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *privacy = mappingResult.dictionary[KeyPrivacy];
                 success(privacy);
             }
@@ -1429,6 +1488,8 @@
           parameters:self.authorization.wrappedParameters
              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
              {
+                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                 
                  success();
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1445,6 +1506,8 @@
             parameters:self.authorization.wrappedParameters
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
                {
+                   [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                   
                    success();
                }
                failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1461,6 +1524,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *push = mappingResult.dictionary[KeyPush];
                 success(push);
             }
@@ -1478,6 +1543,8 @@
          parameters:self.authorization.wrappedParameters
             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
             {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
                 NSArray *push = mappingResult.dictionary[KeyPush];
                 success(push);
             }
@@ -1502,6 +1569,38 @@
     {
         failure();
     }
+}
+
+- (void)updateUser:(id)userRaw
+{
+    UserModel *user = userRaw;
+    if (user.tag)
+    {
+        self.user.tag = user.tag;
+    }
+    [DefaultsManager sharedManager].user = self.user;
+}
+
+- (void)updateAuthorization:(id)authorizationRaw
+{
+    AuthorizationModel *authorization = authorizationRaw;
+    if (authorization.sid)
+    {
+        self.authorization.sid = authorization.sid;
+    }
+    if (authorization.secret)
+    {
+        self.authorization.secret = authorization.secret;
+    }
+    if (authorization.pushToken)
+    {
+        self.authorization.pushToken = authorization.pushToken;
+    }
+    if (authorization.expires)
+    {
+        self.authorization.expires = authorization.expires;
+    }
+    [DefaultsManager sharedManager].authorization = self.authorization;
 }
 
 @end

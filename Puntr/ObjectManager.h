@@ -35,9 +35,6 @@
 typedef void (^EmptySuccess)();
 typedef void (^EmptyFailure)();
 
-typedef void (^ObjectRequestSuccess)(RKObjectRequestOperation *operation, RKMappingResult *mappingResult);
-typedef void (^ObjectRequestFailure)(RKObjectRequestOperation *operation, NSError *error);
-
 typedef void (^Activities)(NSArray *activities);
 typedef void (^AuthorizationUser)(AuthorizationModel *authorization, UserModel *user);
 typedef void (^Awards)(NSArray *awards);
@@ -75,8 +72,6 @@ typedef void (^Users)(NSArray *users);
 - (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
-
-- (void)validateAuthorizationWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 #pragma mark - Awards
 
@@ -145,8 +140,8 @@ typedef void (^Users)(NSArray *users);
 
 - (void)coefficientForEvent:(EventModel *)event
                        line:(LineModel *)line
-                    success:(ObjectRequestSuccess)success
-                    failure:(ObjectRequestFailure)failure;
+                    success:(Coefficient)success
+                    failure:(EmptyFailure)failure;
 
 - (void)setStake:(StakeModel *)stake success:(Stake)success failure:(EmptyFailure)failure;
 
@@ -203,7 +198,7 @@ typedef void (^Users)(NSArray *users);
 
 - (void)changePassord:(PasswordModel *)password success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
-- (void)userWithTag:(NSNumber *)userTag success:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)userWithModel:(UserModel *)user success:(User)success failure:(EmptyFailure)failure;
 
 - (void)registerWithUser:(UserModel *)user success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
@@ -214,7 +209,7 @@ typedef void (^Users)(NSArray *users);
                   success:(Activities)success
                   failure:(EmptyFailure)failure;
 
-- (void)balanceWithSuccess:(ObjectRequestSuccess)success failure:(ObjectRequestFailure)failure;
+- (void)balanceWithSuccess:(Money)success failure:(EmptyFailure)failure;
 
 - (void)privacyWithSuccess:(Privacy)success failure:(EmptyFailure)failure;
 

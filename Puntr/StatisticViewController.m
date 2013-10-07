@@ -135,23 +135,17 @@ static const CGFloat TNItemSpacing = 8.0f;
 
 - (void)loadProfile
 {
-    [[ObjectManager sharedManager] userWithTag:[[ObjectManager sharedManager] loginedUser].tag
-                                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-                                       {
-                                           UserModel *profile = (UserModel *)mappingResult.firstObject;
-                                           NSLog(@"ProfileName: %@", profile.firstName);
-                                           [self.stakeCount updateResult:profile.statistics.stakesCount.stringValue];
-                                           [self.wins updateResult:profile.statistics.winCount.stringValue];
-                                           [self.loose updateResult:profile.statistics.lossCount.stringValue];
-                                           [self.maxWin updateResult:profile.statistics.maximumGain.stringValue];
-                                           [self.winMoney updateResult:profile.statistics.winMoney.stringValue];
-                                           [self.lossMoney updateResult:profile.statistics.lossMoney.stringValue];
-                                       }
-                                       failure:^(RKObjectRequestOperation *operation, NSError *error)
-                                       {
-                                           [NotificationManager showError:error];
-                                       }
-     ];
+    [[ObjectManager sharedManager] profileWithSuccess:^(UserModel *user)
+        {
+            [self.stakeCount updateResult:user.statistics.stakesCount.stringValue];
+            [self.wins updateResult:user.statistics.winCount.stringValue];
+            [self.loose updateResult:user.statistics.lossCount.stringValue];
+            [self.maxWin updateResult:user.statistics.maximumGain.stringValue];
+            [self.winMoney updateResult:user.statistics.winMoney.stringValue];
+            [self.lossMoney updateResult:user.statistics.lossMoney.stringValue];
+        }
+        failure:nil
+    ];
 }
 
 @end

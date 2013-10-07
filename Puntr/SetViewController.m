@@ -587,9 +587,8 @@ static const CGFloat TNSideImageLarge = 60.0f;
 {
     [[ObjectManager sharedManager] coefficientForEvent:self.event
                                                   line:self.selectedLine
-                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                               success:^(CoefficientModel *coefficient)
         {
-            CoefficientModel *coefficient = (CoefficientModel *)mappingResult.firstObject;
             self.coefficient = coefficient;
             NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
             [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
@@ -597,15 +596,14 @@ static const CGFloat TNSideImageLarge = 60.0f;
             [self.elementViewCoefficient updateResult:[twoDecimalPlacesFormatter stringFromNumber:coefficient.value]];
             [self updateReward];
         }
-                                               failure:nil
+        failure:nil
     ];
 }
 
 - (void)loadBalance
 {
-    [[ObjectManager sharedManager] balanceWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+    [[ObjectManager sharedManager] balanceWithSuccess:^(MoneyModel *money)
         {
-            MoneyModel *money = (MoneyModel *)mappingResult.firstObject;
             self.balance = money;
             if (self.balance.amount.integerValue >= 200)
             {
