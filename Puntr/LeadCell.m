@@ -1690,7 +1690,8 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      TNSideImageLarge
                                                  );
     NSDictionary *underlineAttribute = @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
-    labelParticipantTitleFirst.attributedText = [[NSAttributedString alloc] initWithString:participantFirst.title attributes:underlineAttribute];
+    //labelParticipantTitleFirst.attributedText = [[NSAttributedString alloc] initWithString:participantFirst.title attributes:underlineAttribute];
+    labelParticipantTitleFirst.text = participantFirst.title;
     labelParticipantTitleFirst.textAlignment = NSTextAlignmentRight;
     [self.participantTitles addObject:labelParticipantTitleFirst];
     [self addSubview:labelParticipantTitleFirst];
@@ -1743,6 +1744,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                           TNSideImageLarge
                                                       );
         labelParticipantTitleSecond.attributedText = [[NSAttributedString alloc] initWithString:participantSecond.title attributes:underlineAttribute];
+        labelParticipantTitleSecond.text = participantSecond.title;
         labelParticipantTitleSecond.textAlignment = NSTextAlignmentLeft;
         [self.participantTitles addObject:labelParticipantTitleSecond];
         [self addSubview:labelParticipantTitleSecond];
