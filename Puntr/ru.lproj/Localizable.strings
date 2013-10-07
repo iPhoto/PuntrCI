@@ -140,5 +140,7 @@
 "You subscribed for the event!" = "Вы подписались на событие!";
 "You unsubscribed from the event!" = "Вы отписались от события!";
 "Your stake" = "Ваша ставка";
+"Your bet lost!" = "Вы проиграли пари!";
+"Your bet won!" = "Вы выиграли пари!";
 "Your stake lost!" = "Ваша ставка проиграла!";
 "Your stake won!" = "Ваша ставка выиграла!";
