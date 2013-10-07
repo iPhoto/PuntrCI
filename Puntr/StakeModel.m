@@ -60,15 +60,6 @@
     {
         [parameters setObject:self.line.parameters forKey:KeyLine];
     }
-    if (self.components)
-    {
-        NSMutableArray *components = [NSMutableArray arrayWithCapacity:self.components.count];
-        for (ComponentModel *component in self.components)
-        {
-            [components addObject:component.parameters];
-        }
-        [parameters setObject:[components copy] forKey:KeyComponents];
-    }
     return [parameters copy];
 }
 

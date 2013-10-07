@@ -22,7 +22,6 @@
 @property (nonatomic, strong, readonly) UserModel *user;
 @property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong, readonly) LineModel *line;
-@property (nonatomic, strong, readonly) NSArray *components;
 @property (nonatomic, strong, readonly) CoefficientModel *coefficient;
 @property (nonatomic, strong, readonly) MoneyModel *money;
 
