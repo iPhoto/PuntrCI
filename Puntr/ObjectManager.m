@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "DefaultsManager.h"
 #import "Models.h"
 #import "NotificationManager.h"
 #import "ObjectManager.h"
@@ -27,7 +28,7 @@
     
     if (self)
     {
-        _authorization = [[AuthorizationModel alloc] init];
+        _authorization = [DefaultsManager sharedManager].authorization;
         _user = [[UserModel alloc] init];
         [self setRequestSerializationMIMEType:RKMIMETypeJSON];
         [self setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
@@ -118,6 +119,11 @@
                                                                                                               pathPattern:APIUsers
                                                                                                                   keyPath:KeyAuthorization
                                                                                                               statusCodes:statusCodeCreated];
+    RKResponseDescriptor *authorizationValidationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:authorizationMapping
+                                                                                                                   method:RKRequestMethodPUT
+                                                                                                              pathPattern:APIAuthorization
+                                                                                                                  keyPath:nil
+                                                                                                              statusCodes:statusCodeNoContent];
     
     // Award
     [awardMapping addAttributeMappingsFromArray:@[KeyTitle, KeyDescription, KeyImage, KeyReceived]];
@@ -433,6 +439,7 @@
             activityResponseDescriptor,
             authorizationResponseDescriptor,
             authorizationUserCreateResponseDescriptor,
+            authorizationValidationResponseDescriptor,
             awardCollectionResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
@@ -602,6 +609,11 @@
                  UserModel *user = (UserModel *)response[KeyUser];
                  self.authorization.sid = authorization.sid;
                  self.authorization.secret = authorization.secret;
+                 if (authorization.expires)
+                 {
+                     self.authorization.expires = authorization.expires;
+                 }
+                 [DefaultsManager sharedManager].authorization = self.authorization;
                  self.user = user;
                  success(authorization, user);
              }
@@ -624,6 +636,28 @@
                         {
                             [self reportWithFailure:failure error:error];
                         }
+    ];
+}
+
+- (void)validateAuthorizationWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    [self putObject:nil
+               path:APIAuthorization
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                AuthorizationModel *authorization = (AuthorizationModel *)mappingResult.dictionary[KeyAuthorization];
+                if (authorization.expires)
+                {
+                    self.authorization.expires = authorization.expires;
+                }
+                [DefaultsManager sharedManager].authorization = self.authorization;
+                success();
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                failure();
+            }
     ];
 }
 
@@ -1284,6 +1318,11 @@
             UserModel *user = (UserModel *)response[KeyUser];
             self.authorization.sid = authorization.sid;
             self.authorization.secret = authorization.secret;
+            if (authorization.expires)
+            {
+                self.authorization.expires = authorization.expires;
+            }
+            [DefaultsManager sharedManager].authorization = self.authorization;
             self.user = user;
             success(authorization, user);
         }

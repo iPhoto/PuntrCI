@@ -76,6 +76,8 @@ typedef void (^Users)(NSArray *users);
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
 
+- (void)validateAuthorizationWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
+
 #pragma mark - Awards
 
 - (void)awardsForUser:(UserModel *)user
