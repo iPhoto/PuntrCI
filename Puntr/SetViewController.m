@@ -6,29 +6,45 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
-#import "StakeViewController.h"
-#import "StakeModel.h"
-#import "EventModel.h"
-#import "StakeElementView.h"
-#import "ObjectManager.h"
-#import <QuartzCore/QuartzCore.h>
+#import "ChooseOpponentViewController.h"
 #import "ComponentPicker.h"
+#import "EventModel.h"
 #import "LinePicker.h"
 #import "NotificationManager.h"
+#import "ObjectManager.h"
 #import "ParticipantViewController.h"
-#import "ChooseOpponentViewController.h"
+#import "SetViewController.h"
+#import "StakeElementView.h"
+#import "StakeModel.h"
+#import "UILabel+Puntr.h"
+#import "UIViewController+Puntr.h"
+#import <QuartzCore/QuartzCore.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
+typedef NS_ENUM(NSInteger, SetType)
+{
+    SetTypeBet,
+    SetTypeStake
+};
 
-@interface StakeViewController ()
+static const CGFloat TNCornerRadius = 3.75f;
+static const CGFloat TNMarginGeneral = 8.0f;
+static const CGFloat TNSideImageLarge = 60.0f;
 
+@interface SetViewController ()
+
+@property (nonatomic) SetType setType;
 @property (nonatomic, strong, readonly) EventModel *event;
+@property (nonatomic, strong) NSArray *lines;
 @property (nonatomic, strong) LineModel *selectedLine;
-@property (nonatomic, strong) NSArray *components;
 @property (nonatomic, strong) CoefficientModel *coefficient;
 @property (nonatomic, strong) MoneyModel *balance;
 
 @property (nonatomic, strong) UIImageView *imageViewTopDelimiter;
 @property (nonatomic, strong) UIImageView *imageViewBottomDelimiter;
+@property (nonatomic, strong) UIImageView *imageViewParticipantFirst;
+@property (nonatomic, strong) UIImageView *imageViewParticipantSecond;
+
 
 @property (nonatomic, strong) UILabel *labelTitle;
 @property (nonatomic, strong) UILabel *labelParticipantFirst;
@@ -52,18 +68,35 @@
 
 @end
 
-@implementation StakeViewController
+@implementation SetViewController
 
-+ (StakeViewController *)stakeWithEvent:(EventModel *)event
++ (SetViewController *)betWithEvent:(EventModel *)event
 {
-    return [[self alloc] initWithEvent:event];
+    return [[self alloc] initWithBet:event];
 }
 
-- (id)initWithEvent:(EventModel *)event
++ (SetViewController *)stakeWithEvent:(EventModel *)event
+{
+    return [[self alloc] initWithStake:event];
+}
+
+- (id)initWithBet:(EventModel *)event
 {
     self = [super init];
     if (self)
     {
+        _setType = SetTypeBet;
+        _event = event;
+    }
+    return self;
+}
+
+- (id)initWithStake:(EventModel *)event
+{
+    self = [super init];
+    if (self)
+    {
+        _setType = SetTypeStake;
         _event = event;
     }
     return self;
@@ -73,19 +106,13 @@
 {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"Stake noun", nil);
+    self.title = self.setType == SetTypeBet ? NSLocalizedString(@"Bet", nil) : NSLocalizedString(@"Stake noun", nil);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(close)];
-    
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    CGRect viewControllerFrame = CGRectMake(0.0f,
-                                            0.0f,
-                                            CGRectGetWidth(applicationFrame),
-                                            CGRectGetHeight(applicationFrame) - CGRectGetHeight(self.navigationController.navigationBar.bounds)
-                                            );
+    CGRect viewControllerFrame = self.frame;
     
     CGFloat zero = 0.0f;
     CGFloat screenWidth = 320.0f;
@@ -109,39 +136,103 @@
     backgroundCover.layer.masksToBounds = YES;
     [self.view addSubview:backgroundCover];
     
-    CGSize participantSize = CGSizeMake((screenWidth - 2.0f * coverMargin) / 2.0f, participantsHeight);
-    CGFloat labelPadding = 20.0f;
+    ParticipantModel *participantFirst = self.event.participants[0];
+    ParticipantModel *participantSecond = self.event.participants.count > 1 ? self.event.participants[1] : nil;
+    CGFloat marginImageFirst = 0.0f;
+    CGFloat widthLabelMax = 135.0f;
+    CGFloat marginImage = TNSideImageLarge + TNMarginGeneral;
+    if (participantFirst.logo)
+    {
+        self.imageViewParticipantFirst = [[UIImageView alloc] init];
+        self.imageViewParticipantFirst.frame = CGRectMake(
+                                                            TNMarginGeneral,
+                                                            TNMarginGeneral,
+                                                            TNSideImageLarge,
+                                                            TNSideImageLarge
+                                                        );
+        [self.imageViewParticipantFirst setImageWithURL:[participantFirst.logo URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+        [self roundCornersForView:self.imageViewParticipantFirst];
+        [backgroundCover addSubview:self.imageViewParticipantFirst];
+        marginImageFirst = marginImage;
+    }
     
-    self.buttonParticipantFirst = [[UIButton alloc] initWithFrame:CGRectMake(2 * coverMargin, descriptionPadding + 13, 128, 44)];
-    [self.buttonParticipantFirst setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
-                                           forState:UIControlStateNormal];
-    self.buttonParticipantFirst.titleLabel.font = font;
-    self.buttonParticipantFirst.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.buttonParticipantFirst.titleLabel.numberOfLines = 0;
-    [self.buttonParticipantFirst setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
-    [self.buttonParticipantFirst setTitle:[(ParticipantModel *)self.event.participants[0] title] forState:UIControlStateNormal];
+    self.labelParticipantFirst = [UILabel labelSmallBold:YES black:NO];
+    self.labelParticipantFirst.frame = CGRectMake(
+                                                     TNMarginGeneral + marginImageFirst,
+                                                     TNMarginGeneral,
+                                                     widthLabelMax - TNMarginGeneral - marginImageFirst,
+                                                     TNSideImageLarge
+                                                 );
+    NSDictionary *underlineAttribute = @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
+    self.labelParticipantFirst.attributedText = [[NSAttributedString alloc] initWithString:participantFirst.title attributes:underlineAttribute];
+    self.labelParticipantFirst.textAlignment = NSTextAlignmentRight;
+    [backgroundCover addSubview:self.labelParticipantFirst];
+    
+    if (self.event.status)
+    {
+        self.labelStatus = [UILabel labelSmallBold:YES black:NO];
+        self.labelStatus.frame = CGRectMake(
+                                                    widthLabelMax,
+                                                    TNMarginGeneral,
+                                                    CGRectGetWidth(backgroundCover.frame) - widthLabelMax * 2.0f,
+                                                    TNSideImageLarge
+                                                );
+        self.labelStatus.text = self.event.status;
+        self.labelStatus.textAlignment = NSTextAlignmentCenter;
+        [backgroundCover addSubview:self.labelStatus];
+    }
+    
+    self.buttonParticipantFirst = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.buttonParticipantFirst.frame = CGRectMake(
+                                                   0.0f,
+                                                   0.0f,
+                                                   widthLabelMax,
+                                                   TNSideImageLarge + TNMarginGeneral * 2.0f
+                                                   );
     [self.buttonParticipantFirst addTarget:self action:@selector(showParticipant:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.buttonParticipantFirst];
+    [backgroundCover addSubview:self.buttonParticipantFirst];
     
-    self.labelStatus = [[UILabel alloc] initWithFrame:CGRectMake(coverMargin + participantSize.width - labelPadding, descriptionPadding, labelPadding * 2.0f, participantSize.height)];
-    self.labelStatus.font = font;
-    self.labelStatus.backgroundColor = [UIColor clearColor];
-    self.labelStatus.textAlignment = NSTextAlignmentCenter;
-    self.labelStatus.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelStatus.text = self.event.status ? self.event.status : @"—";
-    [self.view addSubview:self.labelStatus];
+    if (participantSecond)
+    {
+        CGFloat marginImageSecond = 0.0f;
+        if (participantSecond.logo)
+        {
+            self.imageViewParticipantSecond = [[UIImageView alloc] init];
+            self.imageViewParticipantSecond.frame = CGRectMake(
+                                                                 CGRectGetWidth(backgroundCover.frame) - TNMarginGeneral - TNSideImageLarge,
+                                                                 TNMarginGeneral,
+                                                                 TNSideImageLarge,
+                                                                 TNSideImageLarge
+                                                             );
+            [self.imageViewParticipantSecond setImageWithURL:[participantSecond.logo URLByAppendingSize:CGSizeMake(TNSideImageLarge, TNSideImageLarge)]];
+            [self roundCornersForView:self.imageViewParticipantSecond];
+            [backgroundCover addSubview:self.imageViewParticipantSecond];
+            marginImageSecond = marginImage;
+        }
+        
+        self.labelParticipantSecond = [UILabel labelSmallBold:YES black:NO];
+        self.labelParticipantSecond.frame = CGRectMake(
+                                                          CGRectGetWidth(backgroundCover.frame) - widthLabelMax,
+                                                          TNMarginGeneral,
+                                                          widthLabelMax - TNMarginGeneral - marginImageSecond,
+                                                          TNSideImageLarge
+                                                      );
+        self.labelParticipantSecond.attributedText = [[NSAttributedString alloc] initWithString:participantSecond.title attributes:underlineAttribute];
+        self.labelParticipantSecond.textAlignment = NSTextAlignmentLeft;
+        [backgroundCover addSubview:self.labelParticipantSecond];
+        
+        self.buttonParticipantSecond = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonParticipantSecond.frame = CGRectMake(
+                                                        CGRectGetWidth(backgroundCover.frame) - widthLabelMax,
+                                                        0.0f,
+                                                        widthLabelMax,
+                                                        TNSideImageLarge + TNMarginGeneral * 2.0f
+                                                        );
+        [self.buttonParticipantSecond addTarget:self action:@selector(showParticipant:) forControlEvents:UIControlEventTouchUpInside];
+        [backgroundCover addSubview:self.buttonParticipantSecond];
+    }
     
-    self.buttonParticipantSecond = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - (2 * coverMargin + 128), descriptionPadding + 13, 128, 44)];
-    [self.buttonParticipantSecond setBackgroundImage:[[UIImage imageNamed:@"ButtonGray"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 4.0f, 0.0f, 4.0f)]
-                                            forState:UIControlStateNormal];
-    self.buttonParticipantSecond.titleLabel.font = font;
-    self.buttonParticipantSecond.titleLabel.backgroundColor = [UIColor clearColor];
-    self.buttonParticipantSecond.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.buttonParticipantSecond.titleLabel.numberOfLines = 0;
-    [self.buttonParticipantSecond setTitleColor:[UIColor colorWithWhite:0.200 alpha:1.000] forState:UIControlStateNormal];
-    [self.buttonParticipantSecond setTitle:[(ParticipantModel *)self.event.participants[1] title] forState:UIControlStateNormal];
-    [self.buttonParticipantSecond addTarget:self action:@selector(showParticipant:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.buttonParticipantSecond];
+    CGSize participantSize = CGSizeMake((screenWidth - 2.0f * coverMargin) / 2.0f, participantsHeight);
     
     self.imageViewTopDelimiter = [[UIImageView alloc] initWithFrame:CGRectMake(coverMargin, descriptionPadding + participantSize.height, screenWidth - coverMargin * 2.0f, 1.0f)];
     self.imageViewTopDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
@@ -229,22 +320,27 @@
     [self.buttonPlus addTarget:self action:@selector(amountIncrease) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.buttonPlus];
     
-    self.elementViewCoefficient = [[StakeElementView alloc] initWithFrame:CGRectMake(
-                                                                                     coverMargin * 2.0f,
-                                                                                     CGRectGetMaxY(self.textFieldAmount.frame) + amountPadding,
-                                                                                     screenWidth - coverMargin * 4.0f,
-                                                                                     stakeElementHeight
-                                                                                     )];
-    [self.elementViewCoefficient loadWithTitle:NSLocalizedString(@"Odds:", nil) target:nil action:nil];
-    [self.view addSubview:self.elementViewCoefficient];
+    if (self.setType == SetTypeStake)
+    {
+        self.elementViewCoefficient = [[StakeElementView alloc] initWithFrame:CGRectMake(
+                                                                                         coverMargin * 2.0f,
+                                                                                         CGRectGetMaxY(self.textFieldAmount.frame) + amountPadding,
+                                                                                         screenWidth - coverMargin * 4.0f,
+                                                                                         stakeElementHeight
+                                                                                         )];
+        [self.elementViewCoefficient loadWithTitle:NSLocalizedString(@"Odds:", nil) target:nil action:nil];
+        [self.view addSubview:self.elementViewCoefficient];
+    }
     
     CGFloat buttonHeight = 40.0f;
     
+    CGFloat maxY = CGRectGetMaxY(self.setType == SetTypeStake ? self.elementViewCoefficient.frame : self.textFieldAmount.frame);
+    
     self.labelReward = [[UILabel alloc] initWithFrame:CGRectMake(
                                                                  coverMargin * 2.0f,
-                                                                 CGRectGetMaxY(self.elementViewCoefficient.frame),
+                                                                 maxY,
                                                                  screenWidth - 4.0f * coverMargin,
-                                                                 (screenHeight - 3.0f * coverMargin - buttonHeight) - CGRectGetMaxY(self.elementViewCoefficient.frame)
+                                                                 (screenHeight - 3.0f * coverMargin - buttonHeight) - maxY
                                                                  )];
     self.labelReward.font = font;
     self.labelReward.backgroundColor = [UIColor clearColor];
@@ -257,28 +353,34 @@
     self.imageViewBottomDelimiter.image = [[UIImage imageNamed:@"leadDelimiter"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     [self.view addSubview:self.imageViewBottomDelimiter];
     
-    self.buttonBet = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonBet.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, buttonHeight);
-    [self.buttonBet setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
-    self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
-    self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
-    self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
-                              forState:UIControlStateNormal];
-    [self.buttonBet addTarget:self action:@selector(betButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.buttonBet];
+    if (self.setType == SetTypeBet)
+    {
+        self.buttonBet = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonBet.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, screenWidth - coverMargin * 4.0f, buttonHeight);
+        [self.buttonBet setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
+        self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+        self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+        self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+        [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                  forState:UIControlStateNormal];
+        [self.buttonBet addTarget:self action:@selector(betButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.buttonBet];
+    }
+    else
+    {
+        self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonStake.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, screenWidth - coverMargin * 4.0f, buttonHeight);
+        [self.buttonStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
+        self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
+        self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
+        self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+        [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+                                    forState:UIControlStateNormal];
+        [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.buttonStake];
+    }
     
-    self.buttonStake = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.buttonStake.frame = CGRectMake(coverMargin * 3.0f + (screenWidth - coverMargin * 5.0f) / 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, (screenWidth - coverMargin * 5.0f) / 2.0f, 40.0f);
-    [self.buttonStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
-    self.buttonStake.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
-    self.buttonStake.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
-    self.buttonStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreen"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
-                                forState:UIControlStateNormal];
-    [self.buttonStake addTarget:self action:@selector(stakeButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.buttonStake];
-    
+    [self loadLines];
     [self loadBalance];
 }
 
@@ -287,20 +389,53 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Data Loading
+
+- (void)roundCornersForView:(UIView *)view
+{
+    view.layer.cornerRadius = TNCornerRadius;
+    view.layer.masksToBounds = YES;
+}
+
+- (void)loadLines
+{
+    [SVProgressHUD show];
+    if (self.setType == SetTypeBet)
+    {
+        [[ObjectManager sharedManager] betLinesForEvent:self.event
+                                                success:^(NSArray *lines)
+                                                {
+                                                    self.lines = lines;
+                                                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Lines loaded", nil)];
+                                                }
+                                                failure:^
+                                                {
+                                                    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Lines not loaded", nil)];
+                                                }
+        ];
+    }
+    else
+    {
+        [[ObjectManager sharedManager] stakeLinesForEvent:self.event
+                                                  success:^(NSArray *lines)
+                                                  {
+                                                      self.lines = lines;
+                                                      [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Lines loaded", nil)];
+                                                  }
+                                                  failure:^
+                                                  {
+                                                      [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Lines not loaded", nil)];
+                                                  }
+        ];
+    }
+}
+
 - (void)showLineSelection:(UIControl *)sender
 {
-    [LinePicker showPickerWithLines:@[] selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line)
+    [LinePicker showPickerWithLines:self.lines selectedLine:self.selectedLine doneBlock:^(LinePicker *picker, LineModel *line)
         {
             self.selectedLine = line;
             [self.elementViewLineSelection updateResult:line.title];
-            [[ObjectManager sharedManager] componentsForEvent:self.event
-                                                         line:self.selectedLine
-                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-                                                      {
-                                                          self.components = mappingResult.array;
-                                                      }
-                                                      failure:nil
-            ];
         }
         cancelBlock:nil
         origin:sender
@@ -309,12 +444,12 @@
 
 - (void)showCriterionSelection:(UIControl *)sender
 {
-    if (self.components)
+    if (self.selectedLine.components)
     {
-        [ComponentPicker showPickerWithComponents:self.components
+        [ComponentPicker showPickerWithComponents:self.selectedLine.components
                                         doneBlock:^(ComponentPicker *picker, NSArray *components)
                                         {
-                                            self.components = components;
+                                            self.selectedLine.components = components;
                                             NSString *result = @"";
                                             for (ComponentModel * component in components)
                                             {
@@ -348,6 +483,7 @@
         StakeModel *stake = [self generateStake];
         [[ObjectManager sharedManager] setStake:stake success:^(StakeModel *stake)
             {
+                [NotificationManager showSuccessMessage:@"Ура! Ставка сделана!" forViewController:[PuntrUtilities mainNavigationController]];
                 [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             }
             failure:nil
@@ -384,7 +520,6 @@
 {
     return [StakeModel stakeWithEvent:self.event
                                  line:self.selectedLine
-                           components:self.components
                           coefficient:self.coefficient
                                 money:[self selectedMoney]];
 }
@@ -443,14 +578,15 @@
     NSNumberFormatter *twoDecimalPlacesFormatter = [[NSNumberFormatter alloc] init];
     [twoDecimalPlacesFormatter setMaximumFractionDigits:2];
     [twoDecimalPlacesFormatter setMinimumFractionDigits:0];
-    self.labelReward.text = [NSString stringWithFormat:@"%@%@ P", NSLocalizedString(@"Prize: ", nil), [twoDecimalPlacesFormatter stringFromNumber:@(self.textFieldAmount.text.integerValue * self.coefficient.value.floatValue)]];
+    CGFloat coefficient = self.setType == SetTypeBet ? 1.9f : self.coefficient.value.floatValue;
+    NSInteger rewardValue = self.textFieldAmount.text.integerValue * coefficient;
+    self.labelReward.text = [NSString stringWithFormat:@"%@%@ P", NSLocalizedString(@"Prize: ", nil), [twoDecimalPlacesFormatter stringFromNumber:@(rewardValue)]];
 }
 
 - (void)updateCoefficient
 {
     [[ObjectManager sharedManager] coefficientForEvent:self.event
                                                   line:self.selectedLine
-                                            components:self.components
                                                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
         {
             CoefficientModel *coefficient = (CoefficientModel *)mappingResult.firstObject;

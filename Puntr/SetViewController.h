@@ -10,8 +10,9 @@
 
 @class EventModel;
 
-@interface StakeViewController : UIViewController
+@interface SetViewController : UIViewController
 
-+ (StakeViewController *)stakeWithEvent:(EventModel *)event;
++ (SetViewController *)stakeWithEvent:(EventModel *)event;
++ (SetViewController *)betWithEvent:(EventModel *)event;
 
 @end

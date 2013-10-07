@@ -228,7 +228,7 @@
 		31D708E7178EC933004746E6 /* ButtonGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708D5178EC933004746E6 /* ButtonGray@2x.png */; };
 		31D708E8178EC933004746E6 /* ButtonGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708D6178EC933004746E6 /* ButtonGreen.png */; };
 		31D708E9178EC933004746E6 /* ButtonGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31D708D7178EC933004746E6 /* ButtonGreen@2x.png */; };
-		31D7B62C17958511000DCAF3 /* StakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7B62B17958511000DCAF3 /* StakeViewController.m */; };
+		31D7B62C17958511000DCAF3 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7B62B17958511000DCAF3 /* SetViewController.m */; };
 		31D9F152179EA81A00C8AC17 /* ComponentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F151179EA81A00C8AC17 /* ComponentPicker.m */; };
 		31D9F155179EC00000C8AC17 /* LinePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D9F154179EBFFF00C8AC17 /* LinePicker.m */; };
 		31DC0F3417D0F47F0085BB8C /* IconFilter.png in Resources */ = {isa = PBXBuildFile; fileRef = 31DC0F3217D0F47F0085BB8C /* IconFilter.png */; };
@@ -691,8 +691,8 @@
 		31D708D5178EC933004746E6 /* ButtonGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonGray@2x.png"; sourceTree = "<group>"; };
 		31D708D6178EC933004746E6 /* ButtonGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonGreen.png; sourceTree = "<group>"; };
 		31D708D7178EC933004746E6 /* ButtonGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonGreen@2x.png"; sourceTree = "<group>"; };
-		31D7B62A17958511000DCAF3 /* StakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeViewController.h; sourceTree = "<group>"; };
-		31D7B62B17958511000DCAF3 /* StakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeViewController.m; sourceTree = "<group>"; };
+		31D7B62A17958511000DCAF3 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		31D7B62B17958511000DCAF3 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
 		31D9F150179EA81A00C8AC17 /* ComponentPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentPicker.h; sourceTree = "<group>"; };
 		31D9F151179EA81A00C8AC17 /* ComponentPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComponentPicker.m; sourceTree = "<group>"; };
 		31D9F153179EBFFF00C8AC17 /* LinePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePicker.h; sourceTree = "<group>"; };
@@ -1497,8 +1497,8 @@
 				3195D391176A26F5005E4856 /* RegistrationViewController.m */,
 				ACDFDB7917BADBA500E124F5 /* SettingsViewController.h */,
 				ACDFDB7A17BADBA500E124F5 /* SettingsViewController.m */,
-				31D7B62A17958511000DCAF3 /* StakeViewController.h */,
-				31D7B62B17958511000DCAF3 /* StakeViewController.m */,
+				31D7B62A17958511000DCAF3 /* SetViewController.h */,
+				31D7B62B17958511000DCAF3 /* SetViewController.m */,
 				0FAFC4EB17C60FF500735D0C /* StatisticViewController.h */,
 				0FAFC4EC17C60FF600735D0C /* StatisticViewController.m */,
 				3180DD8E17DE009B008AD97E /* SubscribersViewController.h */,
@@ -2115,7 +2115,7 @@
 				3180CF7F178B29F1001B2DD1 /* CategoryCell.m in Sources */,
 				765FCDB9178D0CC100A58B81 /* EventViewController.m in Sources */,
 				7611C7BA178FA99E00356455 /* StakeModel.m in Sources */,
-				31D7B62C17958511000DCAF3 /* StakeViewController.m in Sources */,
+				31D7B62C17958511000DCAF3 /* SetViewController.m in Sources */,
 				3127C038179851850056D78A /* UserModel.m in Sources */,
 				3127C03B179853170056D78A /* LineModel.m in Sources */,
 				3127C03E1798548D0056D78A /* ComponentModel.m in Sources */,
