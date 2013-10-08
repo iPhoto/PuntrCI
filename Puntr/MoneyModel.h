@@ -14,4 +14,6 @@
 
 + (MoneyModel *)moneyWithAmount:(NSNumber *)amount;
 
+- (NSDictionary *)parameters;
+
 @end

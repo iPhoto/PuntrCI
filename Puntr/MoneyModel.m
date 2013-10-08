@@ -23,4 +23,16 @@
     return money;
 }
 
+- (NSDictionary *)parameters
+{
+    if (self.amount)
+    {
+        return @{ KeyAmount: self.amount };
+    }
+    else
+    {
+        return @{ };
+    }
+}
+
 @end
