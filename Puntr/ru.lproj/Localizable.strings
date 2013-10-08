@@ -36,6 +36,7 @@
 "Done" = "Готово";
 "Email or nickname..." = "Email или никнейм...";
 "Enter" = "Вход";
+"Enter comment" = "Введите комментарий";
 "Enter confirm of new password" = "Введите подтверждение нового пароля";
 "Enter Email" = "Введите Email";
 "Enter Email or nickname" = "Введите Email или никнейм";
@@ -123,6 +124,7 @@
 "Total loss:" = "Суммарный проигрыш:";
 "Total prize:" = "Суммарный выигрыш:";
 "Tournaments" = "Турниры";
+"Unauthorized access" = "Вы должны войти, чтобы совершить это действие";
 "Uncheck all" = "Снять все";
 "Unknown error" = "Неизвестная ошибка";
 "Unsubscribe" = "Отписаться";

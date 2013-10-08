@@ -36,6 +36,7 @@
 "Done" = "Done";
 "Email or nickname..." = "Email or nickname...";
 "Enter" = "Enter";
+"Enter comment" = "Enter comment";
 "Enter confirm of new password" = "Enter confirm of new password";
 "Enter Email" = "Enter Email";
 "Enter Email or nickname" = "Enter Email or nickname";
@@ -124,6 +125,7 @@
 "Total prize:" = "Total prize:";
 "Tournaments" = "Tournaments";
 "Uncheck all" = "Uncheck all";
+"Unauthorized access" = "You should log in for this action";
 "Unknown error" = "Unknown error";
 "Unsubscribe" = "Unsubscribe";
 "Upload photo" = "UPLOAD\nPHOTO";
