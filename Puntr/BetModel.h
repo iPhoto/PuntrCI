@@ -15,10 +15,10 @@
 
 @interface BetModel : NSObject
 
-@property (nonatomic, strong) NSNumber *tag;
+@property (nonatomic, strong, readonly) NSNumber *tag;
 @property (nonatomic, strong, readonly) NSDate *createdAt;
-@property (nonatomic) BOOL accepted;
-@property (nonatomic, strong) NSNumber *winnerTag;
+@property (nonatomic, strong, readonly) NSNumber *accepted;
+@property (nonatomic, strong, readonly) NSNumber *winnerTag;
 @property (nonatomic, strong) UserModel *creator;
 @property (nonatomic, strong) UserModel *opponent;
 @property (nonatomic, strong) EventModel *event;
