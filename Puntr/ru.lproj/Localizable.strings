@@ -147,3 +147,10 @@
 "Your bet won!" = "Вы выиграли пари!";
 "Your stake lost!" = "Ваша ставка проиграла!";
 "Your stake won!" = "Ваша ставка выиграла!";
+"Set amount of bet" = "Задайте сумму пари";
+"Select the line of bet" = "Выберите линию пари";
+"Select the criteria of bet" = "Выберите критерий пари";
+"Congradulations! Stake created!" = "Ура! Ставка сделана!";
+"Congradulations! Bet created!" = "Ура! Пари создано!";
+"Bet on:" = "Пари на:";
+"Bet amount:" = "Сумма пари:";
