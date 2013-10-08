@@ -300,15 +300,37 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadBets
 {
-    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
-                                                     firstTitle:NSLocalizedString(@"Stakes", nil)
-                                                        firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
-                                                     secondType:CollectionTypeBets
-                                                    secondTitle:NSLocalizedString(@"Bets", nil)
-                                                       secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
-    NSArray *stationaryObjects = @[switchModel];
-    self.stationaryObjectsCount = stationaryObjects.count;
-    [self combineStationaryObjects:stationaryObjects withNewObjects:@[]];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [[ObjectManager sharedManager] betsWithPaging:self.paging success:^(NSArray *bets)
+            {
+                if (self.paging.isFirstPage)
+                {
+                    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
+                                                                     firstTitle:NSLocalizedString(@"Stakes", nil)
+                                                                        firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
+                                                                     secondType:CollectionTypeBets
+                                                                    secondTitle:NSLocalizedString(@"Bets", nil)
+                                                                       secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
+                    NSArray *stationaryObjects = @[switchModel];
+                    self.stationaryObjectsCount = stationaryObjects.count;
+                    [self combineStationaryObjects:stationaryObjects withNewObjects:bets];
+                }
+                else
+                {
+                    [self combineWithObjects:bets];
+                }
+            }
+            failure:^
+            {
+                [self finishLoading];
+            }
+        ];
+    }
+    else
+    {
+        [self cleanCollection];
+    }
 }
 
 #pragma mark - Catalogue Events
