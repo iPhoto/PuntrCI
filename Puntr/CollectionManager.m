@@ -231,37 +231,45 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadActivities
 {
-    UserModel *userModel = [self modifierOfClass:[UserModel class]];
-    
-    [[ObjectManager sharedManager] userWithModel:userModel
-                                         success:^(UserModel *user)
-        {
-            [[ObjectManager sharedManager] activitiesForUser:user
-                                              paging:self.paging
-                                             success:^(NSArray *activities)
-                                             {
-                                                 if (self.paging.isFirstPage)
+    if ([ObjectManager sharedManager].authorized)
+    {
+        UserModel *userModel = [self modifierOfClass:[UserModel class]];
+        
+        [[ObjectManager sharedManager] userWithModel:userModel
+                                             success:^(UserModel *user)
+            {
+                [[ObjectManager sharedManager] activitiesForUser:user
+                                                  paging:self.paging
+                                                 success:^(NSArray *activities)
                                                  {
-                                                     NSArray *stationaryObjects = @[user];
-                                                     self.stationaryObjectsCount = stationaryObjects.count;
-                                                     [self combineStationaryObjects:stationaryObjects withNewObjects:activities];
+                                                     if (self.paging.isFirstPage)
+                                                     {
+                                                         NSArray *stationaryObjects = @[user];
+                                                         self.stationaryObjectsCount = stationaryObjects.count;
+                                                         [self combineStationaryObjects:stationaryObjects withNewObjects:activities];
+                                                     }
+                                                     else
+                                                     {
+                                                         [self combineWithObjects:activities];
+                                                     }
                                                  }
-                                                 else
+                                                 failure:^
                                                  {
-                                                     [self combineWithObjects:activities];
+                                                     [self finishLoading];
                                                  }
-                                             }
-                                             failure:^
-                                             {
-                                                 [self finishLoading];
-                                             }
-            ];
-        }
-        failure:^
-        {
-            [self finishLoading];
-        }
-    ];
+                ];
+            }
+            failure:^
+            {
+                [self finishLoading];
+            }
+        ];
+    }
+    else
+    {
+        
+        [self cleanCollection];
+    }
 }
 
 - (void)loadActivitiesSelf
@@ -312,15 +320,21 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
     [[ObjectManager sharedManager] groupsWithSuccess:^(NSArray *groups)
         {
             [self loadGroups:groups];
-            [self addHardcodedGroupsWithQuantity:self.search.query ? 3 : 2];
             
             PagingModel *paging = [PagingModel paging];
             [paging setDefaultLimit:@(TNCatalogueLeadLimit)];
             [paging firstPage];
             
-            // Users
-            
-            [self loadCatalogueEventsUsersWithPaging:paging];
+            if ([ObjectManager sharedManager].authorized)
+            {
+                [self addHardcodedGroupsWithQuantity:self.search.query ? 3 : 2];
+                
+                [self loadCatalogueEventsUsersWithPaging:paging];
+            }
+            else
+            {
+                [self addHardcodedGroupsWithQuantity:self.search.query ? 2 : 1];
+            }
             
             FilterModel *filter = [FilterModel filter];
             
@@ -605,32 +619,41 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)combineEventCommentsWithEvent:(EventModel *)event
 {
-    [[ObjectManager sharedManager] commentsForEvent:event
-                                             paging:self.paging
-                                            success:^(NSArray *comments)
-                                            {
-                                                if (self.paging.isFirstPage)
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [[ObjectManager sharedManager] commentsForEvent:event
+                                                 paging:self.paging
+                                                success:^(NSArray *comments)
                                                 {
-                                                    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
-                                                                                                     firstTitle:NSLocalizedString(@"Comments", nil)
-                                                                                                        firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
-                                                                                                     secondType:CollectionTypeEventStakes
-                                                                                                    secondTitle:NSLocalizedString(@"Stakes", nil)
-                                                                                                       secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                    NSArray *stationaryObjects = @[event, switchModel];
-                                                    self.stationaryObjectsCount = stationaryObjects.count;
-                                                    [self combineStationaryObjects:stationaryObjects withNewObjects:comments];
+                                                    if (self.paging.isFirstPage)
+                                                    {
+                                                        SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
+                                                                                                         firstTitle:NSLocalizedString(@"Comments", nil)
+                                                                                                            firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
+                                                                                                         secondType:CollectionTypeEventStakes
+                                                                                                        secondTitle:NSLocalizedString(@"Stakes", nil)
+                                                                                                           secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
+                                                        NSArray *stationaryObjects = @[event, switchModel];
+                                                        self.stationaryObjectsCount = stationaryObjects.count;
+                                                        [self combineStationaryObjects:stationaryObjects withNewObjects:comments];
+                                                    }
+                                                    else
+                                                    {
+                                                        [self combineWithObjects:comments];
+                                                    }
                                                 }
-                                                else
+                                                failure:^
                                                 {
-                                                    [self combineWithObjects:comments];
+                                                    [self finishLoading];
                                                 }
-                                            }
-                                            failure:^
-                                            {
-                                                [self finishLoading];
-                                            }
-    ];
+        ];
+    }
+    else
+    {
+        NSArray *stationaryObjects = @[event];
+        self.stationaryObjectsCount = stationaryObjects.count;
+        [self combineStationaryObjects:stationaryObjects withNewObjects:@[]];
+    }
 }
 
 #pragma mark - Events
@@ -703,38 +726,45 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
                                               [self finishLoading];
                                           }
     ];
-    
-    
 }
 
 - (void)combineEventStakesWithEvent:(EventModel *)event
 {
-    [[ObjectManager sharedManager] stakesForEvent:event
-                                           paging:self.paging
-                                          success:^(NSArray *stakes)
-                                          {
-                                              if (self.paging.isFirstPage)
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [[ObjectManager sharedManager] stakesForEvent:event
+                                               paging:self.paging
+                                              success:^(NSArray *stakes)
                                               {
-                                                  SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
-                                                                                                   firstTitle:NSLocalizedString(@"Comments", nil)
-                                                                                                      firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
-                                                                                                   secondType:CollectionTypeEventStakes
-                                                                                                  secondTitle:NSLocalizedString(@"Stakes", nil)
-                                                                                                     secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
-                                                  NSArray *stationaryObjects = @[event, switchModel];
-                                                  self.stationaryObjectsCount = stationaryObjects.count;
-                                                  [self combineStationaryObjects:stationaryObjects withNewObjects:stakes];
+                                                  if (self.paging.isFirstPage)
+                                                  {
+                                                      SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeEventComments
+                                                                                                       firstTitle:NSLocalizedString(@"Comments", nil)
+                                                                                                          firstOn:self.collectionType == CollectionTypeEventComments ? YES : NO
+                                                                                                       secondType:CollectionTypeEventStakes
+                                                                                                      secondTitle:NSLocalizedString(@"Stakes", nil)
+                                                                                                         secondOn:self.collectionType == CollectionTypeEventStakes ? YES : NO];
+                                                      NSArray *stationaryObjects = @[event, switchModel];
+                                                      self.stationaryObjectsCount = stationaryObjects.count;
+                                                      [self combineStationaryObjects:stationaryObjects withNewObjects:stakes];
+                                                  }
+                                                  else
+                                                  {
+                                                      [self combineWithObjects:stakes];
+                                                  }
                                               }
-                                              else
+                                              failure:^
                                               {
-                                                  [self combineWithObjects:stakes];
+                                                  [self finishLoading];
                                               }
-                                          }
-                                          failure:^
-                                          {
-                                              [self finishLoading];
-                                          }
-    ];
+        ];
+    }
+    else
+    {
+        NSArray *stationaryObjects = @[event];
+        self.stationaryObjectsCount = stationaryObjects.count;
+        [self combineStationaryObjects:stationaryObjects withNewObjects:@[]];
+    }
 }
 
 #pragma mark - Invite Friends
@@ -751,46 +781,60 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 - (void)loadMyStakes
 {
-    [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
-        {
-            if (self.paging.isFirstPage)
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [[ObjectManager sharedManager] myStakesWithPaging:self.paging success:^(NSArray *stakes)
             {
-                SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
-                                                                 firstTitle:NSLocalizedString(@"Stakes", nil)
-                                                                    firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
-                                                                 secondType:CollectionTypeBets
-                                                                secondTitle:NSLocalizedString(@"Bets", nil)
-                                                                   secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
-                NSArray *stationaryObjects = @[switchModel];
-                self.stationaryObjectsCount = stationaryObjects.count;
-                [self combineStationaryObjects:stationaryObjects withNewObjects:stakes];
+                if (self.paging.isFirstPage)
+                {
+                    SwitchModel *switchModel = [SwitchModel switchWithFirstType:CollectionTypeMyStakes
+                                                                     firstTitle:NSLocalizedString(@"Stakes", nil)
+                                                                        firstOn:self.collectionType == CollectionTypeMyStakes ? YES : NO
+                                                                     secondType:CollectionTypeBets
+                                                                    secondTitle:NSLocalizedString(@"Bets", nil)
+                                                                       secondOn:self.collectionType == CollectionTypeBets ? YES : NO];
+                    NSArray *stationaryObjects = @[switchModel];
+                    self.stationaryObjectsCount = stationaryObjects.count;
+                    [self combineStationaryObjects:stationaryObjects withNewObjects:stakes];
+                }
+                else
+                {
+                    [self combineWithObjects:stakes];
+                }
             }
-            else
+            failure:^
             {
-                [self combineWithObjects:stakes];
+                [self finishLoading];
             }
-        }
-        failure:^
-        {
-            [self finishLoading];
-        }
-    ];
+        ];
+    }
+    else
+    {
+        [self cleanCollection];
+    }
 }
 
 #pragma mark - News
 
 - (void)loadNews
 {
-    [[ObjectManager sharedManager] newsWithPaging:self.paging
-                                          success:^(NSArray *news)
-                                          {
-                                              [self combineWithObjects:news];
-                                          }
-                                          failure:^
-                                          {
-                                              [self finishLoading];
-                                          }
-    ];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [[ObjectManager sharedManager] newsWithPaging:self.paging
+                                              success:^(NSArray *news)
+                                              {
+                                                  [self combineWithObjects:news];
+                                              }
+                                              failure:^
+                                              {
+                                                  [self finishLoading];
+                                              }
+        ];
+    }
+    else
+    {
+        [self cleanCollection];
+    }
 }
 
 #pragma mark - Participant
@@ -1230,17 +1274,7 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
         [self.collectionView reloadData];
     }
     
-    if ([self.collectionManagerDelegate respondsToSelector:@selector(haveItems:withCollectionType:)])
-    {
-        if (self.collectionObjects.count - self.stationaryObjectsCount <= 0)
-        {
-            [self.collectionManagerDelegate haveItems:NO withCollectionType:self.collectionType];
-        }
-        else
-        {
-            [self.collectionManagerDelegate haveItems:YES withCollectionType:self.collectionType];
-        }
-    }
+    [self reportItems];
     
     [self finishLoading];
 }
@@ -1408,9 +1442,33 @@ static NSString * const TNLeadCellReuseIdentifier = @"LeadCellReuseIdentifier";
 
 #pragma mark - Utility
 
+- (void)cleanCollection
+{
+    self.stationaryObjectsCount = 0;
+    self.collectionObjects = @[];
+    [self combineWithObjects:@[]];
+}
+
 - (id)modifierOfClass:(Class)class
 {
     return [self objectInArray:self.modifierObjects ofClass:class];
+}
+
+- (void)reportItems
+{
+    [self finishLoading];
+    
+    if ([self.collectionManagerDelegate respondsToSelector:@selector(haveItems:withCollectionType:)])
+    {
+        if (self.collectionObjects.count - self.stationaryObjectsCount <= 0)
+        {
+            [self.collectionManagerDelegate haveItems:NO withCollectionType:self.collectionType];
+        }
+        else
+        {
+            [self.collectionManagerDelegate haveItems:YES withCollectionType:self.collectionType];
+        }
+    }
 }
 
 - (id)objectInArray:(NSArray *)array ofClass:(Class)class
