@@ -581,7 +581,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     if (![event.endTime isEqualToDate:[event.endTime earlierDate:[NSDate date]]])
     {
-        [self displayStakeButton];
+        [self displayButtonStake];
     }
     [self displayCategory:event.tournament.category];
     [self displayParticipants:event.participants final:NO];
@@ -648,7 +648,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
         [self displayTournament:news.event.tournament arrow:YES final:NO];
         if (![news.event.endTime isEqualToDate:[news.event.endTime earlierDate:[NSDate date]]])
         {
-            [self displayStakeButton];
+            [self displayButtonStake];
         }
         [self displayCategory:news.event.tournament.category];
         [self displayParticipants:news.event.participants final:NO];
@@ -1255,8 +1255,46 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self.buttonBet setBackgroundImage:[[UIImage imageNamed:@"ButtonBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)]
                                      forState:UIControlStateNormal];
     [self.buttonBet setTitle:NSLocalizedString(@"Accept", nil) forState:UIControlStateNormal];
-    [self.buttonBet addTarget:self action:@selector(buttonBetTouched:) forControlEvents:UIControlEventTouchUpInside];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self.buttonBet addTarget:self action:@selector(buttonBetTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [self.buttonBet addTarget:[NotificationManager class] action:@selector(unauthorized) forControlEvents:UIControlEventTouchUpInside];
+    }
     [self addSubview:self.buttonBet];
+}
+
+- (void)displayButtonStake
+{
+    self.buttonEventStake = [LeadButton buttonWithType:UIButtonTypeCustom];
+    self.buttonEventStake.frame = CGRectMake(
+                                             TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
+                                             self.usedHeight + TNMarginGeneral,
+                                             TNWidthButtonSmall,
+                                             TNHeightButton
+                                             );
+    [self.buttonEventStake.titleLabel setFont:TNFontSmallBold];
+    self.buttonEventStake.titleLabel.shadowColor = [UIColor colorWithRed:0.25f green:0.46f blue:0.04f alpha:1.00f];
+    self.buttonEventStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
+    [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
+                                     forState:UIControlStateNormal];
+    [self.buttonEventStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
+    StakeModel *stake = [[StakeModel alloc] init];
+    stake.event = self.event;
+    self.buttonEventStake.model = stake;
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self.buttonEventStake addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [self.buttonEventStake addTarget:[NotificationManager class] action:@selector(unauthorized) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    [self addSubview:self.buttonEventStake];
 }
 
 - (void)displayButtonsEventFinal:(BOOL)final
@@ -1279,7 +1317,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
     BetModel *bet = [[BetModel alloc] init];
     bet.event = self.event;
     self.buttonEventBet.model = bet;
-    [self.buttonEventBet addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self.buttonEventBet addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [self.buttonEventBet addTarget:[NotificationManager class] action:@selector(unauthorized) forControlEvents:UIControlEventTouchUpInside];
+    }
     [self addSubview:self.buttonEventBet];
     
     
@@ -1321,7 +1366,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
     StakeModel *stake = [[StakeModel alloc] init];
     stake.event = self.event;
     self.buttonEventStake.model = stake;
-    [self.buttonEventStake addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self.buttonEventStake addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [self.buttonEventStake addTarget:[NotificationManager class] action:@selector(unauthorized) forControlEvents:UIControlEventTouchUpInside];
+    }
     [self addSubview:self.buttonEventStake];
     
     if ([self.event.endTime isEqualToDate:[self.event.endTime earlierDate:[NSDate date]]])
@@ -1892,8 +1944,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                      widthLabelMax - TNMarginGeneral - marginImageFirst,
                                                      TNSideImageLarge
                                                  );
-    //NSDictionary *underlineAttribute = @{ NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle) };
-    //labelParticipantTitleFirst.attributedText = [[NSAttributedString alloc] initWithString:participantFirst.title attributes:underlineAttribute];
     labelParticipantTitleFirst.text = participantFirst.title;
     labelParticipantTitleFirst.textAlignment = NSTextAlignmentRight;
     [self.participantTitles addObject:labelParticipantTitleFirst];
@@ -1946,7 +1996,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                           widthLabelMax - TNMarginGeneral - marginImageSecond,
                                                           TNSideImageLarge
                                                       );
-        //labelParticipantTitleSecond.attributedText = [[NSAttributedString alloc] initWithString:participantSecond.title attributes:underlineAttribute];
         labelParticipantTitleSecond.text = participantSecond.title;
         labelParticipantTitleSecond.textAlignment = NSTextAlignmentLeft;
         [self.participantTitles addObject:labelParticipantTitleSecond];
@@ -2067,29 +2116,6 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [self addSubview:self.searchBar];
     
     self.usedHeight = CGRectGetMaxY(self.searchBar.frame) - TNMarginGeneral;
-}
-
-- (void)displayStakeButton
-{
-    self.buttonEventStake = [LeadButton buttonWithType:UIButtonTypeCustom];
-    self.buttonEventStake.frame = CGRectMake(
-                                                TNWidthCell - TNMarginGeneral - TNWidthButtonSmall,
-                                                self.usedHeight + TNMarginGeneral,
-                                                TNWidthButtonSmall,
-                                                TNHeightButton
-                                            );
-    [self.buttonEventStake.titleLabel setFont:TNFontSmallBold];
-    self.buttonEventStake.titleLabel.shadowColor = [UIColor colorWithRed:0.25f green:0.46f blue:0.04f alpha:1.00f];
-    self.buttonEventStake.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [self.buttonEventStake.titleLabel setTextColor:[UIColor whiteColor]];
-    [self.buttonEventStake setBackgroundImage:[[UIImage imageNamed:@"ButtonGreenSmall"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f)]
-                                     forState:UIControlStateNormal];
-    [self.buttonEventStake setTitle:NSLocalizedString(@"Stake", nil) forState:UIControlStateNormal];
-    StakeModel *stake = [[StakeModel alloc] init];
-    stake.event = self.event;
-    self.buttonEventStake.model = stake;
-    [self.buttonEventStake addTarget:self action:@selector(buttonLeadTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.buttonEventStake];
 }
 
 - (void)displayStakeStatus:(NSString *)stakeStatus
@@ -2450,7 +2476,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
     [[ObjectManager sharedManager] acceptBet:self.bet
         success:^
         {
-            [self.delegate reloadData];
+            [self reloadData];
         }
         failure:nil
     ];
@@ -2466,13 +2492,14 @@ static const CGFloat TNWidthSwitch = 78.0f;
 {
     [[ObjectManager sharedManager] subscribeFor:self.submodel
                                         success:^
-     {
-         [self updateToSubscribed:@YES];
-         [self.submodel performSelector:@selector(setSubscribed:) withObject:@YES];
-         [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully subscribed!", nil)];
-     }
-                                        failure:nil
-     ];
+        {
+            [self updateToSubscribed:@YES];
+            [self.submodel performSelector:@selector(setSubscribed:) withObject:@YES];
+            [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully subscribed!", nil)];
+            [self reloadData];
+        }
+        failure:nil
+    ];
 }
 
 - (void)segmentValueChanged:(UISegmentedControl *)segmentedControl
@@ -2500,7 +2527,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                           success:^(NSArray *privacy)
                                           {
                                               [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
-                                              [self.delegate reloadData];
+                                              [self reloadData];
                                           }
                                           failure:nil
         ];
@@ -2514,11 +2541,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                        success:^(NSArray *push)
                                        {
                                            [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
-                                           [self.delegate reloadData];
+                                           [self reloadData];
                                        }
                                        failure:^
                                        {
-                                           [self.delegate reloadData];
+                                           [self reloadData];
                                        }
         ];
     }
@@ -2552,18 +2579,18 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                                                                                success:^
                                                                                                                {
                                                                                                                    [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
-                                                                                                                   [self.delegate reloadData];
+                                                                                                                   [self reloadData];
                                                                                                                }
                                                                                                                failure:^
                                                                                                                {
-                                                                                                                   [self.delegate reloadData];
+                                                                                                                   [self reloadData];
                                                                                                                }
                                                                    ];
                                                                }
                                                                failure:^(NSError *error)
                                                                {
                                                                    [NotificationManager showError:error];
-                                                                   [self.delegate reloadData];
+                                                                   [self reloadData];
                                                                }
              
             ];
@@ -2574,11 +2601,11 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                              success:^
                                                              {
                                                                  [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully changed the settings!", nil)];
-                                                                 [self.delegate reloadData];
+                                                                 [self reloadData];
                                                              }
                                                              failure:^
                                                              {
-                                                                 [self.delegate reloadData];
+                                                                 [self reloadData];
                                                              }
             ];
         }
@@ -2594,6 +2621,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                [self updateToSubscribed:@NO];
                                                [self.submodel performSelector:@selector(setSubscribed:) withObject:@NO];
                                                [NotificationManager showSuccessMessage:NSLocalizedString(@"You have successfully unsubscribed!", nil)];
+                                               [self reloadData];
                                            }
                                            failure:nil
     ];
@@ -2609,8 +2637,16 @@ static const CGFloat TNWidthSwitch = 78.0f;
     
     [self.buttonSubscribe setBackgroundImage:[[UIImage imageNamed:subscribeImage] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, subscribeImageInset, 0.0f, subscribeImageInset)] forState:UIControlStateNormal];
     [self.buttonSubscribe setTitle:subscribeTitle forState:UIControlStateNormal];
-    [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+        [self.buttonSubscribe addTarget:self action:subscribeMethod forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        [self.buttonSubscribe removeTarget:self action:previuosMethod forControlEvents:UIControlEventTouchUpInside];
+        [self.buttonSubscribe addTarget:[NotificationManager class] action:@selector(unauthorized) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 #pragma mark - SearchBar Delegate
@@ -2670,6 +2706,14 @@ CGRect CGRectBetween(CGFloat minY, CGFloat maxY)
 - (NSString *)nameFromUser:(UserModel *)user
 {
     return [NSString stringWithFormat:@"%@ %@", user.firstName ? : user.username, user.lastName ? : @""];
+}
+
+- (void)reloadData
+{
+    if ([self.delegate respondsToSelector:@selector(reloadData)])
+    {
+        [self.delegate performSelector:@selector(reloadData)];
+    }
 }
 
 - (void)roundCornersForView:(UIView *)view
