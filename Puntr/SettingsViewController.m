@@ -7,7 +7,6 @@
 //
 
 #import "DefaultsManager.h"
-#import "EnterViewController.h"
 #import "ChangePasswordViewController.h"
 #import "CopyrightViewController.h"
 #import "FriendsViewController.h"
@@ -390,16 +389,9 @@ static const CGFloat TNHeaderFooterTopPadding = 8.0f;
         [[ObjectManager sharedManager] logOutWithSuccess:^
             {
                 [DefaultsManager sharedManager].authorization = nil;
-                EnterViewController *enterViewController = [EnterViewController enterWithValidation:NO];
-                UINavigationController *enterNavigationController = [[UINavigationController alloc] initWithRootViewController:enterViewController];
-                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                                  duration:0.3f
-                                   options:UIViewAnimationOptionTransitionFlipFromRight
-                                animations:^
-                                {
-                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:enterNavigationController];
-                                }
-                                completion:nil];
+                [DefaultsManager sharedManager].user = nil;
+                [[ObjectManager sharedManager] clearAuthorization];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
             failure:nil
         ];

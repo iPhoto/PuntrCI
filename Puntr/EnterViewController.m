@@ -29,8 +29,6 @@ typedef NS_ENUM(NSInteger, Direction)
 
 @interface EnterViewController ()
 
-@property (nonatomic) BOOL validate;
-
 @property (nonatomic, strong) UITextField *textFieldLogin;
 @property (nonatomic, strong) UITextField *textFieldPassword;
 
@@ -59,19 +57,9 @@ typedef NS_ENUM(NSInteger, Direction)
 
 @implementation EnterViewController
 
-+ (EnterViewController *)enterWithValidation:(BOOL)validate
++ (EnterViewController *)enter
 {
-    return [[self alloc] initWithValidation:validate];
-}
-
-- (id)initWithValidation:(BOOL)validate
-{
-    self = [super init];
-    if (self)
-    {
-        _validate = validate;
-    }
-    return self;
+    return [[self alloc] init];
 }
 
 - (void)viewDidLoad
@@ -79,6 +67,10 @@ typedef NS_ENUM(NSInteger, Direction)
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Enter", nil);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(close)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:self.view.window];
@@ -229,45 +221,16 @@ typedef NS_ENUM(NSInteger, Direction)
     [self.view addSubview:self.buttonVk];
 }
 
+- (void)close
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Actions
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.validate)
-    {
-        [self validateAuthorization];
-    }
-}
-
-- (void)validateAuthorization
-{
-    [SVProgressHUD show];
-    AuthorizationModel *authorization = [DefaultsManager sharedManager].authorization;
-    UserModel *user = [DefaultsManager sharedManager].user;
-    if ([self authorizationModelValid:authorization] && [self userModelValid:user] && ![self expired:authorization.expires])
-    {
-        [self transitionToTabBar];
-    }
-    else
-    {
-        [SVProgressHUD dismiss];
-    }
-}
-
-- (BOOL)authorizationModelValid:(AuthorizationModel *)authorization
-{
-    return authorization && authorization.sid && authorization.secret && authorization.expires;
-}
-
-- (BOOL)userModelValid:(UserModel *)user
-{
-    return user && user.tag;
-}
-
-- (BOOL)expired:(NSDate *)date
-{
-    return [date compare:[NSDate date]] == NSOrderedAscending;
 }
 
 - (void)registrationButtonTouched
@@ -525,16 +488,8 @@ typedef NS_ENUM(NSInteger, Direction)
 
 - (void)transitionToTabBar
 {
-    TabBarViewController *tabBar = [[TabBarViewController alloc] init];
     [SVProgressHUD dismiss];
-    [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                      duration:0.3f
-                       options:UIViewAnimationOptionTransitionFlipFromRight
-                    animations:^
-                    {
-                        [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-                    }
-                    completion:nil];
+    [self close];
 }
 
 @end

@@ -49,8 +49,8 @@
     //  Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    EnterViewController *enter = [EnterViewController enterWithValidation:YES];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:enter];
+    TabBarViewController *tabBar = [[TabBarViewController alloc] init];
+    self.window.rootViewController = tabBar;
     [self.window makeKeyAndVisible];
     
     [self applyStylesheet];

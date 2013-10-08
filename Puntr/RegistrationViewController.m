@@ -60,6 +60,10 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Registration", nil);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(close)];
     
     // Frame
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -167,6 +171,11 @@
     [self.buttonRegistration addTarget:self action:@selector(registrationButtonTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonRegistration setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)] forState:UIControlStateNormal];
     [self.scrollView addSubview:self.buttonRegistration];
+}
+
+- (void)close
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - TextField Delegate
@@ -336,22 +345,13 @@
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
         [[ObjectManager sharedManager] registerWithUser:self.user success:^(AuthorizationModel *authorization, UserModel *user)
             {
-                TabBarViewController *tabBar = [[TabBarViewController alloc] init];
                 [SVProgressHUD dismiss];
-                [UIView transitionWithView:[[UIApplication sharedApplication] keyWindow]
-                                  duration:0.3f
-                                   options:UIViewAnimationOptionTransitionFlipFromRight
-                                animations:^
-                                {
-                                    [[[UIApplication sharedApplication] keyWindow] setRootViewController:tabBar];
-                                }
-                                completion:nil
-                ];
+                [self close];
             }
-                                                failure:^
-                                                {
-                                                    [SVProgressHUD dismiss];
-                                                }
+            failure:^
+            {
+                [SVProgressHUD dismiss];
+            }
         ];
     }
 }
