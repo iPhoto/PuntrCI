@@ -38,6 +38,7 @@ typedef void (^EmptyFailure)();
 typedef void (^Activities)(NSArray *activities);
 typedef void (^AuthorizationUser)(AuthorizationModel *authorization, UserModel *user);
 typedef void (^Awards)(NSArray *awards);
+typedef void (^Bets)(NSArray *bets);
 typedef void (^Categories)(NSArray *categories);
 typedef void (^Coefficient)(CoefficientModel *coefficient);
 typedef void (^Comments)(NSArray *comments);
@@ -89,6 +90,7 @@ typedef void (^Users)(NSArray *users);
 - (void)betLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure;
 - (void)setBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
 - (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
+- (void)betsWithPaging:(PagingModel *)paging success:(Bets)success failure:(EmptyFailure)failure;
 
 #pragma mark - Categories
 

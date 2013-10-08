@@ -151,6 +151,11 @@
                                                                                                 pathPattern:[NSString stringWithFormat:@"%@/:tag/%@/:tag", APIUsers, APIBets]
                                                                                                     keyPath:nil
                                                                                                 statusCodes:statusCodeOK];
+    RKResponseDescriptor *betCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:betMapping
+                                                                                                         method:RKRequestMethodGET
+                                                                                                    pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APIBets]
+                                                                                                        keyPath:APIBets
+                                                                                                    statusCodes:statusCodeOK];
     
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
@@ -461,6 +466,7 @@
             authorizationValidationResponseDescriptor,
             awardCollectionResponseDescriptor,
             betAcceptResponseDescriptor,
+            betCollectionResponseDescriptor,
             betCreationResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
@@ -781,6 +787,28 @@
                 if (success)
                 {
                     success();
+                }
+            }
+            failure:^(RKObjectRequestOperation *operation, NSError *error)
+            {
+                [self reportWithFailure:failure error:error];
+            }
+    ];
+}
+
+- (void)betsWithPaging:(PagingModel *)paging success:(Bets)success failure:(EmptyFailure)failure
+{
+    [self getObject:nil
+               path:[NSString stringWithFormat:@"%@/%@/%@", APIUsers, self.user.tag.stringValue, APIBets]
+         parameters:self.authorization.wrappedParameters
+            success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+            {
+                [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                
+                NSArray *bets = mappingResult.dictionary[APIBets];
+                if (success)
+                {
+                    success(bets);
                 }
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
