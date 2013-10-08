@@ -597,6 +597,12 @@
 
 #pragma mark - Authorization
 
+- (void)clearAuthorization
+{
+    self.authorization = [[AuthorizationModel alloc] init];
+    self.user = [[UserModel alloc] init];
+}
+
 - (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure
 {
     [self postObject:access
@@ -1560,15 +1566,51 @@
     return self.user;
 }
 
+#pragma mark - Validation
+
+- (BOOL)authorized
+{
+    AuthorizationModel *authorization = [DefaultsManager sharedManager].authorization;
+    UserModel *user = [DefaultsManager sharedManager].user;
+    return [self authorizationModelValid:authorization] && [self userModelValid:user] && ![self expired:authorization.expires];
+}
+
+- (BOOL)authorizationModelValid:(AuthorizationModel *)authorization
+{
+    return authorization && authorization.sid && authorization.secret && authorization.expires;
+}
+
+- (BOOL)userModelValid:(UserModel *)user
+{
+    return user && user.tag;
+}
+
+- (BOOL)expired:(NSDate *)date
+{
+    return [date compare:[NSDate date]] == NSOrderedAscending;
+}
+
 #pragma mark - Helpers
 
 - (void)reportWithFailure:(EmptyFailure)failure error:(NSError *)error
 {
-    [NotificationManager showError:error];
-    if (failure)
+    if ([self statusCodeForError:error] == 401)
     {
-        failure();
+        [NotificationManager unauthorized];
     }
+    else
+    {
+        [NotificationManager showError:error];
+        if (failure)
+        {
+            failure();
+        }
+    }
+}
+
+- (NSInteger)statusCodeForError:(NSError *)error
+{
+    return [(NSHTTPURLResponse *)error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
 }
 
 - (void)updateUser:(id)userRaw

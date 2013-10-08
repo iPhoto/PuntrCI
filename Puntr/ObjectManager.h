@@ -69,6 +69,10 @@ typedef void (^Users)(NSArray *users);
 
 #pragma mark - Authorization
 
+- (BOOL)authorized;
+
+- (void)clearAuthorization;
+
 - (void)logInWithAccess:(AccessModel *)access success:(AuthorizationUser)success failure:(EmptyFailure)failure;
 
 - (void)logOutWithSuccess:(EmptySuccess)success failure:(EmptyFailure)failure;
