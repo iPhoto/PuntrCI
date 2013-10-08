@@ -597,6 +597,31 @@
 
 #pragma mark - Authorization
 
+- (void)updateAuthorization:(id)authorizationRaw
+{
+    if (authorizationRaw)
+    {
+        AuthorizationModel *authorization = authorizationRaw;
+        if (authorization.sid)
+        {
+            self.authorization.sid = authorization.sid;
+        }
+        if (authorization.secret)
+        {
+            self.authorization.secret = authorization.secret;
+        }
+        if (authorization.pushToken)
+        {
+            self.authorization.pushToken = authorization.pushToken;
+        }
+        if (authorization.expires)
+        {
+            self.authorization.expires = authorization.expires;
+        }
+        [DefaultsManager sharedManager].authorization = self.authorization;
+    }
+}
+
 - (void)clearAuthorization
 {
     self.authorization = [[AuthorizationModel alloc] init];
@@ -1259,7 +1284,7 @@
                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                 
                 UserModel *user = (UserModel *)mappingResult.dictionary[KeyUser];
-                self.user = user;
+                [self updateUser:user];
                 success(user);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1333,6 +1358,10 @@
                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                 
                 UserModel *user = mappingResult.dictionary[KeyUser];
+                if (user && user.tag && self.user && self.user.tag && [user.tag isEqualToNumber:self.user.tag])
+                {
+                    [self updateUser:user];
+                }
                 success(user);
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
@@ -1570,9 +1599,7 @@
 
 - (BOOL)authorized
 {
-    AuthorizationModel *authorization = [DefaultsManager sharedManager].authorization;
-    UserModel *user = [DefaultsManager sharedManager].user;
-    return [self authorizationModelValid:authorization] && [self userModelValid:user] && ![self expired:authorization.expires];
+    return [self authorizationModelValid:self.authorization] && [self userModelValid:self.user] && ![self expired:self.authorization.expires];
 }
 
 - (BOOL)authorizationModelValid:(AuthorizationModel *)authorization
@@ -1615,34 +1642,12 @@
 
 - (void)updateUser:(id)userRaw
 {
-    UserModel *user = userRaw;
-    if (user.tag)
+    if (userRaw)
     {
-        self.user.tag = user.tag;
+        UserModel *user = userRaw;
+        self.user = user;
+        [DefaultsManager sharedManager].user = self.user;
     }
-    [DefaultsManager sharedManager].user = self.user;
-}
-
-- (void)updateAuthorization:(id)authorizationRaw
-{
-    AuthorizationModel *authorization = authorizationRaw;
-    if (authorization.sid)
-    {
-        self.authorization.sid = authorization.sid;
-    }
-    if (authorization.secret)
-    {
-        self.authorization.secret = authorization.secret;
-    }
-    if (authorization.pushToken)
-    {
-        self.authorization.pushToken = authorization.pushToken;
-    }
-    if (authorization.expires)
-    {
-        self.authorization.expires = authorization.expires;
-    }
-    [DefaultsManager sharedManager].authorization = self.authorization;
 }
 
 @end
