@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BetModel;
+
 @interface ChooseOpponentViewController : UIViewController
+
++ (ChooseOpponentViewController *)chooseOpponentWithBet:(BetModel *)bet;
 
 @end

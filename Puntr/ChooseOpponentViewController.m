@@ -12,6 +12,7 @@
 #import "ObjectManager.h"
 #import "PagingModel.h"
 #import "SubscriberModel.h"
+#import "BetModel.h"
 
 #import "UIViewController+Puntr.h"
 #import "MZFormSheetController.h"
@@ -46,7 +47,8 @@ static const CGFloat avatarWidth = 40;
 
 @end
 
-@implementation COTableViewCell {
+@implementation COTableViewCell
+{
     UIImageView *_checkedImageView;
     UIImageView *_uncheckedImageView;
     UILabel *_rate;
@@ -177,6 +179,7 @@ static const CGFloat avatarWidth = 40;
 
 @interface ChooseOpponentViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) BetModel *bet;
 @property (nonatomic, strong) PagingModel *paging;
 @property (nonatomic, strong) NSArray *subscribers;
 @property (nonatomic) NSInteger checkedIndex;
@@ -189,10 +192,17 @@ static const CGFloat avatarWidth = 40;
 
 @implementation ChooseOpponentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (ChooseOpponentViewController *)chooseOpponentWithBet:(BetModel *)bet
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    return [[self alloc] initWithBet:bet];
+}
+
+- (id)initWithBet:(BetModel *)bet
+{
+    self = [super init];
+    if (self)
+    {
+        _bet = bet;
         _checkedIndex = -1;
     }
     return self;
@@ -258,15 +268,15 @@ static const CGFloat avatarWidth = 40;
     CGFloat buttonHeight = 40.0f;
     CGFloat screenWidth = self.view.frame.size.width;
     CGFloat screenHeight = self.view.bounds.size.height - (tabBarHeight + navigationBarHeight);
-    CGFloat buttonWidth = (screenWidth - coverMargin * 5.0f) / 2.0f;
+    CGFloat buttonWidth = screenWidth - coverMargin * 2.0f;
     UIButton *buttonPari = [UIButton buttonWithType:UIButtonTypeCustom];
     self.buttonBet = buttonPari;
     [buttonPari setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
-    buttonPari.frame = CGRectMake((screenWidth - buttonWidth) / 2, screenHeight - coverMargin - buttonHeight, buttonWidth, buttonHeight);
+    buttonPari.frame = CGRectMake(coverMargin, screenHeight - coverMargin - buttonHeight, buttonWidth, buttonHeight);
     buttonPari.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
     buttonPari.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
     buttonPari.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
-    [buttonPari setBackgroundImage:[[UIImage imageNamed:@"ButtonDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f)]
+    [buttonPari setBackgroundImage:[[UIImage imageNamed:@"registration"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)]
                               forState:UIControlStateNormal];
     [buttonPari addTarget:self action:@selector(pariButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPari];
@@ -299,9 +309,11 @@ static const CGFloat avatarWidth = 40;
     if ((self.checkedIndex < 0) || (self.subscribers.count > 1))
     {
         NSInteger randomVal;
-        do {
+        do
+        {
             randomVal = arc4random_uniform(self.subscribers.count);
-        } while (randomVal == self.checkedIndex);
+        }
+        while (randomVal == self.checkedIndex);
         
         [self checkRowWithIndex:randomVal];
     }
@@ -331,17 +343,15 @@ static const CGFloat avatarWidth = 40;
     [[ObjectManager sharedManager] subscribersForUser:user
                                                  paging:self.paging
                                                 success:^(NSArray *subscribers)
-     {
-         self.subscribers = [NSArray arrayWithArray:subscribers];
-//         ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
-//         self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
-         [self.opponentsTableView reloadData];
-         [self makeBetInviteButton];
-     }
-        failure:^
-     {
-     }
-     ];
+                                                {
+                                                    self.subscribers = [NSArray arrayWithArray:subscribers];
+//                                                    ((SubscriberModel *)subscribers[0]).user.username = @"qwertyuiop asdfghjkl";
+//                                                    self.subscribers = [NSArray arrayWithObjects:subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], subscribers[0], subscribers[1], nil];
+                                                    [self.opponentsTableView reloadData];
+                                                    [self makeBetInviteButton];
+                                                }
+                                                failure:nil
+    ];
 }
 
 
@@ -394,12 +404,15 @@ static const CGFloat avatarWidth = 40;
 #pragma mark - Utils
 - (void)checkRowWithIndex:(NSInteger)index
 {
-    for (COTableViewCell *cell in self.opponentsTableView.visibleCells) {
-        NSIndexPath *ip = [self.opponentsTableView indexPathForCell:cell];
-        if (ip.row == self.checkedIndex) {
+    for (COTableViewCell *cell in self.opponentsTableView.visibleCells)
+    {
+        NSIndexPath *indexPath = [self.opponentsTableView indexPathForCell:cell];
+        if (indexPath.row == self.checkedIndex)
+        {
             cell.isChecked = NO;
         }
-        if (ip.row == index) {
+        if (indexPath.row == index)
+        {
             cell.isChecked = YES;
         }
     }
@@ -408,24 +421,35 @@ static const CGFloat avatarWidth = 40;
 
 - (void)pariButtonPressed
 {
-    if (TAG_BUTTON_BET == self.buttonBet.tag) {
-        if (self.checkedIndex >= 0) {
-            BetViewController *vc = [BetViewController new];
-            BetModel *bet = [BetModel new];
-            //        bet.event =
-            [vc setupWithBet:bet];
-            [self presentFormSheetWithViewController:vc
-                                            animated:YES
-                                   completionHandler:^(MZFormSheetController *formSheetController) {
-                                   }];
+    if (TAG_BUTTON_BET == self.buttonBet.tag)
+    {
+        if (self.checkedIndex >= 0)
+        {
+            UserModel *opponent = [(SubscriberModel *)self.subscribers[self.checkedIndex] user];
+            [self setBetWithOpponent:opponent];
         }
-        else {
-            [NotificationManager showNotificationMessage:NSLocalizedString(@"Select opponent!", nil)]; // чего не показывается то?
+        else
+        {
+            [NotificationManager showNotificationMessage:NSLocalizedString(@"Select opponent!", nil)];
         }
     }
-    else {
+    else
+    {
         [self.navigationController pushViewController:[[FriendsViewController alloc] init] animated:YES];
     }
+}
+
+- (void)setBetWithOpponent:(UserModel *)opponent
+{
+    self.bet.opponent = opponent;
+    [[ObjectManager sharedManager] setBet:self.bet
+                                  success:^
+                                  {
+                                      [NotificationManager showSuccessMessage:NSLocalizedString(@"Congradulations! Bet created!", nil) forViewController:[PuntrUtilities mainNavigationController]];
+                                      [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+                                  }
+                                  failure:nil
+    ];
 }
 
 @end
