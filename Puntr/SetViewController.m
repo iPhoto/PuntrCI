@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 2Nova Interactive. All rights reserved.
 //
 
+#import "BetModel.h"
 #import "ChooseOpponentViewController.h"
 #import "ComponentPicker.h"
 #import "EventModel.h"
@@ -246,7 +247,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
                                                                                        screenWidth - coverMargin * 4.0f,
                                                                                        stakeElementHeight
                                                                                        )];
-    [self.elementViewLineSelection loadWithTitle:NSLocalizedString(@"Stake on:", nil) target:self action:@selector(showLineSelection:)];
+    [self.elementViewLineSelection loadWithTitle: self.setType == SetTypeBet ? NSLocalizedString(@"Bet on:", nil) : NSLocalizedString(@"Stake on:", nil) target:self action:@selector(showLineSelection:)];
     [self.view addSubview:self.elementViewLineSelection];
     
     self.elementViewCriterionSelection = [[StakeElementView alloc] initWithFrame:CGRectMake(
@@ -273,7 +274,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
     self.labelAmount.backgroundColor = [UIColor clearColor];
     self.labelAmount.textAlignment = NSTextAlignmentCenter;
     self.labelAmount.textColor = [UIColor colorWithWhite:0.200 alpha:1.000];
-    self.labelAmount.text = NSLocalizedString(@"Stake amount:", nil);
+    self.labelAmount.text = self.setType == SetTypeBet ? NSLocalizedString(@"Bet amount:", nil) : NSLocalizedString(@"Stake amount:", nil);
     [self.view addSubview:self.labelAmount];
     
     CGFloat buttonOperationPadding = 4.0f;
@@ -357,7 +358,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
     {
         self.buttonBet = [UIButton buttonWithType:UIButtonTypeCustom];
         self.buttonBet.frame = CGRectMake(coverMargin * 2.0f, screenHeight - 2.0f * coverMargin - buttonHeight, screenWidth - coverMargin * 4.0f, buttonHeight);
-        [self.buttonBet setTitle:NSLocalizedString(@"Bet", nil) forState:UIControlStateNormal];
+        [self.buttonBet setTitle:NSLocalizedString(@"Select opponent", nil) forState:UIControlStateNormal];
         self.buttonBet.titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15.0f];
         self.buttonBet.titleLabel.shadowColor = [UIColor colorWithWhite:0.000 alpha:0.200];
         self.buttonBet.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.5f);
@@ -486,7 +487,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
         StakeModel *stake = [self generateStake];
         [[ObjectManager sharedManager] setStake:stake success:^(StakeModel *stake)
             {
-                [NotificationManager showSuccessMessage:@"Ура! Ставка сделана!" forViewController:[PuntrUtilities mainNavigationController]];
+                [NotificationManager showSuccessMessage:NSLocalizedString(@"Congradulations! Stake created!", nil) forViewController:[PuntrUtilities mainNavigationController]];
                 [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             }
             failure:nil
@@ -496,7 +497,11 @@ static const CGFloat TNSideImageLarge = 60.0f;
 
 - (void)betButtonTouched
 {
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[ChooseOpponentViewController alloc] init]] animated:YES completion:nil];
+    if ([self betIsComplete])
+    {
+        BetModel *bet = [self generateBet];
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[ChooseOpponentViewController chooseOpponentWithBet:bet]] animated:YES completion:nil];
+    }
 }
 
 - (BOOL)stakeIsComplete
@@ -511,9 +516,37 @@ static const CGFloat TNSideImageLarge = 60.0f;
         [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the line of stake", nil)];
         return NO;
     }
-    if (!self.coefficient)
+    BOOL criterionSelected = NO;
+    for (ComponentModel *component in self.selectedLine.components)
+    {
+        if (component.selectedCriterion)
+        {
+            criterionSelected = YES;
+        }
+    }
+    if (!criterionSelected)
     {
         [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the criteria of stake", nil)];
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)betIsComplete
+{
+    if ([self selectedAmount] == 0)
+    {
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Set amount of bet", nil)];
+        return NO;
+    }
+    if (!self.selectedLine)
+    {
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the line of bet", nil)];
+        return NO;
+    }
+    if (!self.selectedLine)
+    {
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Select the criteria of bet", nil)];
         return NO;
     }
     return YES;
@@ -525,6 +558,14 @@ static const CGFloat TNSideImageLarge = 60.0f;
                                  line:self.selectedLine
                           coefficient:self.coefficient
                                 money:[self selectedMoney]];
+}
+
+- (BetModel *)generateBet
+{
+    return [BetModel betWithEvent:self.event
+                             line:self.selectedLine
+                         opponent:nil
+                            money:[self selectedMoney]];
 }
 
 - (void)amountDecrease
