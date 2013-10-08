@@ -146,6 +146,11 @@
                                                                                                   pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIBets]
                                                                                                       keyPath:nil
                                                                                                   statusCodes:statusCodeOK];
+    RKResponseDescriptor *betAcceptResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:betMapping
+                                                                                                     method:RKRequestMethodPUT
+                                                                                                pathPattern:[NSString stringWithFormat:@"%@/:tag/%@/:tag", APIUsers, APIBets]
+                                                                                                    keyPath:nil
+                                                                                                statusCodes:statusCodeOK];
     
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
@@ -455,6 +460,7 @@
             authorizationUserCreateResponseDescriptor,
             authorizationValidationResponseDescriptor,
             awardCollectionResponseDescriptor,
+            betAcceptResponseDescriptor,
             betCreationResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
