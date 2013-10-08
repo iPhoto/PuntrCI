@@ -9,6 +9,7 @@
 #import "CommentViewController.h"
 #import "CommentModel.h"
 #import "EventModel.h"
+#import "NotificationManager.h"
 #import "ObjectManager.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -92,6 +93,10 @@ static const CGFloat TNItemSpacing = 12.0f;
                                            failure:nil
         ];
 
+    }
+    else
+    {
+        [NotificationManager showNotificationMessage:NSLocalizedString(@"Enter comment", nil)];
     }
 }
 
