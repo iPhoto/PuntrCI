@@ -17,6 +17,16 @@
 #import "MyStakesViewController.h"
 #import "UserViewController.h"
 
+#import "ObjectManager.h"
+
+typedef NS_ENUM(NSInteger, TabType)
+{
+    TabTypeNews,
+    TabTypeCatalogue,
+    TabTypeMyStakes,
+    TabTypeUser
+};
+
 @interface TabBarViewController ()
 
 @end
@@ -35,7 +45,17 @@
                                          [[UserNavigationController alloc] initWithRootViewController:[[UserViewController alloc] init]]
                                     ];
         [self setViewControllers:viewControllers animated:YES];
-        [self setSelectedIndex:0];
+        
+        
+        if ([ObjectManager sharedManager].authorized)
+        {
+            [self setSelectedIndex:TabTypeNews];
+        }
+        else
+        {
+            [self setSelectedIndex:TabTypeCatalogue];
+        }
+        
     }
     return self;
 }
