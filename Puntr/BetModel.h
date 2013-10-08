@@ -19,10 +19,12 @@
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, strong, readonly) NSNumber *accepted;
 @property (nonatomic, strong, readonly) NSNumber *winnerTag;
-@property (nonatomic, strong) UserModel *creator;
+@property (nonatomic, strong, readonly) UserModel *creator;
 @property (nonatomic, strong) UserModel *opponent;
 @property (nonatomic, strong) EventModel *event;
 @property (nonatomic, strong) LineModel *line;
 @property (nonatomic, strong) MoneyModel *money;
+
++ (BetModel *)betWithEvent:(EventModel *)event line:(LineModel *)line opponent:(UserModel *)opponent money:(MoneyModel *)money;
 
 @end
