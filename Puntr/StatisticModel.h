@@ -17,4 +17,8 @@
 @property (nonatomic, strong, readonly) NSNumber *lossMoney;
 @property (nonatomic, strong, readonly) NSNumber *winMoney;
 
++ (StatisticModel *)statisticFromDictionary:(NSDictionary *)dictionary;
+
+- (NSDictionary *)parameters;
+
 @end
