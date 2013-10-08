@@ -14,4 +14,7 @@
 @property (nonatomic, strong) NSNumber *twitter;
 @property (nonatomic, strong) NSNumber *vk;
 
++ (SocialModel *)socialFromDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)parameters;
+
 @end
