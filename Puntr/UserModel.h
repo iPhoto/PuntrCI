@@ -36,6 +36,7 @@
 
 - (NSDictionary *)parameters;
 - (NSDictionary *)wrappedParameters;
+- (NSDictionary *)saveParameters;
 
 - (BOOL)isEqualToUser:(UserModel *)user;
 

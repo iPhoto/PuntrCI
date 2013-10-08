@@ -26,6 +26,24 @@
 {
     UserModel *user = [[self alloc] init];
     user.tag = dictionary[KeyTag];
+    user.email = dictionary[KeyEmail];
+    user.password = dictionary[KeyPassword];
+    user.firstName = dictionary[KeyFirstName];
+    user.lastName = dictionary[KeyLastName];
+    user.username = dictionary[KeyUsername];
+    user.avatar = [NSURL URLWithString:(NSString *)dictionary[KeyAvatar]];
+    user.subscribed = dictionary[KeySubscribed];
+    user.topPosition = dictionary[KeyTopPosition];
+    user.rating = dictionary[KeyRating];
+    user.subscriptionsCount = dictionary[KeySubscriptionsCount];
+    user.subscribersCount = dictionary[KeySubscribersCount];
+    user.badgesCount = dictionary[KeyBadgesCount];
+    user.winCount = dictionary[KeyWinCount];
+    user.lossCount = dictionary[KeyLossCount];
+    SocialModel *socials = [SocialModel socialFromDictionary:dictionary[KeySocials]];
+    user.socials = socials;
+    StatisticModel *statistics = [StatisticModel statisticFromDictionary:dictionary[KeyStatistics]];
+    user.statistics = statistics;
     return user;
 }
 
@@ -44,6 +62,80 @@
 - (NSDictionary *)wrappedParameters
 {
     return @{KeyUser: self.parameters};
+}
+
+- (NSDictionary *)saveParameters
+{
+    NSMutableDictionary *saveParameters = [NSMutableDictionary dictionary];
+    if (self.tag)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyTag: self.tag }];
+    }
+    if (self.email)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyEmail: self.email }];
+    }
+    if (self.password)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyPassword: self.password }];
+    }
+    if (self.firstName)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyFirstName: self.firstName }];
+    }
+    if (self.lastName)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyLastName: self.lastName }];
+    }
+    if (self.username)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyUsername: self.username }];
+    }
+    if (self.avatar)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyAvatar: self.avatar.absoluteString }];
+    }
+    if (self.subscribed)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeySubscribed: self.subscribed }];
+    }
+    if (self.topPosition)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyTopPosition: self.topPosition }];
+    }
+    if (self.rating)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyRating: self.rating }];
+    }
+    if (self.subscriptionsCount)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeySubscriptionsCount: self.subscriptionsCount }];
+    }
+    if (self.subscribersCount)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeySubscribersCount: self.subscribersCount }];
+    }
+    if (self.badgesCount)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyBadgesCount: self.badgesCount }];
+    }
+    if (self.winCount)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyWinCount: self.winCount }];
+    }
+    if (self.lossCount)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyLossCount: self.lossCount }];
+    }
+    if (self.socials)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeySocials: self.socials.parameters }];
+    }
+    if (self.statistics)
+    {
+        [saveParameters addEntriesFromDictionary:@{ KeyStatistics: self.statistics.parameters }];
+    }
+    return [saveParameters copy];
 }
 
 - (NSURL *)avatarWithSize:(CGSize)size
