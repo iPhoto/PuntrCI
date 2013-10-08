@@ -42,7 +42,6 @@
     
     NSIndexSet *statusCodeOK = [NSIndexSet indexSetWithIndex:200];
     NSIndexSet *statusCodeCreated = [NSIndexSet indexSetWithIndex:201];
-    NSIndexSet *statusCodeNoContent = [NSIndexSet indexSetWithIndex:204];
     NSIndexSet *statusCodeNotModified = [NSIndexSet indexSetWithIndex:304];
     NSIndexSet *statusCodeBadRequest = [NSIndexSet indexSetWithIndex:400];
     NSIndexSet *statusCodeUnauthorized = [NSIndexSet indexSetWithIndex:401];
@@ -57,6 +56,7 @@
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[ActivityModel class]];
     RKObjectMapping *awardMapping = [RKObjectMapping mappingForClass:[AwardModel class]];
     RKObjectMapping *authorizationMapping = [RKObjectMapping mappingForClass:[AuthorizationModel class]];
+    RKObjectMapping *betMapping = [RKObjectMapping mappingForClass:[BetModel class]];
     RKObjectMapping *categoryMapping = [RKObjectMapping mappingForClass:[CategoryModel class]];
     RKObjectMapping *coefficientMapping = [RKObjectMapping mappingForClass:[CoefficientModel class]];
     RKObjectMapping *commentMapping = [RKObjectMapping mappingForClass:[CommentModel class]];
@@ -133,6 +133,20 @@
                                                                                                           keyPath:KeyAwards
                                                                                                       statusCodes:statusCodeOK];
     
+    // Bet
+    [betMapping addAttributeMappingsFromArray:@[KeyTag, KeyCreatedAt, KeyAccepted, KeyWinnerTag]];
+    RKRelationshipMapping *betCreatorRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyCreator mapping:userMapping];
+    RKRelationshipMapping *betOpponentRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyOpponent mapping:userMapping];
+    RKRelationshipMapping *betEventRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyEvent mapping:eventMapping];
+    RKRelationshipMapping *betLineRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyLine mapping:lineMapping];
+    RKRelationshipMapping *betMoneyRelationship = [RKRelationshipMapping relationshipMappingWithKeyPath:KeyMoney mapping:moneyMapping];
+    [betMapping addPropertyMappingsFromArray:@[betCreatorRelationship, betOpponentRelationship, betEventRelationship, betLineRelationship, betMoneyRelationship]];
+    RKResponseDescriptor *betCreationResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:betMapping
+                                                                                                       method:RKRequestMethodPOST
+                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIBets]
+                                                                                                      keyPath:nil
+                                                                                                  statusCodes:statusCodeOK];
+    
     // Category
     [categoryMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyImage]];
     RKResponseDescriptor *categoryCollectionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:categoryMapping
@@ -163,7 +177,7 @@
                                                                                                          method:RKRequestMethodPOST
                                                                                                     pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIEvents, APIComments]
                                                                                                         keyPath:nil
-                                                                                                    statusCodes:statusCodeNoContent];
+                                                                                                    statusCodes:statusCodeOK];
     
     // Component
     [componentMapping addAttributeMappingsFromArray:@[KeyPosition, KeySelectedCriterion]];
@@ -372,7 +386,7 @@
                                                                                                                        method:RKRequestMethodPOST | RKRequestMethodDELETE
                                                                                                                   pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, APISubscriptions]
                                                                                                                       keyPath:nil
-                                                                                                                  statusCodes:statusCodeNoContent];
+                                                                                                                  statusCodes:statusCodeOK];
     
     // Tournament
     [tournamentMapping addAttributeMappingsFromArray:@[KeyTag, KeyTitle, KeyBanner, KeyStakesCount, KeySubscribersCount, KeyStartTime, KeyEndTime, KeySubscribed]];
@@ -414,12 +428,12 @@
                                                                                                       method:RKRequestMethodPUT
                                                                                                  pathPattern:[NSString stringWithFormat:@"%@/:tag", APIUsers]
                                                                                                      keyPath:nil
-                                                                                                 statusCodes:statusCodeNoContent];
+                                                                                                 statusCodes:statusCodeOK];
     RKResponseDescriptor *userPassordResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
                                                                                                        method:RKRequestMethodPUT
                                                                                                   pathPattern:[NSString stringWithFormat:@"%@/:tag/%@", APIUsers, KeyPassword]
                                                                                                       keyPath:nil
-                                                                                                  statusCodes:statusCodeNoContent];
+                                                                                                  statusCodes:statusCodeOK];
     
     
 //    // User 
@@ -441,6 +455,7 @@
             authorizationUserCreateResponseDescriptor,
             authorizationValidationResponseDescriptor,
             awardCollectionResponseDescriptor,
+            betCreationResponseDescriptor,
             categoryCollectionResponseDescriptor,
             coefficientResponseDescriptor,
             commentCreateResponseDescriptor,
@@ -658,7 +673,11 @@
                         {
                             [DefaultsManager sharedManager].authorization = nil;
                             [DefaultsManager sharedManager].user = nil;
-                            success();
+                            
+                            if (success)
+                            {
+                                success();
+                            }
                         }
                         failure:^(AFHTTPRequestOperation *operation, NSError *error)
                         {
@@ -717,6 +736,33 @@
     ];
 }
 
+- (void)setBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure
+{
+    NSDictionary *parameters = @{
+                                     KeyAuthorization: self.authorization.parameters,
+                                     KeyLine: bet.line ? bet.line.parameters : [NSNull null],
+                                     KeyUser: bet.opponent ? bet.opponent.parameters : [NSNull null],
+                                     KeyMoney: bet.money ? bet.money.parameters : [NSNull null]
+                                };
+    [self postObject:nil
+                path:[NSString stringWithFormat:@"%@/%@/%@", APIEvents, bet.event.tag.stringValue, APIBets]
+          parameters:parameters
+             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+             {
+                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
+                 
+                 if (success)
+                 {
+                     success();
+                 }
+             }
+             failure:^(RKObjectRequestOperation *operation, NSError *error)
+             {
+                 [self reportWithFailure:failure error:error];
+             }
+    ];
+}
+
 - (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure
 {
     [self putObject:nil
@@ -726,7 +772,10 @@
             {
                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                 
-                success();
+                if (success)
+                {
+                    success();
+                }
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
@@ -804,7 +853,10 @@
              {
                  [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                  
-                 success();
+                 if (success)
+                 {
+                     success();
+                 }
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {
@@ -1129,7 +1181,10 @@
              {
                  [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                  
-                 success();
+                 if (success)
+                 {
+                     success();
+                 }
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {
@@ -1149,7 +1204,10 @@
                {
                    [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                    
-                   success();
+                   if (success)
+                   {
+                       success();
+                   }
                }
                failure:^(RKObjectRequestOperation *operation, NSError *error)
                {
@@ -1320,7 +1378,10 @@
                                                                           {
                                                                               [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                                                                               
-                                                                              success();
+                                                                              if (success)
+                                                                              {
+                                                                                  success();
+                                                                              }
                                                                           }
                                                                           failure:^(RKObjectRequestOperation *operation, NSError *error)
                                                                           {
@@ -1339,7 +1400,10 @@
             {
                 [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                 
-                success();
+                if (success)
+                {
+                    success();
+                }
             }
             failure:^(RKObjectRequestOperation *operation, NSError *error)
             {
@@ -1525,7 +1589,10 @@
              {
                  [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                  
-                 success();
+                 if (success)
+                 {
+                     success();
+                 }
              }
              failure:^(RKObjectRequestOperation *operation, NSError *error)
              {
@@ -1543,7 +1610,10 @@
                {
                    [self updateAuthorization:mappingResult.dictionary[KeyAuthorization]];
                    
-                   success();
+                   if (success)
+                   {
+                       success();
+                   }
                }
                failure:^(RKObjectRequestOperation *operation, NSError *error)
                {

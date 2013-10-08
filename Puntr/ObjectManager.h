@@ -87,6 +87,7 @@ typedef void (^Users)(NSArray *users);
 #pragma mark - Bets
 
 - (void)betLinesForEvent:(EventModel *)event success:(Lines)success failure:(EmptyFailure)failure;
+- (void)setBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
 - (void)acceptBet:(BetModel *)bet success:(EmptySuccess)success failure:(EmptyFailure)failure;
 
 #pragma mark - Categories
