@@ -54,7 +54,7 @@
 
 - (BOOL)isEqualToUser:(UserModel *)user
 {
-    if ([self.tag isEqualToNumber:user.tag])
+    if (user.tag && [self.tag isEqualToNumber:user.tag])
     {
         return YES;
     }
