@@ -10,6 +10,10 @@
 
 @interface NotificationManager : NSObject
 
+#pragma mark - Authorization
+
++ (void)unauthorized;
+
 #pragma mark - Error
 
 + (void)showError:(NSError *)error;

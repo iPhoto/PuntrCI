@@ -16,6 +16,28 @@ static const NSTimeInterval TNDurationLong = 5.0f;
 
 @implementation NotificationManager
 
+#pragma mark - Authorization
+
++ (void)unauthorized
+{
+    [TSMessage showNotificationInViewController:[PuntrUtilities topController]
+                                          title:NSLocalizedString(@"Attention", nil)
+                                       subtitle:NSLocalizedString(@"Unauthorized access", nil)
+                                           type:TSMessageNotificationTypeWarning
+                                       duration:TNDurationLong
+                                       callback:nil
+                                    buttonTitle:NSLocalizedString(@"Login", nil)
+                                 buttonCallback:^
+                                 {
+                                     if ([[PuntrUtilities topController] respondsToSelector:@selector(login)])
+                                     {
+                                         [[PuntrUtilities topController] performSelector:@selector(login)];
+                                     }
+                                 }
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
+}
+
 #pragma mark - Error
 
 + (void)showError:(NSError *)error
