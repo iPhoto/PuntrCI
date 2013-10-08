@@ -7,6 +7,7 @@
 //
 
 #import "AuthorizationModel.h"
+#import "ObjectManager.h"
 
 @implementation AuthorizationModel
 
@@ -31,7 +32,7 @@
     {
         [parameters setObject:self.secret forKey:KeySecret];
     }
-    if (self.pushToken)
+    if (self.pushToken && [ObjectManager sharedManager].authorized)
     {
         [parameters setObject:self.pushToken forKey:KeyPushToken];
     }
@@ -40,7 +41,7 @@
 
 - (NSDictionary *)wrappedParameters
 {
-    return @{ KeyAuthorization: [self parameters] };
+    return [self parameters].count == 0 ? nil : @{ KeyAuthorization: [self parameters] };
 }
 
 - (NSDictionary *)saveParameters
