@@ -17,8 +17,8 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
 
 @interface DefaultsManager ()
 
-@property (nonatomic) NSDictionary *authorizationLoaded;
-@property (nonatomic) NSDictionary *userLoaded;
+@property (nonatomic, strong) NSDictionary *authorizationLoaded;
+@property (nonatomic, strong) NSDictionary *userLoaded;
 @property (nonatomic) BOOL defaultCategoryTagLoaded;
 @property (nonatomic) BOOL excludedCategoryTagsLoaded;
 
@@ -76,7 +76,7 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
 {
     if (!self.userLoaded)
     {
-        self.userLoaded = [[NSUserDefaults standardUserDefaults] objectForKey:TNDefaultUser];
+        self.userLoaded = [[NSUserDefaults standardUserDefaults] dictionaryForKey:TNDefaultUser];
     }
     return [UserModel userFromDictionary:self.userLoaded];
 }
@@ -85,7 +85,7 @@ static NSString * const TNExcludedCategoryTags = @"TNExcludedCategoryTags";
 {
     if (user)
     {
-        self.userLoaded = user.parameters;
+        self.userLoaded = user.saveParameters;
         [[NSUserDefaults standardUserDefaults] setObject:self.userLoaded forKey:TNDefaultUser];
     }
     else
