@@ -491,6 +491,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
 
 - (void)loadWithBet:(BetModel *)bet
 {
+    [self blackCell];
     self.bet = bet;
     if (bet.event.banner)
     {
@@ -1478,7 +1479,7 @@ static const CGFloat TNWidthSwitch = 78.0f;
                                                            TNSideImage + TNMarginGeneral * 2.0f
                                                        )];
     
-    if (self.bet.accepted)
+    if (self.bet.accepted.boolValue)
     {
         self.imageViewBetSwords = [[UIImageView alloc] init];
         self.imageViewBetSwords.frame = CGRectMake(
@@ -1528,7 +1529,12 @@ static const CGFloat TNWidthSwitch = 78.0f;
     }
     else
     {
-        [self displayButtonBet];
+        UserModel *loginedUser = [[ObjectManager sharedManager] loginedUser];
+        BOOL isOpponent = [opponent isEqualToUser:loginedUser];
+        if (isOpponent)
+        {
+            [self displayButtonBet];
+        }
     }
     
     self.usedHeight = CGRectGetMaxY(self.labelBetNameCreator.frame);
