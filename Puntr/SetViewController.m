@@ -615,10 +615,7 @@ static const CGFloat TNSideImageLarge = 60.0f;
             }
             [self updateReward];
         }
-        failure:^(RKObjectRequestOperation *operation, NSError *error)
-        {
-            [NotificationManager showError:error];
-        }
+        failure:nil
     ];
 }
 
