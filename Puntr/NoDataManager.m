@@ -55,34 +55,40 @@
         [self.labelSorryText setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:self.labelSorryText];
         
+        BOOL authorized = [ObjectManager sharedManager].authorized;
+        NSString *authorize = NSLocalizedString(@"Authorize please", nil);
+        
         if (self.collectionType == CollectionTypeActivitiesSelf)
         {
-            self.labelSorryText.text = NSLocalizedString(@"Here will appear your activity: rates, status rates, subscriptions", nil);
+            self.labelSorryText.text = authorized ? NSLocalizedString(@"Here will appear your activity: rates, status rates, subscriptions", nil) : authorize;
         }
         else if (self.collectionType == CollectionTypeActivities)
         {
-            self.labelSorryText.text = NSLocalizedString(@"Here will appear user's activity: rates, status rates, subscriptions", nil);
+            self.labelSorryText.text = authorized ? NSLocalizedString(@"Here will appear user's activity: rates, status rates, subscriptions", nil) : authorize;
         }
         else
         {
-            [self.labelSorryText setFrame:CGRectMake(20, 40, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) - 80)];
-            
-            self.imageViewSorryArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArrowDown"]];
-            [self.imageViewSorryArrow setFrame:CGRectMake(100, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.imageViewSorryArrow.frame), CGRectGetWidth(self.imageViewSorryArrow.frame), CGRectGetHeight(self.imageViewSorryArrow.frame))];
-            [self.view addSubview:self.imageViewSorryArrow];
+            if (authorized)
+            {
+                [self.labelSorryText setFrame:CGRectMake(20, 40, CGRectGetWidth(self.view.frame) - 40, CGRectGetHeight(self.view.frame) - 80)];
+                
+                self.imageViewSorryArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArrowDown"]];
+                [self.imageViewSorryArrow setFrame:CGRectMake(100, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.imageViewSorryArrow.frame), CGRectGetWidth(self.imageViewSorryArrow.frame), CGRectGetHeight(self.imageViewSorryArrow.frame))];
+                [self.view addSubview:self.imageViewSorryArrow];
+            }
             
             switch (self.collectionType)
             {
                 case CollectionTypeNews:
-                    self.labelSorryText.text = NSLocalizedString(@"To have any news, you should to subscribe on event, team, tournament, or place a bet in catalogue", nil);
+                    self.labelSorryText.text = authorized ? NSLocalizedString(@"To have any news, you should to subscribe on event, team, tournament, or place a bet in catalogue", nil) : authorize;
                     break;
                     
                 case CollectionTypeBets:
-                    self.labelSorryText.text = NSLocalizedString(@"You can create a bet by selecting the event from the catalogue", nil);
+                    self.labelSorryText.text = authorized ? NSLocalizedString(@"You can create a bet by selecting the event from the catalogue", nil) : authorize;
                     break;
                     
                 case CollectionTypeMyStakes:
-                    self.labelSorryText.text = NSLocalizedString(@"You can do a stake by selecting the event from the catalogue", nil);
+                    self.labelSorryText.text = authorized ? NSLocalizedString(@"You can do a stake by selecting the event from the catalogue", nil) : authorize;
                     break;
                     
                 default:
