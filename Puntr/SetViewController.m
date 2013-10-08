@@ -468,7 +468,10 @@ static const CGFloat TNSideImageLarge = 60.0f;
                                                 }
                                             }
                                             [self.elementViewCriterionSelection updateResult:result];
-                                            [self updateCoefficient];
+                                            if (self.setType == SetTypeStake)
+                                            {
+                                                [self updateCoefficient];
+                                            }
                                         }
                                       cancelBlock:nil
                                            origin:sender
