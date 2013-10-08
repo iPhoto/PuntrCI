@@ -10,6 +10,7 @@
 #import "CollectionManager.h"
 #import "EventModel.h"
 #import "EventViewController.h"
+#import "ObjectManager.h"
 #import "UIViewController+Puntr.h"
 
 @interface EventViewController ()
@@ -39,9 +40,6 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = NSLocalizedString(@"Event", nil);
     
-    UIBarButtonItem *buttonComment = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Comment", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(rightNavButtonTouched)];
-    self.navigationItem.rightBarButtonItem = buttonComment;
-    
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeEventComments modifierObjects:@[self.event]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
@@ -51,7 +49,17 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if ([ObjectManager sharedManager].authorized)
+    {
+        [self placeCommentButton];
+    }
     [self.collectionManager reloadData];
+}
+
+- (void)placeCommentButton
+{
+    UIBarButtonItem *buttonComment = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Comment", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(rightNavButtonTouched)];
+    self.navigationItem.rightBarButtonItem = buttonComment;
 }
 
 - (void)rightNavButtonTouched

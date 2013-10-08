@@ -29,7 +29,6 @@ static const CGFloat TNItemSpacing = 12.0f;
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"News", nil);
-    [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -53,6 +52,7 @@ static const CGFloat TNItemSpacing = 12.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }

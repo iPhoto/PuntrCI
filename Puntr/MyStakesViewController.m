@@ -27,7 +27,6 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"My stakes", nil);
-    [self addBalanceButton];
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
     CollectionType collectionType = CollectionTypeMyStakes;
@@ -44,6 +43,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }

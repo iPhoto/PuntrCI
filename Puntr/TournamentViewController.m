@@ -45,8 +45,6 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = self.tournament.title;
     
-    [self addBalanceButton];
-    
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeTournament modifierObjects:self.searchParent ? @[self.tournament, self.searchParent] : @[self.tournament]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
@@ -56,6 +54,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }

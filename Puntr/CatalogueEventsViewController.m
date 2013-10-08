@@ -30,7 +30,6 @@ static const CGFloat TNHeightCategories = 35.0f;
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = NSLocalizedString(@"Catalogue", nil);
     
-    [self addBalanceButton];
     [self addFilterButton];
     
     // Categories
@@ -63,6 +62,7 @@ static const CGFloat TNHeightCategories = 35.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
     [self.categoriesManager reloadData];

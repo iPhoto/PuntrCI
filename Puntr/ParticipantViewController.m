@@ -43,8 +43,6 @@
     self.title = NSLocalizedString(@"Participant", nil);
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    [self addBalanceButton];
-    
     self.collectionManager = [CollectionManager managerWithType:CollectionTypeParticipant modifierObjects:@[self.participant]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
@@ -55,6 +53,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }

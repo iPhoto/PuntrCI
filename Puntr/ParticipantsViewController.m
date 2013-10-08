@@ -42,8 +42,6 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = NSLocalizedString(@"Participants", nil);
     
-    [self addBalanceButton];
-    
     CollectionType type = CollectionTypeParticipants;
     NSArray *modifierObjects = self.searchParent ? @[self.searchParent] : nil;
     
@@ -56,6 +54,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }

@@ -47,7 +47,6 @@
     {
         collectionType = CollectionTypeActivitiesSelf;
         self.title = NSLocalizedString(@"Profile", nil);
-        [self addSettingsButton];
         self.user = [[ObjectManager sharedManager] loginedUser];
         self.noDataManager = [NoDataManager managerWithType:collectionType];
     }
@@ -60,8 +59,6 @@
     self.noDataManager.view = self.view;
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     
-    [self addBalanceButton];
-    
     self.collectionManager = [CollectionManager managerWithType:collectionType modifierObjects:@[self.user]];
     UICollectionView *collectionView = self.collectionManager.collectionView;
     collectionView.frame = self.frame;
@@ -73,6 +70,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
+    if (self.user.tag && [ObjectManager sharedManager].loginedUser.tag && [self.user.tag isEqualToNumber:[ObjectManager sharedManager].loginedUser.tag] && [ObjectManager sharedManager].authorized)
+    {
+        [self addSettingsButton];
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
     [self updateBalance];
     [self.collectionManager reloadData];
 }

@@ -47,8 +47,6 @@ static const CGFloat TNHeightCategories = 35.0f;
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = NSLocalizedString(@"Tournaments", nil);
     
-    [self addBalanceButton];
-    
     // Categories
     self.categoriesManager = [CategoriesManager manager];
     UICollectionView *collectionViewCategories = self.categoriesManager.collectionView;
@@ -79,6 +77,7 @@ static const CGFloat TNHeightCategories = 35.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
     [self.categoriesManager reloadData];

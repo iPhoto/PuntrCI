@@ -47,8 +47,6 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.302 alpha:1.000];
     self.title = self.group.title;
     
-    [self addBalanceButton];
-    
     CollectionType type = self.tournament ? CollectionTypeTournamentEvents : CollectionTypeEvents;
     NSArray *modifierObjects = self.tournament ? @[self.group, self.tournament] : @[self.group];
     
@@ -68,6 +66,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self addBalanceButton];
     [self updateBalance];
     [self.collectionManager reloadData];
 }
